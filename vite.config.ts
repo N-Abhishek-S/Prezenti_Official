@@ -7,7 +7,7 @@ import { fileURLToPath } from 'url';
 const rootDir = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-  base: '/Prezenti_Official/', // IMPORTANT
+  base: '/Prezenti_Official/',
   plugins: [react(), tailwindcss()],
   cacheDir: '.tmp/vite-cache',
 
@@ -20,5 +20,11 @@ export default defineConfig({
   server: {
     port: 3000,
     open: true,
+  },
+
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    emptyOutDir: true,
   },
 });

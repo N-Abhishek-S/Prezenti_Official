@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { memo, useEffect, useState } from 'react';
+import { publicAsset } from '../../lib/publicAsset';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -19,11 +20,11 @@ interface PulseRingProps {
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
-const POSTER_PATH = '/hero/staff/admin-manager.png';
+const POSTER_PATH = publicAsset('/hero/staff/admin-manager.png');
 
 const VIDEO_SOURCES = [
-  { src: '/hero/video/ps-project-hero.webm', type: 'video/webm' },
-  { src: '/hero/video/ps-project-hero.mp4', type: 'video/mp4' },
+  { src: publicAsset('/hero/video/ps-project-hero.webm'), type: 'video/webm' },
+  { src: publicAsset('/hero/video/ps-project-hero.mp4'), type: 'video/mp4' },
 ] as const;
 
 const BAR_HEIGHTS = [45, 60, 50, 75, 65, 90, 82] as const;

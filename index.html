@@ -9,6 +9,15 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      (function () {
+        var redirectPath = sessionStorage.getItem('gh-pages-redirect');
+        if (!redirectPath) return;
+
+        sessionStorage.removeItem('gh-pages-redirect');
+        window.history.replaceState(null, '', redirectPath);
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

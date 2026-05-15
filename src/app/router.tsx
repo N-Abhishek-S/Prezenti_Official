@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { Navigate, createBrowserRouter } from 'react-router-dom';
 import { PublicLayout } from '../components/layout/PublicLayout';
 import { AppShell } from '../components/layout/AppShell';
 import { RouteError } from '../components/errors/RouteError';
@@ -33,6 +33,10 @@ function ComingSoon({ title }: { title: string }) {
     </div>
   );
 }
+
+const routerBasename = import.meta.env.BASE_URL === '/'
+  ? undefined
+  : import.meta.env.BASE_URL.replace(/\/$/, '');
 
 export const router = createBrowserRouter([
   {
@@ -83,4 +87,7 @@ export const router = createBrowserRouter([
       { path: '/admin/contracts', element: <ComingSoon title="Contracts" /> },
     ],
   },
-]);
+  { path: '*', element: <Navigate to="/" replace /> },
+], {
+  basename: routerBasename,
+});

@@ -1,3 +1,5 @@
+import { publicAsset } from '../../lib/publicAsset';
+
 export type HeroRoleAnimation = 'supervise' | 'clean' | 'serve' | 'welcome';
 
 export interface HeroRole {
@@ -23,8 +25,8 @@ export const heroRoles: HeroRole[] = [
     title: 'Admin / Facility Manager',
     headline: 'On-site operational leadership',
     description: 'Supervisory operations management with real-time oversight and quality control.',
-    imagePath: '/hero/staff/admin-manager.png',
-    modelPath: '/hero/models/admin-manager.png',
+    imagePath: publicAsset('/hero/staff/admin-manager.png'),
+    modelPath: publicAsset('/hero/models/admin-manager.png'),
     animation: 'supervise',
     accent: '#123F35',
   },
@@ -34,8 +36,8 @@ export const heroRoles: HeroRole[] = [
     title: 'Housekeeping Staff',
     headline: 'Professional cleaning support',
     description: 'Trained cleaning teams delivering spotless facility maintenance every day.',
-    imagePath: '/hero/staff/housekeeping.png',
-    modelPath: '/hero/models/housekeeping.glb',
+    imagePath: publicAsset('/hero/staff/housekeeping.png'),
+    modelPath: publicAsset('/hero/models/housekeeping.glb'),
     animation: 'clean',
     accent: '#4F4F6F',
   },
@@ -45,8 +47,8 @@ export const heroRoles: HeroRole[] = [
     title: 'Office Boy / Pantry Support',
     headline: 'Hospitality support at your service',
     description: 'Professional pantry and hospitality staff ensuring seamless office support.',
-    imagePath: '/hero/staff/office-boy.png',
-    modelPath: '/hero/models/office-boy.glb',
+    imagePath: publicAsset('/hero/staff/office-boy.png'),
+    modelPath: publicAsset('/hero/models/office-boy.glb'),
     animation: 'serve',
     accent: '#6B8E23',
   },
@@ -56,8 +58,8 @@ export const heroRoles: HeroRole[] = [
     title: 'Receptionist',
     headline: 'Front desk customer interaction',
     description: 'Professional front desk support creating exceptional first impressions.',
-    imagePath: '/hero/staff/receptionist.png',
-    modelPath: '/hero/models/receptionist.glb',
+    imagePath: publicAsset('/hero/staff/receptionist.png'),
+    modelPath: publicAsset('/hero/models/receptionist.glb'),
     animation: 'welcome',
     accent: '#148F89',
   },

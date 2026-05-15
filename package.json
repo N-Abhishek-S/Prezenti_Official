@@ -2,15 +2,15 @@
   "name": "presenti-web",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://n-abhishek-s.github.io/Prezenti_Official",
+  "homepage": "https://n-abhishek-s.github.io/Prezenti_Official/",
   "type": "module",
   "scripts": {
     "dev": "vite --configLoader runner",
     "build": "tsc -b && vite build --configLoader runner",
     "lint": "eslint .",
     "preview": "vite preview --configLoader runner",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy:check": "npm run build && gh-pages -d dist -b gh-pages --dotfiles --nojekyll --no-push",
+    "deploy": "npm run build && gh-pages -d dist -b gh-pages --dotfiles --nojekyll"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

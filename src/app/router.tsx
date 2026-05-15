@@ -1,4 +1,4 @@
-import { Navigate, createBrowserRouter } from 'react-router-dom';
+import { Navigate, createHashRouter } from 'react-router-dom';
 import { PublicLayout } from '../components/layout/PublicLayout';
 import { AppShell } from '../components/layout/AppShell';
 import { RouteError } from '../components/errors/RouteError';
@@ -34,11 +34,7 @@ function ComingSoon({ title }: { title: string }) {
   );
 }
 
-const routerBasename = import.meta.env.BASE_URL === '/'
-  ? undefined
-  : import.meta.env.BASE_URL.replace(/\/$/, '');
-
-export const router = createBrowserRouter([
+export const router = createHashRouter([
   {
     element: <PublicLayout />,
     errorElement: <RouteError />,
@@ -88,6 +84,4 @@ export const router = createBrowserRouter([
     ],
   },
   { path: '*', element: <Navigate to="/" replace /> },
-], {
-  basename: routerBasename,
-});
+]);

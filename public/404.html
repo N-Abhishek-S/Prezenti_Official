@@ -3,16 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Redirecting...</title>
+    <title>Presenti</title>
     <script>
       (function () {
-        var repoBase = '/Prezenti_Official/';
-        var redirectPath = window.location.pathname + window.location.search + window.location.hash;
+        var base = '/Prezenti_Official/';
+        var path = window.location.pathname;
+        var route = path.indexOf(base) === 0 ? path.slice(base.length) : path.replace(/^\/+/, '');
+        var search = window.location.search || '';
+        var hash = window.location.hash || '';
+        var target = base + '#/' + route.replace(/^\/+/, '') + search + hash;
 
-        sessionStorage.setItem('gh-pages-redirect', redirectPath);
-        window.location.replace(repoBase);
+        window.location.replace(target);
       })();
     </script>
   </head>
-  <body></body>
+  <body>
+    Redirecting...
+  </body>
 </html>

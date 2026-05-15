@@ -26,7 +26,7 @@ export const heroRoles: HeroRole[] = [
     headline: 'On-site operational leadership',
     description: 'Supervisory operations management with real-time oversight and quality control.',
     imagePath: publicAsset('/hero/staff/admin-manager.png'),
-    modelPath: publicAsset('/hero/models/admin-manager.png'),
+    modelPath: publicAsset('/hero/models/admin-manager.glb'),
     animation: 'supervise',
     accent: '#123F35',
   },

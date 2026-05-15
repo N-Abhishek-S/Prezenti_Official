@@ -31,15 +31,36 @@ function useOptionalModel(modelPath: string) {
 
   useEffect(() => {
     let mounted = true;
+    const controller = new AbortController();
+    const isModelPath = /\.(glb|gltf)(?:[?#].*)?$/i.test(modelPath);
 
-    fetch(modelPath, { method: 'HEAD' })
-      .then((response) => {
+    if (!isModelPath) {
+      setAvailable(false);
+      setChecked(true);
+      return () => {
+        mounted = false;
+      };
+    }
+
+    fetch(modelPath, {
+      headers: { Range: 'bytes=0-31' },
+      signal: controller.signal,
+    })
+      .then(async (response) => {
         const contentType = response.headers.get('content-type') ?? '';
         const isHtml = contentType.includes('text/html') || contentType.includes('application/xhtml+xml');
-        if (mounted) setAvailable(response.ok && !isHtml);
+        const prefix = new Uint8Array(await response.arrayBuffer()).slice(0, 16);
+        const signature = String.fromCharCode(...prefix.slice(0, 4));
+        const textPrefix = new TextDecoder().decode(prefix).trimStart();
+        const isGlb = signature === 'glTF';
+        const isGltf = textPrefix.startsWith('{');
+
+        if (mounted) setAvailable(response.ok && !isHtml && (isGlb || isGltf));
       })
-      .catch(() => {
-        if (mounted) setAvailable(false);
+      .catch((error: unknown) => {
+        if (mounted && !(error instanceof DOMException && error.name === 'AbortError')) {
+          setAvailable(false);
+        }
       })
       .finally(() => {
         if (mounted) setChecked(true);
@@ -47,6 +68,7 @@ function useOptionalModel(modelPath: string) {
 
     return () => {
       mounted = false;
+      controller.abort();
     };
   }, [modelPath]);
 

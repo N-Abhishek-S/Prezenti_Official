@@ -1,0 +1,212 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum RoleName {
+  SUPER_ADMIN
+  ADMIN
+  PRICING_MANAGER
+  SALES
+  CLIENT
+  SUPERVISOR
+  WORKFORCE
+}
+
+enum AuditAction {
+  CREATE
+  UPDATE
+  DELETE
+  RESTORE
+  STATUS_CHANGE
+}
+
+model User {
+  id           String    @id @default(uuid()) @db.Uuid
+  email        String    @unique @db.VarChar(255)
+  passwordHash String    @map("password_hash") @db.VarChar(255)
+  fullName     String    @map("full_name") @db.VarChar(160)
+  isActive     Boolean   @default(true) @map("is_active")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+  deletedAt    DateTime? @map("deleted_at")
+
+  roles          UserRole[]
+  pricingAudits  PricingAuditLog[]
+  activityLogs   AdminActivityLog[]
+
+  @@index([email])
+  @@index([deletedAt])
+  @@map("users")
+}
+
+model Role {
+  id          String    @id @default(uuid()) @db.Uuid
+  name        RoleName  @unique
+  description String?   @db.VarChar(255)
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at")
+
+  users       UserRole[]
+  permissions RolePermission[]
+
+  @@map("roles")
+}
+
+model Permission {
+  id          String    @id @default(uuid()) @db.Uuid
+  key         String    @unique @db.VarChar(120)
+  description String?   @db.VarChar(255)
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  roles RolePermission[]
+
+  @@map("permissions")
+}
+
+model UserRole {
+  userId    String   @map("user_id") @db.Uuid
+  roleId    String   @map("role_id") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role Role @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@id([userId, roleId])
+  @@map("user_roles")
+}
+
+model RolePermission {
+  roleId       String   @map("role_id") @db.Uuid
+  permissionId String   @map("permission_id") @db.Uuid
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  role       Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+  @@map("role_permissions")
+}
+
+model ServiceCategory {
+  id           String    @id @default(uuid()) @db.Uuid
+  name         String    @db.VarChar(140)
+  slug         String    @unique @db.VarChar(160)
+  description  String?   @db.Text
+  icon         String?   @db.VarChar(80)
+  isActive     Boolean   @default(true) @map("is_active")
+  displayOrder Int       @default(0) @map("display_order")
+  metadata     Json?
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+  deletedAt    DateTime? @map("deleted_at")
+
+  pricingPlans PricingPlan[]
+  auditLogs    PricingAuditLog[]
+
+  @@index([isActive, displayOrder])
+  @@index([deletedAt])
+  @@map("service_categories")
+}
+
+model PricingPlan {
+  id                    String    @id @default(uuid()) @db.Uuid
+  categoryId            String    @map("category_id") @db.Uuid
+  name                  String    @db.VarChar(140)
+  slug                  String    @db.VarChar(180)
+  monthlyPrice          Decimal   @map("monthly_price") @db.Decimal(12, 2)
+  currency              String    @default("INR") @db.Char(3)
+  shiftTiming           String?   @map("shift_timing") @db.VarChar(120)
+  workingHours          String?   @map("working_hours") @db.VarChar(80)
+  overtimeCharges       Decimal?  @map("overtime_charges") @db.Decimal(12, 2)
+  replacementGuarantee  String?   @map("replacement_guarantee") @db.VarChar(160)
+  availabilitySla       String?   @map("availability_sla") @db.VarChar(160)
+  trialPeriod           String?   @map("trial_period") @db.VarChar(120)
+  trainingIncluded      Boolean   @default(false) @map("training_included")
+  emergencyReplacement  Boolean   @default(false) @map("emergency_replacement")
+  transportIncluded     Boolean   @default(false) @map("transport_included")
+  customNotes           String?   @map("custom_notes") @db.Text
+  isActive              Boolean   @default(true) @map("is_active")
+  displayOrder          Int       @default(0) @map("display_order")
+  metadata              Json?
+  createdAt             DateTime  @default(now()) @map("created_at")
+  updatedAt             DateTime  @updatedAt @map("updated_at")
+  deletedAt             DateTime? @map("deleted_at")
+
+  category  ServiceCategory      @relation(fields: [categoryId], references: [id])
+  features  PricingPlanFeature[]
+  auditLogs PricingAuditLog[]
+
+  @@unique([categoryId, slug])
+  @@index([categoryId, isActive, displayOrder])
+  @@index([monthlyPrice])
+  @@index([deletedAt])
+  @@map("pricing_plans")
+}
+
+model PricingPlanFeature {
+  id           String    @id @default(uuid()) @db.Uuid
+  pricingPlanId String   @map("pricing_plan_id") @db.Uuid
+  label        String    @db.VarChar(220)
+  description  String?   @db.Text
+  isHighlighted Boolean  @default(false) @map("is_highlighted")
+  isActive     Boolean   @default(true) @map("is_active")
+  displayOrder Int       @default(0) @map("display_order")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+  deletedAt    DateTime? @map("deleted_at")
+
+  pricingPlan PricingPlan @relation(fields: [pricingPlanId], references: [id], onDelete: Cascade)
+
+  @@index([pricingPlanId, isActive, displayOrder])
+  @@index([deletedAt])
+  @@map("pricing_plan_features")
+}
+
+model PricingAuditLog {
+  id         String      @id @default(uuid()) @db.Uuid
+  actorId    String?     @map("actor_id") @db.Uuid
+  categoryId String?     @map("category_id") @db.Uuid
+  planId     String?     @map("plan_id") @db.Uuid
+  action     AuditAction
+  entityType String      @map("entity_type") @db.VarChar(80)
+  entityId   String      @map("entity_id") @db.Uuid
+  oldValues  Json?       @map("old_values")
+  newValues  Json?       @map("new_values")
+  ipAddress  String?     @map("ip_address") @db.VarChar(64)
+  userAgent  String?     @map("user_agent") @db.Text
+  createdAt  DateTime    @default(now()) @map("created_at")
+
+  actor    User?            @relation(fields: [actorId], references: [id])
+  category ServiceCategory? @relation(fields: [categoryId], references: [id])
+  plan     PricingPlan?     @relation(fields: [planId], references: [id])
+
+  @@index([entityType, entityId])
+  @@index([actorId, createdAt])
+  @@index([createdAt])
+  @@map("pricing_audit_logs")
+}
+
+model AdminActivityLog {
+  id        String   @id @default(uuid()) @db.Uuid
+  actorId   String?  @map("actor_id") @db.Uuid
+  action    String   @db.VarChar(120)
+  module    String   @db.VarChar(80)
+  message   String   @db.Text
+  metadata  Json?
+  ipAddress String?  @map("ip_address") @db.VarChar(64)
+  userAgent String?  @map("user_agent") @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+
+  actor User? @relation(fields: [actorId], references: [id])
+
+  @@index([actorId, createdAt])
+  @@index([module, createdAt])
+  @@map("admin_activity_logs")
+}

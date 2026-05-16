@@ -4,6 +4,7 @@ import { ArrowRight, BadgeCheck, Building2, MessageCircle } from 'lucide-react';
 import gsap from 'gsap';
 import { CategorySidebar } from './CategorySidebar';
 import { MobilePricingAccordion } from './MobilePricingAccordion';
+import { ServiceCategoryRow } from './ServiceCategoryRow';
 import { staffingPricingCategories, type StaffingCategoryKey } from './staffingPricingData';
 
 const TRUST_POINTS = ['Police verified staff', 'Supervisor monitoring', 'Backup replacement support'];
@@ -77,6 +78,7 @@ export function PricingSection() {
               onCategoryChange={setActiveCategoryId}
               className="hidden lg:sticky lg:top-24 lg:block"
             />
+            <ServiceCategoryRow category={activeCategory} />
           </div>
         </div>
 

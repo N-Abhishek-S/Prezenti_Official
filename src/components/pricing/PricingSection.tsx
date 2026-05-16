@@ -77,7 +77,6 @@ export function PricingSection() {
               onCategoryChange={setActiveCategoryId}
               className="hidden lg:sticky lg:top-24 lg:block"
             />
-            <ServiceCategoryRow category={activeCategory} />
           </div>
         </div>
 

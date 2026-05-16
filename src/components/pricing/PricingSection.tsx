@@ -39,7 +39,7 @@ export function PricingSection() {
   return (
     <section ref={sectionRef} className="overflow-x-hidden bg-white px-4 py-20 sm:px-6 md:py-24 lg:px-8 lg:py-28">
       <div className="mx-auto w-full max-w-7xl">
-        <div className="pricing-reveal mx-auto max-w-[22rem] text-center sm:max-w-4xl">
+        <div className="pricing-reveal mx-auto max-w-88 text-center sm:max-w-4xl">
           <div className="inline-flex items-center gap-2 rounded-full border border-[#D8E5DE] bg-white px-4 py-2 text-sm font-bold text-[#0F5C4D] shadow-[0_10px_28px_rgba(13,31,26,0.06)]">
             <BadgeCheck className="h-4 w-4" aria-hidden="true" />
             Managed Workforce Solutions
@@ -52,7 +52,7 @@ export function PricingSection() {
           </p>
         </div>
 
-        <div className="pricing-reveal mx-auto mt-10 grid w-full max-w-[22rem] gap-3 rounded-[28px] border border-[#E6ECE8] bg-[#F7FAF8] p-3 shadow-[0_16px_42px_rgba(13,31,26,0.06)] sm:max-w-4xl sm:grid-cols-3">
+        <div className="pricing-reveal mx-auto mt-10 grid w-full max-w-88 gap-3 rounded-[28px] border border-[#E6ECE8] bg-[#F7FAF8] p-3 shadow-[0_16px_42px_rgba(13,31,26,0.06)] sm:max-w-4xl sm:grid-cols-3">
           {TRUST_POINTS.map((point) => (
             <div key={point} className="flex items-center justify-center gap-2 rounded-2xl bg-white px-4 py-3 text-sm font-bold text-[#0D1F1A]">
               <BadgeCheck className="h-4 w-4 text-[#1E7A65]" aria-hidden="true" />
@@ -86,7 +86,7 @@ export function PricingSection() {
           <MobilePricingAccordion categories={categories} />
         </div>
 
-        <div className="pricing-reveal mt-14 overflow-hidden rounded-[32px] border border-[#E6ECE8] bg-white p-6 shadow-[0_18px_52px_rgba(13,31,26,0.08)] sm:p-8 lg:flex lg:items-center lg:justify-between lg:gap-8">
+        <div className="pricing-reveal mt-14 overflow-hidden rounded-4xl border border-[#E6ECE8] bg-white p-6 shadow-[0_18px_52px_rgba(13,31,26,0.08)] sm:p-8 lg:flex lg:items-center lg:justify-between lg:gap-8">
           <div className="flex items-start gap-4">
             <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#F7FAF8] text-[#0F5C4D]">
               <Building2 className="h-6 w-6" aria-hidden="true" />
@@ -99,7 +99,7 @@ export function PricingSection() {
             </div>
           </div>
 
-          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:mt-0 lg:min-w-[360px]">
+          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:mt-0 lg:min-w-90">
             <Link
               to="/contact"
               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#0F5C4D] px-5 text-sm font-bold text-white shadow-[0_14px_30px_rgba(15,92,77,0.24)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#0D4F42]"

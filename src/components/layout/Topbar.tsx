@@ -12,7 +12,7 @@ export function Topbar({ onMenuClick }: TopbarProps) {
   const user = useAppSelector(state => state.auth.user);
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-40 flex h-16 items-center justify-between gap-3 border-b border-neutral-200 bg-white px-4 shadow-topbar sm:px-6 lg:left-[260px]">
+    <header className="fixed left-0 right-0 top-0 z-40 flex h-16 items-center justify-between gap-3 border-b border-neutral-200 bg-white px-4 shadow-topbar sm:px-6 lg:left-65">
       <div className="flex min-w-0 flex-1 items-center gap-3">
         <button
           type="button"

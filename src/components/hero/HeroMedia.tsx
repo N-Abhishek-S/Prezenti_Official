@@ -51,7 +51,7 @@ export function HeroMedia() {
 
   return (
     <motion.div
-      className="relative z-10 min-h-[360px] sm:min-h-[500px] lg:min-h-[660px]"
+      className="relative z-10 min-h-90 sm:min-h-125 lg:min-h-165"
       initial={{ opacity: 0, y: 28 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.78, ease: [0.16, 1, 0.3, 1], delay: 0.12 }}
@@ -61,18 +61,18 @@ export function HeroMedia() {
       <div className="absolute inset-y-4 right-0 w-[86%] overflow-hidden rounded-l-[30px] bg-neutral-950 shadow-[0_34px_100px_rgba(15,23,42,0.2)] sm:inset-y-8 sm:w-[78%] sm:rounded-l-[44px] lg:w-[86%]">
         <HeroVideo
           asset={heroMedia.primary}
-          className="h-full w-full object-cover object-center [backface-visibility:hidden] [transform:translateZ(0)]"
+          className="h-full w-full object-cover object-center backface-hidden transform-[translateZ(0)]"
           isReducedMotion={isReducedMotion}
         />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(15,23,42,0.34)_0%,rgba(15,23,42,0.07)_38%,rgba(255,255,255,0)_74%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.08)_0%,rgba(15,23,42,0)_46%,rgba(15,23,42,0.14)_100%)]" />
       </div>
 
-      <div className="absolute bottom-2 left-0 w-[42%] min-w-[140px] max-w-[210px] overflow-hidden rounded-[24px] bg-neutral-950 shadow-[0_28px_70px_rgba(15,23,42,0.24)] ring-1 ring-white/60 sm:bottom-10 sm:w-[34%] sm:min-w-[176px] sm:max-w-[245px] sm:rounded-[30px] lg:left-4">
-        <div className="aspect-[9/16]">
+      <div className="absolute bottom-2 left-0 w-[42%] min-w-35 max-w-52.5 overflow-hidden rounded-3xl bg-neutral-950 shadow-[0_28px_70px_rgba(15,23,42,0.24)] ring-1 ring-white/60 sm:bottom-10 sm:w-[34%] sm:min-w-44 sm:max-w-61.25 sm:rounded-[30px] lg:left-4">
+        <div className="aspect-9/16">
           <HeroVideo
             asset={heroMedia.supporting}
-            className="h-full w-full object-cover object-center [backface-visibility:hidden] [transform:translateZ(0)]"
+            className="h-full w-full object-cover object-center backface-hidden transform-[translateZ(0)]"
             isReducedMotion={isReducedMotion}
           />
         </div>

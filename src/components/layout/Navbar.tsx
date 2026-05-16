@@ -107,19 +107,19 @@ export function Navbar() {
   return (
     <nav
       className={cn(
-        'fixed left-0 right-0 top-0 z-40 flex h-[72px] items-center transition-all duration-300',
+        'fixed left-0 right-0 top-0 z-40 flex h-18 items-center transition-all duration-300',
         'border-b border-neutral-200 bg-white/92 backdrop-blur-xl',
         scrolled && 'shadow-[0_12px_40px_rgba(10,42,34,0.08)]',
       )}
     >
-      <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between px-4 sm:px-6">
+      <div className="mx-auto flex w-full max-w-360 items-center justify-between px-4 sm:px-6">
         <button
           type="button"
           className="flex min-w-0 items-center no-underline"
           onClick={() => goToSection('home')}
           aria-label="Go to home"
         >
-          <BrandLogo size="nav" imageClassName="max-w-[136px] sm:max-w-none" />
+          <BrandLogo variant="stacked" size="nav" imageClassName="max-w-[136px] sm:max-w-none" />
         </button>
 
         <div className="hidden items-center gap-1 lg:flex">
@@ -193,7 +193,7 @@ export function Navbar() {
       </div>
 
       {mobileOpen && (
-        <div className="absolute left-0 right-0 top-[72px] flex max-h-[calc(100svh-72px)] flex-col gap-1 overflow-y-auto border-b border-neutral-200 bg-white p-4 shadow-lg lg:hidden">
+        <div className="absolute left-0 right-0 top-18 flex max-h-[calc(100svh-72px)] flex-col gap-1 overflow-y-auto border-b border-neutral-200 bg-white p-4 shadow-lg lg:hidden">
           {publicSections.map((section) => (
             <button
               key={section.id}

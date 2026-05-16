@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../ui/Button';
@@ -61,7 +61,7 @@ function StoreBadge({ kind, onClick }: StoreBadgeProps) {
       type="button"
       onClick={onClick}
       aria-label={`Open ${copy.label}`}
-      className="group flex h-[58px] w-full max-w-[230px] items-center gap-3 rounded-[10px] border border-neutral-700 bg-black px-4 text-left text-white shadow-[0_14px_28px_rgba(15,23,42,0.16)] ring-1 ring-white/15 transition-all duration-200 hover:-translate-y-0.5 hover:bg-neutral-950 hover:shadow-[0_18px_34px_rgba(15,23,42,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600/25 sm:w-[230px]"
+      className="group flex h-14.5 w-full max-w-57.5 items-center gap-3 rounded-[10px] border border-neutral-700 bg-black px-4 text-left text-white shadow-[0_14px_28px_rgba(15,23,42,0.16)] ring-1 ring-white/15 transition-all duration-200 hover:-translate-y-0.5 hover:bg-neutral-950 hover:shadow-[0_18px_34px_rgba(15,23,42,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600/25 sm:w-57.5"
     >
       <StoreIcon kind={kind} />
       <span className="grid min-w-0 leading-none">
@@ -78,18 +78,11 @@ function StoreBadge({ kind, onClick }: StoreBadgeProps) {
 
 export function HeroContent({ roles }: HeroContentProps) {
   const navigate = useNavigate();
-  const shouldReduceMotion = useReducedMotion();
   const openApp = () => navigate('/app');
-  const headlineLineAnimation = shouldReduceMotion
-    ? { color: '#0A0A1A' }
-    : { color: ['#0A0A1A', '#123F35', '#0A0A1A'] };
-  const headlineColorTransition = shouldReduceMotion
-    ? { duration: 0 }
-    : { duration: 5.6, ease: 'easeInOut' as const, repeat: Infinity, repeatDelay: 0.8 };
 
   return (
     <motion.div
-      className="relative z-10 max-w-[650px] py-2 sm:py-6 lg:py-12"
+      className="relative z-10 max-w-162.5 py-6 lg:py-12"
       initial="hidden"
       animate="visible"
       variants={{
@@ -103,7 +96,7 @@ export function HeroContent({ roles }: HeroContentProps) {
       <motion.div
         variants={entrance}
         transition={{ duration: 0.55, ease: 'easeOut' }}
-        className="mb-6 inline-flex max-w-full items-center gap-2 rounded-lg border border-primary-100 bg-white/86 px-3.5 py-2 text-sm font-semibold leading-snug text-primary-800 shadow-sm"
+        className="mb-6 inline-flex items-center gap-2 rounded-lg border border-primary-100 bg-white/86 px-3.5 py-2 text-sm font-semibold text-primary-800 shadow-sm"
       >
         <span className="relative flex h-2 w-2" aria-hidden="true">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-400 opacity-75" />
@@ -116,22 +109,9 @@ export function HeroContent({ roles }: HeroContentProps) {
         id="ps-project-hero-title"
         variants={entrance}
         transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-        className="max-w-[720px] text-3xl font-extrabold leading-[1.08] text-neutral-950 sm:text-[42px] sm:leading-[1.04] lg:text-[54px] xl:text-[56px]"
+        className="text-[45px] font-extrabold leading-[0.98] text-neutral-950 sm:text-[56px] lg:text-[68px]"
       >
-        <motion.span
-          className="block sm:whitespace-nowrap"
-          animate={headlineLineAnimation}
-          transition={headlineColorTransition}
-        >
-          Trained support staff -
-        </motion.span>
-        <motion.span
-          className="block sm:whitespace-nowrap"
-          animate={headlineLineAnimation}
-          transition={{ ...headlineColorTransition, delay: shouldReduceMotion ? 0 : 0.6 }}
-        >
-          just a click away
-        </motion.span>
+        Trained support staff - just a click away
       </motion.h1>
 
       <motion.div
@@ -144,14 +124,14 @@ export function HeroContent({ roles }: HeroContentProps) {
           dynamicWords={roles.map((role) => role.name)}
           intervalMs={6000}
           staticClassName="text-sm font-bold uppercase tracking-[0.18em] text-neutral-500"
-          dynamicClassName="text-[28px] font-extrabold sm:text-[38px]"
+          dynamicClassName="text-[30px] font-extrabold sm:text-[38px]"
         />
       </motion.div>
 
       <motion.p
         variants={entrance}
         transition={{ duration: 0.62, ease: 'easeOut' }}
-        className="mt-6 max-w-[560px] text-base leading-relaxed text-neutral-700 sm:text-lg"
+        className="mt-6 max-w-140 text-lg leading-relaxed text-neutral-700"
       >
         We Manage Your Support Workforce, While You Focus on Core Operations
       </motion.p>
@@ -159,13 +139,13 @@ export function HeroContent({ roles }: HeroContentProps) {
       <motion.div
         variants={entrance}
         transition={{ duration: 0.62, ease: 'easeOut' }}
-        className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center"
+        className="mt-8 flex flex-col gap-3 sm:flex-row"
       >
         <Button
           type="button"
           variant="primary"
           size="xl"
-          className="group w-full shadow-[0_16px_36px_rgba(18,63,53,0.22)] sm:w-auto"
+          className="group shadow-[0_16px_36px_rgba(18,63,53,0.22)]"
           onClick={() => scrollToSection('contact')}
         >
           Let us understand your requirement
@@ -175,7 +155,7 @@ export function HeroContent({ roles }: HeroContentProps) {
           type="button"
           variant="secondary"
           size="xl"
-          className="w-full border-primary-200 bg-white/86 sm:w-auto"
+          className="border-primary-200 bg-white/86"
           onClick={() => scrollToSection('services')}
         >
           Explore Services

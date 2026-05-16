@@ -7,7 +7,7 @@ export function HeroSection() {
     <section
       id="home"
       aria-labelledby="ps-project-hero-title"
-      className="relative isolate overflow-hidden bg-canvas pb-12 pt-[96px] sm:pt-[104px] md:pb-16 md:pt-[116px] lg:min-h-[calc(100svh-72px)] lg:pt-[118px]"
+      className="relative isolate overflow-hidden bg-canvas pb-12 pt-24 sm:pt-26 md:pb-16 md:pt-29 lg:min-h-[calc(100svh-72px)] lg:pt-29.5"
     >
       <div className="absolute inset-0 -z-20 bg-[linear-gradient(135deg,#FBFDFB_0%,#F2F8F4_48%,#EAF7F5_100%)]" />
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_78%_38%,rgba(32,178,170,0.2)_0%,rgba(224,242,229,0.24)_31%,rgba(255,255,255,0)_60%),linear-gradient(90deg,rgba(255,255,255,0.94)_0%,rgba(255,255,255,0.76)_48%,rgba(255,255,255,0.16)_100%)]" />

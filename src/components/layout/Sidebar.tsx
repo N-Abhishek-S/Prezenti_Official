@@ -72,7 +72,7 @@ export function Sidebar({ isMobileOpen = false, onMobileClose }: SidebarProps) {
 
       <aside
         className={cn(
-          'fixed bottom-0 left-0 top-0 z-50 flex w-[260px] flex-col overflow-y-auto transition-transform duration-300 lg:z-30',
+          'fixed bottom-0 left-0 top-0 z-50 flex w-65 flex-col overflow-y-auto transition-transform duration-300 lg:z-30',
           'bg-primary-800 text-white',
           isMobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0',
         )}

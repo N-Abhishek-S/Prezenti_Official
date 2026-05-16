@@ -13,8 +13,8 @@ export function AppShell() {
         onMobileClose={() => setIsMobileSidebarOpen(false)}
       />
       <Topbar onMenuClick={() => setIsMobileSidebarOpen(true)} />
-      <main className="min-w-0 pt-16 lg:ml-[260px]">
-        <div className="mx-auto max-w-[1600px] p-4 sm:p-6 lg:mx-0">
+      <main className="min-w-0 pt-16 lg:ml-65">
+        <div className="mx-auto max-w-400 p-4 sm:p-6 lg:mx-0">
           <Outlet />
         </div>
       </main>

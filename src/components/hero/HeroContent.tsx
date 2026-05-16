@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../ui/Button';
@@ -78,7 +78,14 @@ function StoreBadge({ kind, onClick }: StoreBadgeProps) {
 
 export function HeroContent({ roles }: HeroContentProps) {
   const navigate = useNavigate();
+  const shouldReduceMotion = useReducedMotion();
   const openApp = () => navigate('/app');
+  const headlineLineAnimation = shouldReduceMotion
+    ? { color: '#0A0A1A' }
+    : { color: ['#0A0A1A', '#123F35', '#0A0A1A'] };
+  const headlineColorTransition = shouldReduceMotion
+    ? { duration: 0 }
+    : { duration: 5.6, ease: 'easeInOut' as const, repeat: Infinity, repeatDelay: 0.8 };
 
   return (
     <motion.div
@@ -109,9 +116,22 @@ export function HeroContent({ roles }: HeroContentProps) {
         id="ps-project-hero-title"
         variants={entrance}
         transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-        className="text-[42px] font-extrabold leading-[0.98] text-neutral-950 sm:text-[56px] lg:text-[68px]"
+        className="max-w-[720px] text-[25px] font-extrabold leading-[1.04] text-neutral-950 sm:text-[42px] lg:text-[54px] xl:text-[56px]"
       >
-        Trained support staff - just a click away
+        <motion.span
+          className="block whitespace-nowrap"
+          animate={headlineLineAnimation}
+          transition={headlineColorTransition}
+        >
+          Trained support staff -
+        </motion.span>
+        <motion.span
+          className="block whitespace-nowrap"
+          animate={headlineLineAnimation}
+          transition={{ ...headlineColorTransition, delay: shouldReduceMotion ? 0 : 0.6 }}
+        >
+          just a click away
+        </motion.span>
       </motion.h1>
 
       <motion.div

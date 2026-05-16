@@ -1,3 +1,4 @@
+import { Mail } from 'lucide-react';
 import { publicAsset } from '../../lib/publicAsset';
 
 export interface HeroRole {
@@ -17,10 +18,11 @@ export interface HeroVideoAsset {
 }
 
 export const heroRoles: HeroRole[] = [
-  { id: 'facility-supervision', name: 'Facility Supervision', accent: '#123F35' },
-  { id: 'housekeeping', name: 'Housekeeping Excellence', accent: '#4F4F6F' },
+  { id: 'facility-supervision', name: 'Facility Supervisor', accent: '#123F35' },
+  { id: 'housekeeping', name: 'Housekeeping ', accent: '#4F4F6F' },
   { id: 'pantry', name: 'Pantry Services', accent: '#6B8E23' },
-  { id: 'reception', name: 'Reception Teams', accent: '#148F89' },
+  { id: 'reception', name: 'Office Assistant ', accent: '#148F89' },
+
 ];
 
 export const heroMedia = {

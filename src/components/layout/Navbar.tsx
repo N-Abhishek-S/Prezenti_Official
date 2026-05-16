@@ -10,8 +10,43 @@ import {
   type PublicSectionId,
 } from '../../lib/sectionNavigation';
 
-const brandLogo = null as string | null;
 const sectionIds = publicSections.map((section) => section.id);
+
+function PrezentiLogo() {
+  return (
+    <svg
+      viewBox="0 0 220 96"
+      className="h-[50px] w-auto sm:h-[54px]"
+      aria-hidden="true"
+    >
+      <path
+        d="M75 28 102 52 127 30"
+        fill="none"
+        stroke="#0B9444"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="22"
+      />
+      <path
+        d="M119 40 161 8"
+        fill="none"
+        stroke="#B2C934"
+        strokeLinecap="round"
+        strokeWidth="22"
+      />
+      <text
+        x="18"
+        y="88"
+        fill="#030303"
+        fontFamily="Inter, Arial, sans-serif"
+        fontSize="44"
+        fontWeight="800"
+      >
+        prezenti
+      </text>
+    </svg>
+  );
+}
 
 function LocationPanel({ onNavigate }: { onNavigate: () => void }) {
   return (
@@ -115,18 +150,11 @@ export function Navbar() {
       <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between px-6">
         <button
           type="button"
-          className="flex items-center gap-2 no-underline"
+          className="flex items-center no-underline"
           onClick={() => goToSection('home')}
           aria-label="Go to home"
         >
-          {brandLogo ? (
-            <img src={brandLogo} alt="Presenti" className="h-9 w-auto" />
-          ) : (
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-800 text-lg font-extrabold text-white">
-              P
-            </div>
-          )}
-          <span className="text-[22px] font-bold tracking-tight text-primary-800">Presenti</span>
+          <PrezentiLogo />
         </button>
 
         <div className="hidden items-center gap-1 lg:flex">

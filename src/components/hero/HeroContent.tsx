@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '../ui/Button';
 import { HeroAnimatedTagline } from '../../features/website/HeroAnimatedTagline';
 import { scrollToSection } from '../../lib/sectionNavigation';
@@ -14,7 +15,71 @@ const entrance = {
   visible: { opacity: 1, y: 0 },
 };
 
+type StoreBadgeKind = 'google-play' | 'app-store';
+
+interface StoreBadgeProps {
+  kind: StoreBadgeKind;
+  onClick: () => void;
+}
+
+const storeBadgeCopy: Record<StoreBadgeKind, { eyebrow: string; label: string }> = {
+  'google-play': {
+    eyebrow: 'GET IT ON',
+    label: 'Google Play',
+  },
+  'app-store': {
+    eyebrow: 'Download on the',
+    label: 'App Store',
+  },
+};
+
+function StoreIcon({ kind }: { kind: StoreBadgeKind }) {
+  if (kind === 'google-play') {
+    return (
+      <svg viewBox="0 0 42 46" aria-hidden="true" className="h-9 w-9 shrink-0">
+        <path d="M3.35 2.2 24.1 23 3.35 43.8A5.1 5.1 0 0 1 2 40.3V5.7c0-1.34.52-2.57 1.35-3.5Z" fill="#34A853" />
+        <path d="m24.1 23 6.62-6.63 7.75 4.43a3.1 3.1 0 0 1 0 5.4l-7.75 4.43L24.1 23Z" fill="#FBBC04" />
+        <path d="m3.35 2.2 27.37 14.17L24.1 23 3.35 2.2Z" fill="#4285F4" />
+        <path d="M3.35 43.8 24.1 23l6.62 7.63L3.35 43.8Z" fill="#EA4335" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 38 46" aria-hidden="true" className="h-9 w-9 shrink-0 fill-white">
+      <path d="M28.36 24.38c-.04-4.16 3.4-6.17 3.56-6.27-1.95-2.84-4.97-3.23-6.02-3.27-2.54-.27-5.01 1.52-6.3 1.52-1.32 0-3.31-1.49-5.45-1.44-2.76.04-5.35 1.64-6.77 4.15-2.92 5.06-.74 12.5 2.06 16.59 1.4 2 3.03 4.23 5.16 4.15 2.09-.08 2.87-1.33 5.4-1.33 2.5 0 3.24 1.33 5.42 1.28 2.24-.04 3.65-2 5-4.02 1.61-2.3 2.26-4.56 2.29-4.68-.05-.02-4.3-1.64-4.35-6.68Z" />
+      <path d="M24.25 12.14c1.12-1.4 1.88-3.3 1.67-5.24-1.62.07-3.65 1.12-4.82 2.49-1.04 1.2-1.97 3.18-1.72 5.04 1.82.14 3.7-.91 4.87-2.29Z" />
+    </svg>
+  );
+}
+
+function StoreBadge({ kind, onClick }: StoreBadgeProps) {
+  const copy = storeBadgeCopy[kind];
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={`Open ${copy.label}`}
+      className="group flex h-[58px] w-full max-w-[230px] items-center gap-3 rounded-[10px] border border-neutral-700 bg-black px-4 text-left text-white shadow-[0_14px_28px_rgba(15,23,42,0.16)] ring-1 ring-white/15 transition-all duration-200 hover:-translate-y-0.5 hover:bg-neutral-950 hover:shadow-[0_18px_34px_rgba(15,23,42,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600/25 sm:w-[230px]"
+    >
+      <StoreIcon kind={kind} />
+      <span className="grid min-w-0 leading-none">
+        <span className="text-[10px] font-semibold uppercase tracking-[0.08em] text-white/90">
+          {copy.eyebrow}
+        </span>
+        <span className="mt-1 whitespace-nowrap text-[24px] font-semibold tracking-normal text-white">
+          {copy.label}
+        </span>
+      </span>
+    </button>
+  );
+}
+
 export function HeroContent({ roles }: HeroContentProps) {
+  const navigate = useNavigate();
+  const openApp = () => navigate('/app');
+
   return (
     <motion.div
       className="relative z-10 max-w-[650px] py-6 lg:py-12"
@@ -57,7 +122,7 @@ export function HeroContent({ roles }: HeroContentProps) {
         <HeroAnimatedTagline
           staticText="Now deploying"
           dynamicWords={roles.map((role) => role.name)}
-          intervalMs={2600}
+          intervalMs={6000}
           staticClassName="text-sm font-bold uppercase tracking-[0.18em] text-neutral-500"
           dynamicClassName="text-[30px] font-extrabold sm:text-[38px]"
         />
@@ -95,6 +160,15 @@ export function HeroContent({ roles }: HeroContentProps) {
         >
           Explore Services
         </Button>
+      </motion.div>
+
+      <motion.div
+        variants={entrance}
+        transition={{ duration: 0.62, ease: 'easeOut' }}
+        className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap"
+      >
+        <StoreBadge kind="google-play" onClick={openApp} />
+        <StoreBadge kind="app-store" onClick={openApp} />
       </motion.div>
     </motion.div>
   );

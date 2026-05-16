@@ -65,21 +65,7 @@ export function HomePage() {
         viewport={{ once: true, margin: '-50px' }}
         variants={stagger}
       >
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.p variants={fadeUp} className="text-center text-sm text-neutral-500 mb-6">
-            Trusted by 200+ enterprises across India
-          </motion.p>
-          <motion.div variants={fadeUp} className="flex items-center justify-center gap-12 flex-wrap opacity-40">
-            {['TechCorp', 'InfoSys', 'MedLife', 'BuildMax', 'EduVerse', 'RetailPro'].map(name => (
-              <div key={name} className="text-lg font-bold text-neutral-400 hover:text-neutral-600 transition-colors">{name}</div>
-            ))}
-          </motion.div>
-          <motion.div variants={fadeUp} className="flex items-center justify-center gap-8 mt-6">
-            {['✅ ISO 9001:2015', '🛡️ SOC 2 Type II', '📋 POSH Compliant', '🔒 GDPR Ready'].map(badge => (
-              <div key={badge} className="text-sm text-neutral-500 font-medium">{badge}</div>
-            ))}
-          </motion.div>
-        </div>
+     
       </motion.section>
 
       {/* ═══ PROBLEM vs SOLUTION ═══ */}
@@ -93,42 +79,24 @@ export function HomePage() {
         <div className="max-w-7xl mx-auto px-6">
           <motion.div variants={fadeUp} className="text-center max-w-180 mx-auto mb-12">
             <Badge variant="primary" size="lg" className="mb-3">Why Presenti</Badge>
-            <h2 className="text-[30px] font-semibold mb-4">The Old Way vs. The Presenti Way</h2>
+            <h2 className="text-[30px] font-semibold mb-4">Traditional hiring → Prezenti hiringy</h2>
             <p className="text-lg text-neutral-500 leading-relaxed">
-              Enterprise facility management shouldn't mean spreadsheets, phone calls, and compliance gaps.
-            </p>
+Reliable Support Staff. Ready On Demand            </p>
           </motion.div>
 
           <motion.div variants={fadeUp} className="grid md:grid-cols-2 gap-8">
-            <div className="p-8 rounded-xl bg-critical-50 border border-critical-100">
-              <h3 className="text-[22px] font-semibold mb-5 flex items-center gap-3">
-                <span className="text-2xl">⚠️</span> Without Presenti
-              </h3>
-              <ul className="flex flex-col gap-3">
-                {[
-                  'Manual attendance tracking across locations',
-                  'No real-time SLA monitoring or breach alerts',
-                  'Scattered compliance documents and audit risks',
-                  'Vendor-dependent with zero operational visibility',
-                  'Escalations lost in email chains',
-                ].map(item => (
-                  <li key={item} className="flex items-start gap-3 text-sm text-neutral-700 leading-relaxed">
-                    <span className="text-critical-500 shrink-0 mt-0.5">✕</span> {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+         
             <div className="p-8 rounded-xl bg-success-50 border border-success-100">
               <h3 className="text-[22px] font-semibold mb-5 flex items-center gap-3">
-                <span className="text-2xl">✅</span> With Presenti
+                <span className="text-2xl">✅</span> With Prezenti
               </h3>
               <ul className="flex flex-col gap-3">
                 {[
-                  'GPS-verified digital attendance in real-time',
-                  'Automated SLA tracking with instant breach alerts',
-                  'Centralized compliance vault with expiry reminders',
-                  'Full operational dashboard across all sites',
-                  'Structured escalation matrix with SLA timelines',
+                  'From local referrals to instant staffing.',
+'From manual hiring chaos to smart deployment.',
+'Old-school recruitment. New-age staffing.',
+'From watchman references to app-based workforce access.',
+'From searching endlessly to staffing instantly.',
                 ].map(item => (
                   <li key={item} className="flex items-start gap-3 text-sm text-neutral-700 leading-relaxed">
                     <span className="text-success-500 shrink-0 mt-0.5">✓</span> {item}

@@ -66,7 +66,7 @@ export function Navbar() {
             <Button variant="ghost" size="sm">Sign In</Button>
           </Link>
           <Link to="/contact">
-            <Button variant="primary" size="sm">Request Demo</Button>
+            <Button variant="primary" size="sm">Request Call</Button>
           </Link>
         </div>
 

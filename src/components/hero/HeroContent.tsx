@@ -62,7 +62,7 @@ export function HeroContent({
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-400 opacity-75" />
           <span className="relative inline-flex h-2 w-2 rounded-full bg-teal-500" />
         </span>
-        PS Project workforce operations live across enterprise sites
+       3000+ Trained Professionals Already on Duty — Let’s Connect
       </motion.div>
 
       <motion.h1
@@ -71,8 +71,7 @@ export function HeroContent({
         transition={{ duration: isReducedMotion ? 0 : 0.65, ease: [0.16, 1, 0.3, 1] }}
         className="text-[42px] font-extrabold leading-[0.98] text-neutral-950 sm:text-[56px] lg:text-[66px]"
       >
-        PS Project manages trained staff for modern facilities.
-      </motion.h1>
+Trained support staff - just a click away      </motion.h1>
 
       <motion.div
         variants={entrance}
@@ -117,8 +116,8 @@ export function HeroContent({
         transition={{ duration: isReducedMotion ? 0 : 0.62, ease: 'easeOut' }}
         className="mt-6 max-w-[560px] text-lg leading-relaxed text-neutral-700"
       >
-        Hire verified housekeeping, pantry, reception, and admin teams through one accountable facility partner.
-      </motion.p>
+We Manage Your Support Workforce, While You Focus on Core Operations     
+ </motion.p>
 
       <motion.div
         variants={entrance}
@@ -132,7 +131,7 @@ export function HeroContent({
             'group shadow-[0_16px_36px_rgba(18,63,53,0.22)]',
           )}
         >
-          Request Staff
+          Let us understand your requirement 
           <ArrowRight size={18} className="transition-transform duration-200 group-hover:translate-x-0.5" />
         </Link>
         <Link

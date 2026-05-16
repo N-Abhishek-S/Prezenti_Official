@@ -40,25 +40,25 @@ export function ContactSection() {
   return (
     <motion.section
       id="contact"
-      className="bg-white py-20"
+      className="bg-white py-14 sm:py-16 lg:py-20"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-80px' }}
       variants={stagger}
     >
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <motion.div variants={fadeUp} className="mx-auto mb-12 max-w-[760px] text-center">
           <Badge variant="primary" size="lg" className="mb-3">
             Contact
           </Badge>
-          <h2 className="mb-4 text-[30px] font-semibold">Let's Talk</h2>
-          <p className="text-lg leading-relaxed text-neutral-500">
+          <h2 className="mb-4 text-2xl font-semibold sm:text-[30px]">Let's Talk</h2>
+          <p className="text-base leading-relaxed text-neutral-500 sm:text-lg">
             Whether you need a demo, a custom proposal, or have questions - our enterprise solutions team is ready to help.
           </p>
         </motion.div>
 
         <motion.div variants={fadeUp} className="grid gap-10 lg:grid-cols-[1fr_380px]">
-          <form onSubmit={handleSubmit} className="rounded-[28px] border border-neutral-200 bg-canvas p-6 shadow-[0_30px_90px_rgba(10,42,34,0.07)] sm:p-8">
+          <form onSubmit={handleSubmit} className="rounded-[24px] border border-neutral-200 bg-canvas p-5 shadow-[0_30px_90px_rgba(10,42,34,0.07)] sm:rounded-[28px] sm:p-8">
             <h3 className="mb-6 text-xl font-semibold">Request a Demo</h3>
             <div className="grid gap-5 sm:grid-cols-2">
               <label className="block text-sm font-medium">

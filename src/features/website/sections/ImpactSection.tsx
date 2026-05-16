@@ -14,23 +14,23 @@ const stagger = {
 export function ImpactSection() {
   return (
     <motion.section
-      className="bg-primary-900 py-18 text-white"
+      className="bg-primary-900 py-14 text-white sm:py-16 lg:py-18"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-80px' }}
       variants={stagger}
     >
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <motion.div variants={fadeUp} className="mb-10 text-center">
           <Badge variant="teal" size="lg" className="mb-3 bg-white/10 text-white">
             Impact
           </Badge>
-          <h2 className="text-[30px] font-semibold">Proven Enterprise Results</h2>
+          <h2 className="text-2xl font-semibold sm:text-[30px]">Proven Enterprise Results</h2>
         </motion.div>
         <motion.div variants={fadeUp} className="grid grid-cols-2 gap-px overflow-hidden rounded-[24px] bg-white/10 lg:grid-cols-4">
           {impactMetrics.map((metric) => (
-            <div key={metric.label} className="bg-primary-900/80 p-6 text-center">
-              <div className="mb-2 text-4xl font-bold tracking-tight text-white md:text-5xl">{metric.value}</div>
+            <div key={metric.label} className="bg-primary-900/80 p-4 text-center sm:p-6">
+              <div className="mb-2 text-3xl font-bold tracking-tight text-white md:text-5xl">{metric.value}</div>
               <div className="text-sm font-medium text-white/62">{metric.label}</div>
             </div>
           ))}

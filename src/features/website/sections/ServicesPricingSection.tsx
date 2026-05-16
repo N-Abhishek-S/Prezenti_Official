@@ -65,19 +65,19 @@ export function ServicesPricingSection() {
     <>
       <motion.section
         id="services"
-        className="bg-white py-20"
+        className="bg-white py-14 sm:py-16 lg:py-20"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-80px' }}
         variants={stagger}
       >
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <motion.div variants={fadeUp} className="mx-auto mb-12 max-w-[760px] text-center">
             <Badge variant="primary" size="lg" className="mb-3">
               Services
             </Badge>
-            <h2 className="mb-4 text-[30px] font-semibold">Enterprise-Grade Facility Services</h2>
-            <p className="text-lg leading-relaxed text-neutral-500">
+            <h2 className="mb-4 text-2xl font-semibold sm:text-[30px]">Enterprise-Grade Facility Services</h2>
+            <p className="text-base leading-relaxed text-neutral-500 sm:text-lg">
               Comprehensive managed services backed by technology, SLA guarantees, and compliance frameworks.
             </p>
           </motion.div>
@@ -90,7 +90,7 @@ export function ServicesPricingSection() {
                 <button
                   key={service.title}
                   type="button"
-                  className="group bg-white p-6 text-left transition-colors duration-200 hover:bg-primary-50/60"
+                  className="group bg-white p-5 text-left transition-colors duration-200 hover:bg-primary-50/60 sm:p-6"
                   onClick={() => {
                     setActiveServiceType(service.title as ServiceType);
                     scrollToSection('pricing');
@@ -110,26 +110,26 @@ export function ServicesPricingSection() {
 
       <motion.section
         id="pricing"
-        className="bg-canvas py-20"
+        className="bg-canvas py-14 sm:py-16 lg:py-20"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-80px' }}
         variants={stagger}
       >
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <motion.div variants={fadeUp} className="mb-10 grid gap-5 lg:grid-cols-[0.72fr_1fr] lg:items-end">
             <div>
               <Badge variant="teal" size="lg" className="mb-3">
                 Pricing
               </Badge>
-              <h2 className="text-[30px] font-semibold">Service Packages Built Around Your Site</h2>
+              <h2 className="text-2xl font-semibold sm:text-[30px]">Service Packages Built Around Your Site</h2>
             </div>
-            <p className="max-w-2xl text-lg leading-relaxed text-neutral-500 lg:justify-self-end">
+            <p className="max-w-2xl text-base leading-relaxed text-neutral-500 sm:text-lg lg:justify-self-end">
               Our solutions team will configure services, shifts, SLA, and replacement coverage for your exact facility needs.
             </p>
           </motion.div>
 
-          <motion.div variants={fadeUp} className="grid gap-8 lg:grid-cols-[360px_1fr]">
+          <motion.div variants={fadeUp} className="grid gap-8 lg:grid-cols-[minmax(280px,360px)_1fr]">
             <div className="space-y-6">
               <div>
                 <h3 className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-neutral-500">Step 1 - Choose service type</h3>
@@ -183,26 +183,26 @@ export function ServicesPricingSection() {
             </div>
 
             <div className="overflow-hidden rounded-[28px] border border-neutral-200 bg-white shadow-[0_30px_90px_rgba(10,42,34,0.08)]">
-              <div className="border-b border-neutral-100 bg-[linear-gradient(135deg,rgba(224,242,229,0.7),rgba(237,250,249,0.55))] p-8">
+              <div className="border-b border-neutral-100 bg-[linear-gradient(135deg,rgba(224,242,229,0.7),rgba(237,250,249,0.55))] p-5 sm:p-8">
                 <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-primary-800 text-white">
                   <ActiveIcon size={24} />
                 </div>
                 <Badge variant="primary" className="mb-4">
                   {staffingMode}
                 </Badge>
-                <h3 className="mb-3 text-3xl font-semibold tracking-tight text-neutral-950">{activeService.title}</h3>
+                <h3 className="mb-3 text-2xl font-semibold tracking-tight text-neutral-950 sm:text-3xl">{activeService.title}</h3>
                 <p className="max-w-2xl text-base leading-relaxed text-neutral-600">{activeService.description}</p>
               </div>
 
-              <div className="grid gap-8 p-8 md:grid-cols-2">
+              <div className="grid gap-8 p-5 sm:p-8 md:grid-cols-2">
                 <DetailList title="Included Responsibilities" items={activeService.responsibilities} />
                 <DetailList title="Deliverables" items={activeService.deliverables} />
                 <DetailList title="Scope" items={activeService.scope} />
                 <DetailList title="Service Coverage" items={coverage} />
               </div>
 
-              <div className="border-t border-neutral-100 px-8 py-6">
-                <Button type="button" variant="primary" size="lg" onClick={() => scrollToSection('contact')}>
+              <div className="border-t border-neutral-100 px-5 py-6 sm:px-8">
+                <Button type="button" variant="primary" size="lg" className="w-full sm:w-auto" onClick={() => scrollToSection('contact')}>
                   Request Proposal
                   <ArrowRight size={16} />
                 </Button>

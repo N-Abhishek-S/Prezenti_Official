@@ -15,25 +15,25 @@ const stagger = {
 export function ComparisonSection() {
   return (
     <motion.section
-      className="bg-canvas py-20"
+      className="bg-canvas py-14 sm:py-16 lg:py-20"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-80px' }}
       variants={stagger}
     >
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <motion.div variants={fadeUp} className="mx-auto mb-12 max-w-[720px] text-center">
           <Badge variant="primary" size="lg" className="mb-3">
             Why Presenti
           </Badge>
-          <h2 className="mb-4 text-[30px] font-semibold">Traditional hiring → Prezenti hiringy</h2>
-          <p className="text-lg leading-relaxed text-neutral-500">Reliable Support Staff. Ready On Demand</p>
+          <h2 className="mb-4 text-2xl font-semibold sm:text-[30px]">Traditional hiring to Prezenti hiring</h2>
+          <p className="text-base leading-relaxed text-neutral-500 sm:text-lg">Reliable Support Staff. Ready On Demand</p>
         </motion.div>
 
         <motion.div variants={fadeUp} className="grid items-center gap-8 lg:grid-cols-[0.88fr_1.12fr]">
-          <div className="rounded-[20px] border border-success-100 bg-success-50 p-8 shadow-[0_24px_70px_rgba(10,42,34,0.07)]">
+          <div className="rounded-[20px] border border-success-100 bg-success-50 p-5 shadow-[0_24px_70px_rgba(10,42,34,0.07)] sm:p-8">
             <h3 className="mb-5 flex items-center gap-3 text-[22px] font-semibold">
-              <CheckCircle size={26} className="text-success-500" />
+              <CheckCircle size={26} className="shrink-0 text-success-500" />
               With Prezenti
             </h3>
             <ul className="flex flex-col gap-3">
@@ -46,7 +46,7 @@ export function ComparisonSection() {
             </ul>
           </div>
 
-          <div className="relative min-h-[360px] overflow-hidden rounded-[28px] border border-neutral-200 bg-white shadow-[0_34px_90px_rgba(10,42,34,0.12)] md:min-h-[440px] lg:min-h-[500px]">
+          <div className="relative min-h-[300px] overflow-hidden rounded-[24px] border border-neutral-200 bg-white shadow-[0_34px_90px_rgba(10,42,34,0.12)] sm:rounded-[28px] md:min-h-[440px] lg:min-h-[500px]">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(106,189,126,0.16),transparent_32%),linear-gradient(135deg,rgba(10,42,34,0.04),rgba(255,255,255,0)_44%)]" />
             <video
               className="absolute inset-0 h-full w-full object-cover"

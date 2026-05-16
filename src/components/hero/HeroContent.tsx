@@ -89,7 +89,7 @@ export function HeroContent({ roles }: HeroContentProps) {
 
   return (
     <motion.div
-      className="relative z-10 max-w-[650px] py-6 lg:py-12"
+      className="relative z-10 max-w-[650px] py-2 sm:py-6 lg:py-12"
       initial="hidden"
       animate="visible"
       variants={{
@@ -103,7 +103,7 @@ export function HeroContent({ roles }: HeroContentProps) {
       <motion.div
         variants={entrance}
         transition={{ duration: 0.55, ease: 'easeOut' }}
-        className="mb-6 inline-flex items-center gap-2 rounded-lg border border-primary-100 bg-white/86 px-3.5 py-2 text-sm font-semibold text-primary-800 shadow-sm"
+        className="mb-6 inline-flex max-w-full items-center gap-2 rounded-lg border border-primary-100 bg-white/86 px-3.5 py-2 text-sm font-semibold leading-snug text-primary-800 shadow-sm"
       >
         <span className="relative flex h-2 w-2" aria-hidden="true">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-400 opacity-75" />
@@ -116,17 +116,17 @@ export function HeroContent({ roles }: HeroContentProps) {
         id="ps-project-hero-title"
         variants={entrance}
         transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-        className="max-w-[720px] text-[25px] font-extrabold leading-[1.04] text-neutral-950 sm:text-[42px] lg:text-[54px] xl:text-[56px]"
+        className="max-w-[720px] text-3xl font-extrabold leading-[1.08] text-neutral-950 sm:text-[42px] sm:leading-[1.04] lg:text-[54px] xl:text-[56px]"
       >
         <motion.span
-          className="block whitespace-nowrap"
+          className="block sm:whitespace-nowrap"
           animate={headlineLineAnimation}
           transition={headlineColorTransition}
         >
           Trained support staff -
         </motion.span>
         <motion.span
-          className="block whitespace-nowrap"
+          className="block sm:whitespace-nowrap"
           animate={headlineLineAnimation}
           transition={{ ...headlineColorTransition, delay: shouldReduceMotion ? 0 : 0.6 }}
         >
@@ -144,14 +144,14 @@ export function HeroContent({ roles }: HeroContentProps) {
           dynamicWords={roles.map((role) => role.name)}
           intervalMs={6000}
           staticClassName="text-sm font-bold uppercase tracking-[0.18em] text-neutral-500"
-          dynamicClassName="text-[30px] font-extrabold sm:text-[38px]"
+          dynamicClassName="text-[28px] font-extrabold sm:text-[38px]"
         />
       </motion.div>
 
       <motion.p
         variants={entrance}
         transition={{ duration: 0.62, ease: 'easeOut' }}
-        className="mt-6 max-w-[560px] text-lg leading-relaxed text-neutral-700"
+        className="mt-6 max-w-[560px] text-base leading-relaxed text-neutral-700 sm:text-lg"
       >
         We Manage Your Support Workforce, While You Focus on Core Operations
       </motion.p>
@@ -159,13 +159,13 @@ export function HeroContent({ roles }: HeroContentProps) {
       <motion.div
         variants={entrance}
         transition={{ duration: 0.62, ease: 'easeOut' }}
-        className="mt-8 flex flex-col gap-3 sm:flex-row"
+        className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center"
       >
         <Button
           type="button"
           variant="primary"
           size="xl"
-          className="group shadow-[0_16px_36px_rgba(18,63,53,0.22)]"
+          className="group w-full shadow-[0_16px_36px_rgba(18,63,53,0.22)] sm:w-auto"
           onClick={() => scrollToSection('contact')}
         >
           Let us understand your requirement
@@ -175,7 +175,7 @@ export function HeroContent({ roles }: HeroContentProps) {
           type="button"
           variant="secondary"
           size="xl"
-          className="border-primary-200 bg-white/86"
+          className="w-full border-primary-200 bg-white/86 sm:w-auto"
           onClick={() => scrollToSection('services')}
         >
           Explore Services

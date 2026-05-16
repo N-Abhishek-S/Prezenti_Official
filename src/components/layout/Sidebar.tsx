@@ -1,14 +1,14 @@
 import { Link, useLocation } from 'react-router-dom';
+import { BrandLogo } from '../brand/BrandLogo';
 import { cn } from '../../lib/cn';
 import { BadgeCount } from '../ui/Badge';
 import {
   LayoutDashboard, Ticket, Users, BarChart3, Building2,
   Shield, FileText, CheckSquare, Calendar, TrendingUp,
-  AlertTriangle, Settings, LogOut, IndianRupee
+  AlertTriangle, Settings, LogOut, IndianRupee, X
 } from 'lucide-react';
 import { useAppDispatch } from '../../app/hooks';
 import { logout } from '../../features/auth/authSlice';
-import { useState } from 'react';
 
 const sidebarSections = [
   {
@@ -50,79 +50,100 @@ const sidebarSections = [
   },
 ];
 
-export function Sidebar() {
+interface SidebarProps {
+  isMobileOpen?: boolean;
+  onMobileClose?: () => void;
+}
+
+export function Sidebar({ isMobileOpen = false, onMobileClose }: SidebarProps) {
   const location = useLocation();
   const dispatch = useAppDispatch();
-  const [collapsed] = useState(false);
 
   return (
-    <aside
-      className={cn(
-        'fixed left-0 top-0 bottom-0 flex flex-col z-30 overflow-y-auto transition-all duration-300',
-        'bg-primary-800 text-white',
-        collapsed ? 'w-[72px]' : 'w-[260px]'
+    <>
+      {isMobileOpen && (
+        <button
+          type="button"
+          className="fixed inset-0 z-40 bg-neutral-950/42 backdrop-blur-[2px] lg:hidden"
+          onClick={onMobileClose}
+          aria-label="Close navigation overlay"
+        />
       )}
-    >
-      {/* Header */}
-      <div className="px-5 py-5 flex items-center gap-3 border-b border-white/10 shrink-0">
-        <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center text-white font-extrabold text-sm">
-          P
-        </div>
-        {!collapsed && (
-          <span className="text-xl font-bold text-white tracking-tight">Presenti</span>
-        )}
-      </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 px-3 py-4 overflow-y-auto">
-        {sidebarSections.map(section => (
-          <div key={section.title} className="mb-6">
-            {!collapsed && (
-              <div className="px-3 mb-2 text-[11px] font-semibold uppercase tracking-widest text-white/40">
+      <aside
+        className={cn(
+          'fixed bottom-0 left-0 top-0 z-50 flex w-[260px] flex-col overflow-y-auto transition-transform duration-300 lg:z-30',
+          'bg-primary-800 text-white',
+          isMobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0',
+        )}
+      >
+        {/* Header */}
+        <div className="flex shrink-0 items-center justify-between gap-3 border-b border-white/10 px-5 py-4">
+          <BrandLogo size="sm" tone="onDark" imageClassName="max-w-[150px]" />
+          <button
+            type="button"
+            className="rounded-md p-2 text-white/70 transition-colors hover:bg-white/10 hover:text-white lg:hidden"
+            onClick={onMobileClose}
+            aria-label="Close navigation"
+          >
+            <X size={18} />
+          </button>
+        </div>
+
+        {/* Navigation */}
+        <nav className="flex-1 overflow-y-auto px-3 py-4">
+          {sidebarSections.map(section => (
+            <div key={section.title} className="mb-6">
+              <div className="mb-2 px-3 text-[11px] font-semibold uppercase tracking-widest text-white/40">
                 {section.title}
               </div>
-            )}
-            {section.items.map(item => {
-              const isActive = location.pathname === item.href;
-              const Icon = item.icon;
-              return (
-                <Link
-                  key={item.href}
-                  to={item.href}
-                  className={cn(
-                    'flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium mb-0.5 transition-all duration-150 no-underline',
-                    isActive
-                      ? 'bg-white/12 text-white'
-                      : 'text-white/70 hover:bg-white/8 hover:text-white'
-                  )}
-                >
-                  <Icon size={18} className="shrink-0" />
-                  {!collapsed && <span className="flex-1">{item.label}</span>}
-                  {!collapsed && item.badge > 0 && <BadgeCount count={item.badge} />}
-                </Link>
-              );
-            })}
-          </div>
-        ))}
-      </nav>
+              {section.items.map(item => {
+                const isActive = location.pathname === item.href;
+                const Icon = item.icon;
+                return (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    onClick={onMobileClose}
+                    className={cn(
+                      'mb-0.5 flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium no-underline transition-all duration-150',
+                      isActive
+                        ? 'bg-white/12 text-white'
+                        : 'text-white/70 hover:bg-white/8 hover:text-white',
+                    )}
+                  >
+                    <Icon size={18} className="shrink-0" />
+                    <span className="flex-1">{item.label}</span>
+                    {item.badge > 0 && <BadgeCount count={item.badge} />}
+                  </Link>
+                );
+              })}
+            </div>
+          ))}
+        </nav>
 
-      {/* Footer */}
-      <div className="px-3 py-4 border-t border-white/10 shrink-0">
-        <Link
-          to="/dashboard/settings"
-          className="flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium text-white/70 hover:bg-white/8 hover:text-white transition-all no-underline mb-1"
-        >
-          <Settings size={18} />
-          {!collapsed && <span>Settings</span>}
-        </Link>
-        <button
-          onClick={() => dispatch(logout())}
-          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium text-white/70 hover:bg-white/8 hover:text-white transition-all cursor-pointer bg-transparent border-none"
-        >
-          <LogOut size={18} />
-          {!collapsed && <span>Sign Out</span>}
-        </button>
-      </div>
-    </aside>
+        {/* Footer */}
+        <div className="shrink-0 border-t border-white/10 px-3 py-4">
+          <Link
+            to="/dashboard/settings"
+            onClick={onMobileClose}
+            className="mb-1 flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium text-white/70 no-underline transition-all hover:bg-white/8 hover:text-white"
+          >
+            <Settings size={18} />
+            <span>Settings</span>
+          </Link>
+          <button
+            onClick={() => {
+              onMobileClose?.();
+              dispatch(logout());
+            }}
+            className="flex w-full cursor-pointer items-center gap-3 rounded-md border-none bg-transparent px-3 py-2.5 text-sm font-medium text-white/70 transition-all hover:bg-white/8 hover:text-white"
+          >
+            <LogOut size={18} />
+            <span>Sign Out</span>
+          </button>
+        </div>
+      </aside>
+    </>
   );
 }

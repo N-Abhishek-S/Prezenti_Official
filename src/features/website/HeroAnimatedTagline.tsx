@@ -88,7 +88,7 @@ export function HeroAnimatedTagline({
         )}
         aria-hidden="true"
       >
-        <span className="invisible col-start-1 row-start-1 block whitespace-nowrap">
+        <span className="invisible col-start-1 row-start-1 block whitespace-normal sm:whitespace-nowrap">
           {longestWord}
         </span>
         <AnimatePresence mode="wait" initial={false}>
@@ -96,7 +96,7 @@ export function HeroAnimatedTagline({
             key={activeWord}
             data-hero-tagline-word
             className={cn(
-              'col-start-1 row-start-1 block whitespace-nowrap will-change-transform [backface-visibility:hidden]',
+              'col-start-1 row-start-1 block whitespace-normal will-change-transform [backface-visibility:hidden] sm:whitespace-nowrap',
               'text-primary-800',
               wordClassName,
             )}

@@ -62,16 +62,16 @@ export function DashboardPage() {
   return (
     <motion.div initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.05 } } }}>
       {/* Page Header */}
-      <motion.div variants={fadeUp} className="mb-6 flex items-center justify-between flex-wrap gap-4">
-        <div>
+      <motion.div variants={fadeUp} className="mb-6 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+        <div className="min-w-0">
           <h1 className="text-2xl font-semibold">Dashboard</h1>
           <p className="text-sm text-neutral-500 mt-1">Welcome back, Rajesh. Here's your operations overview.</p>
         </div>
-        <div className="flex gap-3">
-          <Button variant="outline" size="sm">
+        <div className="grid grid-cols-2 gap-3 sm:flex">
+          <Button variant="outline" size="sm" className="w-full sm:w-auto">
             <Clock size={14} /> Last 30 days
           </Button>
-          <Button variant="primary" size="sm">
+          <Button variant="primary" size="sm" className="w-full sm:w-auto">
             <Plus size={14} /> New Ticket
           </Button>
         </div>
@@ -120,7 +120,7 @@ export function DashboardPage() {
       {/* Charts Row */}
       <motion.div variants={fadeUp} className="grid lg:grid-cols-2 gap-5 mb-6">
         {/* Ticket Trend */}
-        <Card>
+        <Card className="min-w-0">
           <CardHeader>
             <h3 className="text-base font-semibold">Ticket Resolution Trend</h3>
             <Badge variant="success" dot>Improving</Badge>
@@ -158,7 +158,7 @@ export function DashboardPage() {
         </Card>
 
         {/* Attendance by Branch */}
-        <Card>
+        <Card className="min-w-0">
           <CardHeader>
             <h3 className="text-base font-semibold">Attendance by Branch</h3>
             <Badge variant="info" dot>Today</Badge>
@@ -195,7 +195,7 @@ export function DashboardPage() {
             </Button>
           </CardHeader>
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+            <table className="min-w-[720px] w-full text-sm">
               <thead>
                 <tr className="bg-neutral-50">
                   <th className="sticky top-0 px-4 py-3 text-left text-xs font-semibold text-neutral-600 uppercase tracking-wider">ID</th>

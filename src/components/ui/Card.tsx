@@ -14,7 +14,7 @@ export function Card({ children, className, hover = true, interactive, flat, onC
   return (
     <div
       className={cn(
-        'bg-white border border-neutral-200 rounded-lg transition-all duration-200',
+        'min-w-0 bg-white border border-neutral-200 rounded-lg transition-all duration-200',
         !flat && 'shadow-card',
         hover && !flat && 'hover:shadow-card-hover',
         interactive && 'cursor-pointer hover:border-primary-200 hover:-translate-y-0.5 hover:shadow-lg',
@@ -29,14 +29,14 @@ export function Card({ children, className, hover = true, interactive, flat, onC
 
 export function CardHeader({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <div className={cn('px-6 py-5 border-b border-neutral-200 flex items-center justify-between', className)}>
+    <div className={cn('flex items-center justify-between gap-3 border-b border-neutral-200 px-4 py-4 sm:px-6 sm:py-5', className)}>
       {children}
     </div>
   );
 }
 
 export function CardBody({ children, className }: { children: ReactNode; className?: string }) {
-  return <div className={cn('p-6', className)}>{children}</div>;
+  return <div className={cn('p-4 sm:p-6', className)}>{children}</div>;
 }
 
 export function CardFooter({ children, className }: { children: ReactNode; className?: string }) {
@@ -59,7 +59,7 @@ interface KpiCardProps {
 
 export function KpiCard({ label, value, change, changeLabel, icon, iconBg, trend }: KpiCardProps) {
   return (
-    <Card className="p-5">
+    <Card className="p-4 sm:p-5">
       <div className="flex items-start justify-between">
         <div>
           <p className="text-sm text-neutral-500 font-medium mb-1">{label}</p>

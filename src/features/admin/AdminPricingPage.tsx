@@ -141,9 +141,9 @@ export function AdminPricingPage() {
   };
 
   return (
-    <div>
-      <div className="mb-6 flex items-center justify-between gap-4 flex-wrap">
-        <div>
+    <div className="min-w-0">
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+        <div className="min-w-0">
           <h1 className="text-2xl font-semibold">Pricing Management</h1>
           <p className="text-sm text-neutral-500 mt-1">Manage service categories, package prices, features, SLA notes, and active status.</p>
         </div>
@@ -158,8 +158,8 @@ export function AdminPricingPage() {
         </Card>
       )}
 
-      <div className="grid xl:grid-cols-[380px_1fr] gap-6">
-        <div className="space-y-6">
+      <div className="grid gap-6 xl:grid-cols-[minmax(300px,380px)_1fr]">
+        <div className="min-w-0 space-y-6">
           <Card>
             <CardHeader><h2 className="text-base font-semibold">Create Category</h2></CardHeader>
             <CardBody className="space-y-3">
@@ -176,14 +176,14 @@ export function AdminPricingPage() {
               </select>
               <input value={planForm.name} onChange={(event) => setPlanForm({ ...planForm, name: event.target.value })} placeholder="Package name" className="w-full px-3 py-2.5 text-sm border border-neutral-200 rounded-lg outline-none focus:border-primary-600" />
               <input type="number" value={planForm.monthlyPrice} onChange={(event) => setPlanForm({ ...planForm, monthlyPrice: Number(event.target.value) })} placeholder="Monthly price" className="w-full px-3 py-2.5 text-sm border border-neutral-200 rounded-lg outline-none focus:border-primary-600" />
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid gap-3 sm:grid-cols-2">
                 <input value={planForm.shiftTiming} onChange={(event) => setPlanForm({ ...planForm, shiftTiming: event.target.value })} placeholder="Shift timing" className="px-3 py-2.5 text-sm border border-neutral-200 rounded-lg outline-none focus:border-primary-600" />
                 <input value={planForm.workingHours} onChange={(event) => setPlanForm({ ...planForm, workingHours: event.target.value })} placeholder="Working hours" className="px-3 py-2.5 text-sm border border-neutral-200 rounded-lg outline-none focus:border-primary-600" />
               </div>
               <input value={planForm.replacementGuarantee} onChange={(event) => setPlanForm({ ...planForm, replacementGuarantee: event.target.value })} placeholder="Replacement guarantee" className="w-full px-3 py-2.5 text-sm border border-neutral-200 rounded-lg outline-none focus:border-primary-600" />
               <input value={planForm.availabilitySla} onChange={(event) => setPlanForm({ ...planForm, availabilitySla: event.target.value })} placeholder="Availability SLA" className="w-full px-3 py-2.5 text-sm border border-neutral-200 rounded-lg outline-none focus:border-primary-600" />
               <textarea value={planForm.featuresText} onChange={(event) => setPlanForm({ ...planForm, featuresText: event.target.value })} placeholder="One feature per line" rows={4} className="w-full px-3 py-2.5 text-sm border border-neutral-200 rounded-lg outline-none focus:border-primary-600 disabled:bg-neutral-50" disabled={Boolean(editingPlanId)} />
-              <div className="grid grid-cols-3 gap-2 text-xs">
+              <div className="grid gap-2 text-xs sm:grid-cols-3">
                 {(['trainingIncluded', 'emergencyReplacement', 'transportIncluded'] as const).map((key) => (
                   <label key={key} className="flex items-center gap-2">
                     <input type="checkbox" checked={planForm[key]} onChange={(event) => setPlanForm({ ...planForm, [key]: event.target.checked })} />
@@ -196,16 +196,16 @@ export function AdminPricingPage() {
           </Card>
         </div>
 
-        <Card>
-          <CardHeader className="gap-4 flex-wrap">
+        <Card className="min-w-0">
+          <CardHeader className="flex-col items-stretch gap-4 sm:flex-row sm:items-center">
             <h2 className="text-base font-semibold">Pricing Plans</h2>
-            <div className="relative">
+            <div className="relative w-full sm:w-auto">
               <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" />
-              <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search plans" className="pl-9 pr-3 py-2 text-sm border border-neutral-200 rounded-lg outline-none focus:border-primary-600" />
+              <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search plans" className="w-full rounded-lg border border-neutral-200 py-2 pl-9 pr-3 text-sm outline-none focus:border-primary-600 sm:w-64" />
             </div>
           </CardHeader>
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+            <table className="min-w-[680px] w-full text-sm">
               <thead>
                 <tr className="bg-neutral-50">
                   <th className="px-4 py-3 text-left text-xs font-semibold text-neutral-500 uppercase">Plan</th>
@@ -223,7 +223,7 @@ export function AdminPricingPage() {
                       <div className="text-xs text-neutral-500">{plan.shiftTiming || 'Timing not set'}</div>
                     </td>
                     <td className="px-4 py-3 text-neutral-600">{plan.category?.name}</td>
-                    <td className="px-4 py-3 font-semibold">₹{plan.monthlyPrice.toLocaleString('en-IN')}</td>
+                    <td className="px-4 py-3 font-semibold">Rs. {plan.monthlyPrice.toLocaleString('en-IN')}</td>
                     <td className="px-4 py-3">
                       <button onClick={() => togglePlan(plan)} className="cursor-pointer bg-transparent border-none p-0">
                         <Badge variant={plan.isActive ? 'success' : 'warning'}>{plan.isActive ? 'Active' : 'Inactive'}</Badge>

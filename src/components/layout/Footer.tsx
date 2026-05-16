@@ -1,7 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import { BrandLogo } from '../brand/BrandLogo';
 import { publicSections, scrollToSection, setPendingSection, type PublicSectionId } from '../../lib/sectionNavigation';
-
-const brandLogo = null as string | null;
 
 const serviceLinks: PublicSectionId[] = ['services', 'pricing', 'quick-guide', 'location'];
 
@@ -20,24 +19,17 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-neutral-900 pt-16 pb-8 text-white/70">
-      <div className="mx-auto max-w-[1280px] px-6">
+    <footer className="bg-neutral-900 pt-14 pb-8 text-white/70 sm:pt-16">
+      <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
         <div className="mb-12 grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <button
               type="button"
-              className="mb-4 flex items-center gap-2"
+              className="mb-4 flex items-center"
               onClick={() => goToSection('home')}
               aria-label="Go to home"
             >
-              {brandLogo ? (
-                <img src={brandLogo} alt="Presenti" className="h-8 w-auto" />
-              ) : (
-                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary-800 text-sm font-extrabold text-white">
-                  P
-                </div>
-              )}
-              <span className="text-lg font-bold text-white">Presenti</span>
+              <BrandLogo size="sm" tone="onDark" />
             </button>
             <p className="max-w-[300px] text-sm leading-relaxed">
               Enterprise-grade facility management platform powering operations, compliance, and workforce management.
@@ -108,7 +100,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex items-center justify-between border-t border-white/10 pt-8 text-sm">
+        <div className="flex flex-col gap-4 border-t border-white/10 pt-8 text-sm sm:flex-row sm:items-center sm:justify-between">
           <div>&copy; 2026 Presenti. All rights reserved.</div>
           <div className="flex gap-4">
             <a href="#" className="text-lg text-white/50 no-underline transition-colors hover:text-white">in</a>

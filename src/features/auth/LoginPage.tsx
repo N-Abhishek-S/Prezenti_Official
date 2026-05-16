@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { BrandLogo } from '../../components/brand/BrandLogo';
 import { Button } from '../../components/ui/Button';
 import { useAppDispatch } from '../../app/hooks';
 import { loginAsRole, loginWithToken } from './authSlice';
@@ -63,10 +64,10 @@ export function LoginPage() {
   ];
 
   return (
-    <div className="grid lg:grid-cols-2 min-h-screen">
-      {/* Left Panel — Brand */}
+    <div className="grid min-h-screen lg:grid-cols-2">
+      {/* Left Panel - Brand */}
       <motion.div
-        className="hidden lg:flex flex-col justify-center p-16 relative overflow-hidden"
+        className="relative hidden flex-col justify-center overflow-hidden p-16 lg:flex"
         style={{ background: 'linear-gradient(135deg, #0A2A22, #164A3D)' }}
         initial={{ opacity: 0, x: -40 }}
         animate={{ opacity: 1, x: 0 }}
@@ -76,18 +77,15 @@ export function LoginPage() {
         <div className="absolute bottom-[10%] -left-[50px] w-[200px] h-[200px] rounded-full bg-primary-400/10" />
 
         <div className="relative z-10">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center text-white font-extrabold text-lg">
-              P
-            </div>
-            <span className="text-2xl font-bold text-white">Presenti</span>
+          <div className="mb-8 flex items-center">
+            <BrandLogo size="lg" tone="onDark" />
           </div>
 
           <h2 className="text-4xl font-bold text-white mb-4 leading-tight">
             Your Facility Operations<br />Command Center
           </h2>
           <p className="text-lg text-white/80 leading-relaxed mb-10">
-            Manage workforce, track SLAs, ensure compliance, and drive operational excellence — all from one platform.
+            Manage workforce, track SLAs, ensure compliance, and drive operational excellence - all from one platform.
           </p>
 
           <div className="flex flex-col gap-4">
@@ -101,20 +99,17 @@ export function LoginPage() {
         </div>
       </motion.div>
 
-      {/* Right Panel — Form */}
+      {/* Right Panel - Form */}
       <motion.div
-        className="flex items-center justify-center p-12"
+        className="flex items-center justify-center p-6 sm:p-8 lg:p-12"
         initial={{ opacity: 0, x: 40 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6, delay: 0.1 }}
       >
         <div className="w-full max-w-[420px]">
           {/* Mobile logo */}
-          <div className="lg:hidden flex items-center gap-2 mb-8">
-            <div className="w-9 h-9 bg-primary-800 rounded-lg flex items-center justify-center text-white font-extrabold text-lg">
-              P
-            </div>
-            <span className="text-xl font-bold text-primary-800">Presenti</span>
+          <div className="mb-8 flex items-center lg:hidden">
+            <BrandLogo size="md" />
           </div>
 
           <h1 className="text-3xl font-semibold mb-2">Welcome back</h1>
@@ -143,10 +138,10 @@ export function LoginPage() {
           {/* SSO Buttons */}
           <div className="flex flex-col gap-3 mb-6">
             <button className="flex items-center justify-center gap-3 px-4 py-3 border border-neutral-200 rounded-lg bg-white text-sm font-medium hover:bg-neutral-50 hover:border-neutral-300 transition-all cursor-pointer">
-              <span>🔑</span> Sign in with SSO
+              <span className="text-xs font-semibold text-primary-800">SSO</span> Sign in with SSO
             </button>
             <button className="flex items-center justify-center gap-3 px-4 py-3 border border-neutral-200 rounded-lg bg-white text-sm font-medium hover:bg-neutral-50 hover:border-neutral-300 transition-all cursor-pointer">
-              <span>Ⓜ</span> Sign in with Microsoft
+              <span className="text-xs font-semibold text-primary-800">MS</span> Sign in with Microsoft
             </button>
           </div>
 

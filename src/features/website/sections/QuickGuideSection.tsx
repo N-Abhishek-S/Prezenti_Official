@@ -20,21 +20,21 @@ export function QuickGuideSection() {
   return (
     <motion.section
       id="quick-guide"
-      className="bg-white py-20"
+      className="bg-white py-14 sm:py-16 lg:py-20"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-80px' }}
       variants={stagger}
     >
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <motion.div variants={fadeUp} className="mb-12 grid gap-5 lg:grid-cols-[0.75fr_1fr] lg:items-end">
           <div>
             <Badge variant="primary" size="lg" className="mb-3">
               Quick Guide
             </Badge>
-            <h2 className="text-[30px] font-semibold">From Onboarding to Operational Excellence</h2>
+            <h2 className="text-2xl font-semibold sm:text-[30px]">From Onboarding to Operational Excellence</h2>
           </div>
-          <p className="max-w-2xl text-lg leading-relaxed text-neutral-500 lg:justify-self-end">
+          <p className="max-w-2xl text-base leading-relaxed text-neutral-500 sm:text-lg lg:justify-self-end">
             Typical onboarding takes 2-4 weeks depending on the number of locations and services.
           </p>
         </motion.div>
@@ -42,7 +42,7 @@ export function QuickGuideSection() {
         <motion.div variants={fadeUp} className="grid gap-8 lg:grid-cols-[1fr_380px]">
           <div className="relative grid gap-4 md:grid-cols-2">
             {quickGuideSteps.map((step, index) => (
-              <div key={step.title} className="rounded-[18px] border border-neutral-200 bg-canvas p-6">
+              <div key={step.title} className="rounded-[18px] border border-neutral-200 bg-canvas p-5 sm:p-6">
                 <div className="mb-6 flex h-10 w-10 items-center justify-center rounded-full bg-primary-800 text-sm font-bold text-white">
                   {index + 1}
                 </div>
@@ -52,7 +52,7 @@ export function QuickGuideSection() {
             ))}
           </div>
 
-          <div className="relative overflow-hidden rounded-[28px] bg-primary-900 p-8 text-white shadow-[0_30px_90px_rgba(10,42,34,0.18)]">
+          <div className="relative overflow-hidden rounded-[24px] bg-primary-900 p-5 text-white shadow-[0_30px_90px_rgba(10,42,34,0.18)] sm:rounded-[28px] sm:p-8">
             <div className="absolute right-[-22%] top-[-18%] h-52 w-52 rounded-full border border-white/10" />
             <div className="relative z-10">
               <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-white/10">
@@ -67,7 +67,7 @@ export function QuickGuideSection() {
                 type="button"
                 variant="outline"
                 size="lg"
-                className="border-white bg-white text-primary-800 hover:bg-neutral-100"
+                className="w-full border-white bg-white text-primary-800 hover:bg-neutral-100 sm:w-auto"
                 onClick={() => navigate('/app')}
               >
                 Open App

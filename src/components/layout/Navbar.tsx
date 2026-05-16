@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ArrowRight, Building2, ChevronDown, MapPin, Menu, Network, X } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { BrandLogo } from '../brand/BrandLogo';
 import { Button } from '../ui/Button';
 import { cn } from '../../lib/cn';
 import {
@@ -12,45 +13,9 @@ import {
 
 const sectionIds = publicSections.map((section) => section.id);
 
-function PrezentiLogo() {
-  return (
-    <svg
-      viewBox="0 0 220 96"
-      className="h-[50px] w-auto sm:h-[54px]"
-      aria-hidden="true"
-    >
-      <path
-        d="M75 28 102 52 127 30"
-        fill="none"
-        stroke="#0B9444"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="22"
-      />
-      <path
-        d="M119 40 161 8"
-        fill="none"
-        stroke="#B2C934"
-        strokeLinecap="round"
-        strokeWidth="22"
-      />
-      <text
-        x="18"
-        y="88"
-        fill="#030303"
-        fontFamily="Inter, Arial, sans-serif"
-        fontSize="44"
-        fontWeight="800"
-      >
-        prezenti
-      </text>
-    </svg>
-  );
-}
-
 function LocationPanel({ onNavigate }: { onNavigate: () => void }) {
   return (
-    <div className="w-[320px] rounded-[22px] border border-neutral-200 bg-white p-4 text-left shadow-[0_28px_80px_rgba(10,42,34,0.16)]">
+    <div className="w-[min(320px,calc(100vw-2rem))] rounded-[22px] border border-neutral-200 bg-white p-4 text-left shadow-[0_28px_80px_rgba(10,42,34,0.16)]">
       <div className="mb-4 flex items-start gap-3">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-50 text-primary-800">
           <MapPin size={19} />
@@ -147,14 +112,14 @@ export function Navbar() {
         scrolled && 'shadow-[0_12px_40px_rgba(10,42,34,0.08)]',
       )}
     >
-      <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between px-6">
+      <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between px-4 sm:px-6">
         <button
           type="button"
-          className="flex items-center no-underline"
+          className="flex min-w-0 items-center no-underline"
           onClick={() => goToSection('home')}
           aria-label="Go to home"
         >
-          <PrezentiLogo />
+          <BrandLogo size="nav" imageClassName="max-w-[136px] sm:max-w-none" />
         </button>
 
         <div className="hidden items-center gap-1 lg:flex">
@@ -228,7 +193,7 @@ export function Navbar() {
       </div>
 
       {mobileOpen && (
-        <div className="absolute left-0 right-0 top-[72px] flex flex-col gap-1 border-b border-neutral-200 bg-white p-4 shadow-lg lg:hidden">
+        <div className="absolute left-0 right-0 top-[72px] flex max-h-[calc(100svh-72px)] flex-col gap-1 overflow-y-auto border-b border-neutral-200 bg-white p-4 shadow-lg lg:hidden">
           {publicSections.map((section) => (
             <button
               key={section.id}

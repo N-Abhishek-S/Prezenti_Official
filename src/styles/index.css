@@ -76,9 +76,20 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-body { font-family: var(--font-sans); color: var(--color-neutral-900); background-color: var(--color-canvas); }
+body { margin: 0; font-family: var(--font-sans); color: var(--color-neutral-900); background-color: var(--color-canvas); }
+section[id] { scroll-margin-top: 88px; }
 ::selection { background-color: var(--color-primary-100); color: var(--color-primary-800); }
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--color-neutral-300); border-radius: 9999px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--color-neutral-400); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

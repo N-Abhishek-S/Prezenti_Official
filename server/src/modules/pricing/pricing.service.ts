@@ -10,6 +10,15 @@ import { UpdatePricingPlanDto } from './dto/update-pricing-plan.dto';
 import { UpdateServiceCategoryDto } from './dto/update-service-category.dto';
 import { AuditContext, PricingRepository } from './repositories/pricing.repository';
 
+type MappedPricingPlan = Prisma.PricingPlanGetPayload<Prisma.PricingPlanDefaultArgs> & {
+  category?: Prisma.ServiceCategoryGetPayload<Prisma.ServiceCategoryDefaultArgs> | null;
+  features?: Prisma.PricingPlanFeatureGetPayload<Prisma.PricingPlanFeatureDefaultArgs>[];
+};
+
+type MappedServiceCategory = Prisma.ServiceCategoryGetPayload<Prisma.ServiceCategoryDefaultArgs> & {
+  pricingPlans?: MappedPricingPlan[];
+};
+
 @Injectable()
 export class PricingService {
   constructor(private readonly repository: PricingRepository) {}
@@ -317,14 +326,14 @@ export class PricingService {
     };
   }
 
-  private mapCategory(category: any) {
+  private mapCategory(category: MappedServiceCategory) {
     return {
       ...category,
-      pricingPlans: category.pricingPlans?.map((plan: any) => this.mapPlan(plan)),
+      pricingPlans: category.pricingPlans?.map((plan) => this.mapPlan(plan)),
     };
   }
 
-  private mapPlan(plan: any) {
+  private mapPlan(plan: MappedPricingPlan) {
     return {
       ...plan,
       monthlyPrice: Number(plan.monthlyPrice),

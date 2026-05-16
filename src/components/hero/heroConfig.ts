@@ -1,82 +1,54 @@
 import { publicAsset } from '../../lib/publicAsset';
 
-export type HeroRoleAnimation = 'supervise' | 'clean' | 'serve' | 'welcome';
-
 export interface HeroRole {
   id: string;
   name: string;
-  title: string;
-  headline: string;
-  description: string;
-  imagePath: string;
-  modelPath: string;
-  animation: HeroRoleAnimation;
   accent: string;
 }
 
-/**
- * Strict role mapping — matches exact uploaded staff PNGs.
- * Order: Admin Manager (primary hero), then rotating secondaries.
- */
+export interface HeroVideoAsset {
+  id: string;
+  label: string;
+  sources: {
+    src: string;
+    type: string;
+  }[];
+  poster?: string;
+}
+
 export const heroRoles: HeroRole[] = [
-  {
-    id: 'admin',
-    name: 'Facility Supervision',
-    title: 'Admin / Facility Manager',
-    headline: 'On-site operational leadership',
-    description: 'Supervisory operations management with real-time oversight and quality control.',
-    imagePath: publicAsset('/hero/staff/admin-manager.png'),
-    modelPath: publicAsset('/hero/models/admin-manager.glb'),
-    animation: 'supervise',
-    accent: '#123F35',
-  },
-  {
-    id: 'housekeeping',
-    name: 'Housekeeping Excellence',
-    title: 'Housekeeping Staff',
-    headline: 'Professional cleaning support',
-    description: 'Trained cleaning teams delivering spotless facility maintenance every day.',
-    imagePath: publicAsset('/hero/staff/housekeeping.png'),
-    modelPath: publicAsset('/hero/models/housekeeping.glb'),
-    animation: 'clean',
-    accent: '#4F4F6F',
-  },
-  {
-    id: 'pantry',
-    name: 'Pantry Services',
-    title: 'Office Boy / Pantry Support',
-    headline: 'Hospitality support at your service',
-    description: 'Professional pantry and hospitality staff ensuring seamless office support.',
-    imagePath: publicAsset('/hero/staff/office-boy.png'),
-    modelPath: publicAsset('/hero/models/office-boy.glb'),
-    animation: 'serve',
-    accent: '#6B8E23',
-  },
-  {
-    id: 'reception',
-    name: 'Reception Teams',
-    title: 'Receptionist',
-    headline: 'Front desk customer interaction',
-    description: 'Professional front desk support creating exceptional first impressions.',
-    imagePath: publicAsset('/hero/staff/receptionist.png'),
-    modelPath: publicAsset('/hero/models/receptionist.glb'),
-    animation: 'welcome',
-    accent: '#148F89',
-  },
+  { id: 'facility-supervision', name: 'Facility Supervision', accent: '#123F35' },
+  { id: 'housekeeping', name: 'Housekeeping Excellence', accent: '#4F4F6F' },
+  { id: 'pantry', name: 'Pantry Services', accent: '#6B8E23' },
+  { id: 'reception', name: 'Reception Teams', accent: '#148F89' },
 ];
 
-export const heroTrustSignals = [
-  { label: 'Verified Staff', icon: 'shield' },
-  { label: '24/7 Support', icon: 'clock' },
-  { label: 'Trained Professionals', icon: 'badge' },
-  { label: 'Fast Deployment', icon: 'zap' },
-  { label: 'Managed Operations', icon: 'settings' },
-  { label: 'Professional Hospitality', icon: 'star' },
-] as const;
-
-export const heroStats = [
-  { value: '200+', label: 'Enterprise Clients', icon: 'building' },
-  { value: 'Verified', label: 'Staff Identity', icon: 'shield' },
-  { value: '98.4%', label: 'SLA Compliance', icon: 'chart' },
-  { value: '15K+', label: 'Staff Managed', icon: 'users' },
-] as const;
+export const heroMedia = {
+  primary: {
+    id: 'namaste-reception',
+    label: 'Receptionist doing Namaste gesture',
+    poster: publicAsset('/hero/staff/receptionist.png'),
+    sources: [
+      {
+        src: publicAsset('/hero/video/prezenti-namaste-reception.webm'),
+        type: 'video/webm',
+      },
+    ],
+  },
+  supporting: {
+    id: 'workforce-showcase',
+    label: 'Prezenti workforce actions',
+    poster: publicAsset('/hero/staff/office-boy.png'),
+    sources: [
+      {
+        src: publicAsset('/hero/video/prezenti-workforce-vertical.webm'),
+        type: 'video/webm',
+      },
+    ],
+  },
+  video3: null as HeroVideoAsset | null,
+} satisfies {
+  primary: HeroVideoAsset;
+  supporting: HeroVideoAsset;
+  video3: HeroVideoAsset | null;
+};

@@ -1,105 +1,232 @@
-import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { cn } from '../../lib/cn';
+import { useEffect, useState } from 'react';
+import { ArrowRight, Building2, ChevronDown, MapPin, Menu, Network, X } from 'lucide-react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '../ui/Button';
-import { Menu, X } from 'lucide-react';
+import { cn } from '../../lib/cn';
+import {
+  publicSections,
+  scrollToSection,
+  setPendingSection,
+  type PublicSectionId,
+} from '../../lib/sectionNavigation';
 
-const navLinks = [
-  { label: 'Platform', href: '/platform' },
-  { label: 'Services', href: '/services' },
-  { label: 'Industries', href: '/industries' },
-  { label: 'Compliance', href: '/compliance' },
-  { label: 'Case Studies', href: '/case-studies' },
-  { label: 'About', href: '/about' },
-  { label: 'Pricing', href: '/pricing' },
-];
+const brandLogo = null as string | null;
+const sectionIds = publicSections.map((section) => section.id);
+
+function LocationPanel({ onNavigate }: { onNavigate: () => void }) {
+  return (
+    <div className="w-[320px] rounded-[22px] border border-neutral-200 bg-white p-4 text-left shadow-[0_28px_80px_rgba(10,42,34,0.16)]">
+      <div className="mb-4 flex items-start gap-3">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-50 text-primary-800">
+          <MapPin size={19} />
+        </div>
+        <div>
+          <div className="text-sm font-semibold text-neutral-950">Pune availability</div>
+          <div className="mt-1 text-xs text-neutral-500">Regional Offices</div>
+        </div>
+      </div>
+
+      <div className="rounded-xl border border-primary-100 bg-primary-50 p-4">
+        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-primary-700">Service zone</div>
+        <div className="mt-2 text-sm font-semibold text-primary-900">Pune - Hinjewadi</div>
+      </div>
+
+      <div className="mt-3 flex items-start gap-3 rounded-xl border border-neutral-200 bg-canvas p-4">
+        <Network size={17} className="mt-0.5 shrink-0 text-teal-700" />
+        <div>
+          <div className="text-sm font-semibold text-neutral-900">Scalable future city architecture</div>
+          <p className="mt-1 text-xs leading-relaxed text-neutral-500">Multi-location management with site-level configurations, service mapping, and performance benchmarking.</p>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary-800 transition-colors hover:text-primary-600"
+        onClick={onNavigate}
+      >
+        View location section
+        <ArrowRight size={14} />
+      </button>
+    </div>
+  );
+}
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<PublicSectionId>('home');
+  const [locationPanelOpen, setLocationPanelOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
+    handleScroll();
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (location.pathname !== '/') {
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visible?.target.id && sectionIds.includes(visible.target.id as PublicSectionId)) {
+          setActiveSection(visible.target.id as PublicSectionId);
+        }
+      },
+      { rootMargin: '-30% 0px -55% 0px', threshold: [0.08, 0.2, 0.4, 0.6] },
+    );
+
+    sectionIds.forEach((id) => {
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, [location.pathname]);
+
+  const goToSection = (sectionId: PublicSectionId) => {
+    setMobileOpen(false);
+
+    if (location.pathname !== '/') {
+      setPendingSection(sectionId);
+      navigate('/');
+      return;
+    }
+
+    scrollToSection(sectionId);
+  };
+
   return (
     <nav
       className={cn(
-        'fixed top-0 left-0 right-0 h-[72px] flex items-center z-40 transition-all duration-300',
-        'bg-white/95 backdrop-blur-xl border-b border-neutral-200',
-        scrolled && 'shadow-md'
+        'fixed left-0 right-0 top-0 z-40 flex h-[72px] items-center transition-all duration-300',
+        'border-b border-neutral-200 bg-white/92 backdrop-blur-xl',
+        scrolled && 'shadow-[0_12px_40px_rgba(10,42,34,0.08)]',
       )}
     >
-      <div className="w-full max-w-[1440px] mx-auto px-6 flex items-center justify-between">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 no-underline">
-          <div className="w-9 h-9 bg-primary-800 rounded-lg flex items-center justify-center text-white font-extrabold text-lg">
-            P
-          </div>
-          <span className="text-[22px] font-bold text-primary-800 tracking-tight">Presenti</span>
-        </Link>
-
-        {/* Desktop Menu */}
-        <div className="hidden lg:flex items-center gap-1">
-          {navLinks.map(link => (
-            <Link
-              key={link.href}
-              to={link.href}
-              className={cn(
-                'px-3 py-2 text-sm font-medium rounded-md transition-all duration-150 no-underline',
-                location.pathname === link.href
-                  ? 'text-primary-800'
-                  : 'text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100'
-              )}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
-
-        {/* Desktop Actions */}
-        <div className="hidden lg:flex items-center gap-3">
-          <Link to="/login">
-            <Button variant="ghost" size="sm">Sign In</Button>
-          </Link>
-          <Link to="/contact">
-            <Button variant="primary" size="sm">Request Call</Button>
-          </Link>
-        </div>
-
-        {/* Mobile Toggle */}
+      <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between px-6">
         <button
-          className="lg:hidden p-2 rounded-md hover:bg-neutral-100"
-          onClick={() => setMobileOpen(!mobileOpen)}
+          type="button"
+          className="flex items-center gap-2 no-underline"
+          onClick={() => goToSection('home')}
+          aria-label="Go to home"
+        >
+          {brandLogo ? (
+            <img src={brandLogo} alt="Presenti" className="h-9 w-auto" />
+          ) : (
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-800 text-lg font-extrabold text-white">
+              P
+            </div>
+          )}
+          <span className="text-[22px] font-bold tracking-tight text-primary-800">Presenti</span>
+        </button>
+
+        <div className="hidden items-center gap-1 lg:flex">
+          {publicSections.map((section) => {
+            const isLocation = section.id === 'location';
+            const isActive = activeSection === section.id;
+
+            if (isLocation) {
+              return (
+                <div
+                  key={section.id}
+                  className="relative"
+                  onMouseEnter={() => setLocationPanelOpen(true)}
+                  onMouseLeave={() => setLocationPanelOpen(false)}
+                >
+                  <button
+                    type="button"
+                    className={cn(
+                      'inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-all duration-150',
+                      isActive ? 'text-primary-800' : 'text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900',
+                    )}
+                    onClick={() => {
+                      setLocationPanelOpen(true);
+                      goToSection('location');
+                    }}
+                  >
+                    {section.label}
+                    <ChevronDown size={14} className={cn('transition-transform duration-150', locationPanelOpen && 'rotate-180')} />
+                  </button>
+
+                  {locationPanelOpen && (
+                    <div className="absolute left-1/2 top-full pt-4 -translate-x-1/2">
+                      <LocationPanel onNavigate={() => goToSection('location')} />
+                    </div>
+                  )}
+                </div>
+              );
+            }
+
+            return (
+              <button
+                key={section.id}
+                type="button"
+                className={cn(
+                  'rounded-md px-3 py-2 text-sm font-medium transition-all duration-150',
+                  isActive ? 'text-primary-800' : 'text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900',
+                )}
+                onClick={() => goToSection(section.id)}
+              >
+                {section.label}
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="hidden items-center gap-3 lg:flex">
+          <Button type="button" variant="primary" size="sm" onClick={() => goToSection('contact')}>
+            Request Call
+          </Button>
+        </div>
+
+        <button
+          type="button"
+          className="rounded-md p-2 transition-colors hover:bg-neutral-100 lg:hidden"
+          onClick={() => setMobileOpen((open) => !open)}
+          aria-label={mobileOpen ? 'Close navigation' : 'Open navigation'}
+          aria-expanded={mobileOpen}
         >
           {mobileOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
 
-      {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="lg:hidden absolute top-[72px] left-0 right-0 bg-white border-b border-neutral-200 shadow-lg p-4 flex flex-col gap-1">
-          {navLinks.map(link => (
-            <Link
-              key={link.href}
-              to={link.href}
-              className="px-4 py-3 text-sm font-medium text-neutral-700 rounded-lg hover:bg-neutral-100 no-underline"
-              onClick={() => setMobileOpen(false)}
+        <div className="absolute left-0 right-0 top-[72px] flex flex-col gap-1 border-b border-neutral-200 bg-white p-4 shadow-lg lg:hidden">
+          {publicSections.map((section) => (
+            <button
+              key={section.id}
+              type="button"
+              className={cn(
+                'flex items-center justify-between rounded-lg px-4 py-3 text-left text-sm font-medium',
+                activeSection === section.id ? 'bg-primary-50 text-primary-800' : 'text-neutral-700 hover:bg-neutral-100',
+              )}
+              onClick={() => goToSection(section.id)}
             >
-              {link.label}
-            </Link>
+              {section.label}
+              {section.id === 'location' && <MapPin size={15} />}
+            </button>
           ))}
-          <div className="flex gap-3 mt-4 pt-4 border-t border-neutral-200">
-            <Link to="/login" className="flex-1">
-              <Button variant="outline" size="md" className="w-full">Sign In</Button>
-            </Link>
-            <Link to="/contact" className="flex-1">
-              <Button variant="primary" size="md" className="w-full">Request Demo</Button>
-            </Link>
+
+          <div className="mt-3 rounded-xl border border-primary-100 bg-primary-50 p-4">
+            <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-primary-900">
+              <Building2 size={16} />
+              Pune availability
+            </div>
+            <div className="text-xs text-neutral-600">Pune - Hinjewadi</div>
           </div>
+
+          <Button type="button" variant="primary" size="md" className="mt-3 w-full" onClick={() => goToSection('contact')}>
+            Request Call
+          </Button>
         </div>
       )}
     </nav>

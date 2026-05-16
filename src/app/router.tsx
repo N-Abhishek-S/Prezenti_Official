@@ -1,37 +1,17 @@
+import { Suspense } from 'react';
+import type { ReactNode } from 'react';
 import { Navigate, createHashRouter } from 'react-router-dom';
 import { PublicLayout } from '../components/layout/PublicLayout';
-import { AppShell } from '../components/layout/AppShell';
 import { RouteError } from '../components/errors/RouteError';
 import { ProtectedRoute } from '../features/auth/ProtectedRoute';
-
-// Website pages
 import { HomePage } from '../features/website/HomePage';
-import { PlatformPage } from '../features/website/PlatformPage';
-import { ServicesPage } from '../features/website/ServicesPage';
-import { IndustriesPage } from '../features/website/IndustriesPage';
-import { AboutPage } from '../features/website/AboutPage';
-import { PricingPage } from '../features/website/PricingPage';
-import { CompliancePage } from '../features/website/CompliancePage';
-import { CaseStudiesPage } from '../features/website/CaseStudiesPage';
-import { FaqPage } from '../features/website/FaqPage';
-import { ContactPage } from '../features/website/ContactPage';
-import { SecurityPage } from '../features/website/SecurityPage';
+import { ComingSoon } from '../components/layout/ComingSoon';
+import { RouteFallback } from '../components/layout/RouteFallback';
+import { SectionRedirect } from '../components/layout/SectionRedirect';
+import { AdminPricingPage, AppShell, DashboardPage, LoginPage } from './lazyRouteComponents';
 
-// Auth
-import { LoginPage } from '../features/auth/LoginPage';
-
-// Dashboard
-import { DashboardPage } from '../features/dashboard/DashboardPage';
-import { AdminPricingPage } from '../features/admin/AdminPricingPage';
-
-function ComingSoon({ title }: { title: string }) {
-  return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-6">
-      <div className="text-5xl mb-4">🚧</div>
-      <h1 className="text-2xl font-semibold mb-2">{title}</h1>
-      <p className="text-neutral-500 text-sm max-w-md">This module is under active development and will be available in the next release.</p>
-    </div>
-  );
+function withSuspense(element: ReactNode) {
+  return <Suspense fallback={<RouteFallback />}>{element}</Suspense>;
 }
 
 export const router = createHashRouter([
@@ -40,21 +20,26 @@ export const router = createHashRouter([
     errorElement: <RouteError />,
     children: [
       { path: '/', element: <HomePage /> },
-      { path: '/platform', element: <PlatformPage /> },
-      { path: '/services', element: <ServicesPage /> },
-      { path: '/industries', element: <IndustriesPage /> },
-      { path: '/about', element: <AboutPage /> },
-      { path: '/pricing', element: <PricingPage /> },
-      { path: '/compliance', element: <CompliancePage /> },
-      { path: '/case-studies', element: <CaseStudiesPage /> },
-      { path: '/faq', element: <FaqPage /> },
-      { path: '/contact', element: <ContactPage /> },
-      { path: '/security', element: <SecurityPage /> },
+      { path: '/platform', element: <SectionRedirect sectionId="quick-guide" /> },
+      { path: '/services', element: <SectionRedirect sectionId="services" /> },
+      { path: '/industries', element: <SectionRedirect sectionId="services" /> },
+      { path: '/about', element: <SectionRedirect sectionId="home" /> },
+      { path: '/pricing', element: <SectionRedirect sectionId="pricing" /> },
+      { path: '/compliance', element: <SectionRedirect sectionId="quick-guide" /> },
+      { path: '/case-studies', element: <SectionRedirect sectionId="home" /> },
+      { path: '/faq', element: <SectionRedirect sectionId="quick-guide" /> },
+      { path: '/contact', element: <SectionRedirect sectionId="contact" /> },
+      { path: '/security', element: <SectionRedirect sectionId="services" /> },
     ],
   },
-  { path: '/login', element: <LoginPage />, errorElement: <RouteError /> },
+  { path: '/app', element: <Navigate to="/login" replace />, errorElement: <RouteError /> },
+  { path: '/login', element: withSuspense(<LoginPage />), errorElement: <RouteError /> },
   {
-    element: <ProtectedRoute allowedRoles={['client', 'admin', 'executive', 'supervisor']}><AppShell /></ProtectedRoute>,
+    element: withSuspense(
+      <ProtectedRoute allowedRoles={['client', 'admin', 'executive', 'supervisor']}>
+        <AppShell />
+      </ProtectedRoute>,
+    ),
     errorElement: <RouteError />,
     children: [
       { path: '/dashboard', element: <DashboardPage /> },
@@ -72,7 +57,11 @@ export const router = createHashRouter([
     ],
   },
   {
-    element: <ProtectedRoute allowedRoles={['admin']}><AppShell /></ProtectedRoute>,
+    element: withSuspense(
+      <ProtectedRoute allowedRoles={['admin']}>
+        <AppShell />
+      </ProtectedRoute>,
+    ),
     errorElement: <RouteError />,
     children: [
       { path: '/admin', element: <AdminPricingPage /> },

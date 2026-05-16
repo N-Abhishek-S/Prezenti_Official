@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Edit3, Plus, Search, Trash2 } from 'lucide-react';
 import { useAppSelector } from '../../app/hooks';
 import { Badge } from '../../components/ui/Badge';
@@ -34,7 +34,7 @@ export function AdminPricingPage() {
   const [editingPlanId, setEditingPlanId] = useState<string | null>(null);
   const [status, setStatus] = useState<string | null>(null);
 
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     if (!token) return;
     const [categoryResponse, planResponse] = await Promise.all([
       apiGet<ServiceCategory[]>('/pricing/admin/categories?limit=100', token),
@@ -42,14 +42,14 @@ export function AdminPricingPage() {
     ]);
     setCategories(categoryResponse.data);
     setPlans(planResponse.data);
-    if (!planForm.categoryId && categoryResponse.data[0]) {
-      setPlanForm((current) => ({ ...current, categoryId: categoryResponse.data[0].id }));
+    if (categoryResponse.data[0]) {
+      setPlanForm((current) => (current.categoryId ? current : { ...current, categoryId: categoryResponse.data[0].id }));
     }
-  };
+  }, [token]);
 
   useEffect(() => {
     loadData().catch(() => setStatus('Could not load pricing data. Sign in with a valid admin API account.'));
-  }, [token]);
+  }, [loadData]);
 
   const filteredPlans = useMemo(() => {
     const needle = search.toLowerCase();

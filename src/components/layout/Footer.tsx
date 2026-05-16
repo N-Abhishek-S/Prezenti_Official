@@ -1,79 +1,119 @@
-import { Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { publicSections, scrollToSection, setPendingSection, type PublicSectionId } from '../../lib/sectionNavigation';
 
-const footerLinks = {
-  platform: [
-    { label: 'Overview', href: '/platform' },
-    { label: 'Dashboard', href: '/dashboard' },
-    { label: 'Compliance', href: '/compliance' },
-    { label: 'Security', href: '/security' },
-  ],
-  services: [
-    { label: 'Housekeeping', href: '/services' },
-    { label: 'Security', href: '/services' },
-    { label: 'Maintenance', href: '/services' },
-    { label: 'AMC', href: '/services' },
-  ],
-  company: [
-    { label: 'About Us', href: '/about' },
-    { label: 'Case Studies', href: '/case-studies' },
-    { label: 'FAQ', href: '/faq' },
-    { label: 'Contact', href: '/contact' },
-  ],
-  legal: [
-    { label: 'Privacy Policy', href: '#' },
-    { label: 'Terms of Service', href: '#' },
-    { label: 'Data Processing', href: '#' },
-    { label: 'Cookie Policy', href: '#' },
-  ],
-};
+const brandLogo = null as string | null;
+
+const serviceLinks: PublicSectionId[] = ['services', 'pricing', 'quick-guide', 'location'];
 
 export function Footer() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const goToSection = (sectionId: PublicSectionId) => {
+    if (location.pathname !== '/') {
+      setPendingSection(sectionId);
+      navigate('/');
+      return;
+    }
+
+    scrollToSection(sectionId);
+  };
+
   return (
-    <footer className="bg-neutral-900 text-white/70 pt-16 pb-8">
-      <div className="max-w-[1280px] mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
-          {/* Brand */}
-          <div className="lg:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-7 h-7 bg-primary-800 rounded-lg flex items-center justify-center text-white font-extrabold text-sm">
-                P
-              </div>
+    <footer className="bg-neutral-900 pt-16 pb-8 text-white/70">
+      <div className="mx-auto max-w-[1280px] px-6">
+        <div className="mb-12 grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <button
+              type="button"
+              className="mb-4 flex items-center gap-2"
+              onClick={() => goToSection('home')}
+              aria-label="Go to home"
+            >
+              {brandLogo ? (
+                <img src={brandLogo} alt="Presenti" className="h-8 w-auto" />
+              ) : (
+                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary-800 text-sm font-extrabold text-white">
+                  P
+                </div>
+              )}
               <span className="text-lg font-bold text-white">Presenti</span>
-            </div>
-            <p className="text-sm leading-relaxed max-w-[300px]">
+            </button>
+            <p className="max-w-[300px] text-sm leading-relaxed">
               Enterprise-grade facility management platform powering operations, compliance, and workforce management.
             </p>
           </div>
 
-          {/* Links */}
-          {Object.entries(footerLinks).map(([title, links]) => (
-            <div key={title}>
-              <h4 className="text-white text-sm font-semibold uppercase tracking-wider mb-4">
-                {title}
-              </h4>
-              <ul className="flex flex-col gap-2">
-                {links.map(link => (
-                  <li key={link.label}>
-                    <Link
-                      to={link.href}
-                      className="text-sm text-white/60 hover:text-white transition-colors duration-150 no-underline"
+          <div>
+            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">Platform</h4>
+            <ul className="flex flex-col gap-2">
+              {publicSections.map((section) => (
+                <li key={section.id}>
+                  <button
+                    type="button"
+                    className="text-sm text-white/60 transition-colors duration-150 hover:text-white"
+                    onClick={() => goToSection(section.id)}
+                  >
+                    {section.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">Services</h4>
+            <ul className="flex flex-col gap-2">
+              {serviceLinks.map((sectionId) => {
+                const section = publicSections.find((item) => item.id === sectionId);
+                if (!section) return null;
+
+                return (
+                  <li key={sectionId}>
+                    <button
+                      type="button"
+                      className="text-sm text-white/60 transition-colors duration-150 hover:text-white"
+                      onClick={() => goToSection(sectionId)}
                     >
-                      {link.label}
-                    </Link>
+                      {section.label}
+                    </button>
                   </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+                );
+              })}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">Company</h4>
+            <ul className="flex flex-col gap-2">
+              <li>
+                <button
+                  type="button"
+                  className="text-sm text-white/60 transition-colors duration-150 hover:text-white"
+                  onClick={() => goToSection('contact')}
+                >
+                  Contact
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  className="text-sm text-white/60 transition-colors duration-150 hover:text-white"
+                  onClick={() => navigate('/login')}
+                >
+                  Open App
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        {/* Bottom */}
-        <div className="pt-8 border-t border-white/10 flex items-center justify-between text-sm">
-          <div>© 2026 Presenti. All rights reserved.</div>
+        <div className="flex items-center justify-between border-t border-white/10 pt-8 text-sm">
+          <div>&copy; 2026 Presenti. All rights reserved.</div>
           <div className="flex gap-4">
-            <a href="#" className="text-white/50 hover:text-white transition-colors text-lg no-underline">in</a>
-            <a href="#" className="text-white/50 hover:text-white transition-colors text-lg no-underline">𝕏</a>
-            <a href="#" className="text-white/50 hover:text-white transition-colors text-lg no-underline">📧</a>
+            <a href="#" className="text-lg text-white/50 no-underline transition-colors hover:text-white">in</a>
+            <a href="#" className="text-lg text-white/50 no-underline transition-colors hover:text-white">x</a>
+            <a href="mailto:enterprise@presenti.in" className="text-lg text-white/50 no-underline transition-colors hover:text-white">@</a>
           </div>
         </div>
       </div>

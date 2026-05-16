@@ -1,4 +1,3 @@
-import { Mail } from 'lucide-react';
 import { publicAsset } from '../../lib/publicAsset';
 
 export interface HeroRole {

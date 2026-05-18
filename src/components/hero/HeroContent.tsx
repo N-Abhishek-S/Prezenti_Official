@@ -146,7 +146,7 @@ export function HeroContent({ roles }: HeroContentProps) {
           variant="primary"
           size="xl"
           className="group shadow-[0_16px_36px_rgba(18,63,53,0.22)]"
-          onClick={() => scrollToSection('contact')}
+          onClick={() => navigate('/talk-to-us')}
         >
           Let us understand your requirement
           <ArrowRight size={18} className="transition-transform duration-200 group-hover:translate-x-0.5" />

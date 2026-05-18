@@ -188,7 +188,6 @@ export const comparisonItems = [
 
 export const comparisonMedia = {
   src: publicAsset('/comparison/prezenti-web-video.mp4'),
-  poster: publicAsset('/comparison/prezenti-web-video-poster.png'),
 } as const;
 
 export const impactMetrics = [

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { BrandLogo } from '../../components/brand/BrandLogo';
 import { Button } from '../../components/ui/Button';
@@ -186,9 +186,9 @@ export function LoginPage() {
 
           <p className="text-center text-sm text-neutral-500 mt-6">
             Don't have an account?{' '}
-            <a href="/contact" className="text-primary-600 font-medium hover:text-primary-800">
+            <Link to="/talk-to-us" className="text-primary-600 font-medium hover:text-primary-800">
               Request access
-            </a>
+            </Link>
           </p>
         </div>
       </motion.div>

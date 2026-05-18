@@ -55,7 +55,6 @@ export function ComparisonSection() {
               loop
               playsInline
               preload="metadata"
-              poster={comparisonMedia.poster}
               aria-label="Prezenti workforce app visual"
             >
               <source src={comparisonMedia.src} type="video/mp4" />

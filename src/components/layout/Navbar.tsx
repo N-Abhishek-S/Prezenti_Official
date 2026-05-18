@@ -104,6 +104,11 @@ export function Navbar() {
     scrollToSection(sectionId);
   };
 
+  const goToTalkPage = () => {
+    setMobileOpen(false);
+    navigate('/talk-to-us');
+  };
+
   return (
     <nav
       className={cn(
@@ -176,8 +181,8 @@ export function Navbar() {
         </div>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <Button type="button" variant="primary" size="sm" onClick={() => goToSection('contact')}>
-            Request Call
+          <Button type="button" variant="primary" size="sm" onClick={goToTalkPage}>
+            Let's Talk
           </Button>
         </div>
 
@@ -217,8 +222,8 @@ export function Navbar() {
             <div className="text-xs text-neutral-600">Pune - Hinjewadi</div>
           </div>
 
-          <Button type="button" variant="primary" size="md" className="mt-3 w-full" onClick={() => goToSection('contact')}>
-            Request Call
+          <Button type="button" variant="primary" size="md" className="mt-3 w-full" onClick={goToTalkPage}>
+            Let's Talk
           </Button>
         </div>
       )}

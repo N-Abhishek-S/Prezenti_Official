@@ -8,7 +8,7 @@ import { HomePage } from '../features/website/HomePage';
 import { ComingSoon } from '../components/layout/ComingSoon';
 import { RouteFallback } from '../components/layout/RouteFallback';
 import { SectionRedirect } from '../components/layout/SectionRedirect';
-import { AdminPricingPage, AppShell, DashboardPage, LoginPage } from './lazyRouteComponents';
+import { AdminPricingPage, AppShell, DashboardPage, LoginPage, LiveSupport, TalkToUs } from './lazyRouteComponents';
 
 function withSuspense(element: ReactNode) {
   return <Suspense fallback={<RouteFallback />}>{element}</Suspense>;
@@ -25,6 +25,8 @@ export const router = createHashRouter([
       { path: '/industries', element: <SectionRedirect sectionId="services" /> },
       { path: '/about', element: <SectionRedirect sectionId="home" /> },
       { path: '/pricing', element: <SectionRedirect sectionId="pricing" /> },
+      { path: '/talk-to-us', element: withSuspense(<TalkToUs />) },
+      { path: '/live-support', element: withSuspense(<LiveSupport />) },
       { path: '/compliance', element: <SectionRedirect sectionId="quick-guide" /> },
       { path: '/case-studies', element: <SectionRedirect sectionId="home" /> },
       { path: '/faq', element: <SectionRedirect sectionId="quick-guide" /> },

@@ -19,7 +19,6 @@ export interface HeroVideoAsset {
 export const heroRoles: HeroRole[] = [
   { id: 'facility-supervision', name: 'Facility Supervisor', accent: '#123F35' },
   { id: 'housekeeping', name: 'Housekeeping ', accent: '#4F4F6F' },
-  { id: 'pantry', name: 'Pantry Services', accent: '#6B8E23' },
   { id: 'reception', name: 'Office Assistant ', accent: '#148F89' },
 
 ];

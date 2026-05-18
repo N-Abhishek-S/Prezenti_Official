@@ -85,7 +85,7 @@ export const PricingCard = memo(function PricingCard({ plan }: PricingCardProps)
           <ArrowRight className="h-4 w-4" aria-hidden="true" />
         </Link>
         <Link
-          to="/contact"
+          to="/talk-to-us"
           className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[#D8E5DE] bg-white px-5 text-sm font-bold text-[#0D1F1A] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#0F5C4D]/40 hover:bg-[#F7FAF8]"
         >
           <PhoneCall className="h-4 w-4 text-[#0F5C4D]" aria-hidden="true" />

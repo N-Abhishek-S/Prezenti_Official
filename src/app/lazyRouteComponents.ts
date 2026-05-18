@@ -4,3 +4,5 @@ export const LoginPage = lazy(() => import('../features/auth/LoginPage').then((m
 export const AppShell = lazy(() => import('../components/layout/AppShell').then((module) => ({ default: module.AppShell })));
 export const DashboardPage = lazy(() => import('../features/dashboard/DashboardPage').then((module) => ({ default: module.DashboardPage })));
 export const AdminPricingPage = lazy(() => import('../features/admin/AdminPricingPage').then((module) => ({ default: module.AdminPricingPage })));
+export const TalkToUs = lazy(() => import('../pages/TalkToUs').then((module) => ({ default: module.TalkToUs })));
+export const LiveSupport = lazy(() => import('../pages/LiveSupport').then((module) => ({ default: module.LiveSupport })));

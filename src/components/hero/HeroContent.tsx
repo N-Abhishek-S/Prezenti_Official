@@ -105,14 +105,87 @@ export function HeroContent({ roles }: HeroContentProps) {
         3000+ Trained Professionals Already on Duty - Let's Connect
       </motion.div>
 
-      <motion.h1
-        id="ps-project-hero-title"
-        variants={entrance}
-        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-        className="text-[45px] font-extrabold leading-[0.98] text-neutral-950 sm:text-[56px] lg:text-[68px]"
-      >
-        Trained support staff - just a click away
-      </motion.h1>
+ <motion.h1
+  id="ps-project-hero-title"
+  className="font-extrabold leading-[0.95] tracking-[-0.03em]"
+>
+  {/* First Line */}
+  <motion.span
+    initial={{
+      opacity: 0,
+      y: 30,
+      filter: 'blur(8px)',
+    }}
+    animate={{
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+    }}
+    transition={{
+      duration: 0.9,
+      ease: [0.16, 1, 0.3, 1],
+    }}
+    className="
+      block
+      whitespace-nowrap
+      text-[1.8rem]
+      sm:text-[2.6rem]
+      md:text-[3.2rem]
+      lg:text-[3.8rem]
+      text-neutral-950
+    "
+  >
+    Trained support staff -
+  </motion.span>
+
+  {/* Second Line with continuous animation */}
+  <motion.span
+    initial={{
+      opacity: 0,
+      y: 30,
+      filter: 'blur(8px)',
+    }}
+    animate={{
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+    }}
+    transition={{
+      duration: 0.9,
+      delay: 0.2,
+      ease: [0.16, 1, 0.3, 1],
+    }}
+    className="
+      block
+      text-[1.9rem]
+      sm:text-[2.7rem]
+      md:text-[3.3rem]
+      lg:text-[3.9rem]
+      font-extrabold
+    "
+  >
+    <motion.span
+      animate={{
+        backgroundPosition: ['200% center', '-200% center'],
+      }}
+      transition={{
+        duration: 4,
+        repeat: Infinity,
+        ease: 'linear',
+      }}
+      className="
+        inline-block
+        text-transparent
+        bg-clip-text
+        bg-[linear-gradient(90deg,#0a0a0a_0%,#0a0a0a_30%,#16a34a_45%,#22c55e_50%,#16a34a_55%,#0a0a0a_70%,#0a0a0a_100%)]
+        bg-[length:300%_100%]
+        will-change-[background-position]
+      "
+    >
+      just a click away
+    </motion.span>
+  </motion.span>
+</motion.h1>
 
       <motion.div
         variants={entrance}

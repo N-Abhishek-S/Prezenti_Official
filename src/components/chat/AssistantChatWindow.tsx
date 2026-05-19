@@ -46,7 +46,7 @@ export function AssistantChatWindow() {
     <section
       id="staffing-chat"
       aria-labelledby="staffing-chat-heading"
-      className="flex h-[calc(100svh-104px)] min-h-[620px] w-full flex-col overflow-hidden rounded-[28px] border border-neutral-200 bg-white shadow-[0_30px_100px_rgba(10,42,34,0.13)] sm:h-[720px]"
+      className="flex h-[calc(100svh-104px)] min-h-155 w-full flex-col overflow-hidden rounded-[28px] border border-neutral-200 bg-white shadow-[0_30px_100px_rgba(10,42,34,0.13)] sm:h-180"
     >
       <header className="border-b border-neutral-100 bg-white/95 px-4 py-4 backdrop-blur sm:px-5">
         <div className="flex items-center justify-between gap-4">

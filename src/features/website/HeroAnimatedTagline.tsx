@@ -83,7 +83,7 @@ export function HeroAnimatedTagline({
       </span>
       <span
         className={cn(
-          'relative mt-2 inline-grid max-w-full overflow-hidden pb-3 pr-1 align-top leading-[1.04] [perspective:900px]',
+          'relative mt-2 inline-grid max-w-full overflow-hidden pb-3 pr-1 align-top leading-[1.04] perspective-[900px]',
           dynamicClassName,
         )}
         aria-hidden="true"
@@ -96,7 +96,7 @@ export function HeroAnimatedTagline({
             key={activeWord}
             data-hero-tagline-word
             className={cn(
-              'col-start-1 row-start-1 block whitespace-normal will-change-transform [backface-visibility:hidden] sm:whitespace-nowrap',
+              'col-start-1 row-start-1 block whitespace-normal will-change-transform backface-hidden sm:whitespace-nowrap',
               'text-primary-800',
               wordClassName,
             )}
@@ -106,11 +106,11 @@ export function HeroAnimatedTagline({
             {activeWord}
           </motion.span>
         </AnimatePresence>
-        <span className="pointer-events-none absolute bottom-0 left-0 h-[3px] w-full rounded-full bg-primary-100/80" />
+        <span className="pointer-events-none absolute bottom-0 left-0 h-0.75 w-full rounded-full bg-primary-100/80" />
         <motion.span
           key={`${activeWord}-accent`}
           data-hero-tagline-accent
-          className="pointer-events-none absolute bottom-0 left-0 h-[3px] w-full rounded-full bg-linear-to-r from-primary-500 via-teal-400 to-info-500 shadow-[0_0_18px_rgba(32,178,170,0.28)]"
+          className="pointer-events-none absolute bottom-0 left-0 h-0.75 w-full rounded-full bg-linear-to-r from-primary-500 via-teal-400 to-info-500 shadow-[0_0_18px_rgba(32,178,170,0.28)]"
           initial={isReducedMotion ? false : { opacity: 0.72, scaleX: 0.22 }}
           animate={{ opacity: 1, scaleX: 1 }}
           transition={{ duration: isReducedMotion ? 0 : 1.15, ease: [0.16, 1, 0.3, 1] }}

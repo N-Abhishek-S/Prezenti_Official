@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Bot, CheckCircle2, WifiOff } from 'lucide-react';
 import { useChat } from '../../hooks/useChat';
 import { cn } from '../../lib/cn';
@@ -9,6 +9,7 @@ import { QuickPrompts } from './QuickPrompts';
 export function AssistantChatWindow() {
   const chat = useChat();
   const [draft, setDraft] = useState('');
+  const initialPromptConsumed = useRef(false);
 
   useEffect(() => {
     window.addEventListener('online', chat.handleOnline);
@@ -19,6 +20,17 @@ export function AssistantChatWindow() {
       window.removeEventListener('offline', chat.handleOffline);
     };
   }, [chat.handleOffline, chat.handleOnline]);
+
+  useEffect(() => {
+    if (initialPromptConsumed.current) return;
+
+    const initialPrompt = window.sessionStorage.getItem('presenti.chat.initialPrompt');
+    if (!initialPrompt) return;
+
+    initialPromptConsumed.current = true;
+    window.sessionStorage.removeItem('presenti.chat.initialPrompt');
+    void chat.sendMessage(initialPrompt, { bypassDuplicateCheck: true });
+  }, [chat]);
 
   const isOffline = chat.connectionStatus === 'offline';
 

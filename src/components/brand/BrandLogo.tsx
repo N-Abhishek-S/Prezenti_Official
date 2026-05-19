@@ -15,9 +15,9 @@ interface BrandLogoProps {
 }
 
 const logoSources: Record<BrandLogoVariant, string> = {
-  horizontal: publicAsset('/brand/prezenti-horizontal-logo.png'),
+  horizontal: publicAsset('/brand/prezenti-logo.png'),
   stacked: publicAsset('/brand/prezenti-logo.png'),
-  mark: publicAsset('/brand/prezenti-mark.png'),
+  mark: publicAsset('/brand/prezenti-logo.png'),
 };
 
 const sizeClasses: Record<BrandLogoVariant, Record<BrandLogoSize, string>> = {

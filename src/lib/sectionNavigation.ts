@@ -3,9 +3,8 @@ export const PENDING_SECTION_KEY = 'presenti.pendingSection';
 export const publicSections = [
   { id: 'home', label: 'Home' },
   { id: 'services', label: 'Services' },
-  { id: 'pricing', label: 'Pricing' },
   { id: 'quick-guide', label: 'Quick Guide' },
-  { id: 'location', label: 'Location' },
+  { id: 'location', label: 'Cities' },
   { id: 'contact', label: 'Contact' },
 ] as const;
 

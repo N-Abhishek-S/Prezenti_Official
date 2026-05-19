@@ -18,8 +18,16 @@ export default defineConfig({
   },
 
   server: {
-    port: 3000,
-    open: true,
+    host: '127.0.0.1',
+    port: 5173,
+    strictPort: true,
+    open: false,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+      },
+    },
   },
 
   build: {

@@ -1,9 +1,7 @@
 import type { ChatApiErrorCode, ChatWebhookRawResponse, ChatWebhookRequest, ChatWebhookResponse } from '../types/chat';
 
-const CHAT_WEBHOOK_URL =
-  import.meta.env.VITE_PS_CHAT_WEBHOOK_URL ||
-  import.meta.env.VITE_CHAT_WEBHOOK_URL ||
-  'http://localhost:5678/webhook/ps-whatsapp';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL?.replace(/\/+$/, '') ?? '/api/v1';
+const CHAT_API_URL = `${API_BASE_URL}/chat/message`;
 const DEFAULT_TIMEOUT_MS = 20000;
 const CHAT_SESSION_STORAGE_KEY = 'presenti-chat-session-id';
 
@@ -67,10 +65,10 @@ function extractReply(value: unknown): string | null {
 }
 
 export async function sendStaffingChatMessage(
-  message: string,
+  request: ChatWebhookRequest,
   options: SendChatMessageOptions = {},
 ): Promise<ChatWebhookResponse> {
-  const trimmedMessage = message.trim();
+  const trimmedMessage = request.message?.trim() ?? '';
 
   if (!trimmedMessage) {
     throw new ChatApiError('Message is required.', 'invalid-response');
@@ -88,13 +86,15 @@ export async function sendStaffingChatMessage(
 
   const payload: ChatWebhookRequest = {
     message: trimmedMessage,
-    chatInput: trimmedMessage,
-    sessionId: getChatSessionId(),
-    source: 'presenti-web',
+    service: request.service?.trim() || undefined,
+    location: request.location?.trim() || undefined,
+    propertyType: request.propertyType?.trim() || undefined,
+    workType: request.workType?.trim() || undefined,
+    sessionId: request.sessionId?.trim() || getChatSessionId(),
   };
 
   try {
-    const response = await fetch(CHAT_WEBHOOK_URL, {
+    const response = await fetch(CHAT_API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -127,7 +127,10 @@ export async function sendStaffingChatMessage(
       throw new ChatApiError('Chat service returned an invalid response.', 'invalid-response');
     }
 
-    return { reply };
+    return {
+      success: true,
+      reply,
+    };
   } catch (error) {
     if (error instanceof ChatApiError) {
       throw error;

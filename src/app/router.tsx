@@ -8,7 +8,7 @@ import { HomePage } from '../features/website/HomePage';
 import { ComingSoon } from '../components/layout/ComingSoon';
 import { RouteFallback } from '../components/layout/RouteFallback';
 import { SectionRedirect } from '../components/layout/SectionRedirect';
-import { AdminPricingPage, AppShell, DashboardPage, LoginPage, LiveSupport, TalkToUs } from './lazyRouteComponents';
+import { AdminOperationsPage, AppShell, DashboardPage, LoginPage, LiveSupport, TalkToUs } from './lazyRouteComponents';
 
 function withSuspense(element: ReactNode) {
   return <Suspense fallback={<RouteFallback />}>{element}</Suspense>;
@@ -24,7 +24,7 @@ export const router = createHashRouter([
       { path: '/services', element: <SectionRedirect sectionId="services" /> },
       { path: '/industries', element: <SectionRedirect sectionId="services" /> },
       { path: '/about', element: <SectionRedirect sectionId="home" /> },
-      { path: '/pricing', element: <SectionRedirect sectionId="pricing" /> },
+      { path: '/pricing', element: <SectionRedirect sectionId="services" /> },
       { path: '/talk-to-us', element: withSuspense(<TalkToUs />) },
       { path: '/live-support', element: withSuspense(<LiveSupport />) },
       { path: '/compliance', element: <SectionRedirect sectionId="quick-guide" /> },
@@ -66,8 +66,11 @@ export const router = createHashRouter([
     ),
     errorElement: <RouteError />,
     children: [
-      { path: '/admin', element: <AdminPricingPage /> },
-      { path: '/admin/pricing', element: <AdminPricingPage /> },
+      { path: '/admin', element: <AdminOperationsPage /> },
+      { path: '/admin/services', element: <AdminOperationsPage /> },
+      { path: '/admin/packages', element: <AdminOperationsPage /> },
+      { path: '/admin/cities', element: <AdminOperationsPage /> },
+      { path: '/admin/leads', element: <AdminOperationsPage /> },
       { path: '/admin/crm', element: <ComingSoon title="CRM Pipeline" /> },
       { path: '/admin/workforce', element: <ComingSoon title="Workforce" /> },
       { path: '/admin/billing', element: <ComingSoon title="Billing Engine" /> },

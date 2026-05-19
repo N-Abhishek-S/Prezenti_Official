@@ -25,7 +25,7 @@ export function LoginPage() {
 
     if (!email || !password) {
       dispatch(loginAsRole(selectedRole));
-      navigate(selectedRole === 'admin' ? '/admin/pricing' : '/dashboard');
+      navigate(selectedRole === 'admin' ? '/admin' : '/dashboard');
       return;
     }
 
@@ -47,7 +47,7 @@ export function LoginPage() {
           organization: 'Presenti',
         },
       }));
-      navigate(primaryRole === 'admin' ? '/admin/pricing' : '/dashboard');
+      navigate(primaryRole === 'admin' ? '/admin' : '/dashboard');
     } catch {
       setError('Unable to sign in with those credentials.');
     } finally {

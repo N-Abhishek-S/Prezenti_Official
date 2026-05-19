@@ -340,7 +340,11 @@ export function useChat() {
       }
 
       try {
-        const response = await sendStaffingChatMessage(messageText);
+        const response = await sendStaffingChatMessage({
+          message: messageText,
+          service: activeConversation.customer.staffingCategory,
+          location: activeConversation.customer.location,
+        });
         const assistantMessage = createMessage(conversationId, 'assistant', response.reply, 'delivered');
 
         if (userMessage) {

@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { BrandLogo } from '../brand/BrandLogo';
 import { publicSections, scrollToSection, setPendingSection, type PublicSectionId } from '../../lib/sectionNavigation';
 
-const serviceLinks: PublicSectionId[] = ['services', 'pricing', 'quick-guide', 'location'];
+const serviceLinks: PublicSectionId[] = ['services', 'quick-guide', 'location'];
 
 export function Footer() {
   const location = useLocation();
@@ -105,7 +105,7 @@ export function Footer() {
           <div className="flex gap-4">
             <a href="#" className="text-lg text-white/50 no-underline transition-colors hover:text-white">in</a>
             <a href="#" className="text-lg text-white/50 no-underline transition-colors hover:text-white">x</a>
-            <a href="mailto:enterprise@presenti.in" className="text-lg text-white/50 no-underline transition-colors hover:text-white">@</a>
+            <a href="mailto:bd@kargar.co.in" className="text-lg text-white/50 no-underline transition-colors hover:text-white">@</a>
           </div>
         </div>
       </div>

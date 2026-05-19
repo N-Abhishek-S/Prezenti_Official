@@ -6,7 +6,7 @@ import { ContactSection } from './sections/ContactSection';
 import { ImpactSection } from './sections/ImpactSection';
 import { LocationSection } from './sections/LocationSection';
 import { QuickGuideSection } from './sections/QuickGuideSection';
-import { ServicesPricingSection } from './sections/ServicesPricingSection';
+import { ServiceConfiguratorSection } from './sections/ServiceConfiguratorSection';
 
 export function HomePage() {
   useEffect(() => {
@@ -21,7 +21,7 @@ export function HomePage() {
     <div className="overflow-hidden">
       <HeroSection />
       <ComparisonSection />
-      <ServicesPricingSection />
+      <ServiceConfiguratorSection />
       <ImpactSection />
       <QuickGuideSection />
       <LocationSection />

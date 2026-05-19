@@ -1,9 +1,9 @@
-import { useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import { motion } from 'framer-motion';
 import { Clock, Mail, MapPin, Phone } from 'lucide-react';
 import { Badge } from '../../../components/ui/Badge';
 import { Button } from '../../../components/ui/Button';
-import { contactDetails } from '../websiteData';
+import { useCatalogData } from '../../../hooks/useCatalogData';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -24,6 +24,7 @@ const initialFormData = {
 };
 
 export function ContactSection() {
+  const { contactDetails } = useCatalogData();
   const [formData, setFormData] = useState(initialFormData);
   const [status, setStatus] = useState('');
 
@@ -36,6 +37,26 @@ export function ContactSection() {
     setStatus('Thank you! Our team will reach out within 24 hours.');
     setFormData(initialFormData);
   };
+
+  useEffect(() => {
+    const applyAutoMessage = (autoMessage: string) => {
+      setFormData((current) => ({ ...current, message: autoMessage }));
+    };
+
+    const storedAutoMessage = window.sessionStorage.getItem('presenti.lead.autoMessage');
+    if (storedAutoMessage) {
+      window.sessionStorage.removeItem('presenti.lead.autoMessage');
+      applyAutoMessage(storedAutoMessage);
+    }
+
+    const handleLeadMessage = (event: Event) => {
+      const autoMessage = (event as CustomEvent<string>).detail;
+      if (autoMessage) applyAutoMessage(autoMessage);
+    };
+
+    window.addEventListener('presenti:lead-message', handleLeadMessage);
+    return () => window.removeEventListener('presenti:lead-message', handleLeadMessage);
+  }, []);
 
   return (
     <motion.section
@@ -141,19 +162,19 @@ export function ContactSection() {
               <div className="space-y-3 text-sm text-neutral-600">
                 <div className="flex gap-3">
                   <MapPin size={16} className="mt-0.5 shrink-0 text-primary-600" />
-                  <span>{contactDetails.office.split('\n').map((line) => <span key={line} className="block">{line}</span>)}</span>
+                  <span>{(contactDetails?.officeAddress ?? '').split('\n').map((line) => <span key={line} className="block">{line}</span>)}</span>
                 </div>
                 <div className="flex gap-3">
                   <Phone size={16} className="shrink-0 text-primary-600" />
-                  <span>{contactDetails.phone}</span>
+                  <span>{contactDetails?.phones.join(' / ')}</span>
                 </div>
                 <div className="flex gap-3">
                   <Mail size={16} className="shrink-0 text-primary-600" />
-                  <span>{contactDetails.email}</span>
+                  <span>{contactDetails?.emails.join(' / ')}</span>
                 </div>
                 <div className="flex gap-3">
                   <Clock size={16} className="shrink-0 text-primary-600" />
-                  <span>{contactDetails.hours}</span>
+                  <span>Mon-Sat: 9 AM - 6 PM IST</span>
                 </div>
               </div>
             </div>
@@ -161,7 +182,7 @@ export function ContactSection() {
             <div className="rounded-[20px] border border-primary-100 bg-primary-50 p-6">
               <h3 className="mb-2 font-semibold">Enterprise Support</h3>
               <p className="mb-2 text-sm text-neutral-600">24/7 support for Enterprise clients.</p>
-              <p className="text-sm font-semibold text-primary-800">{contactDetails.support}</p>
+              <p className="text-sm font-semibold text-primary-800">{contactDetails?.supportText}</p>
             </div>
           </div>
         </motion.div>

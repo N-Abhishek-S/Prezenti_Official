@@ -58,17 +58,17 @@ export function HeroMedia() {
     >
       <div className="absolute inset-x-[8%] bottom-8 h-20 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(15,23,42,0.16)_0%,rgba(15,23,42,0.07)_42%,rgba(15,23,42,0)_72%)]" />
 
-      <div className="absolute inset-y-4 right-0 w-[86%] overflow-hidden rounded-l-[30px] bg-neutral-950 shadow-[0_34px_100px_rgba(15,23,42,0.2)] sm:inset-y-8 sm:w-[78%] sm:rounded-l-[44px] lg:w-[86%]">
+      <div className="absolute inset-y-5 right-0 w-[88%] overflow-hidden rounded-4xl bg-neutral-950 shadow-[0_34px_100px_rgba(15,23,42,0.2)] ring-1 ring-white/70 sm:inset-y-8 sm:w-[80%] sm:rounded-[36px] lg:w-[86%]">
         <HeroVideo
           asset={heroMedia.primary}
-          className="h-full w-full object-cover object-center backface-hidden transform-[translateZ(0)]"
+          className="h-full w-full object-cover object-center backface-hidden transform-[translateZ(0)] sm:object-[50%_center]"
           isReducedMotion={isReducedMotion}
         />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(15,23,42,0.34)_0%,rgba(15,23,42,0.07)_38%,rgba(255,255,255,0)_74%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.08)_0%,rgba(15,23,42,0)_46%,rgba(15,23,42,0.14)_100%)]" />
       </div>
 
-      <div className="absolute bottom-2 left-0 w-[42%] min-w-35 max-w-52.5 overflow-hidden rounded-3xl bg-neutral-950 shadow-[0_28px_70px_rgba(15,23,42,0.24)] ring-1 ring-white/60 sm:bottom-10 sm:w-[34%] sm:min-w-44 sm:max-w-61.25 sm:rounded-[30px] lg:left-4">
+      <div className="absolute bottom-2 left-0 w-[42%] min-w-35 max-w-52.5 overflow-hidden rounded-[26px] bg-neutral-950 shadow-[0_28px_70px_rgba(15,23,42,0.24)] ring-1 ring-white/70 sm:bottom-10 sm:w-[34%] sm:min-w-44 sm:max-w-61.25 sm:rounded-[30px] lg:left-4">
         <div className="aspect-9/16">
           <HeroVideo
             asset={heroMedia.supporting}

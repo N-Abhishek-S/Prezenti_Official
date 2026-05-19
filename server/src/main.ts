@@ -1,4 +1,4 @@
-import { ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -10,12 +10,25 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config = app.get(ConfigService);
   const apiPrefix = config.get<string>('API_PREFIX', 'api/v1');
+  const port = Number(config.get<number | string>('PORT', 3001));
 
   app.setGlobalPrefix(apiPrefix);
   app.use(helmet());
+
+  const defaultCorsOrigins = [
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+  ];
+  const corsOrigins = config.get<string>('CORS_ORIGINS', '')
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+
   app.enableCors({
-    origin: config.get<string>('CORS_ORIGINS', '').split(',').map((origin) => origin.trim()).filter(Boolean),
+    origin: corsOrigins.length > 0 ? corsOrigins : defaultCorsOrigins,
     credentials: true,
+    methods: ['GET', 'HEAD', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   });
   app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalPipes(
@@ -36,7 +49,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup(`${apiPrefix}/docs`, app, document);
 
-  await app.listen(config.get<number>('PORT', 3001));
+  await app.listen(port);
+  Logger.log(`Presenti API listening on http://localhost:${port}/${apiPrefix}`, 'Bootstrap');
 }
 
 void bootstrap();

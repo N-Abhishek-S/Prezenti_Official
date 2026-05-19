@@ -21,19 +21,22 @@ export interface ChatMessage {
 
 export interface ChatWebhookRequest {
   message: string;
-  chatInput?: string;
+  service?: string;
+  location?: string;
+  propertyType?: string;
+  workType?: string;
   sessionId?: string;
-  source?: 'presenti-web';
 }
 
 export interface ChatWebhookResponse {
+  success: boolean;
   reply: string;
 }
 
 export type ChatWebhookRawResponse =
   | ChatWebhookResponse
-  | { output?: unknown; message?: unknown; text?: unknown; response?: unknown; data?: unknown }
-  | Array<ChatWebhookResponse | { output?: unknown; message?: unknown; text?: unknown; response?: unknown; data?: unknown }>;
+  | { data?: unknown }
+  | Array<ChatWebhookResponse | { data?: unknown }>;
 
 export interface QuickActionChip {
   id: string;

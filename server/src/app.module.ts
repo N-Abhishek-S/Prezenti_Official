@@ -6,6 +6,7 @@ import { validateEnv } from './config/env.validation';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 import { RolesGuard } from './common/guards/roles.guard';
 import { AuthModule } from './modules/auth/auth.module';
+import { ChatModule } from './modules/chat/chat.module';
 import { PricingModule } from './modules/pricing/pricing.module';
 import { PrismaModule } from './prisma/prisma.module';
 
@@ -23,6 +24,7 @@ import { PrismaModule } from './prisma/prisma.module';
     }),
     PrismaModule,
     AuthModule,
+    ChatModule,
     PricingModule,
   ],
   providers: [

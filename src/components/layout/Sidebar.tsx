@@ -5,7 +5,7 @@ import { BadgeCount } from '../ui/Badge';
 import {
   LayoutDashboard, Ticket, Users, BarChart3, Building2,
   Shield, FileText, CheckSquare, Calendar, TrendingUp,
-  AlertTriangle, Settings, LogOut, IndianRupee, X
+  AlertTriangle, Settings, LogOut, Layers3, PackageCheck, MapPin, X
 } from 'lucide-react';
 import { useAppDispatch } from '../../app/hooks';
 import { logout } from '../../features/auth/authSlice';
@@ -38,7 +38,10 @@ const sidebarSections = [
   {
     title: 'Admin',
     items: [
-      { label: 'Pricing', icon: IndianRupee, href: '/admin/pricing', badge: 0 },
+      { label: 'Services', icon: Layers3, href: '/admin/services', badge: 0 },
+      { label: 'Packages', icon: PackageCheck, href: '/admin/packages', badge: 0 },
+      { label: 'Cities', icon: MapPin, href: '/admin/cities', badge: 0 },
+      { label: 'Leads', icon: Users, href: '/admin/leads', badge: 1 },
     ],
   },
   {

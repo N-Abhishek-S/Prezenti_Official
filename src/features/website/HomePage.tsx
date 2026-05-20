@@ -17,7 +17,7 @@ export function HomePage() {
   }, []);
 
   return (
-    <div className="overflow-hidden">
+    <div className="min-w-0 overflow-x-clip">
       <HeroSection />
       <ComparisonSection />
       <ServiceConfiguratorSection />

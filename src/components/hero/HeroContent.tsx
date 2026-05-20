@@ -82,7 +82,7 @@ export function HeroContent({ roles }: HeroContentProps) {
 
   return (
     <motion.div
-      className="relative z-10 max-w-162.5 py-6 lg:py-12"
+      className="relative z-10 max-w-full py-6 lg:max-w-162.5 lg:py-12"
       initial="hidden"
       animate="visible"
       variants={{
@@ -96,7 +96,7 @@ export function HeroContent({ roles }: HeroContentProps) {
  <motion.div
   variants={entrance}
   transition={{ duration: 0.55, ease: 'easeOut' }}
-  className="relative mb-6 inline-block rounded-xl p-[1.5px] overflow-hidden"
+  className="relative mb-6 inline-block max-w-full overflow-hidden rounded-xl p-[1.5px]"
 >
   {/* Animated glowing border */}
   <div className="absolute inset-0 rounded-xl bg-[linear-gradient(90deg,#14b8a6,#22c55e,#06b6d4,#14b8a6)] bg-size-[300%_300%] animate-[gradientMove_4s_linear_infinite]" />
@@ -105,12 +105,12 @@ export function HeroContent({ roles }: HeroContentProps) {
   <div className="absolute inset-0 rounded-xl blur-md opacity-60 bg-[linear-gradient(90deg,#14b8a6,#22c55e,#06b6d4,#14b8a6)] bg-size-[300%_300%] animate-[gradientMove_4s_linear_infinite]" />
 
   {/* Content */}
-  <div className="relative inline-flex items-center gap-2 rounded-xl bg-white/90 px-4 py-2 text-sm font-semibold text-primary-800 backdrop-blur-md">
+  <div className="relative inline-flex max-w-full flex-wrap items-center gap-2 rounded-xl bg-white/90 px-4 py-2 text-sm font-semibold leading-5 text-primary-800 backdrop-blur-md">
     <span className="relative flex h-2 w-2" aria-hidden="true">
       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-400 opacity-75" />
     </span>
 
-    3000+ Trained Professionals Already on Duty — Let's Connect
+    <span className="min-w-0">3000+ Trained Professionals Already on Duty — Let's Connect</span>
   </div>
 </motion.div>
 
@@ -137,7 +137,8 @@ export function HeroContent({ roles }: HeroContentProps) {
     className="
       block
       whitespace-nowrap
-      text-[1.8rem]
+      text-[1.55rem]
+      min-[375px]:text-[1.8rem]
       sm:text-[2.6rem]
       md:text-[3.2rem]
       lg:text-[3.8rem]
@@ -166,7 +167,8 @@ export function HeroContent({ roles }: HeroContentProps) {
     }}
     className="
       block
-      text-[1.9rem]
+      text-[1.75rem]
+      min-[375px]:text-[1.9rem]
       sm:text-[2.7rem]
       md:text-[3.3rem]
       lg:text-[3.9rem]
@@ -206,7 +208,7 @@ export function HeroContent({ roles }: HeroContentProps) {
           dynamicWords={roles.map((role) => role.name)}
           intervalMs={6000}
           staticClassName="text-sm font-bold uppercase tracking-[0.18em] text-neutral-500"
-          dynamicClassName="text-[30px] font-extrabold sm:text-[38px]"
+          dynamicClassName="text-[28px] font-extrabold min-[375px]:text-[30px] sm:text-[38px]"
         />
       </motion.div>
 
@@ -227,7 +229,7 @@ export function HeroContent({ roles }: HeroContentProps) {
           type="button"
           variant="primary"
           size="xl"
-          className="group shadow-[0_16px_36px_rgba(18,63,53,0.22)]"
+          className="group w-full px-5 shadow-[0_16px_36px_rgba(18,63,53,0.22)] sm:w-auto sm:px-10"
           onClick={() => navigate('/talk-to-us')}
         >
           Let us understand your requirement
@@ -237,7 +239,7 @@ export function HeroContent({ roles }: HeroContentProps) {
           type="button"
           variant="secondary"
           size="xl"
-          className="border-primary-200 bg-white/86"
+          className="w-full border-primary-200 bg-white/86 px-5 sm:w-auto sm:px-10"
           onClick={() => scrollToSection('services')}
         >
           Explore Services

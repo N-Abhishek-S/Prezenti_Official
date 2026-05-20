@@ -44,7 +44,7 @@ export function TalkToUs() {
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-50 text-primary-800">
                 <Icon size={18} />
               </span>
-              <span className="text-sm font-semibold text-neutral-800">{label}</span>
+              <span className="min-w-0 text-sm font-semibold text-neutral-800">{label}</span>
             </div>
           ))}
         </motion.div>

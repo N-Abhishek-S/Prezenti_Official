@@ -46,7 +46,7 @@ export function LocationSection() {
         {/* Two-col on lg+: heading left, card right. Stacked on mobile. */}
         <motion.div
           variants={fadeUp}
-          className="flex ml-44 flex-col gap-10 lg:flex-row lg:items-start lg:gap-12"
+          className="flex flex-col gap-10 lg:ml-44 lg:flex-row lg:items-start lg:gap-12"
         >
           {/* ── Left: heading block ─────────────────────────── */}
           <div className="flex-shrink-0 lg:w-[42%] xl:w-[40%]">
@@ -62,7 +62,7 @@ export function LocationSection() {
               <span className="mr-2 inline-block">Pune is just the</span>
 
               {/* highlighted 'beginning' with subtle shimmer */}
-              <span className="relative mr-2 inline-block">
+              <span className="relative mr-2 inline-block overflow-hidden">
                 <span className="bg-linear-to-r from-teal-700 via-cyan-500 to-sky-400 bg-clip-text font-extrabold text-transparent">
                   beginning ...
                 </span>
@@ -86,7 +86,7 @@ export function LocationSection() {
               <span className="mr-2 inline-block">city</span>
 
               {/* highlighted 'expansion' with slower shimmer */}
-              <span className="relative mr-2 inline-block">
+              <span className="relative mr-2 inline-block overflow-hidden">
                 <span className="bg-linear-to-r from-cyan-600 via-sky-500 to-indigo-400 bg-clip-text font-extrabold text-transparent">
                   expansion
                 </span>
@@ -132,7 +132,7 @@ export function LocationSection() {
               <div className="grid md:grid-cols-[220px_1fr] lg:grid-cols-[200px_1fr] xl:grid-cols-[230px_1fr]">
 
                 {/* City sidebar */}
-                <div className="border-b  w-80 border-neutral-100 p-5 sm:p-6 md:border-b-0 md:border-r md:p-6 lg:p-7">
+                <div className="w-full border-b  border-neutral-100 p-5 sm:p-6 md:border-b-0 md:border-r md:p-6 lg:w-80 lg:p-7">
                   <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-primary-50 text-primary-800">
                     <MapPin size={20} />
                   </div>

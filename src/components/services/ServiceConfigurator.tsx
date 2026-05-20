@@ -103,7 +103,7 @@ export function ServiceConfigurator() {
             variant="primary"
             size="md"
             onClick={() => setIsModalOpen(true)}
-            className="rounded-xl px-6 py-3 font-semibold shadow-[0_18px_45px_rgba(18,63,53,0.22)]"
+            className="w-full rounded-xl px-6 py-3 font-semibold shadow-[0_18px_45px_rgba(18,63,53,0.22)] sm:w-auto"
           >
             Talk to Expert
           </Button>
@@ -168,9 +168,9 @@ export function ServiceConfigurator() {
             </div>
 
             <div className="mt-5">
-              <div className="mb-3 flex items-center justify-between ">
+              <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                 <div className="text-sm font-semibold text-neutral-900">Slot options :</div>
-                <div className="text-xs font-semibold uppercase tracking-[0.16em] r text-success-600">
+                <div className="text-xs font-semibold uppercase leading-5 tracking-[0.16em] r text-success-600 sm:text-right">
                   <span>Full day {"(8 HOURs)"}</span>&ensp;&ensp; <span>&</span>&ensp;&ensp;
                   <span>Half day {"(4 HOURs)"}</span>
 

@@ -125,7 +125,7 @@ export function TalkToExpertForm({
       >
         <div className="rounded-[28px] border border-success-100 bg-white p-5 shadow-[0_30px_90px_rgba(10,42,34,0.12)] sm:p-8">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
-            <div>
+            <div className="min-w-0">
               <div className="mb-4 flex h-13 w-13 items-center justify-center rounded-2xl bg-success-100 text-success-600">
                 <CheckCircle2 size={26} />
               </div>
@@ -159,7 +159,7 @@ export function TalkToExpertForm({
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary-800 text-white">
               <PhoneCall size={22} />
             </div>
-            <div>
+            <div className="min-w-0">
               <div className="text-xs font-semibold uppercase tracking-[0.18em] text-primary-700">Talk to Expert</div>
               <h2 className="mt-1 text-2xl font-semibold tracking-tight text-neutral-950">Tell us what support you need</h2>
               <p className="mt-2 text-sm leading-6 text-neutral-600">

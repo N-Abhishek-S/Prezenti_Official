@@ -75,8 +75,10 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-body { margin: 0; font-family: var(--font-sans); color: var(--color-neutral-900); background-color: var(--color-canvas); }
+html { min-width: 0; scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body { min-width: 0; margin: 0; font-family: var(--font-sans); color: var(--color-neutral-900); background-color: var(--color-canvas); }
+#root { min-width: 0; }
+img, video, svg { max-width: 100%; }
 section[id] { scroll-margin-top: 88px; }
 ::selection { background-color: var(--color-primary-100); color: var(--color-primary-800); }
 ::-webkit-scrollbar { width: 6px; height: 6px; }

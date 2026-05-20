@@ -47,32 +47,9 @@ export const initialServices: ServiceOffering[] = [
   },
 ];
 
-const included = [
-  'Staff attendance management',
-  'Basic supervision',
-  'Replacement support',
-  'Trained personnel',
-  'Standard onboarding',
-  'Support assistance',
-  'Performance monitoring',
-];
+const included: string[] = [];
 
-const fullTimeExcluded = [
-  'Overtime beyond package',
-  'Holiday emergency staffing',
-  'Equipment or material supply',
-  'Multi-location deployment',
-  'Custom dedicated manager',
-];
-
-const halfTimeExcluded = [
-  'Overtime beyond package',
-  'Specialized deep cleaning',
-  'Holiday emergency staffing',
-  'Equipment or material supply',
-  'Multi-location deployment',
-  'Custom dedicated manager',
-];
+const excluded: string[] = [];
 
 function buildPackages(service: ServiceOffering): TrustPackage[] {
   const propertyVariants = service.type === 'property' ? service.propertyTypes : [undefined];
@@ -86,10 +63,7 @@ function buildPackages(service: ServiceOffering): TrustPackage[] {
       hours: 8,
       description: 'Dedicated daily support for consistent facility operations and reliable coverage.',
       includedServices: included,
-      excludedServices: fullTimeExcluded,
-      primaryCtaLabel: 'Get Quote',
-      secondaryCtaLabel: 'Talk to Expert',
-      whatsappCtaLabel: 'WhatsApp Us',
+      excludedServices: excluded,
       pricingPlaceholder: 'Custom quote after site assessment',
       isActive: true,
       displayOrder: propertyIndex * 2 + 1,
@@ -102,10 +76,7 @@ function buildPackages(service: ServiceOffering): TrustPackage[] {
       hours: 4,
       description: 'Focused daily support for selected duties, lean operations, and smaller coverage windows.',
       includedServices: included,
-      excludedServices: halfTimeExcluded,
-      primaryCtaLabel: 'Get Quote',
-      secondaryCtaLabel: 'Talk to Expert',
-      whatsappCtaLabel: 'WhatsApp Us',
+      excludedServices: excluded,
       pricingPlaceholder: 'Custom quote after site assessment',
       isActive: true,
       displayOrder: propertyIndex * 2 + 2,

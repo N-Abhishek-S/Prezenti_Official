@@ -13,7 +13,8 @@ export function validateEnv(config: Env) {
     PORT: Number(config.PORT ?? 3001),
     THROTTLE_TTL: Number(config.THROTTLE_TTL ?? 60000),
     THROTTLE_LIMIT: Number(config.THROTTLE_LIMIT ?? 100),
-    N8N_CHAT_TIMEOUT_MS: Number(config.N8N_CHAT_TIMEOUT_MS ?? 20000),
+    SMTP_PORT: Number(config.SMTP_PORT ?? 587),
+    SMTP_SECURE: config.SMTP_SECURE ?? 'false',
     PRISMA_CONNECT_ON_BOOT: config.PRISMA_CONNECT_ON_BOOT ?? 'true',
   };
 }

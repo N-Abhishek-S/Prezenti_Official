@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { BrandLogo } from '../brand/BrandLogo';
 import { publicSections, scrollToSection, setPendingSection, type PublicSectionId } from '../../lib/sectionNavigation';
 
-const serviceLinks: PublicSectionId[] = ['services', 'quick-guide', 'location'];
+const serviceLinks: PublicSectionId[] = ['services', 'location'];
 
 export function Footer() {
   const location = useLocation();

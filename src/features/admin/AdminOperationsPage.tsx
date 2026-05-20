@@ -69,9 +69,6 @@ const emptyPackageForm = {
   description: '',
   includedServices: '',
   excludedServices: '',
-  primaryCtaLabel: 'Get Quote',
-  secondaryCtaLabel: 'Talk to Expert',
-  whatsappCtaLabel: 'WhatsApp Us',
   pricingPlaceholder: 'Custom quote after site assessment',
   isActive: true,
   displayOrder: 1,
@@ -198,9 +195,6 @@ export function AdminOperationsPage() {
       description: packageForm.description,
       includedServices: lines(packageForm.includedServices),
       excludedServices: lines(packageForm.excludedServices),
-      primaryCtaLabel: packageForm.primaryCtaLabel,
-      secondaryCtaLabel: packageForm.secondaryCtaLabel,
-      whatsappCtaLabel: packageForm.whatsappCtaLabel,
       pricingPlaceholder: packageForm.pricingPlaceholder,
       isActive: packageForm.isActive,
       displayOrder: Number(packageForm.displayOrder),
@@ -228,9 +222,6 @@ export function AdminOperationsPage() {
       description: item.description,
       includedServices: item.includedServices.join('\n'),
       excludedServices: item.excludedServices.join('\n'),
-      primaryCtaLabel: item.primaryCtaLabel,
-      secondaryCtaLabel: item.secondaryCtaLabel,
-      whatsappCtaLabel: item.whatsappCtaLabel,
       pricingPlaceholder: item.pricingPlaceholder,
       isActive: item.isActive,
       displayOrder: item.displayOrder,
@@ -405,11 +396,6 @@ export function AdminOperationsPage() {
               <textarea value={packageForm.description} onChange={(event) => setPackageForm({ ...packageForm, description: event.target.value })} placeholder="Package description" rows={3} className="w-full rounded-lg border border-neutral-200 px-3 py-2.5 text-sm outline-none focus:border-primary-600" />
               <textarea value={packageForm.includedServices} onChange={(event) => setPackageForm({ ...packageForm, includedServices: event.target.value })} placeholder="Included services, one per line" rows={5} className="w-full rounded-lg border border-neutral-200 px-3 py-2.5 text-sm outline-none focus:border-primary-600" />
               <textarea value={packageForm.excludedServices} onChange={(event) => setPackageForm({ ...packageForm, excludedServices: event.target.value })} placeholder="Excluded services, one per line" rows={5} className="w-full rounded-lg border border-neutral-200 px-3 py-2.5 text-sm outline-none focus:border-primary-600" />
-              <div className="grid gap-3 sm:grid-cols-3">
-                <input value={packageForm.primaryCtaLabel} onChange={(event) => setPackageForm({ ...packageForm, primaryCtaLabel: event.target.value })} className="rounded-lg border border-neutral-200 px-3 py-2.5 text-sm" />
-                <input value={packageForm.secondaryCtaLabel} onChange={(event) => setPackageForm({ ...packageForm, secondaryCtaLabel: event.target.value })} className="rounded-lg border border-neutral-200 px-3 py-2.5 text-sm" />
-                <input value={packageForm.whatsappCtaLabel} onChange={(event) => setPackageForm({ ...packageForm, whatsappCtaLabel: event.target.value })} className="rounded-lg border border-neutral-200 px-3 py-2.5 text-sm" />
-              </div>
               <input value={packageForm.pricingPlaceholder} onChange={(event) => setPackageForm({ ...packageForm, pricingPlaceholder: event.target.value })} className="w-full rounded-lg border border-neutral-200 px-3 py-2.5 text-sm" />
               <label className="flex items-center gap-2 text-sm font-medium text-neutral-700">
                 <input type="checkbox" checked={packageForm.isActive} onChange={(event) => setPackageForm({ ...packageForm, isActive: event.target.checked })} />

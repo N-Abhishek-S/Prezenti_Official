@@ -1,4 +1,4 @@
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { Logger, RequestMethod, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -12,7 +12,9 @@ async function bootstrap() {
   const apiPrefix = config.get<string>('API_PREFIX', 'api/v1');
   const port = Number(config.get<number | string>('PORT', 3001));
 
-  app.setGlobalPrefix(apiPrefix);
+  app.setGlobalPrefix(apiPrefix, {
+    exclude: [{ path: 'api/inquiry/send', method: RequestMethod.POST }],
+  });
   app.use(helmet());
 
   const defaultCorsOrigins = [

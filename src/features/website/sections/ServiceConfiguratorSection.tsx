@@ -27,11 +27,9 @@ export function ServiceConfiguratorSection() {
             <Badge variant="teal" size="lg" className="mb-3">
               Services
             </Badge>
-            <h2 className="text-2xl font-semibold sm:text-[30px]">Configure Your Staffing Requirement</h2>
+           
           </div>
-          <p className="max-w-2xl text-base leading-relaxed text-neutral-500 sm:text-lg lg:justify-self-end">
-            Select the role, property context, and work timing. The final quote is prepared after site assessment so your package fits the actual facility.
-          </p>
+       
         </motion.div>
 
         <motion.div variants={fadeUp}>

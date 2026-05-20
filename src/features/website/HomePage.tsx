@@ -5,7 +5,6 @@ import { ComparisonSection } from './sections/ComparisonSection';
 import { ContactSection } from './sections/ContactSection';
 import { ImpactSection } from './sections/ImpactSection';
 import { LocationSection } from './sections/LocationSection';
-import { QuickGuideSection } from './sections/QuickGuideSection';
 import { ServiceConfiguratorSection } from './sections/ServiceConfiguratorSection';
 
 export function HomePage() {
@@ -23,7 +22,6 @@ export function HomePage() {
       <ComparisonSection />
       <ServiceConfiguratorSection />
       <ImpactSection />
-      <QuickGuideSection />
       <LocationSection />
       <ContactSection />
     </div>

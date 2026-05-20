@@ -93,17 +93,26 @@ export function HeroContent({ roles }: HeroContentProps) {
         },
       }}
     >
-      <motion.div
-        variants={entrance}
-        transition={{ duration: 0.55, ease: 'easeOut' }}
-        className="mb-6 inline-flex items-center gap-2 rounded-lg border border-primary-100 bg-white/86 px-3.5 py-2 text-sm font-semibold text-primary-800 shadow-sm"
-      >
-        <span className="relative flex h-2 w-2" aria-hidden="true">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-400 opacity-75" />
-          <span className="relative inline-flex h-2 w-2 rounded-full bg-teal-500" />
-        </span>
-        3000+ Trained Professionals Already on Duty - Let's Connect
-      </motion.div>
+ <motion.div
+  variants={entrance}
+  transition={{ duration: 0.55, ease: 'easeOut' }}
+  className="relative mb-6 inline-block rounded-xl p-[1.5px] overflow-hidden"
+>
+  {/* Animated glowing border */}
+  <div className="absolute inset-0 rounded-xl bg-[linear-gradient(90deg,#14b8a6,#22c55e,#06b6d4,#14b8a6)] bg-size-[300%_300%] animate-[gradientMove_4s_linear_infinite]" />
+
+  {/* Glow */}
+  <div className="absolute inset-0 rounded-xl blur-md opacity-60 bg-[linear-gradient(90deg,#14b8a6,#22c55e,#06b6d4,#14b8a6)] bg-size-[300%_300%] animate-[gradientMove_4s_linear_infinite]" />
+
+  {/* Content */}
+  <div className="relative inline-flex items-center gap-2 rounded-xl bg-white/90 px-4 py-2 text-sm font-semibold text-primary-800 backdrop-blur-md">
+    <span className="relative flex h-2 w-2" aria-hidden="true">
+      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-400 opacity-75" />
+    </span>
+
+    3000+ Trained Professionals Already on Duty — Let's Connect
+  </div>
+</motion.div>
 
  <motion.h1
   id="ps-project-hero-title"

@@ -14,9 +14,6 @@ export interface TrustPackage {
   description: string;
   includedServices: string[];
   excludedServices: string[];
-  primaryCtaLabel: string;
-  secondaryCtaLabel: string;
-  whatsappCtaLabel: string;
   pricingPlaceholder: string;
   isActive: boolean;
   displayOrder: number;

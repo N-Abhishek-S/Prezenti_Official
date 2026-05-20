@@ -204,7 +204,7 @@ export function Navbar() {
 
         <div className="hidden items-center gap-3 lg:flex">
           <Button type="button" variant="primary" size="sm" onClick={goToTalkPage}>
-            Let's Talk
+            Talk to Expert
           </Button>
         </div>
 
@@ -256,7 +256,7 @@ export function Navbar() {
           </div>
 
           <Button type="button" variant="primary" size="md" className="mt-3 w-full" onClick={goToTalkPage}>
-            Let's Talk
+            Talk to Expert
           </Button>
         </div>
       )}

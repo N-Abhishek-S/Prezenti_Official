@@ -26,7 +26,7 @@ export function ComparisonSection() {
           <Badge variant="primary" size="lg" className="mb-3">
             Why Presenti
           </Badge>
-          <h2 className="mb-4 text-2xl font-semibold sm:text-[30px]">Traditional hiring to Prezenti hiring</h2>
+          <h2 className="mb-4 text-2xl font-semibold sm:text-[30px]">Support staff, on demand — powered by Prezenti.</h2>
           <p className="text-base leading-relaxed text-neutral-500 sm:text-lg">Reliable Support Staff. Ready On Demand</p>
         </motion.div>
 

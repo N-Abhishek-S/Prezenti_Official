@@ -8,7 +8,7 @@ import { HomePage } from '../features/website/HomePage';
 import { ComingSoon } from '../components/layout/ComingSoon';
 import { RouteFallback } from '../components/layout/RouteFallback';
 import { SectionRedirect } from '../components/layout/SectionRedirect';
-import { AdminOperationsPage, AppShell, DashboardPage, LoginPage, LiveSupport, TalkToUs } from './lazyRouteComponents';
+import { AdminOperationsPage, AppShell, DashboardPage, LoginPage, TalkToUs } from './lazyRouteComponents';
 
 function withSuspense(element: ReactNode) {
   return <Suspense fallback={<RouteFallback />}>{element}</Suspense>;
@@ -20,16 +20,16 @@ export const router = createHashRouter([
     errorElement: <RouteError />,
     children: [
       { path: '/', element: <HomePage /> },
-      { path: '/platform', element: <SectionRedirect sectionId="quick-guide" /> },
+      { path: '/platform', element: <SectionRedirect sectionId="services" /> },
       { path: '/services', element: <SectionRedirect sectionId="services" /> },
       { path: '/industries', element: <SectionRedirect sectionId="services" /> },
       { path: '/about', element: <SectionRedirect sectionId="home" /> },
       { path: '/pricing', element: <SectionRedirect sectionId="services" /> },
       { path: '/talk-to-us', element: withSuspense(<TalkToUs />) },
-      { path: '/live-support', element: withSuspense(<LiveSupport />) },
-      { path: '/compliance', element: <SectionRedirect sectionId="quick-guide" /> },
+      { path: '/live-support', element: <Navigate to="/talk-to-us" replace /> },
+      { path: '/compliance', element: <SectionRedirect sectionId="services" /> },
       { path: '/case-studies', element: <SectionRedirect sectionId="home" /> },
-      { path: '/faq', element: <SectionRedirect sectionId="quick-guide" /> },
+      { path: '/faq', element: <SectionRedirect sectionId="contact" /> },
       { path: '/contact', element: <SectionRedirect sectionId="contact" /> },
       { path: '/security', element: <SectionRedirect sectionId="services" /> },
     ],

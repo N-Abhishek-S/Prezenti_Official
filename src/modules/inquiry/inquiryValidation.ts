@@ -1,15 +1,12 @@
-import type { ExpertServiceName, InquiryType, TimePreference } from './inquiryConfig';
-import { inquiryTypeOptions, serviceOptions, timePreferenceOptions } from './inquiryConfig';
-
 export interface ExpertInquiryFormValues {
-  name: string;
-  phone: string;
+  fullName: string;
+  mobileNumber: string;
+  email: string;
+  companyName: string;
   location: string;
-  requiredDate: string;
-  services: ExpertServiceName[];
-  timePreference: TimePreference;
-  inquiryType: InquiryType;
-  message: string;
+  requiredStartDate: string;
+  services: string[];
+  additionalRequirement: string;
 }
 
 export type InquiryFormErrors = Partial<Record<keyof ExpertInquiryFormValues, string>>;
@@ -22,9 +19,31 @@ export function getTodayDateValue() {
 }
 
 export function sanitizeText(value: string) {
-  return value
-    .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, ' ')
+  let output = '';
+
+  for (const char of value) {
+    const code = char.charCodeAt(0);
+    output += code < 32 || code === 127 ? ' ' : char;
+  }
+
+  return output
     .replace(/[<>]/g, '')
+    .trim();
+}
+
+export function sanitizeMultilineText(value: string) {
+  let output = '';
+
+  for (const char of value) {
+    const code = char.charCodeAt(0);
+    const allowedWhitespace = char === '\n' || char === '\r' || char === '\t';
+    output += code < 32 || code === 127 ? (allowedWhitespace ? char : ' ') : char;
+  }
+
+  return output
+    .replace(/[<>]/g, '')
+    .replace(/[ \t]+/g, ' ')
+    .replace(/\n{3,}/g, '\n\n')
     .trim();
 }
 
@@ -38,78 +57,57 @@ export function isValidIndianMobile(value: string) {
 
 export function sanitizeInquiryForm(values: ExpertInquiryFormValues): ExpertInquiryFormValues {
   return {
-    name: sanitizeText(values.name).replace(/\s+/g, ' '),
-    phone: normalizeIndianMobile(values.phone),
+    fullName: sanitizeText(values.fullName).replace(/\s+/g, ' '),
+    mobileNumber: normalizeIndianMobile(values.mobileNumber),
+    email: sanitizeText(values.email).replace(/\s+/g, '').toLowerCase(),
+    companyName: sanitizeText(values.companyName).replace(/\s+/g, ' '),
     location: sanitizeText(values.location).replace(/\s+/g, ' '),
-    requiredDate: values.requiredDate.trim(),
-    services: values.services.filter((service): service is ExpertServiceName => serviceOptions.includes(service)),
-    timePreference: timePreferenceOptions.includes(values.timePreference) ? values.timePreference : timePreferenceOptions[0],
-    inquiryType: inquiryTypeOptions.includes(values.inquiryType) ? values.inquiryType : inquiryTypeOptions[0],
-    message: sanitizeText(values.message),
+    requiredStartDate: values.requiredStartDate.trim(),
+    services: values.services.map((service) => sanitizeText(service).replace(/\s+/g, ' ')).filter(Boolean).slice(0, 8),
+    additionalRequirement: sanitizeMultilineText(values.additionalRequirement),
   };
 }
 
-export function validateInquiryForm(values: ExpertInquiryFormValues) {
+export function validateInquiryForm(values: ExpertInquiryFormValues, availableServices: string[] = []) {
   const sanitized = sanitizeInquiryForm(values);
   const errors: InquiryFormErrors = {};
+  const activeServiceNames = new Set(availableServices.map((service) => service.toLowerCase()));
 
-  if (sanitized.name.length < 2) {
-    errors.name = 'Enter full name.';
+  if (sanitized.fullName.length < 2) {
+    errors.fullName = 'Enter full name.';
   }
 
-  if (!isValidIndianMobile(sanitized.phone)) {
-    errors.phone = 'Enter a valid Indian mobile number.';
+  if (!isValidIndianMobile(sanitized.mobileNumber)) {
+    errors.mobileNumber = 'Enter a valid Indian mobile number.';
+  }
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(sanitized.email)) {
+    errors.email = 'Enter a valid email address.';
+  }
+
+  if (sanitized.companyName.length < 2) {
+    errors.companyName = 'Enter company name.';
   }
 
   if (sanitized.location.length < 2) {
     errors.location = 'Enter location or area.';
   }
 
-  if (!sanitized.requiredDate) {
-    errors.requiredDate = 'Select service start date.';
-  } else if (sanitized.requiredDate < getTodayDateValue()) {
-    errors.requiredDate = 'Date cannot be in the past.';
+  if (!sanitized.requiredStartDate) {
+    errors.requiredStartDate = 'Select required start date.';
+  } else if (sanitized.requiredStartDate < getTodayDateValue()) {
+    errors.requiredStartDate = 'Date cannot be in the past.';
   }
 
   if (sanitized.services.length === 0) {
     errors.services = 'Select at least one service.';
+  } else if (activeServiceNames.size > 0 && sanitized.services.some((service) => !activeServiceNames.has(service.toLowerCase()))) {
+    errors.services = 'Choose a currently active service.';
   }
 
-  if (!timePreferenceOptions.includes(sanitized.timePreference)) {
-    errors.timePreference = 'Select time preference.';
-  }
-
-  if (!inquiryTypeOptions.includes(sanitized.inquiryType)) {
-    errors.inquiryType = 'Select inquiry type.';
+  if (sanitized.additionalRequirement.length < 5) {
+    errors.additionalRequirement = 'Add a short requirement.';
   }
 
   return { sanitized, errors, isValid: Object.keys(errors).length === 0 };
-}
-
-export function generateInquiryPreview(values: ExpertInquiryFormValues) {
-  const sanitized = sanitizeInquiryForm(values);
-
-  return [
-    'New Service Inquiry - Prezenti',
-    '',
-    'Customer Details:',
-    `Name: ${sanitized.name || '{name}'}`,
-    `Mobile: ${sanitized.phone || '{phone}'}`,
-    `Location/Area: ${sanitized.location || '{location}'}`,
-    `Service Start Date: ${sanitized.requiredDate || '{date}'}`,
-    '',
-    'Selected Services:',
-    sanitized.services.length > 0 ? sanitized.services.map((service) => `- ${service}`).join('\n') : '{service list}',
-    '',
-    'Time Preference:',
-    sanitized.timePreference,
-    '',
-    'Inquiry Type:',
-    sanitized.inquiryType,
-    '',
-    'Additional Requirement:',
-    sanitized.message || 'None',
-    '',
-    'Please contact this customer as soon as possible.',
-  ].join('\n');
 }

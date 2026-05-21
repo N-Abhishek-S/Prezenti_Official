@@ -1,57 +1,67 @@
 import type { ExpertInquiryFormValues } from '../modules/inquiry/inquiryValidation';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? '/api/v1';
+const targetEmail = 'bd@kargar.co.in';
+const formSubmitEndpoint = `https://formsubmit.co/ajax/${encodeURIComponent(targetEmail)}`;
 
-export interface InquiryChannelResult {
-  sent: boolean;
-  error?: string;
-}
-
-export interface SendInquiryResponse {
+export interface InquiryDeliveryResult {
   success: boolean;
   message: string;
-  generatedMessage: string;
-  channels: {
-    whatsapp: InquiryChannelResult;
-    email: InquiryChannelResult;
-  };
+  whatsAppUrl: string;
+  whatsAppOpened: boolean;
 }
 
-function getErrorMessage(data: unknown) {
-  if (!data || typeof data !== 'object' || !('error' in data)) {
-    return 'Unable to send inquiry. Please try again.';
-  }
+export type SendInquiryResponse = InquiryDeliveryResult;
 
-  const error = (data as { error?: unknown }).error;
+export function buildInquiryMessage(payload: ExpertInquiryFormValues) {
+  const service = Array.isArray(payload.services) ? payload.services.join(', ') : payload.services || '';
 
-  if (typeof error === 'string') return error;
-  if (error && typeof error === 'object' && 'message' in error) {
-    const message = (error as { message?: unknown }).message;
-    if (typeof message === 'string') return message;
-  }
-
-  return 'Unable to send inquiry. Please try again.';
+  return [
+    'New Inquiry - Prezenti',
+    '',
+    `Name: ${payload.fullName}`,
+    `Phone: ${payload.mobileNumber}`,
+    `Company: ${payload.companyName}`,
+    `Service: ${service}`,
+    `Message: ${payload.additionalRequirement}`,
+    '------------------',
+  ].join('\n');
 }
 
-export async function sendExpertInquiry(payload: ExpertInquiryFormValues) {
-  const response = await fetch(`${API_BASE_URL}/inquiry/send`, {
+function buildWhatsAppUrl(message: string) {
+  return `https://wa.me/?text=${encodeURIComponent(message)}`;
+}
+
+async function sendFormSubmitEmail(payload: ExpertInquiryFormValues, messageBody: string) {
+  const response = await fetch(formSubmitEndpoint, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
       Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(payload),
+    body: JSON.stringify({
+      _subject: 'New Inquiry - Prezenti',
+      _captcha: 'false',
+      _replyto: payload.email,
+      message: messageBody,
+    }),
   });
 
-  const data = await response.json().catch(() => null) as SendInquiryResponse | { error?: unknown } | null;
-
   if (!response.ok) {
-    throw new Error(getErrorMessage(data));
+    throw new Error('Unable to send inquiry. Please try again.');
   }
+}
 
-  if (!data || !('channels' in data)) {
-    throw new Error('Inquiry service returned an invalid response.');
-  }
+export async function sendExpertInquiry(payload: ExpertInquiryFormValues): Promise<SendInquiryResponse> {
+  const messageBody = buildInquiryMessage(payload);
+  const whatsAppUrl = buildWhatsAppUrl(messageBody);
+  const whatsAppWindow = window.open(whatsAppUrl, '_blank', 'noopener,noreferrer');
 
-  return data;
+  await sendFormSubmitEmail(payload, messageBody);
+
+  return {
+    success: true,
+    message: 'Inquiry sent successfully. Please check your email.',
+    whatsAppUrl,
+    whatsAppOpened: Boolean(whatsAppWindow),
+  };
 }

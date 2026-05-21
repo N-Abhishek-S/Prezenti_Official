@@ -3,20 +3,18 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { TalkToExpertForm } from './TalkToExpertForm';
-import type { ExpertServiceName, TimePreference } from '../../modules/inquiry/inquiryConfig';
+import type { ExpertServiceName } from '../../modules/inquiry/inquiryConfig';
 
 interface TalkToExpertModalProps {
   open: boolean;
   onClose: () => void;
   initialServices?: ExpertServiceName[];
-  initialTimePreference?: TimePreference;
 }
 
 export function TalkToExpertModal({
   open,
   onClose,
   initialServices,
-  initialTimePreference,
 }: TalkToExpertModalProps) {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -66,7 +64,6 @@ export function TalkToExpertModal({
             <h2 id="talk-to-expert-title" className="sr-only">Talk to Expert inquiry form</h2>
             <TalkToExpertForm
               initialServices={initialServices}
-              initialTimePreference={initialTimePreference}
             />
           </motion.div>
         </motion.div>

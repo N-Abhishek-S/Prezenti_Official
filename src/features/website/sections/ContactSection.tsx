@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown, HelpCircle } from 'lucide-react';
 import { Badge } from '../../../components/ui/Badge';
 import { cn } from '../../../lib/cn';
+import faqsData, { type FaqGroup } from '../../../data/faqsData';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -12,69 +13,6 @@ const fadeUp = {
 const stagger = {
   visible: { transition: { staggerChildren: 0.08 } },
 };
-
-const faqGroups = [
-  {
-    title: 'General',
-    items: [
-      {
-        question: 'What services does Prezenti provide?',
-        answer: 'Prezenti provides managed staffing support for housekeeping, office assistance, facility supervision, and reception roles.',
-      },
-      {
-        question: 'Which areas do you serve?',
-        answer: 'Prezenti currently focuses on Pune service zones, including Baner, Hinjewadi, Wakad, Balewadi, Kharadi, Viman Nagar, and nearby commercial areas.',
-      },
-      {
-        question: 'How fast can staff be deployed?',
-        answer: 'Deployment timelines depend on role, location, shift preference, and verification needs. The team confirms availability after reviewing your inquiry.',
-      },
-    ],
-  },
-  {
-    title: 'Staffing',
-    items: [
-      {
-        question: 'Full-time vs half-time difference?',
-        answer: 'Full-time support covers an 8-hour daily slot. Half-time support covers a 4-hour daily slot for lighter or focused operational needs.',
-      },
-      {
-        question: 'Can I request replacement staff?',
-        answer: 'Yes. Replacement support can be discussed with the operations team based on the package, role, and site requirements.',
-      },
-      {
-        question: 'Are staff verified?',
-        answer: 'Prezenti works with verified staffing processes and role-specific screening before deployment.',
-      },
-    ],
-  },
-  {
-    title: 'Support',
-    items: [
-      {
-        question: 'How do I contact support?',
-        answer: 'Use the Talk to Expert form. Your inquiry is sent to the Prezenti team so they can call back with the right context.',
-      },
-      {
-        question: 'Can I request callback?',
-        answer: 'Yes. Choose Request Callback in the inquiry type dropdown while submitting the Talk to Expert form.',
-      },
-    ],
-  },
-  {
-    title: 'Billing',
-    items: [
-      {
-        question: 'How pricing works?',
-        answer: 'Pricing is shared after understanding the selected role, slot, service area, start date, and site-specific expectations.',
-      },
-      {
-        question: 'Any hidden charges?',
-        answer: 'The team explains package inclusions, exclusions, and any applicable additional charges before confirmation.',
-      },
-    ],
-  },
-];
 
 function FaqItem({ question, answer }: { question: string; answer: string }) {
   const [open, setOpen] = useState(false);
@@ -108,6 +46,8 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
 }
 
 export function ContactSection() {
+  const groups: FaqGroup[] = faqsData;
+
   return (
     <motion.section
       id="contact"
@@ -129,7 +69,7 @@ export function ContactSection() {
         </motion.div>
 
         <motion.div variants={fadeUp} className="grid gap-5 lg:grid-cols-2">
-          {faqGroups.map((group) => (
+          {groups.map((group) => (
             <section key={group.title} className="rounded-[28px] border border-neutral-200 bg-canvas p-5 sm:p-6">
               <div className="mb-2 flex items-center gap-3">
                 <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-800 text-white">

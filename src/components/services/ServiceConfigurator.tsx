@@ -1,18 +1,14 @@
-import { useState } from 'react';
-import { Building2, CheckCircle2,  Home, Landmark, ListChecks, XCircle } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Building2, CheckCircle2, Home, Landmark, ListChecks, XCircle } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { TalkToExpertModal } from '../inquiry/TalkToExpertModal';
 import {
-  defaultExpertService,
   defaultServiceSubcategory,
-  defaultTimePreference,
-  expertServices,
-  
   serviceSubcategoryOptions,
 
-  type ExpertServiceConfig,
   type ServiceSubcategory,
 } from '../../modules/inquiry/inquiryConfig';
+import { usePublicServiceCatalog } from '../../modules/inquiry/usePublicServiceCatalog';
 import { cn } from '../../lib/cn';
 
 const subcategoryMeta: Record<ServiceSubcategory, { description: string; Icon: typeof Building2 }> = {
@@ -76,12 +72,49 @@ function DetailList({
 }
 
 export function ServiceConfigurator() {
-  const [selectedService, setSelectedService] = useState<ExpertServiceConfig>(defaultExpertService);
+  const { services, isLoading, error } = usePublicServiceCatalog();
+  const [selectedServiceId, setSelectedServiceId] = useState<string>('');
   const [selectedSubcategory, setSelectedSubcategory] = useState<ServiceSubcategory>(defaultServiceSubcategory);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const shouldShowSiteCategorySelection = servicesWithCategories.has(selectedService.id);
+  const selectedService = services.find((service) => service.id === selectedServiceId) ?? services[0] ?? null;
+
+  useEffect(() => {
+    if (!services.length) return;
+
+    setSelectedServiceId((current) => (
+      services.some((service) => service.id === current) ? current : services[0].id
+    ));
+  }, [services]);
+
+  if (isLoading) {
+    return (
+      <div className="rounded-lg border border-neutral-200 bg-white p-6 shadow-card">
+        <div className="h-5 w-36 rounded bg-neutral-100" />
+        <div className="mt-4 h-8 max-w-xl rounded bg-neutral-100" />
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {[0, 1, 2, 3].map((item) => (
+            <div key={item} className="h-24 rounded-lg bg-neutral-100" />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !selectedService) {
+    return (
+      <div className="rounded-lg border border-neutral-200 bg-white p-6 text-center shadow-card">
+        <h3 className="text-lg font-semibold text-neutral-950">Services are temporarily unavailable</h3>
+        <p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-neutral-600">
+          Please try again after the catalog is available.
+        </p>
+      </div>
+    );
+  }
+
+  const shouldShowSiteCategorySelection = servicesWithCategories.has(selectedService.id)
+    || /house|keeping|facility|supervisor/i.test(`${selectedService.id} ${selectedService.name}`);
   const effectiveSubcategory = shouldShowSiteCategorySelection ? selectedSubcategory : defaultServiceSubcategory;
-  const selectedDetails = selectedService.detailsBySubcategory[effectiveSubcategory];
+  const selectedDetails = selectedService.detailsBySubcategory[effectiveSubcategory] ?? selectedService.detailsBySubcategory[defaultServiceSubcategory];
   const ServiceIcon = selectedService.icon;
 
   return (
@@ -115,7 +148,7 @@ export function ServiceConfigurator() {
           <div>
             <div className="mb-3 text-sm font-semibold text-neutral-900">Select service</div>
             <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
-              {expertServices.map((service) => {
+              {services.map((service) => {
                 const isSelected = service.id === selectedService.id;
                 const Icon = service.icon;
 
@@ -123,7 +156,7 @@ export function ServiceConfigurator() {
                   <button
                     key={service.id}
                     type="button"
-                    onClick={() => setSelectedService(service)}
+                    onClick={() => setSelectedServiceId(service.id)}
                     aria-pressed={isSelected}
                     className={cn(
                       'group flex min-h-30 items-start gap-4 rounded-2xl border p-4 text-left transition',
@@ -157,7 +190,7 @@ export function ServiceConfigurator() {
             <div className="rounded-2xl border border-neutral-200 bg-white p-5">
               <div className="flex items-start gap-4">
                 <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary-800 text-white">
-                  <ServiceIcon size={22} />
+                  {ServiceIcon && <ServiceIcon size={22} />}
                 </span>
                 <div className="min-w-0">
                   <div className="text-xs font-semibold uppercase tracking-[0.18em] text-primary-700">Role details</div>
@@ -170,7 +203,7 @@ export function ServiceConfigurator() {
             <div className="mt-5">
               <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                 <div className="text-sm font-semibold text-neutral-900">Slot options :</div>
-                <div className="text-xs font-semibold uppercase leading-5 tracking-[0.16em] r text-success-600 sm:text-right">
+                <div className="text-xs font-semibold uppercase leading-5 tracking-[0.16em] text-success-600 sm:text-right">
                   <span>Full day {"(8 HOURs)"}</span>&ensp;&ensp; <span>&</span>&ensp;&ensp;
                   <span>Half day {"(4 HOURs)"}</span>
 
@@ -229,7 +262,6 @@ export function ServiceConfigurator() {
         open={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         initialServices={[selectedService.name]}
-        initialTimePreference={defaultTimePreference}
       />
     </div>
   );

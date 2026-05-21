@@ -96,7 +96,7 @@ export function HeroContent({ roles }: HeroContentProps) {
  <motion.div
   variants={entrance}
   transition={{ duration: 0.55, ease: 'easeOut' }}
-  className="relative mb-6 inline-block max-w-full overflow-hidden rounded-xl p-[1.5px]"
+  className="relative mb-6 block w-full max-w-[calc(100vw-2rem)] overflow-hidden rounded-xl p-[1.5px] sm:inline-block sm:w-auto sm:max-w-full"
 >
   {/* Animated glowing border */}
   <div className="absolute inset-0 rounded-xl bg-[linear-gradient(90deg,#14b8a6,#22c55e,#06b6d4,#14b8a6)] bg-size-[300%_300%] animate-[gradientMove_4s_linear_infinite]" />
@@ -105,18 +105,20 @@ export function HeroContent({ roles }: HeroContentProps) {
   <div className="absolute inset-0 rounded-xl blur-md opacity-60 bg-[linear-gradient(90deg,#14b8a6,#22c55e,#06b6d4,#14b8a6)] bg-size-[300%_300%] animate-[gradientMove_4s_linear_infinite]" />
 
   {/* Content */}
-  <div className="relative inline-flex max-w-full flex-wrap items-center gap-2 rounded-xl bg-white/90 px-4 py-2 text-sm font-semibold leading-5 text-primary-800 backdrop-blur-md">
-    <span className="relative flex h-2 w-2" aria-hidden="true">
+  <div className="relative block w-full max-w-full rounded-xl bg-white/90 px-4 py-2 text-sm font-semibold leading-5 text-primary-800 backdrop-blur-md sm:inline-flex sm:w-auto sm:items-center sm:gap-2">
+    <span className="absolute left-4 top-4 flex h-2 w-2 sm:relative sm:left-auto sm:top-auto" aria-hidden="true">
       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-400 opacity-75" />
     </span>
 
-    <span className="min-w-0">3000+ Trained Professionals Already on Duty — Let's Connect</span>
+    <span className="block min-w-0 break-words pl-5 [overflow-wrap:anywhere] sm:flex-none sm:pl-0">
+      3000+ Trained Professionals Already on Duty — <span className="block sm:inline">Let's Connect</span>
+    </span>
   </div>
 </motion.div>
 
  <motion.h1
   id="ps-project-hero-title"
-  className="font-extrabold leading-[0.95] tracking-[-0.03em]"
+  className="font-extrabold leading-[0.95] tracking-normal"
 >
   {/* First Line */}
   <motion.span
@@ -136,7 +138,6 @@ export function HeroContent({ roles }: HeroContentProps) {
     }}
     className="
       block
-      whitespace-nowrap
       text-[1.55rem]
       min-[375px]:text-[1.8rem]
       sm:text-[2.6rem]
@@ -229,11 +230,11 @@ export function HeroContent({ roles }: HeroContentProps) {
           type="button"
           variant="primary"
           size="xl"
-          className="group w-full px-5 shadow-[0_16px_36px_rgba(18,63,53,0.22)] sm:w-auto sm:px-10"
+          className="group w-full px-4 text-sm shadow-[0_16px_36px_rgba(18,63,53,0.22)] min-[420px]:text-base sm:w-auto sm:px-10"
           onClick={() => navigate('/talk-to-us')}
         >
-          Let us understand your requirement
-          <ArrowRight size={18} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+          <span className="min-w-0">Let us understand your requirement</span>
+          <ArrowRight size={18} className="shrink-0 transition-transform duration-200 group-hover:translate-x-0.5" />
         </Button>
         <Button
           type="button"

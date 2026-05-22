@@ -2,7 +2,7 @@
   "name": "presenti-web",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://n-abhishek-s.github.io/Prezenti_Official/",
+  "homepage": "https://prezenti-official.vercel.app/",
   "type": "module",
   "scripts": {
     "dev": "vercel dev",

@@ -105,6 +105,18 @@ function localServerlessApiPlugin() {
   };
 }
 
+function normalizeBasePath(value?: string) {
+  const fallbackBasePath = '/';
+  const trimmedValue = value?.trim();
+
+  if (!trimmedValue) {
+    return fallbackBasePath;
+  }
+
+  const baseWithLeadingSlash = trimmedValue.startsWith('/') ? trimmedValue : `/${trimmedValue}`;
+  return baseWithLeadingSlash.endsWith('/') ? baseWithLeadingSlash : `${baseWithLeadingSlash}/`;
+}
+
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, rootDir, '');
 
@@ -113,7 +125,8 @@ export default defineConfig(({ mode }) => {
   }
 
   const isVercel = Boolean(process.env.VERCEL);
-  const basePath = env.VITE_BASE_PATH || (isVercel ? '/' : '/');
+  const configuredBasePath = env.VITE_BASE_PATH || process.env.VITE_BASE_PATH;
+  const basePath = isVercel ? '/' : normalizeBasePath(configuredBasePath);
 
   return {
     base: basePath,

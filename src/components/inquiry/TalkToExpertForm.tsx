@@ -125,6 +125,10 @@ export function TalkToExpertForm({
   const submitInquiry = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    if (isSubmitting) {
+      return;
+    }
+
     if (servicesLoading) {
       toast.error('Service options are still loading.');
       return;

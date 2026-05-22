@@ -1,67 +1,74 @@
 import type { ExpertInquiryFormValues } from '../modules/inquiry/inquiryValidation';
 
-const targetEmail = 'bd@kargar.co.in';
-const formSubmitEndpoint = `https://formsubmit.co/ajax/${encodeURIComponent(targetEmail)}`;
+const defaultInquiryEndpoint = '/api/inquiry-notification';
+const requestTimeoutMs = 18_000;
 
-export interface InquiryDeliveryResult {
+export interface SendInquiryResponse {
   success: boolean;
   message: string;
-  whatsAppUrl: string;
-  whatsAppOpened: boolean;
 }
 
-export type SendInquiryResponse = InquiryDeliveryResult;
-
-export function buildInquiryMessage(payload: ExpertInquiryFormValues) {
-  const service = Array.isArray(payload.services) ? payload.services.join(', ') : payload.services || '';
-
-  return [
-    'New Inquiry - Prezenti',
-    '',
-    `Name: ${payload.fullName}`,
-    `Phone: ${payload.mobileNumber}`,
-    `Company: ${payload.companyName}`,
-    `Service: ${service}`,
-    `Message: ${payload.additionalRequirement}`,
-    '------------------',
-  ].join('\n');
+interface InquiryApiResponse {
+  success?: boolean;
+  message?: string;
 }
 
-function buildWhatsAppUrl(message: string) {
-  return `https://wa.me/?text=${encodeURIComponent(message)}`;
-}
-
-async function sendFormSubmitEmail(payload: ExpertInquiryFormValues, messageBody: string) {
-  const response = await fetch(formSubmitEndpoint, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      _subject: 'New Inquiry - Prezenti',
-      _captcha: 'false',
-      _replyto: payload.email,
-      message: messageBody,
-    }),
-  });
-
-  if (!response.ok) {
-    throw new Error('Unable to send inquiry. Please try again.');
+function createSubmissionId() {
+  if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) {
+    return crypto.randomUUID();
   }
+
+  return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+}
+
+async function parseResponse(response: Response): Promise<InquiryApiResponse> {
+  const contentType = response.headers.get('content-type') || '';
+
+  if (!contentType.includes('application/json')) {
+    return {};
+  }
+
+  return response.json() as Promise<InquiryApiResponse>;
 }
 
 export async function sendExpertInquiry(payload: ExpertInquiryFormValues): Promise<SendInquiryResponse> {
-  const messageBody = buildInquiryMessage(payload);
-  const whatsAppUrl = buildWhatsAppUrl(messageBody);
-  const whatsAppWindow = window.open(whatsAppUrl, '_blank', 'noopener,noreferrer');
+  const controller = new AbortController();
+  const timeoutId = window.setTimeout(() => controller.abort(), requestTimeoutMs);
 
-  await sendFormSubmitEmail(payload, messageBody);
+  try {
+    const response = await fetch(defaultInquiryEndpoint, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        ...payload,
+        submissionId: createSubmissionId(),
+        submittedAt: new Date().toISOString(),
+      }),
+      signal: controller.signal,
+    });
 
-  return {
-    success: true,
-    message: 'Inquiry sent successfully. Please check your email.',
-    whatsAppUrl,
-    whatsAppOpened: Boolean(whatsAppWindow),
-  };
+    const data = await parseResponse(response);
+
+    if (!response.ok || data.success !== true) {
+      throw new Error(data.message || 'Unable to send inquiry. Please try again.');
+    }
+
+    return {
+      success: true,
+      message: data.message || 'Inquiry sent successfully. Our team has been notified.',
+    };
+  } catch (error) {
+    if (error instanceof DOMException && error.name === 'AbortError') {
+      throw new Error('Inquiry submission timed out. Please try again.', { cause: error });
+    }
+
+    throw new Error(error instanceof Error ? error.message : 'Unable to send inquiry. Please try again.', {
+      cause: error,
+    });
+  } finally {
+    window.clearTimeout(timeoutId);
+  }
 }

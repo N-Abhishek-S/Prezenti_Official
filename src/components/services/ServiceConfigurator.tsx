@@ -116,6 +116,7 @@ export function ServiceConfigurator() {
   const effectiveSubcategory = shouldShowSiteCategorySelection ? selectedSubcategory : defaultServiceSubcategory;
   const selectedDetails = selectedService.detailsBySubcategory[effectiveSubcategory] ?? selectedService.detailsBySubcategory[defaultServiceSubcategory];
   const ServiceIcon = selectedService.icon;
+  const unselectedServices = services.filter((service) => service.id !== selectedService.id);
 
   return (
     <div className="overflow-hidden rounded-[30px] border border-neutral-200 bg-white shadow-[0_32px_100px_rgba(10,42,34,0.08)]">
@@ -147,46 +148,157 @@ export function ServiceConfigurator() {
         <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
           <div>
             <div className="mb-3 text-sm font-semibold text-neutral-900">Select service</div>
-            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
-              {services.map((service) => {
-                const isSelected = service.id === selectedService.id;
-                const Icon = service.icon;
+            <div className="block md:hidden">
+              <button
+                type="button"
+                onClick={() => setSelectedServiceId(selectedService.id)}
+                aria-pressed
+                className="group flex min-h-30 items-start gap-4 rounded-2xl border border-primary-800 bg-primary-50 p-4 text-left shadow-card transition"
+              >
+                <span className="mt-1 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-primary-800 text-white transition">
+                  {ServiceIcon && <ServiceIcon size={20} />}
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="flex items-center justify-between gap-3">
+                    <span className="text-base font-semibold text-neutral-950">{selectedService.name}</span>
+                    <CheckCircle2 size={18} className="shrink-0 text-primary-800" />
+                  </span>
+                  <span className="mt-2 block text-sm leading-6 text-neutral-600">{selectedService.description}</span>
+                </span>
+              </button>
 
-                return (
-                  <button
-                    key={service.id}
-                    type="button"
-                    onClick={() => setSelectedServiceId(service.id)}
-                    aria-pressed={isSelected}
-                    className={cn(
-                      'group flex min-h-30 items-start gap-4 rounded-2xl border p-4 text-left transition',
-                      isSelected
-                        ? 'border-primary-800 bg-primary-50 shadow-card'
-                        : 'border-neutral-200 bg-white hover:border-primary-200 hover:bg-primary-50',
-                    )}
-                  >
-                    <span
+              <div className="mt-3 grid grid-cols-2 gap-2">
+                {unselectedServices.map((service) => {
+                  const Icon = service.icon;
+
+                  return (
+                    <button
+                      key={service.id}
+                      type="button"
+                      onClick={() => setSelectedServiceId(service.id)}
+                      aria-pressed={false}
+                      className="group flex min-h-12 items-center gap-2 rounded-xl border border-neutral-200 bg-white px-3 py-2 text-left text-neutral-700 transition hover:border-primary-200 hover:bg-primary-50"
+                    >
+                      <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-neutral-100 text-primary-800 transition group-hover:bg-primary-100">
+                        <Icon size={15} />
+                      </span>
+                      <span className="min-w-0 text-sm font-semibold leading-5 text-neutral-950">{service.name}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="hidden md:block">
+              <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
+                {services.map((service) => {
+                  const isSelected = service.id === selectedService.id;
+                  const Icon = service.icon;
+
+                  return (
+                    <button
+                      key={service.id}
+                      type="button"
+                      onClick={() => setSelectedServiceId(service.id)}
+                      aria-pressed={isSelected}
                       className={cn(
-                        'mt-1 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl transition',
-                        isSelected ? 'bg-primary-800 text-white' : 'bg-neutral-100 text-primary-800 group-hover:bg-primary-100',
+                        'group flex min-h-30 items-start gap-4 rounded-2xl border p-4 text-left transition',
+                        isSelected
+                          ? 'border-primary-800 bg-primary-50 shadow-card'
+                          : 'border-neutral-200 bg-white hover:border-primary-200 hover:bg-primary-50',
                       )}
                     >
-                      <Icon size={20} />
-                    </span>
-                    <span className="min-w-0 flex-1">
-                      <span className="flex items-center justify-between gap-3">
-                        <span className="text-base font-semibold text-neutral-950">{service.name}</span>
-                        {isSelected && <CheckCircle2 size={18} className="shrink-0 text-primary-800" />}
+                      <span
+                        className={cn(
+                          'mt-1 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl transition',
+                          isSelected ? 'bg-primary-800 text-white' : 'bg-neutral-100 text-primary-800 group-hover:bg-primary-100',
+                        )}
+                      >
+                        <Icon size={20} />
                       </span>
-                      <span className="mt-2 block text-sm leading-6 text-neutral-600">{service.description}</span>
-                    </span>
-                  </button>
-                );
-              })}
+                      <span className="min-w-0 flex-1">
+                        <span className="flex items-center justify-between gap-3">
+                          <span className="text-base font-semibold text-neutral-950">{service.name}</span>
+                          {isSelected && <CheckCircle2 size={18} className="shrink-0 text-primary-800" />}
+                        </span>
+                        <span className="mt-2 block text-sm leading-6 text-neutral-600">{service.description}</span>
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="mt-6 block rounded-[28px] border border-neutral-200 bg-neutral-50/70 p-4 shadow-[0_28px_86px_rgba(10,42,34,0.08)] md:hidden">
+              <div className="rounded-2xl border border-neutral-200 bg-white p-5">
+                <div className="flex items-start gap-4">
+                  <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary-800 text-white">
+                    {ServiceIcon && <ServiceIcon size={22} />}
+                  </span>
+                  <div className="min-w-0">
+                    <div className="text-xs font-semibold uppercase tracking-[0.18em] text-primary-700">Role details</div>
+                    <h3 className="mt-2 text-2xl font-semibold text-neutral-950">{selectedService.name}</h3>
+                    <p className="mt-2 text-sm leading-6 text-neutral-600">{selectedService.description}</p>
+                  </div>
+                </div>
+
+                <div className="mt-4 border-t border-neutral-100 pt-4">
+                  <div className="mb-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="text-sm font-semibold text-neutral-900">Slot options :</div>
+                    <div className="text-xs font-semibold uppercase leading-5 tracking-[0.16em] text-success-600 sm:text-right">
+                      <span>Full day {"(8 HOURs)"}</span>&ensp;&ensp; <span>&</span>&ensp;&ensp;
+                      <span>Half day {"(4 HOURs)"}</span>
+                    </div>
+                  </div>
+
+                  {shouldShowSiteCategorySelection && (
+                    <div className="mt-3">
+                      <div className="mb-2 text-sm font-semibold text-neutral-900">Select site category</div>
+                      <div className="grid gap-2">
+                        {serviceSubcategoryOptions.map((option) => {
+                          const isSelected = option === selectedSubcategory;
+                          const { Icon, description } = subcategoryMeta[option];
+
+                          return (
+                            <button
+                              key={option}
+                              type="button"
+                              onClick={() => setSelectedSubcategory(option)}
+                              aria-pressed={isSelected}
+                              className={cn(
+                                'flex items-start gap-2.5 rounded-2xl border p-2.5 text-left transition',
+                                isSelected
+                                  ? 'border-primary-800 bg-primary-50 text-primary-950 shadow-card'
+                                  : 'border-neutral-200 bg-neutral-50 text-neutral-700 hover:border-primary-200 hover:bg-primary-50',
+                              )}
+                            >
+                              <span className={cn('mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-xl', isSelected ? 'bg-primary-800 text-white' : 'bg-neutral-100 text-primary-800')}>
+                                <Icon size={14} />
+                              </span>
+                              <span className="min-w-0 flex-1">
+                                <span className="flex items-start justify-between gap-2">
+                                  <span className="block text-sm font-semibold leading-5">{option}</span>
+                                  {isSelected && <CheckCircle2 size={15} className="mt-0.5 shrink-0 text-primary-800" />}
+                                </span>
+                                <span className="mt-0.5 block text-xs leading-4 text-neutral-500">{description}</span>
+                              </span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-5 grid gap-4 md:hidden">
+              <DetailList title="What's included" items={selectedDetails.included} tone="included" />
+              <DetailList title="What's not included" items={selectedDetails.notIncluded} tone="excluded" />
             </div>
           </div>
 
-          <div className="rounded-[28px] border border-neutral-200 bg-neutral-50/70 p-4 shadow-[0_28px_86px_rgba(10,42,34,0.08)] sm:p-6">
+          <div className="hidden rounded-[28px] border border-neutral-200 bg-neutral-50/70 p-4 shadow-[0_28px_86px_rgba(10,42,34,0.08)] sm:p-6 md:block">
             <div className="rounded-2xl border border-neutral-200 bg-white p-5">
               <div className="flex items-start gap-4">
                 <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary-800 text-white">

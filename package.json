@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vercel dev",
+    "go": "vite",
     "dev:frontend": "vite",
     "build": "tsc -b && vite build --configLoader runner",
     "lint": "eslint .",

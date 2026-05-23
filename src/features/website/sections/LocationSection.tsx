@@ -69,65 +69,62 @@ export function LocationSection() {
       viewport={{ once: true, margin: '-80px' }}
       variants={stagger}
     >
-      <div className="mx-auto  max-w-8xl px-6 sm:px-8 lg:px-10">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={fadeUp}
-          className="grid gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(420px,1fr)] lg:items-center xl:gap-14"
+          className="grid gap-8 sm:gap-10 lg:grid-cols-2 lg:items-center xl:gap-14"
         >
           {/* LEFT CONTENT */}
-          <div className="min-w-0">
-            <Badge variant="primary" size="lg" className="mb-4 ml-36" >
+          <div className="flex min-w-0 max-w-2xl flex-col items-start px-4 text-left sm:px-6 lg:px-8">
+            <Badge variant="primary" size="lg" className="mb-4">
               Cities
             </Badge>
 
             <motion.h1
-  variants={scaleIn}
-  className="mx-auto pl-32 w-full max-w-[620px] text-left text-4xl font-extrabold leading-[1.08] text-neutral-950 sm:text-5xl md:text-6xl lg:max-w-[650px] lg:text-[4rem] xl:max-w-[700px]"
-  style={{ willChange: 'transform' }}
->
-  <span className="block">Pune is just the</span>
+              variants={scaleIn}
+              className="max-w-xl text-balance text-4xl font-extrabold leading-tight text-neutral-950 sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-[1.08]"
+              style={{ willChange: 'transform' }}
+            >
+              <span>Pune is just the </span>
+              <span className="relative inline-block overflow-hidden align-baseline">
+                <span className="bg-linear-to-r from-teal-700 via-cyan-500 to-sky-400 bg-clip-text font-extrabold text-transparent">
+                  beginning ...
+                </span>
 
-  <span className="relative mt-3 inline-block overflow-hidden">
-    <span className="bg-linear-to-r from-teal-700 via-cyan-500 to-sky-400 bg-clip-text font-extrabold text-transparent">
-      beginning ...
-    </span>
+                <motion.span
+                  aria-hidden
+                  initial={{ x: '-110%' }}
+                  animate={{ x: ['-110%', '110%'] }}
+                  transition={{
+                    duration: 3.2,
+                    repeat: Infinity,
+                    ease: 'linear',
+                    repeatDelay: 3.5,
+                  }}
+                  className="pointer-events-none absolute left-0 top-0 h-full w-full"
+                  style={{
+                    background:
+                      'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.22) 45%, rgba(255,255,255,0.05) 60%, rgba(255,255,255,0) 100%)',
+                    mixBlendMode: 'screen',
+                  }}
+                />
 
-    <motion.span
-      aria-hidden
-      initial={{ x: '-110%' }}
-      animate={{ x: ['-110%', '110%'] }}
-      transition={{
-        duration: 3.2,
-        repeat: Infinity,
-        ease: 'linear',
-        repeatDelay: 3.5,
-      }}
-      className="pointer-events-none absolute left-0 top-0 h-full w-full"
-      style={{
-        background:
-          'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.22) 45%, rgba(255,255,255,0.05) 60%, rgba(255,255,255,0) 100%)',
-        mixBlendMode: 'screen',
-      }}
-    />
-
-    <motion.span
-      aria-hidden
-      className="pointer-events-none absolute inset-x-0 -bottom-1 h-1 rounded-full bg-[linear-gradient(90deg,rgba(20,143,137,0),rgba(20,143,137,0.7),rgba(77,163,102,0))]"
-      animate={{
-        scaleX: [0.55, 1, 0.55],
-        opacity: [0.45, 0.9, 0.45],
-      }}
-      transition={{
-        duration: 3.6,
-        repeat: Infinity,
-        ease: 'easeInOut',
-      }}
-    />
-  </span>
-
-  <span className="block mt-3">city expansion</span>
-  <span className="block mt-3">coming soon.</span>
-</motion.h1>
+                <motion.span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-x-0 -bottom-0.5 h-1 rounded-full bg-[linear-gradient(90deg,rgba(20,143,137,0),rgba(20,143,137,0.7),rgba(77,163,102,0))]"
+                  animate={{
+                    scaleX: [0.55, 1, 0.55],
+                    opacity: [0.45, 0.9, 0.45],
+                  }}
+                  transition={{
+                    duration: 3.6,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }}
+                />
+              </span>
+              <span> city expansion coming soon.</span>
+            </motion.h1>
           </div>
 
           {/* RIGHT CARD */}

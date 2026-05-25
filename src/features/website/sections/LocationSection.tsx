@@ -38,7 +38,7 @@ const locationVideoSrc = publicAsset('/location/AA.webm');
 
 function LocationVideo() {
   return (
-    <div className="relative h-full min-h-[260px] overflow-hidden rounded-[22px] bg-neutral-100 shadow-[0_18px_50px_rgba(10,42,34,0.14)] ring-1 ring-white/80">
+    <div className="relative h-full w-full overflow-hidden rounded-[28px] bg-neutral-100">
       <video
         className="h-full w-full object-cover"
         autoPlay
@@ -51,7 +51,7 @@ function LocationVideo() {
         <source src={locationVideoSrc} type="video/webm" />
       </video>
 
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0)_46%,rgba(10,42,34,0.14)_100%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0)_58%,rgba(10,42,34,0.08)_100%)]" />
     </div>
   );
 }
@@ -63,94 +63,93 @@ export function LocationSection() {
   return (
     <motion.section
       id="location"
-      className="bg-canvas py-14 sm:py-16 lg:py-20"
+      className="bg-[#F3F6F5] py-16 lg:py-24"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-80px' }}
       variants={stagger}
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-375 px-6 sm:px-8">
         <motion.div
           variants={fadeUp}
-          className="grid gap-8 sm:gap-10 lg:grid-cols-2 lg:items-center xl:gap-14"
+          className="grid grid-cols-1 items-center gap-12 xl:grid-cols-[0.95fr_1.1fr] xl:gap-14"
         >
-          {/* LEFT CONTENT */}
-          <div className="flex min-w-0 max-w-2xl flex-col items-start px-4 text-left sm:px-6 lg:px-8">
-            <Badge variant="primary" size="lg" className="mb-4">
-              Cities
-            </Badge>
+<div className="flex min-w-0 max-w-[620px] flex-col items-start text-left pl-8 sm:pl-12 lg:pl-16 xl:pl-20 xl:max-w-[640px]">  <Badge variant="primary" size="lg" className="mb-6 rounded-full px-5 py-2">
+    Cities
+  </Badge>
 
-            <motion.h1
-              variants={scaleIn}
-              className="max-w-xl text-balance text-4xl font-extrabold leading-tight text-neutral-950 sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-[1.08]"
-              style={{ willChange: 'transform' }}
-            >
-              <span>Pune is just the </span>
-              <span className="relative inline-block overflow-hidden align-baseline">
-                <span className="bg-linear-to-r from-teal-700 via-cyan-500 to-sky-400 bg-clip-text font-extrabold text-transparent">
-                  beginning ...
-                </span>
+  <motion.h2
+    variants={scaleIn}
+    className="max-w-[620px] text-balance font-black leading-[0.92] tracking-[-0.04em] text-neutral-950 text-4xl sm:text-5xl lg:text-6xl xl:text-[72px]"
+    style={{ willChange: 'transform' }}
+  >
+    <span className="block">Pune is just the</span>
 
-                <motion.span
-                  aria-hidden
-                  initial={{ x: '-110%' }}
-                  animate={{ x: ['-110%', '110%'] }}
-                  transition={{
-                    duration: 3.2,
-                    repeat: Infinity,
-                    ease: 'linear',
-                    repeatDelay: 3.5,
-                  }}
-                  className="pointer-events-none absolute left-0 top-0 h-full w-full"
-                  style={{
-                    background:
-                      'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.22) 45%, rgba(255,255,255,0.05) 60%, rgba(255,255,255,0) 100%)',
-                    mixBlendMode: 'screen',
-                  }}
-                />
+    <span className="relative inline-block overflow-hidden align-baseline">
+      <span className="bg-linear-to-r from-teal-700 via-cyan-500 to-sky-400 bg-clip-text text-transparent">
+        beginning ...
+      </span>
 
-                <motion.span
-                  aria-hidden
-                  className="pointer-events-none absolute inset-x-0 -bottom-0.5 h-1 rounded-full bg-[linear-gradient(90deg,rgba(20,143,137,0),rgba(20,143,137,0.7),rgba(77,163,102,0))]"
-                  animate={{
-                    scaleX: [0.55, 1, 0.55],
-                    opacity: [0.45, 0.9, 0.45],
-                  }}
-                  transition={{
-                    duration: 3.6,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                  }}
-                />
-              </span>
-              <span> city expansion coming soon.</span>
-            </motion.h1>
-          </div>
+      <motion.span
+        aria-hidden
+        initial={{ x: '-110%' }}
+        animate={{ x: ['-110%', '110%'] }}
+        transition={{
+          duration: 3.2,
+          repeat: Infinity,
+          ease: 'linear',
+          repeatDelay: 3.5,
+        }}
+        className="pointer-events-none absolute left-0 top-0 h-full w-full"
+        style={{
+          background:
+            'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.22) 45%, rgba(255,255,255,0.05) 60%, rgba(255,255,255,0) 100%)',
+          mixBlendMode: 'screen',
+        }}
+      />
 
-          {/* RIGHT CARD */}
+      <motion.span
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 -bottom-1 h-1 rounded-full bg-[linear-gradient(90deg,rgba(20,143,137,0),rgba(20,143,137,0.7),rgba(77,163,102,0))]"
+        animate={{
+          scaleX: [0.55, 1, 0.55],
+          opacity: [0.45, 0.9, 0.45],
+        }}
+        transition={{
+          duration: 3.6,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      />
+    </span>
+
+    <span className="block">city expansion</span>
+    <span className="block">coming soon.</span>
+  </motion.h2>
+</div>
+
           <div className="min-w-0">
-            <div className="overflow-hidden rounded-[28px] border border-neutral-200 bg-white shadow-[0_30px_90px_rgba(10,42,34,0.08)]">
-              <div className="grid md:grid-cols-[230px_minmax(0,1fr)] xl:grid-cols-[260px_minmax(0,1fr)]">
-                {/* LEFT INFO PANEL */}
-                <div className="border-b border-neutral-100 p-5 sm:p-6 md:border-b-0 md:border-r">
-                  <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-primary-50 text-primary-800">
-                    <MapPin size={20} />
+            <div className="overflow-hidden rounded-4xl border border-neutral-200 bg-white shadow-sm">
+              <div className="grid grid-cols-1 lg:grid-cols-[0.85fr_1.55fr]">
+                <div className="border-b border-neutral-100 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:border-neutral-100">
+                  <div className="mb-7 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-800">
+                    <MapPin size={21} />
                   </div>
 
-                  <p className="mb-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">
+                  <p className="mb-2 text-xs font-semibold uppercase tracking-[0.22em] text-neutral-500">
                     Live city
                   </p>
 
-                  <h3 className="text-xl font-semibold text-neutral-950 sm:text-2xl">
+                  <h3 className="text-2xl font-semibold leading-tight text-neutral-950">
                     {activeCity?.name ?? 'Pune'}
                   </h3>
 
-                  <div className="mt-5 w-full text-sm leading-relaxed text-neutral-500">
-                    <p className="mb-2 font-semibold text-neutral-700">
+                  <div className="mt-8 w-full text-sm leading-relaxed text-neutral-500">
+                    <p className="mb-3 font-semibold text-neutral-800">
                       Local coverage for
                     </p>
 
-                    <ul className="ml-4 list-inside list-disc space-y-1">
+                    <ul className="list-inside list-disc space-y-1.5">
                       <li>All size Offices</li>
                       <li>Clinics / Consultants / Startups</li>
                       <li>Schools / Colleges</li>
@@ -163,10 +162,11 @@ export function LocationSection() {
                   </div>
                 </div>
 
-                {/* VIDEO */}
-                <div className="min-h-[420px] bg-white p-4 sm:p-5">
-                  <LocationVideo />
-                </div>
+           <div className="min-w-0 bg-neutral-50 p-4 lg:p-5">
+  <div className="h-full min-h-[420px] w-full">
+    <LocationVideo />
+  </div>
+</div>
               </div>
             </div>
           </div>

@@ -32,7 +32,7 @@ export const router = createHashRouter([
       { path: '/security', element: <SectionRedirect sectionId="services" /> },
     ],
   },
-  { path: '/app', element: <Navigate to="/" replace />, errorElement: <RouteError /> },
+  { path: '/app', element: <Navigate to="/" replace />,errorElement: <RouteError /> },
   { path: '/login', element: <Navigate to="/" replace />, errorElement: <RouteError /> },
   { path: '*', element: <Navigate to="/" replace /> },
 ]);

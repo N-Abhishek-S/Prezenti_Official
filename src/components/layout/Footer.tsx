@@ -101,7 +101,7 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col gap-4 border-t border-white/10 pt-8 text-sm sm:flex-row sm:items-center sm:justify-between">
-          <div>&copy; 2026 Presenti. All rights reserved.</div>
+          <div>&copy; 2026 Prezenti. All rights reserved.</div>
           <div className="flex gap-4">
             <a href="#" className="text-lg text-white/50 no-underline transition-colors hover:text-white">in</a>
             <a href="#" className="text-lg text-white/50 no-underline transition-colors hover:text-white">x</a>

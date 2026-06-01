@@ -1,4 +1,4 @@
-export const PENDING_SECTION_KEY = 'presenti.pendingSection';
+export const PENDING_SECTION_KEY = 'prezenti.pendingSection';
 
 export const publicSections = [
   { id: 'home', label: 'Home' },

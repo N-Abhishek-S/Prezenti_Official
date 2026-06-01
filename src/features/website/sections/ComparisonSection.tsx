@@ -24,7 +24,7 @@ export function ComparisonSection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <motion.div variants={fadeUp} className="mx-auto mb-12 max-w-[720px] text-center">
           <Badge variant="primary" size="lg" className="mb-3">
-            Why Presenti
+            Why Prezenti
           </Badge>
           <h2 className="mb-4 text-2xl font-semibold sm:text-[30px]">Support staff, on demand — powered by Prezenti.</h2>
           <p className="text-base leading-relaxed text-neutral-500 sm:text-lg">Reliable Support Staff. Ready On Demand</p>

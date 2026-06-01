@@ -74,13 +74,13 @@ export function LocationSection() {
           variants={fadeUp}
           className="grid grid-cols-1 items-center gap-12 xl:grid-cols-[0.95fr_1.1fr] xl:gap-14"
         >
-<div className="flex min-w-0 max-w-[620px] flex-col items-start text-left pl-8 sm:pl-12 lg:pl-16 xl:pl-20 xl:max-w-[640px]">  <Badge variant="primary" size="lg" className="mb-6 rounded-full px-5 py-2">
+<div className="flex min-w-0 max-w-155 flex-col items-start text-left pl-8 sm:pl-12 lg:pl-16 xl:pl-20 xl:max-w-160">  <Badge variant="primary" size="lg" className="mb-6 rounded-full px-5 py-2">
     Cities
   </Badge>
 
   <motion.h2
     variants={scaleIn}
-    className="max-w-[620px] text-balance font-black leading-[0.92] tracking-[-0.04em] text-neutral-950 text-4xl sm:text-5xl lg:text-6xl xl:text-[72px]"
+    className="max-w-155 text-balance font-black leading-[0.92] tracking-[-0.04em] text-neutral-950 text-4xl sm:text-5xl lg:text-6xl xl:text-[72px]"
     style={{ willChange: 'transform' }}
   >
     <span className="block">Pune is just the</span>
@@ -163,7 +163,7 @@ export function LocationSection() {
                 </div>
 
            <div className="min-w-0 bg-neutral-50 p-4 lg:p-5">
-  <div className="h-full min-h-[420px] w-full">
+  <div className="h-full min-h-105 w-full">
     <LocationVideo />
   </div>
 </div>

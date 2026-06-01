@@ -105,14 +105,20 @@ export function HeroContent({ roles }: HeroContentProps) {
   <div className="absolute inset-0 rounded-xl blur-md opacity-60 bg-[linear-gradient(90deg,#14b8a6,#22c55e,#06b6d4,#14b8a6)] bg-size-[300%_300%] animate-[gradientMove_4s_linear_infinite]" />
 
   {/* Content */}
-  <div className="relative block w-full max-w-full rounded-xl bg-white/90 px-4 py-2 text-sm font-semibold leading-5 text-primary-800 backdrop-blur-md sm:inline-flex sm:w-auto sm:items-center sm:gap-2">
-    <span className="absolute left-4 top-4 flex h-2 w-2 sm:relative sm:left-auto sm:top-auto" aria-hidden="true">
+  <div className="relative flex w-full flex-row items-start gap-2.5 rounded-xl bg-white/90 px-4 py-2.5 font-semibold text-primary-800 backdrop-blur-md sm:w-auto sm:px-5">
+    <span className="relative mt-[0.35rem] flex h-2 w-2 shrink-0 sm:mt-1.5" aria-hidden="true">
       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-400 opacity-75" />
+      <span className="relative inline-flex h-2 w-2 rounded-full bg-teal-500" />
     </span>
 
-    <span className="block min-w-0 break-words pl-5 [overflow-wrap:anywhere] sm:flex-none sm:pl-0">
-      3000+ Trained Professionals Already on Duty — <span className="block sm:inline">Let's Connect</span>
-    </span>
+    <div className="flex flex-col text-[clamp(8px,2.7vw,14px)] sm:text-sm leading-[1.3] sm:leading-snug">
+      <span className="whitespace-nowrap">
+        3000+ Trained Professionals Already on Duty —
+      </span>
+      <span className="mt-0.5 sm:mt-1">
+        Let's Connect...
+      </span>
+    </div>
   </div>
 </motion.div>
 

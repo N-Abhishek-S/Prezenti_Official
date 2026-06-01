@@ -218,7 +218,7 @@ export function TalkToExpertForm({
               value={form.mobileNumber}
               onChange={(event) => update('mobileNumber', event.target.value)}
               className={fieldClass(Boolean(errors.mobileNumber))}
-              placeholder="+91 98765 43210"
+              placeholder="Mobile Number"
               aria-invalid={Boolean(errors.mobileNumber)}
               aria-describedby={`${formId}-mobileNumber-error`}
             />
@@ -234,7 +234,7 @@ export function TalkToExpertForm({
               value={form.email}
               onChange={(event) => update('email', event.target.value)}
               className={fieldClass(Boolean(errors.email))}
-              placeholder="name@company.com"
+              placeholder="Email"
               aria-invalid={Boolean(errors.email)}
               aria-describedby={`${formId}-email-error`}
             />
@@ -242,7 +242,7 @@ export function TalkToExpertForm({
           </label>
 
           <label className="block text-sm font-semibold text-neutral-800" htmlFor={`${formId}-companyName`}>
-            Company Name
+            Company / Building Name
             <input
               id={`${formId}-companyName`}
               type="text"
@@ -250,7 +250,7 @@ export function TalkToExpertForm({
               value={form.companyName}
               onChange={(event) => update('companyName', event.target.value)}
               className={fieldClass(Boolean(errors.companyName))}
-              placeholder="Company or site name"
+              placeholder="Company / Building Name"
               aria-invalid={Boolean(errors.companyName)}
               aria-describedby={`${formId}-companyName-error`}
             />
@@ -266,7 +266,7 @@ export function TalkToExpertForm({
               value={form.location}
               onChange={(event) => update('location', event.target.value)}
               className={fieldClass(Boolean(errors.location))}
-              placeholder="Baner, Pune"
+              placeholder="Location / Area"
               aria-invalid={Boolean(errors.location)}
               aria-describedby={`${formId}-location-error`}
             />

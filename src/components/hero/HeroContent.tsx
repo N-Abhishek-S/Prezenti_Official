@@ -144,6 +144,7 @@ export function HeroContent({ roles }: HeroContentProps) {
     }}
     className="
       block
+      whitespace-nowrap
       text-[1.55rem]
       min-[375px]:text-[1.8rem]
       sm:text-[2.6rem]
@@ -155,7 +156,7 @@ export function HeroContent({ roles }: HeroContentProps) {
     Trained support staff -
   </motion.span>
 
-  {/* Second Line with continuous animation */}
+  {/* Second Line */}
   <motion.span
     initial={{
       opacity: 0,
@@ -174,34 +175,17 @@ export function HeroContent({ roles }: HeroContentProps) {
     }}
     className="
       block
+      whitespace-nowrap
       text-[1.75rem]
       min-[375px]:text-[1.9rem]
       sm:text-[2.7rem]
       md:text-[3.3rem]
       lg:text-[3.9rem]
       font-extrabold
+      text-[#16a34a]
     "
   >
-    <motion.span
-      animate={{
-        backgroundPosition: ['200% center', '-200% center'],
-      }}
-      transition={{
-        duration: 4,
-        repeat: Infinity,
-        ease: 'linear',
-      }}
-      className="
-        inline-block
-        text-transparent
-        bg-clip-text
-        bg-[linear-gradient(90deg,#0a0a0a_0%,#0a0a0a_30%,#16a34a_45%,#22c55e_50%,#16a34a_55%,#0a0a0a_70%,#0a0a0a_100%)]
-        bg-[length:300%_100%]
-        will-change-[background-position]
-      "
-    >
-      just a click away
-    </motion.span>
+    just a click away
   </motion.span>
 </motion.h1>
 

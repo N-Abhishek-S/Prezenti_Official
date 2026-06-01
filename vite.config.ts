@@ -27,5 +27,8 @@ export default defineConfig({
         }
       }
     }
+  },
+  css: {
+    postcss: {} // Explicitly empty to prevent resolving global postcss.config.js
   }
 })

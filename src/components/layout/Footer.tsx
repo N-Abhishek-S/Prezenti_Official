@@ -1,8 +1,7 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { BrandLogo } from '../brand/BrandLogo';
 import { publicSections, scrollToSection, setPendingSection, type PublicSectionId } from '../../lib/sectionNavigation';
 
-const serviceLinks: PublicSectionId[] = ['services', 'location'];
 
 export function Footer() {
   const location = useLocation();
@@ -56,27 +55,19 @@ export function Footer() {
           <div>
             <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">Services</h4>
             <ul className="flex flex-col gap-2">
-              {serviceLinks.map((sectionId) => {
-                const section = publicSections.find((item) => item.id === sectionId);
-                if (!section) return null;
-
-                return (
-                  <li key={sectionId}>
-                    <button
-                      type="button"
-                      className="text-sm text-white/60 transition-colors duration-150 hover:text-white"
-                      onClick={() => goToSection(sectionId)}
-                    >
-                      {section.label}
-                    </button>
-                  </li>
-                );
-              })}
+              <li><Link to="/services" className="text-sm text-white/60 transition-colors duration-150 hover:text-white">All Services</Link></li>
+              <li><Link to="/housekeeping-services" className="text-sm text-white/60 transition-colors duration-150 hover:text-white">Housekeeping</Link></li>
+              <li><Link to="/security-services" className="text-sm text-white/60 transition-colors duration-150 hover:text-white">Security</Link></li>
+              <li><Link to="/receptionist-staffing-services" className="text-sm text-white/60 transition-colors duration-150 hover:text-white">Receptionist</Link></li>
+              <li><Link to="/office-boy-services" className="text-sm text-white/60 transition-colors duration-150 hover:text-white">Office Boy</Link></li>
+              <li><Link to="/pantry-staff-services" className="text-sm text-white/60 transition-colors duration-150 hover:text-white">Pantry Staff</Link></li>
+              <li><Link to="/facility-management-services" className="text-sm text-white/60 transition-colors duration-150 hover:text-white">Facility Management</Link></li>
+              <li><Link to="/property-management-services" className="text-sm text-white/60 transition-colors duration-150 hover:text-white">Property Management</Link></li>
             </ul>
           </div>
 
           <div>
-            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">Company</h4>
+            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">Company & Legal</h4>
             <ul className="flex flex-col gap-2">
               <li>
                 <button
@@ -96,6 +87,8 @@ export function Footer() {
                   Open App
                 </button>
               </li>
+              <li><Link to="/privacy-policy" className="text-sm text-white/60 transition-colors duration-150 hover:text-white">Privacy Policy</Link></li>
+              <li><Link to="/terms-and-conditions" className="text-sm text-white/60 transition-colors duration-150 hover:text-white">Terms & Conditions</Link></li>
             </ul>
           </div>
         </div>
@@ -103,9 +96,9 @@ export function Footer() {
         <div className="flex flex-col gap-4 border-t border-white/10 pt-8 text-sm sm:flex-row sm:items-center sm:justify-between">
           <div>&copy; 2026 Prezenti. All rights reserved.</div>
           <div className="flex gap-4">
-            <a href="#" className="text-lg text-white/50 no-underline transition-colors hover:text-white">in</a>
-            <a href="#" className="text-lg text-white/50 no-underline transition-colors hover:text-white">x</a>
-            <a href="mailto:bd@kargar.co.in" className="text-lg text-white/50 no-underline transition-colors hover:text-white">@</a>
+            <a href="#" aria-label="LinkedIn" className="text-lg text-white/50 no-underline transition-colors hover:text-white">in</a>
+            <a href="#" aria-label="X (Twitter)" className="text-lg text-white/50 no-underline transition-colors hover:text-white">x</a>
+            <a href="mailto:bd@kargar.co.in" aria-label="Email" className="text-lg text-white/50 no-underline transition-colors hover:text-white">@</a>
           </div>
         </div>
       </div>

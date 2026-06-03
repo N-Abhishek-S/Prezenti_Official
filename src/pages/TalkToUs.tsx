@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { TalkToExpertForm } from '../components/inquiry/TalkToExpertForm';
+import { SEO } from '../seo/SEO';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -13,7 +14,13 @@ export function TalkToUs() {
   }, []);
 
   return (
-    <main className="bg-canvas pt-24 pb-14 sm:pt-28 lg:pb-20">
+    <>
+      <SEO 
+        title="Contact Prezenti | Get Staffing Solutions" 
+        description="Contact Prezenti today for professional facility management, housekeeping and staffing services." 
+        canonicalUrl="/talk-to-us" 
+      />
+      <main className="bg-canvas pt-24 pb-14 sm:pt-28 lg:pb-20">
       <section className="mx-auto max-w-7xl px-4 sm:px-6">
         <motion.div initial="hidden" animate="visible" variants={fadeUp} className="mx-auto mb-9 max-w-3xl text-center">
           <div className="text-xs font-semibold uppercase tracking-[0.18em] text-primary-700">Talk to Expert</div>
@@ -28,5 +35,6 @@ export function TalkToUs() {
         <TalkToExpertForm />
       </section>
     </main>
+    </>
   );
 }

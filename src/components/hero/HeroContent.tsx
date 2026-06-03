@@ -156,7 +156,6 @@ export function HeroContent({ roles }: HeroContentProps) {
     Trained support staff -
   </motion.span>
 
-  {/* Second Line */}
   <motion.span
     initial={{
       opacity: 0,

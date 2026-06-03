@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Building2, CheckCircle2, Home, Landmark, ListChecks, XCircle } from 'lucide-react';
+import { Building2, CheckCircle2, Home, Hospital, Landmark, ListChecks, XCircle } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { TalkToExpertModal } from '../inquiry/TalkToExpertModal';
 import {
@@ -11,8 +11,9 @@ import {
 import { usePublicServiceCatalog } from '../../modules/inquiry/usePublicServiceCatalog';
 import { cn } from '../../lib/cn';
 
-const subcategoryMeta: Record<ServiceSubcategory, { description: string; Icon: typeof Building2 }> = {
+const subcategoryMeta: Record<ServiceSubcategory, { description: string; Icon: typeof Building2; title?: string }> = {
   'Offices / Corporate': {
+    title: 'Offices / Corporate / Educational Institute',
     description: 'Daily workplace support for offices, startups, clinics, consultants, and corporate floors.',
     Icon: Building2,
   },
@@ -24,9 +25,82 @@ const subcategoryMeta: Record<ServiceSubcategory, { description: string; Icon: t
     description: 'Society and residential-property staffing for towers, gated communities, and apartments.',
     Icon: Home,
   },
+  'Hospital / Healthcare': {
+    description: 'Hospitals, clinics, diagnostic centers, nursing homes, and healthcare facilities.',
+    Icon: Hospital,
+  },
 };
 
 const servicesWithCategories = new Set(['housekeeping', 'facility-supervisor']);
+
+function SiteCategoryButton({
+  option,
+  isSelected,
+  onSelect,
+  variant,
+}: {
+  option: ServiceSubcategory;
+  isSelected: boolean;
+  onSelect: (option: ServiceSubcategory) => void;
+  variant: 'compact' | 'card';
+}) {
+  const { Icon, description, title } = subcategoryMeta[option];
+  const displayTitle = title ?? option;
+
+  if (variant === 'compact') {
+    return (
+      <button
+        type="button"
+        onClick={() => onSelect(option)}
+        aria-label={displayTitle}
+        aria-pressed={isSelected}
+        className={cn(
+          'flex min-h-[5.75rem] w-full items-start gap-2.5 rounded-2xl border p-2.5 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-700/20',
+          isSelected
+            ? 'border-primary-800 bg-primary-50 text-primary-950 shadow-card'
+            : 'border-neutral-200 bg-neutral-50 text-neutral-700 hover:border-primary-200 hover:bg-primary-50',
+        )}
+      >
+        <span className={cn('mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-xl', isSelected ? 'bg-primary-800 text-white' : 'bg-neutral-100 text-primary-800')}>
+          <Icon size={14} />
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="flex items-start justify-between gap-2">
+            <span className="block text-sm font-semibold leading-5">{displayTitle}</span>
+            {isSelected && <CheckCircle2 size={15} className="mt-0.5 shrink-0 text-primary-800" />}
+          </span>
+          <span className="mt-0.5 block text-xs leading-4 text-neutral-500">{description}</span>
+        </span>
+      </button>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={() => onSelect(option)}
+      aria-label={displayTitle}
+      aria-pressed={isSelected}
+      className={cn(
+        'flex h-full min-h-[8rem] w-full min-w-0 items-start gap-3 rounded-2xl border p-4 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-700/20',
+        isSelected
+          ? 'border-primary-800 bg-primary-50 text-primary-950 shadow-card'
+          : 'border-neutral-200 bg-white text-neutral-700 hover:border-primary-200 hover:bg-primary-50',
+      )}
+    >
+      <span className={cn('mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl', isSelected ? 'bg-primary-800 text-white' : 'bg-neutral-100 text-primary-800')}>
+        <Icon size={17} />
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="flex items-start justify-between gap-3">
+          <span className="block max-w-[22rem] text-sm font-semibold leading-5">{displayTitle}</span>
+          {isSelected && <CheckCircle2 size={17} className="mt-0.5 shrink-0 text-primary-800" />}
+        </span>
+        <span className="mt-1.5 block max-w-[24rem] text-xs leading-5 text-neutral-500">{description}</span>
+      </span>
+    </button>
+  );
+}
 
 function DetailList({
   title,
@@ -153,7 +227,7 @@ export function ServiceConfigurator() {
                 type="button"
                 onClick={() => setSelectedServiceId(selectedService.id)}
                 aria-pressed
-                className="group flex min-h-30 items-start gap-4 rounded-2xl border border-primary-800 bg-primary-50 p-4 text-left shadow-card transition"
+                className="group flex min-h-30 items-start gap-4 rounded-2xl border border-primary-800 bg-primary-50 p-4 text-left shadow-card transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-700/20"
               >
                 <span className="mt-1 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-primary-800 text-white transition">
                   {ServiceIcon && <ServiceIcon size={20} />}
@@ -177,7 +251,7 @@ export function ServiceConfigurator() {
                       type="button"
                       onClick={() => setSelectedServiceId(service.id)}
                       aria-pressed={false}
-                      className="group flex min-h-12 items-center gap-2 rounded-xl border border-neutral-200 bg-white px-3 py-2 text-left text-neutral-700 transition hover:border-primary-200 hover:bg-primary-50"
+                      className="group flex min-h-12 items-center gap-2 rounded-xl border border-neutral-200 bg-white px-3 py-2 text-left text-neutral-700 transition hover:border-primary-200 hover:bg-primary-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-700/20"
                     >
                       <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-neutral-100 text-primary-800 transition group-hover:bg-primary-100">
                         <Icon size={15} />
@@ -202,7 +276,7 @@ export function ServiceConfigurator() {
                       onClick={() => setSelectedServiceId(service.id)}
                       aria-pressed={isSelected}
                       className={cn(
-                        'group flex min-h-30 items-start gap-4 rounded-2xl border p-4 text-left transition',
+                        'group flex min-h-30 items-start gap-4 rounded-2xl border p-4 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-700/20',
                         isSelected
                           ? 'border-primary-800 bg-primary-50 shadow-card'
                           : 'border-neutral-200 bg-white hover:border-primary-200 hover:bg-primary-50',
@@ -254,35 +328,18 @@ export function ServiceConfigurator() {
                   {shouldShowSiteCategorySelection && (
                     <div className="mt-3">
                       <div className="mb-2 text-sm font-semibold text-neutral-900">Select site category</div>
-                      <div className="grid gap-2">
+                      <div className="grid auto-rows-fr gap-2">
                         {serviceSubcategoryOptions.map((option) => {
                           const isSelected = option === selectedSubcategory;
-                          const { Icon, description } = subcategoryMeta[option];
 
                           return (
-                            <button
+                            <SiteCategoryButton
                               key={option}
-                              type="button"
-                              onClick={() => setSelectedSubcategory(option)}
-                              aria-pressed={isSelected}
-                              className={cn(
-                                'flex items-start gap-2.5 rounded-2xl border p-2.5 text-left transition',
-                                isSelected
-                                  ? 'border-primary-800 bg-primary-50 text-primary-950 shadow-card'
-                                  : 'border-neutral-200 bg-neutral-50 text-neutral-700 hover:border-primary-200 hover:bg-primary-50',
-                              )}
-                            >
-                              <span className={cn('mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-xl', isSelected ? 'bg-primary-800 text-white' : 'bg-neutral-100 text-primary-800')}>
-                                <Icon size={14} />
-                              </span>
-                              <span className="min-w-0 flex-1">
-                                <span className="flex items-start justify-between gap-2">
-                                  <span className="block text-sm font-semibold leading-5">{option}</span>
-                                  {isSelected && <CheckCircle2 size={15} className="mt-0.5 shrink-0 text-primary-800" />}
-                                </span>
-                                <span className="mt-0.5 block text-xs leading-4 text-neutral-500">{description}</span>
-                              </span>
-                            </button>
+                              option={option}
+                              isSelected={isSelected}
+                              onSelect={setSelectedSubcategory}
+                              variant="compact"
+                            />
                           );
                         })}
                       </div>
@@ -327,33 +384,18 @@ export function ServiceConfigurator() {
             {shouldShowSiteCategorySelection && (
               <div className="mt-5">
                 <div className="mb-3 text-sm font-semibold text-neutral-900">Select site category</div>
-                <div className="grid gap-3 lg:grid-cols-3">
+                <div className="grid auto-rows-fr gap-3 md:grid-cols-[repeat(2,minmax(260px,1fr))]">
                   {serviceSubcategoryOptions.map((option) => {
                     const isSelected = option === selectedSubcategory;
-                    const { Icon, description } = subcategoryMeta[option];
 
                     return (
-                      <button
+                      <SiteCategoryButton
                         key={option}
-                        type="button"
-                        onClick={() => setSelectedSubcategory(option)}
-                        aria-pressed={isSelected}
-                        className={cn(
-                          'rounded-2xl border p-4 text-left transition',
-                          isSelected
-                            ? 'border-primary-800 bg-primary-50 text-primary-950 shadow-card'
-                            : 'border-neutral-200 bg-white text-neutral-700 hover:border-primary-200 hover:bg-primary-50',
-                        )}
-                      >
-                        <span className="mb-3 flex items-center justify-between gap-3">
-                          <span className={cn('inline-flex h-9 w-9 items-center justify-center rounded-xl', isSelected ? 'bg-primary-800 text-white' : 'bg-neutral-100 text-primary-800')}>
-                            <Icon size={17} />
-                          </span>
-                          {isSelected && <CheckCircle2 size={17} className="text-primary-800" />}
-                        </span>
-                        <span className="block text-sm font-semibold">{option}</span>
-                        <span className="mt-2 block text-xs leading-5 text-neutral-500">{description}</span>
-                      </button>
+                        option={option}
+                        isSelected={isSelected}
+                        onSelect={setSelectedSubcategory}
+                        variant="card"
+                      />
                     );
                   })}
                 </div>

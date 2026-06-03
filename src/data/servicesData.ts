@@ -38,6 +38,10 @@ export const serviceCategories: readonly ServiceCategory[] = [
     name: 'Residential Buildings',
     description: 'Society and residential-property staffing for towers, gated communities, and apartments.',
   },
+  {
+    name: 'Hospital / Healthcare',
+    description: 'Hospitals, clinics, diagnostic centers, nursing homes, and healthcare facilities.',
+  },
 ];
 
 export const servicesData: readonly ServiceData[] = [
@@ -70,6 +74,12 @@ export const servicesData: readonly ServiceData[] = [
         'Daily sweeping, mopping, dustbin clearing, and common-area reporting',
         'Support for housekeeping coordination with society manager or committee',
       ],
+      'Hospital / Healthcare': [
+        'Reception, waiting area, corridor, washroom, and non-clinical area cleaning support',
+        'Routine hygiene checks for patient-facing common areas during the shift',
+        'Dustbin clearing, dry/wet floor cleaning, and daily checklist reporting',
+        'Basic consumable coordination for housekeeping material availability',
+      ],
     },
     excluded: {
       'Offices / Corporate': [
@@ -89,6 +99,12 @@ export const servicesData: readonly ServiceData[] = [
         'Deep cleaning, water tank cleaning, pest control, or garden maintenance',
         'Cleaning materials, equipment, and consumables unless separately agreed',
         'Security gate duty, parking management, or technical repair work',
+      ],
+      'Hospital / Healthcare': [
+        'Clinical cleaning, biomedical waste handling, sterilization, or nursing duties',
+        'Purchase cost of chemicals, machines, tissue, liners, or consumables',
+        'Electrical, plumbing, carpentry, or technical maintenance work',
+        'Patient care, medical assistance, or handling restricted clinical zones',
       ],
     },
   },
@@ -121,6 +137,12 @@ export const servicesData: readonly ServiceData[] = [
         'Basic clubhouse or management-office coordination during duty hours',
         'Support for committee, manager, and facility team follow-ups',
       ],
+      'Hospital / Healthcare': [
+        'Reception-side support, visitor guidance, pantry coordination, and basic upkeep',
+        'Courier, document movement, and routine admin support assistance',
+        'Stationery, pantry stock, and facility team coordination support',
+        'Daily assistance to admin and facility teams during shift hours',
+      ],
     },
     excluded: {
       'Offices / Corporate': [
@@ -140,6 +162,12 @@ export const servicesData: readonly ServiceData[] = [
         'Accounting ownership, maintenance billing decisions, or legal communication',
         'Security guard duties, parking enforcement, or conflict handling',
         'Technical repair, water pump operation, or lift/fire-panel operation',
+      ],
+      'Hospital / Healthcare': [
+        'Patient care, medical assistance, clinical coordination, or nursing duties',
+        'Driving, cash collection, banking responsibility, or outdoor travel beyond scope',
+        'IT troubleshooting, electrical work, or specialized technician duties',
+        'Handling medicines, patient records, or restricted clinical material',
       ],
     },
   },
@@ -172,6 +200,12 @@ export const servicesData: readonly ServiceData[] = [
         'Vendor visit support for housekeeping, security, gardening, and repairs',
         'Daily operations reporting for towers, amenities, and common facilities',
       ],
+      'Hospital / Healthcare': [
+        'Daily staff attendance tracking, shift coordination, and checklist monitoring',
+        'Housekeeping, pantry, reception, and vendor coordination for facility operations',
+        'Issue escalation, basic site reporting, and healthcare admin updates',
+        'SLA follow-up for routine non-clinical support activities',
+      ],
     },
     excluded: {
       'Offices / Corporate': [
@@ -191,6 +225,12 @@ export const servicesData: readonly ServiceData[] = [
         'Licensed electrical, plumbing, lift, STP, fire, or pump-room operation',
         'Security command, dispute handling, or enforcement beyond escalation support',
         'Capital repair projects, material purchase approvals, or vendor contracts',
+      ],
+      'Hospital / Healthcare': [
+        'Clinical supervision, patient care, nursing, or medical responsibility',
+        'Procurement approvals, vendor contracting, or budget ownership',
+        'Statutory compliance sign-off or legal responsibility on behalf of the client',
+        'Security command or restricted clinical-area responsibility unless separately scoped',
       ],
     },
   },
@@ -223,6 +263,12 @@ export const servicesData: readonly ServiceData[] = [
         'Call transfer and communication support for manager or committee office',
         'Professional front-desk presence for selected shift hours',
       ],
+      'Hospital / Healthcare': [
+        'Front desk handling, visitor greeting, call routing, and appointment support',
+        'Visitor register, courier register, and waiting-area coordination',
+        'Professional reception presence during selected shift hours',
+        'Basic admin coordination with reception, admin, and facility teams',
+      ],
     },
     excluded: {
       'Offices / Corporate': [
@@ -242,6 +288,12 @@ export const servicesData: readonly ServiceData[] = [
         'Resident dispute handling, rule enforcement, or penalty communication',
         'Household services, domestic errands, or individual flat coordination',
         'Accounting, billing, maintenance collection, or legal notice handling',
+      ],
+      'Hospital / Healthcare': [
+        'Medical advice, patient care, billing ownership, or clinical coordination',
+        'Executive assistant duties, travel desk ownership, or confidential scheduling',
+        'Security frisking, access-control enforcement, or baggage checking',
+        'Night-shift reception unless separately agreed',
       ],
     },
   },

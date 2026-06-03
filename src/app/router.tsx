@@ -1,25 +1,27 @@
 import { Suspense } from 'react';
 import type { ReactNode } from 'react';
-import { Navigate, createHashRouter } from 'react-router-dom';
+import { Navigate, createBrowserRouter } from 'react-router-dom';
 import { PublicLayout } from '../components/layout/PublicLayout';
 import { RouteError } from '../components/errors/RouteError';
 import { HomePage } from '../features/website/HomePage';
 import { RouteFallback } from '../components/layout/RouteFallback';
 import { SectionRedirect } from '../components/layout/SectionRedirect';
-import { TalkToUs } from './lazyRouteComponents';
+import { TalkToUs, ServiceLandingPage, ServicesHubPage, PrivacyPolicy, TermsAndConditions } from './lazyRouteComponents';
 
 function withSuspense(element: ReactNode) {
   return <Suspense fallback={<RouteFallback />}>{element}</Suspense>;
 }
 
-export const router = createHashRouter([
+export const router = createBrowserRouter([
   {
     element: <PublicLayout />,
     errorElement: <RouteError />,
     children: [
       { path: '/', element: <HomePage /> },
       { path: '/platform', element: <SectionRedirect sectionId="services" /> },
-      { path: '/services', element: <SectionRedirect sectionId="services" /> },
+      { path: '/services', element: withSuspense(<ServicesHubPage />) },
+      { path: '/privacy-policy', element: withSuspense(<PrivacyPolicy />) },
+      { path: '/terms-and-conditions', element: withSuspense(<TermsAndConditions />) },
       { path: '/industries', element: <SectionRedirect sectionId="services" /> },
       { path: '/about', element: <SectionRedirect sectionId="home" /> },
       { path: '/pricing', element: <SectionRedirect sectionId="services" /> },
@@ -30,6 +32,7 @@ export const router = createHashRouter([
       { path: '/faq', element: <SectionRedirect sectionId="contact" /> },
       { path: '/contact', element: <SectionRedirect sectionId="contact" /> },
       { path: '/security', element: <SectionRedirect sectionId="services" /> },
+      { path: '/:slug', element: withSuspense(<ServiceLandingPage />) },
     ],
   },
   { path: '/app', element: <Navigate to="/" replace />,errorElement: <RouteError /> },

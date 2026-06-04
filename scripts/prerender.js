@@ -2,6 +2,7 @@ import http from 'http';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import chromium from '@sparticuz/chromium';
 import puppeteer from 'puppeteer';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -12,6 +13,7 @@ const DIST_DIR = path.resolve(__dirname, '../dist');
 const SHELL_PATH = path.join(DIST_DIR, 'index.shell.html');
 const ORIGINAL_INDEX_PATH = path.join(DIST_DIR, 'index.html');
 const isVercelBuild = Boolean(process.env.VERCEL);
+const shouldUseVercelChromium = isVercelBuild && process.platform === 'linux';
 
 const routes = [
   '/',
@@ -46,23 +48,27 @@ const mimeTypes = {
   '.txt': 'text/plain'
 };
 
-const browserLaunchArgs = [
+const localBrowserLaunchArgs = [
   '--no-sandbox',
   '--disable-setuid-sandbox',
   '--disable-dev-shm-usage',
   '--disable-gpu'
 ];
 
-function isChromiumDependencyError(error) {
-  const message = `${error?.message ?? ''}\n${error?.stack ?? ''}`;
+async function getBrowserLaunchOptions() {
+  if (!shouldUseVercelChromium) {
+    return {
+      headless: true,
+      args: localBrowserLaunchArgs
+    };
+  }
 
-  return (
-    message.includes('Failed to launch the browser process') ||
-    message.includes('error while loading shared libraries') ||
-    message.includes('cannot open shared object file') ||
-    message.includes('libnspr4.so') ||
-    message.includes('Code: 127')
-  );
+  return {
+    args: chromium.args,
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath(),
+    headless: chromium.headless
+  };
 }
 
 // Create local static file server
@@ -114,10 +120,7 @@ async function run() {
   try {
     // Step 3: Launch Puppeteer
     console.log('Launching headless browser...');
-    browser = await puppeteer.launch({
-      headless: true,
-      args: browserLaunchArgs
-    });
+    browser = await puppeteer.launch(await getBrowserLaunchOptions());
 
     const page = await browser.newPage();
 
@@ -157,13 +160,8 @@ async function run() {
     }
 
   } catch (error) {
-    if (isVercelBuild && isChromiumDependencyError(error)) {
-      console.warn('Prerendering skipped on Vercel: Chromium could not launch because required Linux shared libraries are unavailable in the build image.');
-      console.warn('The Vite build output remains valid. Local prerendering is unchanged and will continue to generate static SEO HTML when Chromium is available.');
-    } else {
-      console.error('Prerendering failed:', error);
-      process.exitCode = 1;
-    }
+    console.error('Prerendering failed:', error);
+    process.exitCode = 1;
   } finally {
     // Step 5: Cleanup
     if (browser) {

@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@sparticuz/chromium": "^149.0.0",
     "@types/node": "^24.12.3",
     "@types/nodemailer": "^8.0.0",
     "@types/react": "^19.2.14",

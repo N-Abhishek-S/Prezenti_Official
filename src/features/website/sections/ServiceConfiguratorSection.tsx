@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { ServiceConfigurator } from '../../../components/services/ServiceConfigurator';
-import { Badge } from '../../../components/ui/Badge';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -21,17 +20,7 @@ export function ServiceConfiguratorSection() {
       viewport={{ once: true, margin: '-80px' }}
       variants={stagger}
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <motion.div variants={fadeUp} className="mb-10 grid gap-5 lg:grid-cols-[0.72fr_1fr] lg:items-end">
-          <div>
-            <Badge variant="teal" size="lg" className="mb-3">
-              Services
-            </Badge>
-           
-          </div>
-       
-        </motion.div>
-
+      <div className="mx-auto max-w-[1320px] px-4 sm:px-6">
         <motion.div variants={fadeUp}>
           <ServiceConfigurator />
         </motion.div>

@@ -1,6 +1,19 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
 import nodemailer from 'nodemailer';
-import twilio from 'twilio';
+
+interface ApiRequest {
+  method?: string;
+  headers: {
+    origin?: string;
+  };
+  body?: unknown;
+}
+
+interface ApiResponse {
+  setHeader(name: string, value: string): void;
+  status(statusCode: number): ApiResponse;
+  end(): void;
+  json(body: unknown): void;
+}
 
 const allowedServices = [
   'Housekeeping',
@@ -44,7 +57,7 @@ interface NotificationConfig {
   twilioContentSid: string;
 }
 
-function setCorsHeaders(request: VercelRequest, response: VercelResponse) {
+function setCorsHeaders(request: ApiRequest, response: ApiResponse) {
   const allowedOrigin = process.env.INQUIRY_ALLOWED_ORIGIN;
   const requestOrigin = request.headers.origin;
 
@@ -471,13 +484,12 @@ async function sendEmail(config: NotificationConfig, payload: ExpertInquiryFormV
 }
 
 async function sendWhatsApp(config: NotificationConfig, payload: ExpertInquiryFormValues, timestamp: string) {
-  const client = twilio(config.twilioAccountSid, config.twilioAuthToken);
   const body = buildWhatsAppBody(payload, timestamp);
 
   if (config.twilioContentSid) {
     try {
       await withTimeout(
-        client.messages.create({
+        sendTwilioMessage(config, {
           from: config.twilioWhatsAppFrom,
           to: config.twilioWhatsAppTo,
           contentSid: config.twilioContentSid,
@@ -492,7 +504,7 @@ async function sendWhatsApp(config: NotificationConfig, payload: ExpertInquiryFo
   }
 
   await withTimeout(
-    client.messages.create({
+    sendTwilioMessage(config, {
       from: config.twilioWhatsAppFrom,
       to: config.twilioWhatsAppTo,
       body,
@@ -501,7 +513,52 @@ async function sendWhatsApp(config: NotificationConfig, payload: ExpertInquiryFo
   );
 }
 
-export default async function handler(request: VercelRequest, response: VercelResponse) {
+async function sendTwilioMessage(
+  config: NotificationConfig,
+  message: {
+    from: string;
+    to: string;
+    body?: string;
+    contentSid?: string;
+    contentVariables?: string;
+  },
+) {
+  const params = new URLSearchParams({
+    From: message.from,
+    To: message.to,
+  });
+
+  if (message.contentSid) {
+    params.set('ContentSid', message.contentSid);
+  }
+
+  if (message.contentVariables) {
+    params.set('ContentVariables', message.contentVariables);
+  }
+
+  if (message.body) {
+    params.set('Body', message.body);
+  }
+
+  const credentials = Buffer.from(`${config.twilioAccountSid}:${config.twilioAuthToken}`).toString('base64');
+  const response = await fetch(`https://api.twilio.com/2010-04-01/Accounts/${config.twilioAccountSid}/Messages.json`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Basic ${credentials}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: params,
+  });
+
+  if (!response.ok) {
+    const errorBody = await response.text();
+    throw new Error(`Twilio message request failed with status ${response.status}: ${errorBody}`);
+  }
+
+  return response.json();
+}
+
+export default async function handler(request: ApiRequest, response: ApiResponse) {
   setCorsHeaders(request, response);
 
   if (request.method === 'OPTIONS') {

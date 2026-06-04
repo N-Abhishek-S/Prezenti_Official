@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Building2, CheckCircle2, Home, Hospital, Landmark, ListChecks, XCircle } from 'lucide-react';
+import { Building2, CheckCircle2, Home, Hospital, Landmark, ListChecks, Utensils, XCircle } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { TalkToExpertModal } from '../inquiry/TalkToExpertModal';
 import {
@@ -28,6 +28,10 @@ const subcategoryMeta: Record<ServiceSubcategory, { description: string; Icon: t
   'Hospital / Healthcare': {
     description: 'Hospitals, clinics, diagnostic centers, nursing homes, and healthcare facilities.',
     Icon: Hospital,
+  },
+  'Cafes / Restaurants': {
+    description: 'Front-of-house and back-of-house housekeeping support for cafes, restaurants, food courts, quick-service restaurants, dining spaces, kitchens, and hospitality venues.',
+    Icon: Utensils,
   },
 };
 

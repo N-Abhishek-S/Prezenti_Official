@@ -42,6 +42,10 @@ export const serviceCategories: readonly ServiceCategory[] = [
     name: 'Hospital / Healthcare',
     description: 'Hospitals, clinics, diagnostic centers, nursing homes, and healthcare facilities.',
   },
+  {
+    name: 'Cafes / Restaurants',
+    description: 'Front-of-house and back-of-house housekeeping support for cafes, restaurants, food courts, quick-service restaurants, dining spaces, kitchens, and hospitality venues.',
+  },
 ];
 
 export const servicesData: readonly ServiceData[] = [
@@ -80,6 +84,12 @@ export const servicesData: readonly ServiceData[] = [
         'Dustbin clearing, dry/wet floor cleaning, and daily checklist reporting',
         'Basic consumable coordination for housekeeping material availability',
       ],
+      'Cafes / Restaurants': [
+        'Front-of-house dining area, table clearing, and floor maintenance support',
+        'Back-of-house kitchen floor cleaning and utility area upkeep',
+        'Washroom hygiene checks and routine cleaning during operating hours',
+        'Waste segregation, disposal coordination, and daily checklist reporting',
+      ],
     },
     excluded: {
       'Offices / Corporate': [
@@ -105,6 +115,12 @@ export const servicesData: readonly ServiceData[] = [
         'Purchase cost of chemicals, machines, tissue, liners, or consumables',
         'Electrical, plumbing, carpentry, or technical maintenance work',
         'Patient care, medical assistance, or handling restricted clinical zones',
+      ],
+      'Cafes / Restaurants': [
+        'Specialized commercial kitchen equipment deep cleaning or exhaust scrubbing',
+        'Cost of cleaning chemicals, dishwashing liquids, uniforms, or consumables',
+        'Food preparation, cooking, table service, or cashier duties',
+        'Pest control, grease trap clearing, or exhaust duct maintenance',
       ],
     },
   },
@@ -143,6 +159,12 @@ export const servicesData: readonly ServiceData[] = [
         'Stationery, pantry stock, and facility team coordination support',
         'Daily assistance to admin and facility teams during shift hours',
       ],
+      'Cafes / Restaurants': [
+        'Table setup, dining area readiness, water serving, and basic pantry support',
+        'Front-of-house host/hostess greeting support and visitor guidance',
+        'Menu card organization, table reservation assistance, and queue coordination',
+        'Basic inventory checks for napkins, cutlery, and front-desk supplies',
+      ],
     },
     excluded: {
       'Offices / Corporate': [
@@ -168,6 +190,12 @@ export const servicesData: readonly ServiceData[] = [
         'Driving, cash collection, banking responsibility, or outdoor travel beyond scope',
         'IT troubleshooting, electrical work, or specialized technician duties',
         'Handling medicines, patient records, or restricted clinical material',
+      ],
+      'Cafes / Restaurants': [
+        'Food preparation, active cooking, culinary service, or kitchen cleaning',
+        'Cashiering, billing transactions, bookkeeping, or managing POS systems',
+        'Outdoor delivery errands or driving tasks outside the venue',
+        'Handling customer disputes, complaints, or restaurant manager decisions',
       ],
     },
   },
@@ -206,6 +234,12 @@ export const servicesData: readonly ServiceData[] = [
         'Issue escalation, basic site reporting, and healthcare admin updates',
         'SLA follow-up for routine non-clinical support activities',
       ],
+      'Cafes / Restaurants': [
+        'Daily staff attendance tracking, shift scheduling, and grooming checks',
+        'Front-of-house and back-of-house housekeeping checklist monitoring',
+        'Cleaning consumable stock tracking and replenishment coordination',
+        'Feedback escalation, shift handovers, and daily cleaning report logging',
+      ],
     },
     excluded: {
       'Offices / Corporate': [
@@ -231,6 +265,12 @@ export const servicesData: readonly ServiceData[] = [
         'Procurement approvals, vendor contracting, or budget ownership',
         'Statutory compliance sign-off or legal responsibility on behalf of the client',
         'Security command or restricted clinical-area responsibility unless separately scoped',
+      ],
+      'Cafes / Restaurants': [
+        'Direct kitchen management, food safety certification, or recipe compliance',
+        'Cash register audits, restaurant accounting, or financial ledger ownership',
+        'Vendor contracting, procurement approvals, or budget decisions',
+        'Security command or conflict handling with dining guests',
       ],
     },
   },
@@ -269,6 +309,12 @@ export const servicesData: readonly ServiceData[] = [
         'Professional reception presence during selected shift hours',
         'Basic admin coordination with reception, admin, and facility teams',
       ],
+      'Cafes / Restaurants': [
+        'Guest greeting, queue management, table reservations, and seating guidance',
+        'Phone call handling, reservation log maintenance, and customer inquiry routing',
+        'Professional host presence at the entrance during peak hours',
+        'Basic coordination with floor managers and service staff for guest flow',
+      ],
     },
     excluded: {
       'Offices / Corporate': [
@@ -294,6 +340,12 @@ export const servicesData: readonly ServiceData[] = [
         'Executive assistant duties, travel desk ownership, or confidential scheduling',
         'Security frisking, access-control enforcement, or baggage checking',
         'Night-shift reception unless separately agreed',
+      ],
+      'Cafes / Restaurants': [
+        'Table service, food and beverage delivery, or table clearing',
+        'Billing, payment processing, or handling cash registers',
+        'Valet parking, guest baggage checking, or physical security screening',
+        'Managing restaurant booking systems configuration or marketing promotions',
       ],
     },
   },

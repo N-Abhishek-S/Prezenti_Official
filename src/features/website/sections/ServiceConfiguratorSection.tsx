@@ -20,7 +20,7 @@ export function ServiceConfiguratorSection() {
       viewport={{ once: true, margin: '-80px' }}
       variants={stagger}
     >
-      <div className="mx-auto max-w-[1320px] px-4 sm:px-6">
+      <div className="mx-auto max-w-330 px-4 sm:px-6">
         <motion.div variants={fadeUp}>
           <ServiceConfigurator />
         </motion.div>

@@ -40,7 +40,7 @@ function LocationVideo() {
   return (
     <div className="relative h-full w-full overflow-hidden rounded-[28px] bg-neutral-100">
       <video
-        className="h-full w-full object-cover"
+        className="h-full w-full object-contain"
         autoPlay
         muted
         loop
@@ -72,67 +72,74 @@ export function LocationSection() {
       <div className="mx-auto max-w-375 px-6 sm:px-8">
         <motion.div
           variants={fadeUp}
-          className="grid grid-cols-1 items-center gap-12 xl:grid-cols-[0.95fr_1.1fr] xl:gap-14"
+          className="grid grid-cols-1 items-center gap-12 xl:grid-cols-[0.9fr_1.5fr] xl:gap-6"
         >
-<div className="flex min-w-0 max-w-155 flex-col items-start text-left pl-8 sm:pl-12 lg:pl-16 xl:pl-20 xl:max-w-160">  <Badge variant="primary" size="lg" className="mb-6 rounded-full px-5 py-2">
-    Cities
-  </Badge>
+          <div className="flex min-w-0 max-w-155 flex-col items-start pl-8 text-left sm:pl-12 lg:pl-16 xl:max-w-170 xl:pl-8">
+            <Badge
+              variant="primary"
+              size="lg"
+              className="mb-6 rounded-full px-5 py-2"
+            >
+              Cities
+            </Badge>
 
-  <motion.h2
-    variants={scaleIn}
-    className="max-w-155 text-balance font-black leading-[0.92] tracking-[-0.04em] text-neutral-950 text-4xl sm:text-5xl lg:text-6xl xl:text-[72px]"
-    style={{ willChange: 'transform' }}
-  >
-    <span className="block">Pune is just the</span>
+            <motion.h2
+              variants={scaleIn}
+              className="max-w-155 text-balance text-4xl font-black leading-[1.08] tracking-[-0.04em] text-neutral-950 sm:text-5xl lg:text-6xl xl:text-[72px]"
+              style={{ willChange: 'transform' }}
+            >
+              <span className="block whitespace-nowrap">Pune is just the</span>
 
-    <span className="relative inline-block overflow-hidden align-baseline">
-      <span className="bg-linear-to-r from-teal-700 via-cyan-500 to-sky-400 bg-clip-text text-transparent">
-        beginning ...
-      </span>
+              <span className="block w-fit pb-1 leading-[1.02]">
+                <span className="relative inline-block overflow-hidden align-baseline">
+                  <span className="bg-linear-to-r from-teal-700 via-cyan-500 to-sky-400 bg-clip-text text-transparent">
+                    beginning...
+                  </span>
 
-      <motion.span
-        aria-hidden
-        initial={{ x: '-110%' }}
-        animate={{ x: ['-110%', '110%'] }}
-        transition={{
-          duration: 3.2,
-          repeat: Infinity,
-          ease: 'linear',
-          repeatDelay: 3.5,
-        }}
-        className="pointer-events-none absolute left-0 top-0 h-full w-full"
-        style={{
-          background:
-            'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.22) 45%, rgba(255,255,255,0.05) 60%, rgba(255,255,255,0) 100%)',
-          mixBlendMode: 'screen',
-        }}
-      />
+                  <motion.span
+                    aria-hidden
+                    initial={{ x: '-110%' }}
+                    animate={{ x: ['-110%', '110%'] }}
+                    transition={{
+                      duration: 3.2,
+                      repeat: Infinity,
+                      ease: 'linear',
+                      repeatDelay: 3.5,
+                    }}
+                    className="pointer-events-none absolute left-0 top-0 h-full w-full"
+                    style={{
+                      background:
+                        'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.22) 45%, rgba(255,255,255,0.05) 60%, rgba(255,255,255,0) 100%)',
+                      mixBlendMode: 'screen',
+                    }}
+                  />
 
-      <motion.span
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 -bottom-1 h-1 rounded-full bg-[linear-gradient(90deg,rgba(20,143,137,0),rgba(20,143,137,0.7),rgba(77,163,102,0))]"
-        animate={{
-          scaleX: [0.55, 1, 0.55],
-          opacity: [0.45, 0.9, 0.45],
-        }}
-        transition={{
-          duration: 3.6,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      />
-    </span>
+                  <motion.span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-1 rounded-full bg-[linear-gradient(90deg,rgba(20,143,137,0),rgba(20,143,137,0.7),rgba(77,163,102,0))]"
+                    animate={{
+                      scaleX: [0.55, 1, 0.55],
+                      opacity: [0.45, 0.9, 0.45],
+                    }}
+                    transition={{
+                      duration: 3.6,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                    }}
+                  />
+                </span>
+              </span>
 
-    <span className="block">city expansion</span>
-    <span className="block">coming soon.</span>
-  </motion.h2>
-</div>
+              <span className="block">city expansion</span>
+              <span className="block">coming soon.</span>
+            </motion.h2>
+          </div>
 
           <div className="min-w-0">
             <div className="overflow-hidden rounded-4xl border border-neutral-200 bg-white shadow-sm">
-              <div className="grid grid-cols-1 lg:grid-cols-[0.85fr_1.55fr]">
-                <div className="border-b border-neutral-100 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:border-neutral-100">
-                  <div className="mb-7 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-800">
+              <div className="grid grid-cols-1 lg:grid-cols-[0.58fr_1.82fr]">
+                <div className="border-b border-neutral-100 p-6 sm:p-7 lg:border-b-0 lg:border-r lg:border-neutral-100 lg:p-6">
+                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-800">
                     <MapPin size={21} />
                   </div>
 
@@ -144,7 +151,7 @@ export function LocationSection() {
                     {activeCity?.name ?? 'Pune'}
                   </h3>
 
-                  <div className="mt-8 w-full text-sm leading-relaxed text-neutral-500">
+                  <div className="mt-7 w-full text-sm leading-relaxed text-neutral-500">
                     <p className="mb-3 font-semibold text-neutral-800">
                       Local coverage for
                     </p>
@@ -162,11 +169,11 @@ export function LocationSection() {
                   </div>
                 </div>
 
-           <div className="min-w-0 bg-neutral-50 p-4 lg:p-5">
-  <div className="h-full min-h-105 w-full">
-    <LocationVideo />
-  </div>
-</div>
+                <div className="flex min-w-0 items-center justify-center bg-neutral-50 p-4 lg:min-h-138 lg:p-6">
+                  <div className="aspect-square w-[86%] max-w-132">
+                    <LocationVideo />
+                  </div>
+                </div>
               </div>
             </div>
           </div>

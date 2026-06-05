@@ -17,18 +17,13 @@ export interface HeroVideoAsset {
 }
 
 export const heroRoles: HeroRole[] = [
-  { id: 'facility-supervision', name: 'Facility Supervisor', accent: '#123F35' },
-    { id: 'reception', name: 'Receptionist ', accent: '#148F89' },
-
-  { id: 'housekeeping', name: 'Housekeeping ', accent: '#4F4F6F' },
-  { id: 'office-assistant', name: 'Office Assistant ', accent: '#148F89' },
-
+  { id: 'housekeeping', name: 'Housekeeping', accent: '#16A34A' },
 ];
 
 export const heroMedia = {
   primary: {
-    id: 'namaste-reception',
-    label: 'Receptionist doing Namaste gesture',
+    id: 'housekeeping-deployment',
+    label: 'Housekeeping professional on duty',
     poster: publicAsset('/hero/staff/receptionist.png'),
     sources: [
       {

@@ -1,6 +1,5 @@
 import { HeroContent } from './HeroContent';
 import { HeroMedia } from './HeroMedia';
-import { heroRoles } from './heroConfig';
 
 export function HeroSection() {
   return (
@@ -15,7 +14,7 @@ export function HeroSection() {
       <div className="absolute inset-x-0 bottom-0 -z-10 h-px bg-linear-to-r from-transparent via-primary-200/70 to-transparent" />
 
       <div className="mx-auto grid w-full max-w-7xl items-center gap-8 px-4 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:gap-10 xl:gap-16">
-        <HeroContent roles={heroRoles} />
+        <HeroContent />
         <HeroMedia />
       </div>
     </section>

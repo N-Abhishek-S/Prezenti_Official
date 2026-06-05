@@ -1,14 +1,8 @@
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../ui/Button';
-import { HeroAnimatedTagline } from '../../features/website/HeroAnimatedTagline';
 import { scrollToSection } from '../../lib/sectionNavigation';
-import type { HeroRole } from './heroConfig';
-
-interface HeroContentProps {
-  roles: readonly HeroRole[];
-}
 
 const entrance = {
   hidden: { opacity: 0, y: 22 },
@@ -76,8 +70,9 @@ function StoreBadge({ kind, onClick }: StoreBadgeProps) {
   );
 }
 
-export function HeroContent({ roles }: HeroContentProps) {
+export function HeroContent() {
   const navigate = useNavigate();
+  const shouldReduceMotion = useReducedMotion();
   const openApp = () => navigate('/app');
 
   return (
@@ -96,7 +91,7 @@ export function HeroContent({ roles }: HeroContentProps) {
  <motion.div
   variants={entrance}
   transition={{ duration: 0.55, ease: 'easeOut' }}
-  className="relative mb-6 block w-full max-w-[calc(100vw-2rem)] overflow-hidden rounded-xl p-[1.5px] sm:inline-block sm:w-auto sm:max-w-full"
+  className="relative mb-6 block w-full max-w-[min(22rem,calc(100vw-2rem))] overflow-hidden rounded-xl p-[1.5px] sm:inline-block sm:w-auto sm:max-w-full"
 >
   {/* Animated glowing border */}
   <div className="absolute inset-0 rounded-xl bg-[linear-gradient(90deg,#14b8a6,#22c55e,#06b6d4,#14b8a6)] bg-size-[300%_300%] animate-[gradientMove_4s_linear_infinite]" />
@@ -111,12 +106,9 @@ export function HeroContent({ roles }: HeroContentProps) {
       <span className="relative inline-flex h-2 w-2 rounded-full bg-teal-500" />
     </span>
 
-    <div className="flex flex-col text-[clamp(8px,2.7vw,14px)] sm:text-sm leading-[1.3] sm:leading-snug">
-      <span className="whitespace-nowrap">
-        3000+ Trained Professionals Already on Duty —
-      </span>
-      <span className="mt-0.5 sm:mt-1">
-        Let's Connect...
+    <div className="min-w-0 text-[clamp(10px,2.8vw,14px)] leading-[1.35] sm:text-sm sm:leading-snug">
+      <span>
+        3000+ Trained Professionals Already on Duty — Let's Connect...
       </span>
     </div>
   </div>
@@ -193,13 +185,55 @@ export function HeroContent({ roles }: HeroContentProps) {
         transition={{ duration: 0.6, ease: 'easeOut' }}
         className="mt-5"
       >
-        <HeroAnimatedTagline
-          staticText="Now deploying"
-          dynamicWords={roles.map((role) => role.name)}
-          intervalMs={6000}
-          staticClassName="text-sm font-bold uppercase tracking-[0.18em] text-neutral-500"
-          dynamicClassName="text-[28px] font-extrabold min-[375px]:text-[30px] sm:text-[38px]"
-        />
+        <span
+          className="block"
+          role="text"
+          aria-label="Now deploying Housekeeping"
+        >
+          <span className="block text-sm font-bold uppercase tracking-[0.18em] text-neutral-500" aria-hidden="true">
+            NOW DEPLOYING
+          </span>
+          <span
+            className="relative mt-2 inline-flex max-w-full items-center gap-3 overflow-hidden pb-3 pr-1 align-top text-[28px] font-extrabold leading-[1.04] min-[375px]:text-[30px] sm:text-[38px]"
+            aria-hidden="true"
+          >
+            <span className="relative flex h-3 w-3 shrink-0 items-center justify-center sm:h-3.5 sm:w-3.5">
+              {!shouldReduceMotion && (
+                <motion.span
+                  className="absolute inset-0 rounded-full bg-[#16A34A]/25 shadow-[0_0_18px_rgba(22,163,74,0.34)]"
+                  animate={{ scale: [1, 1.85, 1], opacity: [0.42, 0, 0.42] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                />
+              )}
+              <motion.span
+                className="relative block h-2.5 w-2.5 rounded-full bg-[#16A34A] shadow-[0_0_12px_rgba(22,163,74,0.38)] sm:h-3 sm:w-3"
+                animate={shouldReduceMotion ? { scale: 1 } : { scale: [1, 1.12, 1] }}
+                transition={{ duration: shouldReduceMotion ? 0 : 1.5, repeat: shouldReduceMotion ? 0 : Infinity, ease: 'easeInOut' }}
+              />
+            </span>
+            <motion.span
+              className="relative z-10 block whitespace-normal bg-clip-text text-transparent sm:whitespace-nowrap"
+              style={{
+                backgroundImage: 'linear-gradient(100deg, #16A34A 0%, #22C55E 30%, #0F172A 52%, #22C55E 72%, #16A34A 100%)',
+                backgroundSize: '240% 100%',
+                WebkitTextFillColor: 'transparent',
+              }}
+              initial={shouldReduceMotion ? false : { backgroundPosition: '0% 50%' }}
+              animate={shouldReduceMotion ? { backgroundPosition: '0% 50%' } : { backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
+              transition={{ duration: shouldReduceMotion ? 0 : 4, repeat: shouldReduceMotion ? 0 : Infinity, ease: 'easeInOut' }}
+            >
+              Housekeeping
+            </motion.span>
+            <span className="pointer-events-none absolute bottom-0 left-0 h-0.75 w-full rounded-full bg-emerald-100" />
+            <motion.span
+              className="pointer-events-none absolute bottom-0 left-0 h-0.75 w-full rounded-full bg-linear-to-r from-[#16A34A] via-teal-400 to-emerald-500 shadow-[0_0_18px_rgba(22,163,74,0.24)]"
+              initial={shouldReduceMotion ? false : { scaleX: 0, opacity: 0.78 }}
+              animate={shouldReduceMotion ? { scaleX: 1, opacity: 1 } : { scaleX: [0, 1, 1, 0], opacity: [0.78, 1, 1, 0.78] }}
+              transition={{ duration: shouldReduceMotion ? 0 : 3, repeat: shouldReduceMotion ? 0 : Infinity, repeatDelay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              style={{ transformOrigin: 'left center' }}
+            />
+          </span>
+        </span>
       </motion.div>
 
       <motion.p
@@ -219,17 +253,17 @@ export function HeroContent({ roles }: HeroContentProps) {
           type="button"
           variant="primary"
           size="xl"
-          className="group w-full px-4 text-sm shadow-[0_16px_36px_rgba(18,63,53,0.22)] min-[420px]:text-base sm:w-auto sm:px-10"
+          className="group w-full max-w-[min(22rem,calc(100vw-2rem))] min-w-0 px-3 text-sm shadow-[0_16px_36px_rgba(18,63,53,0.22)] min-[420px]:px-4 min-[420px]:text-base sm:w-auto sm:max-w-none sm:px-10"
           onClick={() => navigate('/talk-to-us')}
         >
-          <span className="min-w-0">Let us understand your requirement</span>
+          <span className="min-w-0 text-center leading-snug">Let us understand your requirement</span>
           <ArrowRight size={18} className="shrink-0 transition-transform duration-200 group-hover:translate-x-0.5" />
         </Button>
         <Button
           type="button"
           variant="secondary"
           size="xl"
-          className="w-full border-primary-200 bg-white/86 px-5 sm:w-auto sm:px-10"
+          className="w-full max-w-[min(22rem,calc(100vw-2rem))] border-primary-200 bg-white/86 px-5 sm:w-auto sm:max-w-none sm:px-10"
           onClick={() => scrollToSection('services')}
         >
           Explore Services

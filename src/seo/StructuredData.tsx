@@ -101,6 +101,7 @@ export function StructuredData({ type = 'Organization', data = {} }: StructuredD
         '@id': websiteId,
         name: SEO_CONSTANTS.SITE_NAME,
         url: SEO_CONSTANTS.BASE_URL,
+        description: data.description || SEO_CONSTANTS.DEFAULT_DESCRIPTION,
         publisher: {
           '@type': 'Organization',
           '@id': organizationId,
@@ -155,7 +156,7 @@ export function StructuredData({ type = 'Organization', data = {} }: StructuredD
         name: 'Prezenti',
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Web, Android, iOS',
-        description: 'Workforce and facility operations platform for managing support staffing requests and workplace services.',
+        description: data.description || SEO_CONSTANTS.DEFAULT_DESCRIPTION,
         offers: {
           '@type': 'Offer',
           price: '0',

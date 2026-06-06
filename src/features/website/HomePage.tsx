@@ -22,12 +22,14 @@ export function HomePage() {
 
   const homepageFaqs = faqsData.flatMap((group) => group.items);
   const homepageUrl = SEO_CONSTANTS.BASE_URL;
+  const homepageTitle = SEO_CONSTANTS.DEFAULT_TITLE;
+  const homepageDescription = SEO_CONSTANTS.DEFAULT_DESCRIPTION;
 
   return (
     <div className="min-w-0 overflow-x-clip">
       <SEO 
-        title="Prezenti | Facility Staffing Services in Pune"
-        description="Hire verified housekeeping, office boy, receptionist, pantry, security, and facility support staff for Pune offices, IT parks, and workplaces."
+        title={homepageTitle}
+        description={homepageDescription}
         canonicalUrl="/" 
         keywords={[
           'facility staffing Pune',
@@ -43,18 +45,18 @@ export function HomePage() {
         type="Service" 
         data={{
           name: 'Facility Staffing Services in Pune',
-          description: 'Verified housekeeping, office support, receptionist, pantry, security, and facility staffing services for Pune workplaces.',
+          description: homepageDescription,
           serviceType: 'Facility staffing and workplace support services',
           url: homepageUrl,
         }} 
       />
-      <StructuredData type="WebSite" />
-      <StructuredData type="SoftwareApplication" />
+      <StructuredData type="WebSite" data={{ description: homepageDescription }} />
+      <StructuredData type="SoftwareApplication" data={{ description: homepageDescription }} />
       <StructuredData
         type="WebPage"
         data={{
-          name: 'Prezenti facility staffing services in Pune',
-          description: SEO_CONSTANTS.DEFAULT_DESCRIPTION,
+          name: homepageTitle,
+          description: homepageDescription,
           url: homepageUrl,
         }}
       />

@@ -1,9 +1,9 @@
 export const SEO_CONSTANTS = {
   SITE_NAME: 'Prezenti',
   BASE_URL: 'https://www.prezenti.com',
-  DEFAULT_TITLE: 'Prezenti | Facility Staffing Services in Pune',
+  DEFAULT_TITLE: 'Prezenti - Your Support Staff, On Demand',
   DEFAULT_DESCRIPTION:
-    'Prezenti provides verified housekeeping, office boy, receptionist, pantry, security, and facility staffing services for Pune workplaces.',
+    'Book On demand housekeeping staff for your business or building...',
   DEFAULT_IMAGE: 'https://www.prezenti.com/brand/prezenti-horizontal-logo.png',
   DEFAULT_IMAGE_ALT: 'Prezenti facility staffing services',
   LOCALE: 'en_IN',

@@ -1,17 +1,25 @@
 export const SEO_CONSTANTS = {
   SITE_NAME: 'Prezenti',
-  BASE_URL: 'https://prezenti.com',
-  DEFAULT_TITLE: 'Prezenti - Enterprise Facility Operating System',
-  DEFAULT_DESCRIPTION: 'Enterprise-grade facility management platform powering operations for corporate offices, IT parks, hospitals, and multi-location enterprises.',
-  DEFAULT_IMAGE: 'https://prezenti.com/og-image.jpg',
-  TWITTER_HANDLE: '@prezenti', // Update with actual if available
+  BASE_URL: 'https://www.prezenti.com',
+  DEFAULT_TITLE: 'Prezenti | Facility Staffing Services in Pune',
+  DEFAULT_DESCRIPTION:
+    'Prezenti provides verified housekeeping, office boy, receptionist, pantry, security, and facility staffing services for Pune workplaces.',
+  DEFAULT_IMAGE: 'https://www.prezenti.com/brand/prezenti-horizontal-logo.png',
+  DEFAULT_IMAGE_ALT: 'Prezenti facility staffing services',
+  LOCALE: 'en_IN',
+  THEME_COLOR: '#123f35',
 
-  // Placeholders for configuration
-  PHONE_PLACEHOLDER: '+91-0000000000',
-  EMAIL_PLACEHOLDER: 'contact@prezenti.com',
-  ADDRESS_PLACEHOLDER: 'ADDRESS_PLACEHOLDER',
-  CITY_PLACEHOLDER: 'CITY_PLACEHOLDER',
-  STATE_PLACEHOLDER: 'STATE_PLACEHOLDER',
-  POSTAL_CODE_PLACEHOLDER: 'PIN_PLACEHOLDER',
-  COUNTRY_PLACEHOLDER: 'IN',
+  CONTACT_EMAIL: 'bd@kargar.co.in',
+  CITY: 'Pune',
+  STATE: 'Maharashtra',
+  COUNTRY: 'IN',
+  AREA_SERVED: [
+    'Baner',
+    'Hinjewadi',
+    'Wakad',
+    'Balewadi',
+    'Kharadi',
+    'Viman Nagar',
+    'Pune',
+  ],
 };

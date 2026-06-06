@@ -69,7 +69,7 @@ function setCorsHeaders(request: ApiRequest, response: ApiResponse) {
     return;
   }
 
-  if (!allowedOrigin || requestOrigin === allowedOrigin) {
+  if (allowedOrigin && requestOrigin === allowedOrigin) {
     response.setHeader('Access-Control-Allow-Origin', requestOrigin);
   }
 }

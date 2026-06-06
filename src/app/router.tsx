@@ -27,6 +27,7 @@ export const router = createBrowserRouter([
       { path: '/pricing', element: <SectionRedirect sectionId="services" /> },
       { path: '/talk-to-us', element: withSuspense(<TalkToUs />) },
       { path: '/live-support', element: <Navigate to="/talk-to-us" replace /> },
+      { path: '/receptionist-services', element: <Navigate to="/receptionist-staffing-services" replace /> },
       { path: '/compliance', element: <SectionRedirect sectionId="services" /> },
       { path: '/case-studies', element: <SectionRedirect sectionId="home" /> },
       { path: '/faq', element: <SectionRedirect sectionId="contact" /> },

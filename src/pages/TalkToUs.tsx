@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { TalkToExpertForm } from '../components/inquiry/TalkToExpertForm';
 import { SEO } from '../seo/SEO';
+import { StructuredData } from '../seo/StructuredData';
+import { SEO_CONSTANTS } from '../seo/constants';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -16,9 +18,27 @@ export function TalkToUs() {
   return (
     <>
       <SEO 
-        title="Contact Prezenti | Get Staffing Solutions" 
-        description="Contact Prezenti today for professional facility management, housekeeping and staffing services." 
+        title="Contact Prezenti | Facility Staffing in Pune"
+        description="Contact Prezenti to hire verified housekeeping, office boy, receptionist, pantry, security, and facility support staff for Pune workplaces."
         canonicalUrl="/talk-to-us" 
+        keywords={[
+          'contact facility staffing Pune',
+          'hire housekeeping staff Pune',
+          'verified support staff',
+          'facility management quote',
+        ]}
+      />
+      <StructuredData
+        type="WebPage"
+        data={{
+          name: 'Contact Prezenti',
+          description: 'Request a callback for verified workplace staffing and facility services in Pune.',
+          url: `${SEO_CONSTANTS.BASE_URL}/talk-to-us`,
+        }}
+      />
+      <StructuredData
+        type="BreadcrumbList"
+        data={{ breadcrumbs: [{ name: 'Talk to Us', url: '/talk-to-us' }] }}
       />
       <main className="bg-canvas pt-24 pb-14 sm:pt-28 lg:pb-20">
       <section className="mx-auto max-w-7xl px-4 sm:px-6">

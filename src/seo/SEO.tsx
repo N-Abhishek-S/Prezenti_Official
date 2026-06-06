@@ -6,7 +6,15 @@ interface SEOProps {
   description?: string;
   canonicalUrl?: string;
   imageUrl?: string;
+  imageAlt?: string;
   type?: string;
+  keywords?: string[];
+  noindex?: boolean;
+}
+
+function toAbsoluteUrl(pathOrUrl: string) {
+  if (pathOrUrl.startsWith('http')) return pathOrUrl;
+  return `${SEO_CONSTANTS.BASE_URL}${pathOrUrl.startsWith('/') ? pathOrUrl : `/${pathOrUrl}`}`;
 }
 
 export function SEO({
@@ -14,12 +22,19 @@ export function SEO({
   description,
   canonicalUrl,
   imageUrl,
+  imageAlt,
   type = 'website',
+  keywords = [],
+  noindex = false,
 }: SEOProps) {
   const metaTitle = title || SEO_CONSTANTS.DEFAULT_TITLE;
   const metaDescription = description || SEO_CONSTANTS.DEFAULT_DESCRIPTION;
-  const metaImage = imageUrl || SEO_CONSTANTS.DEFAULT_IMAGE;
-  const url = canonicalUrl ? `${SEO_CONSTANTS.BASE_URL}${canonicalUrl}` : SEO_CONSTANTS.BASE_URL;
+  const metaImage = imageUrl ? toAbsoluteUrl(imageUrl) : SEO_CONSTANTS.DEFAULT_IMAGE;
+  const metaImageAlt = imageAlt || SEO_CONSTANTS.DEFAULT_IMAGE_ALT;
+  const url = canonicalUrl ? toAbsoluteUrl(canonicalUrl) : SEO_CONSTANTS.BASE_URL;
+  const robotsContent = noindex
+    ? 'noindex, nofollow'
+    : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
 
   return (
     <Helmet>
@@ -27,17 +42,24 @@ export function SEO({
       <title>{metaTitle}</title>
       <meta name="title" content={metaTitle} />
       <meta name="description" content={metaDescription} />
+      <meta name="robots" content={robotsContent} />
+      <meta name="googlebot" content={robotsContent} />
+      <meta name="application-name" content={SEO_CONSTANTS.SITE_NAME} />
+      <meta name="theme-color" content={SEO_CONSTANTS.THEME_COLOR} />
+      {keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
       
       {/* Canonical */}
       <link rel="canonical" href={url} />
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={type} />
+      <meta property="og:locale" content={SEO_CONSTANTS.LOCALE} />
       <meta property="og:site_name" content={SEO_CONSTANTS.SITE_NAME} />
       <meta property="og:url" content={url} />
       <meta property="og:title" content={metaTitle} />
       <meta property="og:description" content={metaDescription} />
       <meta property="og:image" content={metaImage} />
+      <meta property="og:image:alt" content={metaImageAlt} />
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
@@ -45,7 +67,7 @@ export function SEO({
       <meta name="twitter:title" content={metaTitle} />
       <meta name="twitter:description" content={metaDescription} />
       <meta name="twitter:image" content={metaImage} />
-      <meta name="twitter:site" content={SEO_CONSTANTS.TWITTER_HANDLE} />
+      <meta name="twitter:image:alt" content={metaImageAlt} />
     </Helmet>
   );
 }

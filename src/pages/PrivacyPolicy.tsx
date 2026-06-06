@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { SEO } from '../seo/SEO';
 import { StructuredData } from '../seo/StructuredData';
+import { SEO_CONSTANTS } from '../seo/constants';
 
 export function PrivacyPolicy() {
   useEffect(() => {
@@ -11,10 +12,17 @@ export function PrivacyPolicy() {
     <main className="bg-canvas pt-24 pb-14 sm:pt-28 lg:pb-20">
       <SEO 
         title="Privacy Policy | Prezenti"
-        description="Learn about how Prezenti collects, uses, and protects your personal information in our privacy policy."
+        description="Read Prezenti's privacy policy for website inquiries, staffing requests, service communications, and personal information protection."
         canonicalUrl="/privacy-policy"
       />
-      <StructuredData type="WebPage" />
+      <StructuredData
+        type="WebPage"
+        data={{
+          name: 'Privacy Policy',
+          description: "Read Prezenti's privacy policy for website inquiries, staffing requests, and personal information protection.",
+          url: `${SEO_CONSTANTS.BASE_URL}/privacy-policy`,
+        }}
+      />
       
       <article className="mx-auto max-w-4xl px-4 sm:px-6 prose prose-neutral">
         <h1>Privacy Policy</h1>

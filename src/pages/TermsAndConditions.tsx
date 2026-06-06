@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { SEO } from '../seo/SEO';
 import { StructuredData } from '../seo/StructuredData';
+import { SEO_CONSTANTS } from '../seo/constants';
 
 export function TermsAndConditions() {
   useEffect(() => {
@@ -11,10 +12,17 @@ export function TermsAndConditions() {
     <main className="bg-canvas pt-24 pb-14 sm:pt-28 lg:pb-20">
       <SEO 
         title="Terms and Conditions | Prezenti"
-        description="Read the terms and conditions for using Prezenti facility management services and platform."
+        description="Review Prezenti's website and service terms for facility staffing inquiries, workplace support services, and platform usage."
         canonicalUrl="/terms-and-conditions"
       />
-      <StructuredData type="WebPage" />
+      <StructuredData
+        type="WebPage"
+        data={{
+          name: 'Terms and Conditions',
+          description: "Review Prezenti's website and service terms for facility staffing inquiries and platform usage.",
+          url: `${SEO_CONSTANTS.BASE_URL}/terms-and-conditions`,
+        }}
+      />
       
       <article className="mx-auto max-w-4xl px-4 sm:px-6 prose prose-neutral">
         <h1>Terms and Conditions</h1>

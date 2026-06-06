@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://www.prezenti.com/</loc>
+    <image:image>
+      <image:loc>https://www.prezenti.com/brand/prezenti-horizontal-logo.png</image:loc>
+      <image:title>Prezenti facility staffing services</image:title>
+      <image:caption>Prezenti brand logo for verified workplace support staffing in Pune.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.prezenti.com/hero/staff/receptionist.png</image:loc>
+      <image:title>Reception and support staffing</image:title>
+      <image:caption>Trained support staff for front desk and workplace operations.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.prezenti.com/hero/staff/office-boy.png</image:loc>
+      <image:title>Office support staff</image:title>
+      <image:caption>Verified office boy and workplace assistance services.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.prezenti.com/hero/staff/housekeeping.png</image:loc>
+      <image:title>Housekeeping services</image:title>
+      <image:caption>Trained housekeeping staff for offices and commercial facilities.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.prezenti.com/hero/staff/admin-manager.png</image:loc>
+      <image:title>Facility supervision</image:title>
+      <image:caption>Managed facility supervision and workforce coordination.</image:caption>
+    </image:image>
+  </url>
+</urlset>

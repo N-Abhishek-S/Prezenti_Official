@@ -7,6 +7,7 @@ import { Breadcrumbs } from '../components/ui/Breadcrumbs';
 import { FaqAccordion } from '../components/ui/FaqAccordion';
 import { ServiceCta } from '../components/ui/ServiceCta';
 import { motion } from 'framer-motion';
+import { SEO_CONSTANTS } from '../seo/constants';
 
 export function ServiceLandingPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -24,6 +25,7 @@ export function ServiceLandingPage() {
     { name: 'Services', url: '/services' },
     { name: service.seoTitle.split('|')[0].trim(), url: `/${service.slug}` }
   ];
+  const canonicalUrl = `${SEO_CONSTANTS.BASE_URL}/${service.slug}`;
 
   return (
     <main className="bg-canvas pt-24 pb-14 sm:pt-28 lg:pb-20">
@@ -31,9 +33,32 @@ export function ServiceLandingPage() {
         title={service.seoTitle}
         description={service.seoDescription}
         canonicalUrl={`/${service.slug}`}
+        keywords={[
+          service.h1,
+          `${service.h1} Pune`,
+          'verified support staff',
+          'corporate facility services',
+          'managed workplace staffing',
+        ]}
       />
       
-      <StructuredData type="Service" data={{ name: service.h1, description: service.seoDescription }} />
+      <StructuredData
+        type="WebPage"
+        data={{
+          name: service.h1,
+          description: service.seoDescription,
+          url: canonicalUrl,
+        }}
+      />
+      <StructuredData
+        type="Service"
+        data={{
+          name: service.h1,
+          description: service.seoDescription,
+          serviceType: service.h1,
+          url: canonicalUrl,
+        }}
+      />
       <StructuredData type="BreadcrumbList" data={{ breadcrumbs }} />
       <StructuredData type="FAQPage" data={{ faqs: service.faqs }} />
 
@@ -82,7 +107,7 @@ export function ServiceLandingPage() {
         </section>
 
         <section className="mt-16 pt-12 border-t border-neutral-200">
-          <h3 className="text-2xl font-bold text-neutral-900 mb-6">Explore Related Services</h3>
+          <h2 className="text-2xl font-bold text-neutral-900 mb-6">Explore Related Services</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {service.relatedServices.map((related) => (
               <Link 
@@ -90,9 +115,9 @@ export function ServiceLandingPage() {
                 to={`/${related.slug}`}
                 className="p-6 rounded-xl border border-neutral-200 hover:border-primary-500 hover:shadow-md transition-all group bg-white"
               >
-                <h4 className="text-lg font-semibold text-neutral-900 group-hover:text-primary-600 transition-colors">
+                <h3 className="text-lg font-semibold text-neutral-900 group-hover:text-primary-600 transition-colors">
                   {related.name}
-                </h4>
+                </h3>
               </Link>
             ))}
           </div>

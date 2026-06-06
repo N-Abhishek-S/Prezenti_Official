@@ -7,6 +7,7 @@ import { Breadcrumbs } from '../components/ui/Breadcrumbs';
 import { FaqAccordion } from '../components/ui/FaqAccordion';
 import { ServiceCta } from '../components/ui/ServiceCta';
 import { servicesData } from '../data/servicesContent';
+import { SEO_CONSTANTS } from '../seo/constants';
 
 export function ServicesHubPage() {
   useEffect(() => {
@@ -16,6 +17,7 @@ export function ServicesHubPage() {
   const breadcrumbs = [
     { name: 'Services', url: '/services' }
   ];
+  const services = Object.values(servicesData);
 
   const faqs = [
     { question: 'What facility management services do you provide?', answer: 'We provide an integrated suite of services including housekeeping, security, receptionist staffing, office boy support, pantry staff, and comprehensive commercial property management.' },
@@ -27,14 +29,39 @@ export function ServicesHubPage() {
   return (
     <main className="bg-canvas pt-24 pb-14 sm:pt-28 lg:pb-20">
       <SEO 
-        title="Facility Management Services | Prezenti"
-        description="Explore Prezenti's comprehensive suite of enterprise-grade facility management services including housekeeping, security, and specialized staffing."
+        title="Facility Management Services in Pune | Prezenti"
+        description="Explore verified housekeeping, security, receptionist, office boy, pantry, facility, and property management staffing services in Pune."
         canonicalUrl="/services"
+        keywords={[
+          'facility management services Pune',
+          'workplace support staff',
+          'corporate housekeeping services',
+          'security guards Pune',
+          'pantry staff services',
+        ]}
       />
       
-      <StructuredData type="WebPage" />
+      <StructuredData
+        type="WebPage"
+        data={{
+          name: 'Facility management services in Pune',
+          description: 'Explore verified workplace staffing and managed facility services for Pune businesses.',
+          url: `${SEO_CONSTANTS.BASE_URL}/services`,
+        }}
+      />
       <StructuredData type="BreadcrumbList" data={{ breadcrumbs }} />
       <StructuredData type="FAQPage" data={{ faqs }} />
+      <StructuredData
+        type="ItemList"
+        data={{
+          name: 'Prezenti facility services',
+          items: services.map((service) => ({
+            name: service.h1,
+            description: service.seoDescription,
+            url: `/${service.slug}`,
+          })),
+        }}
+      />
 
       <article className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
@@ -55,8 +82,9 @@ export function ServicesHubPage() {
         </div>
 
         <section className="mb-20">
+          <h2 className="sr-only">Explore Prezenti facility management services</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {Object.values(servicesData).map((service) => (
+            {services.map((service) => (
               <Link 
                 key={service.slug} 
                 to={`/${service.slug}`}

@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
+Disallow: /app
+Disallow: /login
+Disallow: /api/
 
-Sitemap: https://prezenti.com/sitemap.xml
+Sitemap: https://www.prezenti.com/sitemap.xml
+Sitemap: https://www.prezenti.com/image-sitemap.xml
+Sitemap: https://www.prezenti.com/video-sitemap.xml

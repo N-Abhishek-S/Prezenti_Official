@@ -25,6 +25,7 @@ const routes = [
   '/pantry-staff-services',
   '/facility-management-services',
   '/property-management-services',
+  '/talk-to-us',
   '/privacy-policy',
   '/terms-and-conditions'
 ];

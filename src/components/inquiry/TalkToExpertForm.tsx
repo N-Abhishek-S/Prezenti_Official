@@ -13,6 +13,7 @@ import {
   type InquiryFormErrors,
 } from '../../modules/inquiry/inquiryValidation';
 import { sendExpertInquiry, type SendInquiryResponse } from '../../services/inquiryApi';
+import { trackContactFormSubmitted, trackTalkToUsSubmitted } from '../../lib/analytics';
 
 interface TalkToExpertFormProps {
   initialServices?: ExpertServiceName[];
@@ -152,6 +153,18 @@ export function TalkToExpertForm({
 
     try {
       const result = await sendExpertInquiry(validation.sanitized);
+      trackContactFormSubmitted({
+        form_name: 'Talk To Expert',
+        selected_services: validation.sanitized.services.join(', '),
+      });
+
+      if (window.location.pathname === '/talk-to-us') {
+        trackTalkToUsSubmitted({
+          form_name: 'Talk To Us',
+          selected_services: validation.sanitized.services.join(', '),
+        });
+      }
+
       setResponse(result);
       setForm({ ...emptyForm });
       toast.success(result.message);

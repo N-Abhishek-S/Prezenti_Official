@@ -11,13 +11,27 @@ function HeroVideo({
   asset,
   className,
   isReducedMotion,
+  priority = false,
 }: {
   asset: HeroVideoAsset;
   className: string;
   isReducedMotion: boolean;
+  priority?: boolean;
 }) {
   if (isReducedMotion && asset.poster) {
-    return <img src={asset.poster} alt="" className={className} loading="eager" />;
+    return (
+      <img
+        src={asset.poster}
+        alt=""
+        title={asset.label}
+        className={className}
+        loading="eager"
+        decoding="async"
+        fetchPriority={priority ? 'high' : 'auto'}
+        width={960}
+        height={1280}
+      />
+    );
   }
 
   return (
@@ -27,9 +41,10 @@ function HeroVideo({
       muted
       loop
       playsInline
-      preload="metadata"
+      preload={priority ? 'auto' : 'metadata'}
       poster={asset.poster}
       aria-label={asset.label}
+      title={asset.label}
     >
       {asset.sources.map((source) => (
         <source key={source.src} src={source.src} type={source.type} />
@@ -63,6 +78,7 @@ export function HeroMedia() {
           asset={heroMedia.primary}
           className="h-full w-full object-cover object-center backface-hidden transform-[translateZ(0)] sm:object-[50%_center]"
           isReducedMotion={isReducedMotion}
+          priority
         />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(15,23,42,0.34)_0%,rgba(15,23,42,0.07)_38%,rgba(255,255,255,0)_74%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.08)_0%,rgba(15,23,42,0)_46%,rgba(15,23,42,0.14)_100%)]" />

@@ -1,6 +1,7 @@
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from './Button';
+import { trackCTA } from '../../lib/analytics';
 
 export function ServiceCta({ title, description }: { title: string; description: string }) {
   const navigate = useNavigate();
@@ -21,7 +22,10 @@ export function ServiceCta({ title, description }: { title: string; description:
             variant="primary"
             size="lg"
             className="bg-white text-primary-900 hover:bg-neutral-50"
-            onClick={() => navigate('/talk-to-us')}
+            onClick={() => {
+              trackCTA('Request Quote', { cta_location: 'service_cta' });
+              navigate('/talk-to-us');
+            }}
           >
             <span className="font-semibold">Get a Quote</span> <ArrowRight className="ml-2 h-4 w-4" />
           </Button>

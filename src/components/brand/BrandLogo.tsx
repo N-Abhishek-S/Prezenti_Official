@@ -62,9 +62,12 @@ export function BrandLogo({
       <img
         src={logoSources[variant]}
         alt={alt}
+        title={alt}
         className={cn('block w-auto object-contain', sizeClasses[variant][size], imageClassName)}
         loading="eager"
         decoding="async"
+        width={320}
+        height={160}
       />
     </span>
   );

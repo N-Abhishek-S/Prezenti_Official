@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+  <url>
+    <loc>https://www.prezenti.com/</loc>
+    <video:video>
+      <video:thumbnail_loc>https://www.prezenti.com/hero/staff/receptionist.png</video:thumbnail_loc>
+      <video:title>Prezenti reception and support staff</video:title>
+      <video:description>Prezenti provides verified support staff for Pune workplaces, including reception, housekeeping, office assistance, pantry, and facility operations.</video:description>
+      <video:content_loc>https://www.prezenti.com/hero/video/prezenti-namaste-reception.webm</video:content_loc>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+    <video:video>
+      <video:thumbnail_loc>https://www.prezenti.com/hero/staff/office-boy.png</video:thumbnail_loc>
+      <video:title>Prezenti workforce deployment</video:title>
+      <video:description>Workforce support visuals for verified office boy, housekeeping, reception, pantry, and facility staffing services.</video:description>
+      <video:content_loc>https://www.prezenti.com/hero/video/prezenti-workforce-vertical.webm</video:content_loc>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+</urlset>

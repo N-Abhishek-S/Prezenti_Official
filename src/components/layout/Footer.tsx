@@ -96,8 +96,8 @@ export function Footer() {
         <div className="flex flex-col gap-4 border-t border-white/10 pt-8 text-sm sm:flex-row sm:items-center sm:justify-between">
           <div>&copy; 2026 Prezenti. All rights reserved.</div>
           <div className="flex gap-4">
-            <a href="#" aria-label="LinkedIn" className="text-lg text-white/50 no-underline transition-colors hover:text-white">in</a>
-            <a href="#" aria-label="X (Twitter)" className="text-lg text-white/50 no-underline transition-colors hover:text-white">x</a>
+            <span aria-label="LinkedIn" className="text-lg text-white/50 no-underline transition-colors hover:text-white">in</span>
+            <span aria-label="X (Twitter)" className="text-lg text-white/50 no-underline transition-colors hover:text-white">x</span>
             <a href="mailto:bd@kargar.co.in" aria-label="Email" className="text-lg text-white/50 no-underline transition-colors hover:text-white">@</a>
           </div>
         </div>

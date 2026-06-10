@@ -165,7 +165,7 @@ export function Navbar() {
                   <button
                     type="button"
                     className={cn(
-                      'inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-all duration-150',
+                      'inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium tracking-[-0.006em] transition-all duration-150',
                       isActive ? 'text-primary-800' : 'text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900',
                     )}
                     onClick={() => {
@@ -191,7 +191,7 @@ export function Navbar() {
                 key={section.id}
                 type="button"
                 className={cn(
-                  'rounded-md px-3 py-2 text-sm font-medium transition-all duration-150',
+                  'rounded-md px-3 py-2 text-sm font-medium tracking-[-0.006em] transition-all duration-150',
                   isActive ? 'text-primary-800' : 'text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900',
                 )}
                 onClick={() => goToSection(section.id)}

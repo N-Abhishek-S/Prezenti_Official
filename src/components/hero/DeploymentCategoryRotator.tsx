@@ -44,8 +44,8 @@ export function DeploymentCategoryRotator({
 
   return (
     <span
-      className="relative flex items-baseline gap-x-[8px] pb-1"
-      style={{ fontSize: 'clamp(26px, 2.8vw, 38px)' }}
+      className="relative flex flex-wrap items-baseline gap-x-[8px] pb-1"
+      style={{ fontSize: 'clamp(24px, 2.6vw, 34px)' }}
     >
       {/* Green bullet */}
       <span
@@ -54,7 +54,7 @@ export function DeploymentCategoryRotator({
       />
 
       {/* "Housekeeping for" — static */}
-      <span className="shrink-0 font-bold tracking-[-0.04em] leading-none text-[#0B1020] whitespace-nowrap">
+      <span className="shrink-0 font-bold tracking-[-0.03em] leading-[1.1] text-[#0B1020]">
         Housekeeping
         <span
           className="inline font-medium tracking-normal ml-[0.25em]"
@@ -70,7 +70,7 @@ export function DeploymentCategoryRotator({
         aria-live="polite"
         aria-atomic="true"
         aria-label={`Deployment category: ${activeCategory}`}
-        className="relative inline-flex items-baseline font-semibold leading-none whitespace-nowrap h-[1.25em]"
+        className="relative inline-flex flex-wrap items-baseline font-semibold leading-[1.1] tracking-[-0.01em] min-h-[1.25em]"
         style={{ fontSize: '0.72em' }}
       >
         {shouldReduceMotion || validCategories.length === 1 ? (

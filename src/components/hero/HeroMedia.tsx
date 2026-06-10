@@ -45,6 +45,8 @@ function HeroVideo({
       poster={asset.poster}
       aria-label={asset.label}
       title={asset.label}
+      width={960}
+      height={1280}
     >
       {asset.sources.map((source) => (
         <source key={source.src} src={source.src} type={source.type} />

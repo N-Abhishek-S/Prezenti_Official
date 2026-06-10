@@ -74,7 +74,7 @@ export function LocationSection() {
           variants={fadeUp}
           className="grid grid-cols-1 items-center gap-12 xl:grid-cols-[0.9fr_1.5fr] xl:gap-6"
         >
-          <div className="flex min-w-0 max-w-155 flex-col items-start pl-8 text-left sm:pl-12 lg:pl-16 xl:max-w-170 xl:pl-8">
+          <div className="flex min-w-0 max-w-full flex-col items-start pl-8 text-left sm:pl-12 lg:pl-16 xl:pl-8">
             <Badge
               variant="primary"
               size="lg"
@@ -85,10 +85,10 @@ export function LocationSection() {
 
             <motion.h2
               variants={scaleIn}
-              className="max-w-155 text-balance text-4xl font-black leading-[1.08] tracking-[-0.04em] text-neutral-950 sm:text-5xl lg:text-6xl xl:text-[72px]"
+              className="w-full max-w-full text-balance text-[clamp(2.5rem,6vw+1rem,4.5rem)] font-black leading-[1.08] tracking-[-0.04em] text-neutral-950"
               style={{ willChange: 'transform' }}
             >
-              <span className="block whitespace-nowrap">Pune is just the</span>
+              <span className="block w-full break-words text-wrap-balance">Pune is just the</span>
 
               <span className="block w-fit pb-1 leading-[1.02]">
                 <span className="relative inline-block overflow-hidden align-baseline">
@@ -130,8 +130,8 @@ export function LocationSection() {
                 </span>
               </span>
 
-              <span className="block">city expansion</span>
-              <span className="block">coming soon.</span>
+              <span className="block w-full break-words text-wrap-balance">city expansion</span>
+              <span className="block w-full break-words text-wrap-balance">coming soon.</span>
             </motion.h2>
           </div>
 

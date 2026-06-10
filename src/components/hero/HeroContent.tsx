@@ -114,13 +114,13 @@ export function HeroContent() {
   <div className="absolute inset-0 rounded-xl blur-md opacity-60 bg-[linear-gradient(90deg,#14b8a6,#22c55e,#06b6d4,#14b8a6)] bg-size-[300%_300%] animate-[gradientMove_4s_linear_infinite]" />
 
   {/* Content */}
-  <div className="relative flex w-full flex-row items-start gap-2.5 rounded-xl bg-white/90 px-4 py-2.5 font-semibold text-primary-800 backdrop-blur-md sm:w-auto sm:px-5">
+  <div className="relative flex w-full flex-row items-start gap-2.5 rounded-xl bg-white/90 px-4 py-2.5 font-medium text-primary-800 backdrop-blur-md sm:w-auto sm:px-5">
     <span className="relative mt-[0.35rem] flex h-2 w-2 shrink-0 sm:mt-1.5" aria-hidden="true">
       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-400 opacity-75" />
       <span className="relative inline-flex h-2 w-2 rounded-full bg-teal-500" />
     </span>
 
-    <div className="min-w-0 text-[clamp(10px,2.8vw,14px)] leading-[1.35] sm:text-sm sm:leading-snug">
+    <div className="min-w-0 text-[clamp(10px,2.8vw,13px)] leading-[1.4] sm:text-[13px] sm:leading-[1.4]">
       <span>
         3000+ Trained Professionals Already on Duty — Let's Connect...
       </span>
@@ -128,7 +128,7 @@ export function HeroContent() {
   </div>
 </motion.div>
 
-<p className="text-[19px] font-extrabold text-neutral-950 opacity-90 tracking-[0.2px] mb-3 text-left w-fit border-b-2 border-dotted border-primary-600 pb-[6px]">
+<p className="text-[15px] font-semibold text-neutral-950 opacity-90 tracking-[0.01em] mb-4 text-left w-fit border-b border-dotted border-primary-600/50 pb-[5px] leading-[1.4]">
   <motion.span
     initial={{ backgroundPosition: '112% 0%' }}
     animate={{ backgroundPosition: ['112% 0%', '-12% 0%'] }}
@@ -147,13 +147,13 @@ export function HeroContent() {
       display: 'inline-block',
     }}
   >
-    A Platform for Businesses, Admins and Management Committees
+    A Platform for offices, Admins and Management Committees
   </motion.span>
 </p>
 
  <motion.h1
   id="ps-project-hero-title"
-  className="font-extrabold leading-[0.95] tracking-normal"
+  className="font-extrabold leading-[1.0] tracking-[-0.025em]"
 >
   {/* First Line */}
   <motion.span
@@ -173,12 +173,10 @@ export function HeroContent() {
     }}
     className="
       block
-      whitespace-nowrap
-      text-[1.55rem]
-      min-[375px]:text-[1.8rem]
-      sm:text-[2.6rem]
-      md:text-[3.2rem]
-      lg:text-[3.8rem]
+      w-full
+      max-w-full
+      break-words
+      text-[clamp(1.75rem,4.5vw+1rem,3.8rem)]
       text-neutral-950
     "
   >
@@ -203,12 +201,10 @@ export function HeroContent() {
     }}
     className="
       block
-      whitespace-nowrap
-      text-[1.75rem]
-      min-[375px]:text-[1.9rem]
-      sm:text-[2.7rem]
-      md:text-[3.3rem]
-      lg:text-[3.9rem]
+      w-full
+      max-w-full
+      break-words
+      text-[clamp(1.85rem,5vw+1rem,3.9rem)]
       font-extrabold
       text-[#16a34a]
     "
@@ -227,7 +223,7 @@ export function HeroContent() {
           role="text"
           aria-label={`Now deploying Housekeeping across ${deploymentCategories.join(', ')}`}
         >
-          <span className="block text-sm font-bold uppercase tracking-[0.25em] text-[#64748B]" aria-hidden="true">
+          <span className="block text-[13px] font-semibold uppercase tracking-[0.2em] text-[#64748B]" aria-hidden="true">
             NOW DEPLOYING
           </span>
           <span className="mt-3 block w-full max-w-full min-w-0 align-top">
@@ -239,7 +235,7 @@ export function HeroContent() {
       <motion.p
         variants={entrance}
         transition={{ duration: 0.62, ease: 'easeOut' }}
-        className="mt-6 max-w-140 text-lg leading-relaxed text-neutral-700"
+        className="mt-6 max-w-140 text-[17px] font-normal leading-[1.6] tracking-[-0.006em] text-neutral-600"
       >
         We Manage Your Support Workforce, While You Focus on Core Operations
       </motion.p>
@@ -253,17 +249,17 @@ export function HeroContent() {
           type="button"
           variant="primary"
           size="xl"
-          className="group w-full max-w-[min(22rem,calc(100vw-2rem))] min-w-0 px-3 text-sm shadow-[0_16px_36px_rgba(18,63,53,0.22)] min-[420px]:px-4 min-[420px]:text-base sm:w-auto sm:max-w-none sm:px-10"
+          className="group w-full max-w-[min(22rem,calc(100vw-2rem))] min-w-0 px-3 text-[15px] font-semibold tracking-[-0.006em] shadow-[0_16px_36px_rgba(18,63,53,0.22)] min-[420px]:px-4 min-[420px]:text-[15px] sm:w-auto sm:max-w-none sm:px-10"
           onClick={() => navigate('/talk-to-us')}
         >
-          <span className="min-w-0 text-center leading-snug">Let us understand your requirement</span>
+          <span className="min-w-0 text-center leading-[1.3] text-wrap-balance sm:whitespace-nowrap">Let us understand your requirement</span>
           <ArrowRight size={18} className="shrink-0 transition-transform duration-200 group-hover:translate-x-0.5" />
         </Button>
         <Button
           type="button"
           variant="secondary"
           size="xl"
-          className="w-full max-w-[min(22rem,calc(100vw-2rem))] border-primary-200 bg-white/86 px-5 sm:w-auto sm:max-w-none sm:px-10"
+          className="w-full max-w-[min(22rem,calc(100vw-2rem))] border-primary-200 bg-white/86 px-5 text-[15px] font-medium tracking-[-0.006em] sm:w-auto sm:max-w-none sm:px-10"
           onClick={() => scrollToSection('services')}
         >
           Explore Services

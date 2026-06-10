@@ -1,13 +1,27 @@
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../ui/Button';
 import { scrollToSection } from '../../lib/sectionNavigation';
+import { DeploymentCategoryRotator } from './DeploymentCategoryRotator';
 
 const entrance = {
   hidden: { opacity: 0, y: 22 },
   visible: { opacity: 1, y: 0 },
 };
+
+const deploymentCategories = [
+  'Offices ',
+  'Corporate',
+  'Educational Institute',
+  'Commercial Buildings',
+  'Residential Buildings',
+  'Hospital ',
+  'Healthcare',
+  'Cafes ',
+  'Restaurants',
+  'Pre Schools',
+];
 
 type StoreBadgeKind = 'google-play' | 'app-store';
 
@@ -72,8 +86,8 @@ function StoreBadge({ kind, onClick }: StoreBadgeProps) {
 
 export function HeroContent() {
   const navigate = useNavigate();
-  const shouldReduceMotion = useReducedMotion();
   const openApp = () => navigate('/app');
+
 
   return (
     <motion.div
@@ -113,6 +127,29 @@ export function HeroContent() {
     </div>
   </div>
 </motion.div>
+
+<p className="text-[19px] font-extrabold text-neutral-950 opacity-90 tracking-[0.2px] mb-3 text-left w-fit border-b-2 border-dotted border-primary-600 pb-[6px]">
+  <motion.span
+    initial={{ backgroundPosition: '112% 0%' }}
+    animate={{ backgroundPosition: ['112% 0%', '-12% 0%'] }}
+    transition={{
+      duration: 4,
+      repeat: Infinity,
+      ease: 'linear',
+    }}
+    style={{
+      backgroundImage: 'linear-gradient(90deg, #0F172A 0%, #0F172A 44%, #16A34A 48%, #22C55E 50%, #16A34A 52%, #0F172A 56%, #0F172A 100%)',
+      backgroundSize: '200% 100%',
+      WebkitBackgroundClip: 'text',
+      WebkitTextFillColor: 'transparent',
+      backgroundClip: 'text',
+      color: 'transparent',
+      display: 'inline-block',
+    }}
+  >
+    A Platform for Businesses, Admins and Management Committees
+  </motion.span>
+</p>
 
  <motion.h1
   id="ps-project-hero-title"
@@ -188,50 +225,13 @@ export function HeroContent() {
         <span
           className="block"
           role="text"
-          aria-label="Now deploying Housekeeping"
+          aria-label={`Now deploying Housekeeping across ${deploymentCategories.join(', ')}`}
         >
-          <span className="block text-sm font-bold uppercase tracking-[0.18em] text-neutral-500" aria-hidden="true">
+          <span className="block text-sm font-bold uppercase tracking-[0.25em] text-[#64748B]" aria-hidden="true">
             NOW DEPLOYING
           </span>
-          <span
-            className="relative mt-2 inline-flex max-w-full items-center gap-3 overflow-hidden pb-3 pr-1 align-top text-[28px] font-extrabold leading-[1.04] min-[375px]:text-[30px] sm:text-[38px]"
-            aria-hidden="true"
-          >
-            <span className="relative flex h-3 w-3 shrink-0 items-center justify-center sm:h-3.5 sm:w-3.5">
-              {!shouldReduceMotion && (
-                <motion.span
-                  className="absolute inset-0 rounded-full bg-[#16A34A]/25 shadow-[0_0_18px_rgba(22,163,74,0.34)]"
-                  animate={{ scale: [1, 1.85, 1], opacity: [0.42, 0, 0.42] }}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-                />
-              )}
-              <motion.span
-                className="relative block h-2.5 w-2.5 rounded-full bg-[#16A34A] shadow-[0_0_12px_rgba(22,163,74,0.38)] sm:h-3 sm:w-3"
-                animate={shouldReduceMotion ? { scale: 1 } : { scale: [1, 1.12, 1] }}
-                transition={{ duration: shouldReduceMotion ? 0 : 1.5, repeat: shouldReduceMotion ? 0 : Infinity, ease: 'easeInOut' }}
-              />
-            </span>
-            <motion.span
-              className="relative z-10 block whitespace-normal bg-clip-text text-transparent sm:whitespace-nowrap"
-              style={{
-                backgroundImage: 'linear-gradient(100deg, #16A34A 0%, #22C55E 30%, #0F172A 52%, #22C55E 72%, #16A34A 100%)',
-                backgroundSize: '240% 100%',
-                WebkitTextFillColor: 'transparent',
-              }}
-              initial={shouldReduceMotion ? false : { backgroundPosition: '0% 50%' }}
-              animate={shouldReduceMotion ? { backgroundPosition: '0% 50%' } : { backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
-              transition={{ duration: shouldReduceMotion ? 0 : 4, repeat: shouldReduceMotion ? 0 : Infinity, ease: 'easeInOut' }}
-            >
-              Housekeeping
-            </motion.span>
-            <span className="pointer-events-none absolute bottom-0 left-0 h-0.75 w-full rounded-full bg-emerald-100" />
-            <motion.span
-              className="pointer-events-none absolute bottom-0 left-0 h-0.75 w-full rounded-full bg-linear-to-r from-[#16A34A] via-teal-400 to-emerald-500 shadow-[0_0_18px_rgba(22,163,74,0.24)]"
-              initial={shouldReduceMotion ? false : { scaleX: 0, opacity: 0.78 }}
-              animate={shouldReduceMotion ? { scaleX: 1, opacity: 1 } : { scaleX: [0, 1, 1, 0], opacity: [0.78, 1, 1, 0.78] }}
-              transition={{ duration: shouldReduceMotion ? 0 : 3, repeat: shouldReduceMotion ? 0 : Infinity, repeatDelay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-              style={{ transformOrigin: 'left center' }}
-            />
+          <span className="mt-3 block w-full max-w-full min-w-0 align-top">
+            <DeploymentCategoryRotator categories={deploymentCategories} />
           </span>
         </span>
       </motion.div>

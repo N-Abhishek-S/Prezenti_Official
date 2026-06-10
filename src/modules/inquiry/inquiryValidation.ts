@@ -6,6 +6,7 @@ export interface ExpertInquiryFormValues {
   location: string;
   requiredStartDate: string;
   services: string[];
+  categories: string[];
   additionalRequirement: string;
 }
 
@@ -64,14 +65,20 @@ export function sanitizeInquiryForm(values: ExpertInquiryFormValues): ExpertInqu
     location: sanitizeText(values.location).replace(/\s+/g, ' '),
     requiredStartDate: values.requiredStartDate.trim(),
     services: values.services.map((service) => sanitizeText(service).replace(/\s+/g, ' ')).filter(Boolean).slice(0, 8),
+    categories: values.categories.map((category) => sanitizeText(category).replace(/\s+/g, ' ')).filter(Boolean).slice(0, 4),
     additionalRequirement: sanitizeMultilineText(values.additionalRequirement),
   };
 }
 
-export function validateInquiryForm(values: ExpertInquiryFormValues, availableServices: string[] = []) {
+export function validateInquiryForm(
+  values: ExpertInquiryFormValues,
+  availableServices: string[] = [],
+  availableCategories: string[] = [],
+) {
   const sanitized = sanitizeInquiryForm(values);
   const errors: InquiryFormErrors = {};
   const activeServiceNames = new Set(availableServices.map((service) => service.toLowerCase()));
+  const activeCategoryNames = new Set(availableCategories.map((category) => category.toLowerCase()));
 
   if (sanitized.fullName.length < 2) {
     errors.fullName = 'Enter full name.';
@@ -103,6 +110,12 @@ export function validateInquiryForm(values: ExpertInquiryFormValues, availableSe
     errors.services = 'Select at least one service.';
   } else if (activeServiceNames.size > 0 && sanitized.services.some((service) => !activeServiceNames.has(service.toLowerCase()))) {
     errors.services = 'Choose a currently active service.';
+  }
+
+  if (sanitized.categories.length === 0) {
+    errors.categories = 'Select at least one category.';
+  } else if (activeCategoryNames.size > 0 && sanitized.categories.some((category) => !activeCategoryNames.has(category.toLowerCase()))) {
+    errors.categories = 'Choose a supported category.';
   }
 
   if (sanitized.additionalRequirement.length < 5) {

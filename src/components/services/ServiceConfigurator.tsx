@@ -50,6 +50,9 @@ const subcategoryMeta: Record<ServiceSubcategory, { title?: string; icon: Lucide
   'Cafes / Restaurants': {
     icon: Utensils,
   },
+  'Pre Schools': {
+    icon: Building2,
+  },
 };
 
 const categoryDetails: Record<ServiceSubcategory, CategoryDetailContent> = {
@@ -110,6 +113,17 @@ const categoryDetails: Record<ServiceSubcategory, CategoryDetailContent> = {
       'Common Area Upkeep',
     ],
     notIncluded: ['Kitchen Deep Cleaning', 'Grease Removal', 'Pest Control'],
+  },
+  'Pre Schools': {
+    included: [
+      'Classroom Cleaning',
+      'Play Area Cleaning',
+      'Washroom Maintenance',
+      'Common Area Upkeep',
+      'Waste Collection',
+      'Floor Cleaning',
+    ],
+    notIncluded: ['Child Supervision', 'Teaching Assistance', 'Medical Care', 'Pest Control'],
   },
 };
 

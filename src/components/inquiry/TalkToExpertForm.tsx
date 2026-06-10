@@ -1,6 +1,6 @@
 import { useEffect, useId, useState, type FormEvent } from 'react';
 import { motion } from 'framer-motion';
-import { CalendarDays, Check, CheckCircle2, Loader2, PhoneCall, Send, ShieldCheck } from 'lucide-react';
+import { CalendarDays, Check, CheckCircle2, Loader2, PhoneCall, School, Send, ShieldCheck, Utensils, Building2, Building, Home, HeartPulse } from 'lucide-react';
 import { toast } from 'sonner';
 import { Button } from '../ui/Button';
 import { cn } from '../../lib/cn';
@@ -28,16 +28,33 @@ const emptyForm: ExpertInquiryFormValues = {
   companyName: '',
   location: '',
   requiredStartDate: '',
-  services: [],
+  services: ['Housekeeping'],
+  categories: ['Cafes / Restaurants'],
   additionalRequirement: '',
 };
 
-function fieldClass(hasError: boolean) {
+const lockedServiceName = 'Housekeeping';
+const categoryOptions = [
+  { id: 'Offices / Corporate / Educational Institute', icon: Building2 },
+  { id: 'Commercial Buildings', icon: Building },
+  { id: 'Residential Buildings', icon: Home },
+  { id: 'Hospital / Healthcare', icon: HeartPulse },
+  { id: 'Cafes / Restaurants', icon: Utensils },
+  { id: 'Pre Schools', icon: School },
+] as const;
+
+function labelClass(isComplete: boolean) {
+  return cn('block text-sm font-semibold transition-colors duration-200', isComplete ? 'text-success-700' : 'text-neutral-800');
+}
+
+function fieldClass(hasError: boolean, isComplete = false) {
   return cn(
-    'mt-2 w-full rounded-lg border bg-white px-4 py-3 text-sm text-neutral-950 outline-none transition placeholder:text-neutral-400 focus:ring-2',
+    'mt-2 w-full rounded-[14px] border bg-white px-4 py-3 text-sm text-neutral-950 outline-none transition placeholder:text-neutral-400 focus:ring-2',
     hasError
       ? 'border-critical-400 focus:border-critical-500 focus:ring-critical-100'
-      : 'border-neutral-200 focus:border-primary-700 focus:ring-primary-700/15',
+      : isComplete
+        ? 'border-success-300 focus:border-success-500 focus:ring-success-500/15'
+        : 'border-neutral-200 focus:border-success-500 focus:ring-success-500/15',
   );
 }
 
@@ -91,7 +108,9 @@ export function TalkToExpertForm({
   const formId = useId();
   const [form, setForm] = useState<ExpertInquiryFormValues>({
     ...emptyForm,
-    services: initialServices,
+    services: initialServices.some((service) => service.toLowerCase() === lockedServiceName.toLowerCase())
+      ? [lockedServiceName]
+      : emptyForm.services,
   });
   const [errors, setErrors] = useState<InquiryFormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -102,10 +121,10 @@ export function TalkToExpertForm({
   useEffect(() => {
     if (serviceNames.length === 0) return;
 
-    const activeServiceNames = new Set(serviceNames.map((service) => service.toLowerCase()));
+    const hasHousekeeping = serviceNames.some((service) => service.toLowerCase() === lockedServiceName.toLowerCase());
     setForm((current) => ({
       ...current,
-      services: current.services.filter((service) => activeServiceNames.has(service.toLowerCase())),
+      services: hasHousekeeping ? [lockedServiceName] : [],
     }));
   }, [serviceNames]);
 
@@ -114,12 +133,12 @@ export function TalkToExpertForm({
     setErrors((current) => ({ ...current, [key]: undefined }));
   };
 
-  const toggleService = (service: string) => {
+  const toggleCategory = (category: string) => {
     update(
-      'services',
-      form.services.includes(service)
-        ? form.services.filter((item) => item !== service)
-        : [...form.services, service],
+      'categories',
+      form.categories.includes(category)
+        ? form.categories.filter((item) => item !== category)
+        : [...form.categories, category],
     );
   };
 
@@ -141,7 +160,7 @@ export function TalkToExpertForm({
       return;
     }
 
-    const validation = validateInquiryForm(form, serviceNames);
+    const validation = validateInquiryForm(form, [lockedServiceName], categoryOptions.map((category) => category.id));
 
     if (!validation.isValid) {
       setErrors(validation.errors);
@@ -205,7 +224,7 @@ export function TalkToExpertForm({
         </div>
 
         <div className="mt-6 grid gap-5 sm:grid-cols-2">
-          <label className="block text-sm font-semibold text-neutral-800" htmlFor={`${formId}-fullName`}>
+          <label className={labelClass(form.fullName.trim().length > 1)} htmlFor={`${formId}-fullName`}>
             Full Name
             <input
               id={`${formId}-fullName`}
@@ -213,7 +232,7 @@ export function TalkToExpertForm({
               autoComplete="name"
               value={form.fullName}
               onChange={(event) => update('fullName', event.target.value)}
-              className={fieldClass(Boolean(errors.fullName))}
+              className={fieldClass(Boolean(errors.fullName), form.fullName.trim().length > 1)}
               placeholder="Your full name"
               aria-invalid={Boolean(errors.fullName)}
               aria-describedby={`${formId}-fullName-error`}
@@ -221,7 +240,7 @@ export function TalkToExpertForm({
             <FieldError id={`${formId}-fullName-error`} message={errors.fullName} />
           </label>
 
-          <label className="block text-sm font-semibold text-neutral-800" htmlFor={`${formId}-mobileNumber`}>
+          <label className={labelClass(form.mobileNumber.trim().length > 0)} htmlFor={`${formId}-mobileNumber`}>
             Mobile Number
             <input
               id={`${formId}-mobileNumber`}
@@ -230,7 +249,7 @@ export function TalkToExpertForm({
               autoComplete="tel"
               value={form.mobileNumber}
               onChange={(event) => update('mobileNumber', event.target.value)}
-              className={fieldClass(Boolean(errors.mobileNumber))}
+              className={fieldClass(Boolean(errors.mobileNumber), form.mobileNumber.trim().length > 0)}
               placeholder="Mobile Number"
               aria-invalid={Boolean(errors.mobileNumber)}
               aria-describedby={`${formId}-mobileNumber-error`}
@@ -238,7 +257,7 @@ export function TalkToExpertForm({
             <FieldError id={`${formId}-mobileNumber-error`} message={errors.mobileNumber} />
           </label>
 
-          <label className="block text-sm font-semibold text-neutral-800" htmlFor={`${formId}-email`}>
+          <label className={labelClass(form.email.trim().length > 0)} htmlFor={`${formId}-email`}>
             Email
             <input
               id={`${formId}-email`}
@@ -246,7 +265,7 @@ export function TalkToExpertForm({
               autoComplete="email"
               value={form.email}
               onChange={(event) => update('email', event.target.value)}
-              className={fieldClass(Boolean(errors.email))}
+              className={fieldClass(Boolean(errors.email), form.email.trim().length > 0)}
               placeholder="Email"
               aria-invalid={Boolean(errors.email)}
               aria-describedby={`${formId}-email-error`}
@@ -254,7 +273,7 @@ export function TalkToExpertForm({
             <FieldError id={`${formId}-email-error`} message={errors.email} />
           </label>
 
-          <label className="block text-sm font-semibold text-neutral-800" htmlFor={`${formId}-companyName`}>
+          <label className={labelClass(form.companyName.trim().length > 1)} htmlFor={`${formId}-companyName`}>
             Company / Building Name
             <input
               id={`${formId}-companyName`}
@@ -262,7 +281,7 @@ export function TalkToExpertForm({
               autoComplete="organization"
               value={form.companyName}
               onChange={(event) => update('companyName', event.target.value)}
-              className={fieldClass(Boolean(errors.companyName))}
+              className={fieldClass(Boolean(errors.companyName), form.companyName.trim().length > 1)}
               placeholder="Company / Building Name"
               aria-invalid={Boolean(errors.companyName)}
               aria-describedby={`${formId}-companyName-error`}
@@ -270,7 +289,7 @@ export function TalkToExpertForm({
             <FieldError id={`${formId}-companyName-error`} message={errors.companyName} />
           </label>
 
-          <label className="block text-sm font-semibold text-neutral-800" htmlFor={`${formId}-location`}>
+          <label className={labelClass(form.location.trim().length > 1)} htmlFor={`${formId}-location`}>
             Location / Area
             <input
               id={`${formId}-location`}
@@ -278,7 +297,7 @@ export function TalkToExpertForm({
               autoComplete="address-level2"
               value={form.location}
               onChange={(event) => update('location', event.target.value)}
-              className={fieldClass(Boolean(errors.location))}
+              className={fieldClass(Boolean(errors.location), form.location.trim().length > 1)}
               placeholder="Location / Area"
               aria-invalid={Boolean(errors.location)}
               aria-describedby={`${formId}-location-error`}
@@ -286,7 +305,7 @@ export function TalkToExpertForm({
             <FieldError id={`${formId}-location-error`} message={errors.location} />
           </label>
 
-          <label className="block text-sm font-semibold text-neutral-800" htmlFor={`${formId}-requiredStartDate`}>
+          <label className={labelClass(Boolean(form.requiredStartDate))} htmlFor={`${formId}-requiredStartDate`}>
             Required Start Date
             <span className="relative block">
               <CalendarDays size={16} className="pointer-events-none absolute right-4 top-1/2 z-10 -translate-y-1/2 text-neutral-400" />
@@ -296,7 +315,7 @@ export function TalkToExpertForm({
                 min={today}
                 value={form.requiredStartDate}
                 onChange={(event) => update('requiredStartDate', event.target.value)}
-                className={cn(fieldClass(Boolean(errors.requiredStartDate)), 'pr-11')}
+                className={cn(fieldClass(Boolean(errors.requiredStartDate), Boolean(form.requiredStartDate)), 'pr-11')}
                 aria-invalid={Boolean(errors.requiredStartDate)}
                 aria-describedby={`${formId}-requiredStartDate-error`}
               />
@@ -307,18 +326,14 @@ export function TalkToExpertForm({
 
         <fieldset className="mt-7">
           <div className="mb-3 flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
-            <legend className="text-sm font-semibold text-neutral-800">Service Selection</legend>
+            <legend className="text-sm font-semibold text-success-700">Selected Service</legend>
             <FieldError id={`${formId}-services-error`} message={errors.services} />
           </div>
 
           {servicesLoading && (
-            <div className="grid gap-3 sm:grid-cols-2">
-              {[0, 1, 2, 3].map((item) => (
-                <div key={item} className="flex min-h-14 items-center gap-3 rounded-lg border border-neutral-200 bg-neutral-50 px-4 text-sm font-semibold text-neutral-500">
-                  <Loader2 size={16} className="animate-spin" />
-                  Loading service
-                </div>
-              ))}
+            <div className="flex min-h-16 items-center gap-3 rounded-[14px] border border-neutral-200 bg-neutral-50 px-4 text-sm font-semibold text-neutral-500">
+              <Loader2 size={16} className="animate-spin" />
+              Loading service
             </div>
           )}
 
@@ -335,52 +350,94 @@ export function TalkToExpertForm({
           )}
 
           {!servicesLoading && !servicesError && serviceNames.length > 0 && (
-            <div className="grid gap-3 sm:grid-cols-2" aria-describedby={`${formId}-services-error`}>
-              {serviceNames.map((service) => {
-                const selected = form.services.includes(service);
-
-                return (
-                  <label key={service} className="relative cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={selected}
-                      onChange={() => toggleService(service)}
-                      className="peer sr-only"
-                    />
-                    <span
-                      className={cn(
-                        'flex min-h-14 items-center justify-between gap-4 rounded-lg border px-4 py-3 text-sm font-semibold transition peer-focus-visible:ring-2 peer-focus-visible:ring-primary-700/20',
-                        selected
-                          ? 'border-primary-800 bg-primary-800 text-white'
-                          : 'border-neutral-200 bg-white text-neutral-800 hover:border-primary-200 hover:bg-primary-50',
-                      )}
-                    >
-                      <span>{service}</span>
-                      <span
-                        className={cn(
-                          'flex h-5 w-5 shrink-0 items-center justify-center rounded border transition',
-                          selected ? 'border-white bg-white text-primary-800' : 'border-neutral-300 bg-white text-white',
-                        )}
-                        aria-hidden="true"
-                      >
-                        <Check size={14} />
-                      </span>
-                    </span>
-                  </label>
-                );
-              })}
+            <div className="rounded-[14px] border border-success-500 bg-[#ECFDF5] px-4 py-4 shadow-[0_12px_30px_rgba(22,163,74,0.10)]" aria-describedby={`${formId}-services-error`}>
+              <label className="flex items-center justify-between gap-4">
+                <span className="flex items-center gap-3 text-sm font-bold text-neutral-950">
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-success-500 text-white">
+                    <Check size={16} />
+                  </span>
+                  Housekeeping
+                </span>
+                <input type="checkbox" checked readOnly aria-label="Housekeeping selected" className="sr-only" />
+                <span className="text-xs font-bold uppercase tracking-[0.16em] text-success-700">Active</span>
+              </label>
             </div>
           )}
         </fieldset>
 
-        <label className="mt-7 block text-sm font-semibold text-neutral-800" htmlFor={`${formId}-additionalRequirement`}>
+        <fieldset className="mt-7">
+          <div className="mb-3 flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
+            <legend className={cn('text-sm font-semibold transition-colors duration-200', form.categories.length > 0 ? 'text-success-700' : 'text-neutral-800')}>
+              Category Selection
+            </legend>
+            <FieldError id={`${formId}-categories-error`} message={errors.categories} />
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-2" aria-describedby={`${formId}-categories-error`}>
+            {categoryOptions.map((category) => {
+              const selected = form.categories.includes(category.id);
+              const CategoryIcon = category.icon;
+
+              return (
+                <motion.label
+                  key={category.id}
+                  animate={{ scale: selected ? 1.02 : 1 }}
+                  transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                  className="relative cursor-pointer"
+                >
+                  <input
+                    type="checkbox"
+                    checked={selected}
+                    onChange={() => toggleCategory(category.id)}
+                    className="peer sr-only"
+                  />
+                  <span
+                    className={cn(
+                      'relative flex min-h-18 items-center justify-between gap-4 overflow-hidden rounded-[14px] border px-4 py-4 text-sm font-semibold transition-all duration-[250ms] peer-focus-visible:ring-2 peer-focus-visible:ring-success-500/25',
+                      selected
+                        ? 'border-success-500 bg-[#ECFDF5] text-neutral-950 shadow-[0_14px_34px_rgba(22,163,74,0.12)]'
+                        : 'border-neutral-200 bg-white text-neutral-800 hover:-translate-y-0.5 hover:border-success-500 hover:shadow-[0_12px_28px_rgba(15,23,42,0.08)]',
+                    )}
+                  >
+                    <span className="flex min-w-0 items-center gap-3">
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-success-50 text-success-700">
+                        <CategoryIcon size={20} />
+                      </span>
+                      <span>{category.id}</span>
+                    </span>
+                    <span
+                      className={cn(
+                        'flex h-6 w-6 shrink-0 items-center justify-center rounded-full border transition-all duration-[250ms]',
+                        selected ? 'border-success-500 bg-success-500 text-white' : 'border-neutral-300 bg-white text-transparent',
+                      )}
+                      aria-hidden="true"
+                    >
+                      <Check size={15} />
+                    </span>
+                    {selected && (
+                      <motion.span
+                        className="pointer-events-none absolute inset-0 rounded-[14px] border border-success-400"
+                        initial={{ opacity: 0.5, scale: 0.98 }}
+                        animate={{ opacity: 0, scale: 1.05 }}
+                        transition={{ duration: 0.25 }}
+                        aria-hidden="true"
+                      />
+                    )}
+                  </span>
+                </motion.label>
+              );
+            })}
+          </div>
+        </fieldset>
+
+        <label className={cn('mt-7', labelClass(form.additionalRequirement.trim().length > 4))} htmlFor={`${formId}-additionalRequirement`}>
           Additional Requirement
           <textarea
             id={`${formId}-additionalRequirement`}
             rows={5}
             value={form.additionalRequirement}
             onChange={(event) => update('additionalRequirement', event.target.value)}
-            className={cn(fieldClass(Boolean(errors.additionalRequirement)), 'resize-y leading-6')}
+            className={cn(fieldClass(Boolean(errors.additionalRequirement), form.additionalRequirement.trim().length > 4), 'resize-y leading-6')}
             placeholder="Tell us about shift expectations, site size, preferred timing, or any operational details."
             aria-invalid={Boolean(errors.additionalRequirement)}
             aria-describedby={`${formId}-additionalRequirement-error`}

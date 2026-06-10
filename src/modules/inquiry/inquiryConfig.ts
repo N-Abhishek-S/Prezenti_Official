@@ -11,6 +11,7 @@ export const serviceSubcategoryOptions = [
   'Residential Buildings',
   'Hospital / Healthcare',
   'Cafes / Restaurants',
+  'Pre Schools',
 ] as const;
 
 export const inquiryTypeOptions = [

@@ -46,6 +46,10 @@ export const serviceCategories: readonly ServiceCategory[] = [
     name: 'Cafes / Restaurants',
     description: 'Front-of-house and back-of-house housekeeping support for cafes, restaurants, food courts, quick-service restaurants, dining spaces, kitchens, and hospitality venues.',
   },
+  {
+    name: 'Pre Schools',
+    description: 'Daily support staffing for pre schools, early learning centers, and child-focused education facilities.',
+  },
 ];
 
 export const servicesData: readonly ServiceData[] = [
@@ -90,6 +94,12 @@ export const servicesData: readonly ServiceData[] = [
         'Washroom hygiene checks and routine cleaning during operating hours',
         'Waste segregation, disposal coordination, and daily checklist reporting',
       ],
+      'Pre Schools': [
+        'Classroom, play area, corridor, and common washroom cleaning support',
+        'Routine hygiene checks for child-facing common areas during the shift',
+        'Dustbin clearing, dry/wet floor cleaning, and daily checklist reporting',
+        'Basic consumable coordination for housekeeping material availability',
+      ],
     },
     excluded: {
       'Offices / Corporate': [
@@ -121,6 +131,12 @@ export const servicesData: readonly ServiceData[] = [
         'Cost of cleaning chemicals, dishwashing liquids, uniforms, or consumables',
         'Food preparation, cooking, table service, or cashier duties',
         'Pest control, grease trap clearing, or exhaust duct maintenance',
+      ],
+      'Pre Schools': [
+        'Child supervision, teaching assistance, medical care, or transport duty',
+        'Purchase cost of chemicals, machines, tissue, liners, or consumables',
+        'Electrical, plumbing, carpentry, or technical maintenance work',
+        'Pest control, deep restoration cleaning, or specialized sanitization',
       ],
     },
   },
@@ -165,6 +181,12 @@ export const servicesData: readonly ServiceData[] = [
         'Menu card organization, table reservation assistance, and queue coordination',
         'Basic inventory checks for napkins, cutlery, and front-desk supplies',
       ],
+      'Pre Schools': [
+        'Reception-side support, parent guidance, pantry coordination, and basic upkeep',
+        'Courier, document movement, and routine admin support assistance',
+        'Stationery, pantry stock, and facility team coordination support',
+        'Daily assistance to admin and facility teams during shift hours',
+      ],
     },
     excluded: {
       'Offices / Corporate': [
@@ -196,6 +218,12 @@ export const servicesData: readonly ServiceData[] = [
         'Cashiering, billing transactions, bookkeeping, or managing POS systems',
         'Outdoor delivery errands or driving tasks outside the venue',
         'Handling customer disputes, complaints, or restaurant manager decisions',
+      ],
+      'Pre Schools': [
+        'Child supervision, teaching assistance, feeding responsibility, or medical care',
+        'Driving, cash collection, banking responsibility, or outdoor travel beyond scope',
+        'IT troubleshooting, electrical work, or specialized technician duties',
+        'Handling confidential student records or restricted school material',
       ],
     },
   },
@@ -240,6 +268,12 @@ export const servicesData: readonly ServiceData[] = [
         'Cleaning consumable stock tracking and replenishment coordination',
         'Feedback escalation, shift handovers, and daily cleaning report logging',
       ],
+      'Pre Schools': [
+        'Daily staff attendance tracking, shift coordination, and checklist monitoring',
+        'Housekeeping, pantry, reception, and vendor coordination for facility operations',
+        'Issue escalation, basic site reporting, and pre school admin updates',
+        'SLA follow-up for routine non-teaching support activities',
+      ],
     },
     excluded: {
       'Offices / Corporate': [
@@ -271,6 +305,12 @@ export const servicesData: readonly ServiceData[] = [
         'Cash register audits, restaurant accounting, or financial ledger ownership',
         'Vendor contracting, procurement approvals, or budget decisions',
         'Security command or conflict handling with dining guests',
+      ],
+      'Pre Schools': [
+        'Child supervision, teaching responsibility, medical responsibility, or parent disputes',
+        'Procurement approvals, vendor contracting, or budget ownership',
+        'Statutory compliance sign-off or legal responsibility on behalf of the client',
+        'Security command or restricted child-area responsibility unless separately scoped',
       ],
     },
   },
@@ -315,6 +355,12 @@ export const servicesData: readonly ServiceData[] = [
         'Professional host presence at the entrance during peak hours',
         'Basic coordination with floor managers and service staff for guest flow',
       ],
+      'Pre Schools': [
+        'Front desk handling, parent greeting, call routing, and appointment support',
+        'Visitor register, courier register, and waiting-area coordination',
+        'Professional reception presence during selected shift hours',
+        'Basic admin coordination with reception, admin, and facility teams',
+      ],
     },
     excluded: {
       'Offices / Corporate': [
@@ -346,6 +392,12 @@ export const servicesData: readonly ServiceData[] = [
         'Billing, payment processing, or handling cash registers',
         'Valet parking, guest baggage checking, or physical security screening',
         'Managing restaurant booking systems configuration or marketing promotions',
+      ],
+      'Pre Schools': [
+        'Child supervision, teaching assistance, medical advice, or student care',
+        'Executive assistant duties, travel desk ownership, or confidential scheduling',
+        'Security frisking, access-control enforcement, or baggage checking',
+        'Night-shift reception unless separately agreed',
       ],
     },
   },

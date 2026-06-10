@@ -125,14 +125,21 @@ async function run() {
 
     const page = await browser.newPage();
 
+    // Attach detailed debug logging
+    page.on('console', msg => console.log('[Browser Console]', msg.text()));
+    page.on('pageerror', err => console.error('[Page Error]', err));
+    page.on('requestfailed', request => {
+      console.error('[Request Failed]', request.url(), request.failure()?.errorText);
+    });
+
     // Step 4: Crawl and save each route
     for (const route of routes) {
       const url = `http://127.0.0.1:${PORT}${route}`;
       console.log(`\nPrerendering route: ${route} (${url})`);
       
       await page.goto(url, {
-        waitUntil: 'networkidle0',
-        timeout: 30000
+        waitUntil: 'networkidle2',
+        timeout: 45000
       });
 
       // Wait a little extra to ensure react-helmet and schemas are injected

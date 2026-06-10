@@ -40,7 +40,7 @@ export function DeploymentCategoryRotator({
     return null;
   }
 
-  const customEase = [0.22, 1, 0.36, 1];
+  const customEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
   return (
     <span

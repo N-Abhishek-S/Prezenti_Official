@@ -1,0 +1,730 @@
+[
+  {
+    "browser": "chrome",
+    "viewport": "1366x768_100",
+    "cssDimensions": "1366x768",
+    "screenshot": "deep_chrome_1366x768_100.png",
+    "fonts": {
+      "originalFont": "Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif",
+      "widthWithFont": 577.46875,
+      "widthWithFallback": 577.46875,
+      "diff": 0,
+      "cls": 0,
+      "fontLoadTimeMs": 1016.5
+    },
+    "dom": {
+      "hero": {
+        "containerWidth": 1280,
+        "containerHeight": 734.15625,
+        "textBlockWidth": 577.46875,
+        "badgeWidth": 462.328125,
+        "descriptionWidth": 560,
+        "ctaGroupWidth": 577.46875,
+        "h1Width": 577.46875,
+        "h1Height": 184,
+        "h1Lines": 12,
+        "h1Wraps": true,
+        "h1Clips": false,
+        "imgBlockWidth": 590.53125,
+        "imgBlockHeight": 660,
+        "floatingCardWidth": 0,
+        "floatingCardPos": 0
+      },
+      "loc": {
+        "sectionWidth": 1366,
+        "headingWidth": 429.3599853515625,
+        "headingHeight": 532.2001953125,
+        "headingLines": 7,
+        "mapWidth": 0,
+        "mapHeight": 0,
+        "coverageCardWidth": 0
+      },
+      "imp": {
+        "sectionWidth": 1280,
+        "statsGridWidth": 0,
+        "cardWidths": []
+      },
+      "conf": {
+        "accordionWidth": 0,
+        "labelWidth": 40,
+        "labelLines": 2
+      }
+    }
+  },
+  {
+    "browser": "chrome",
+    "viewport": "1366x768_125",
+    "cssDimensions": "1092x614",
+    "screenshot": "deep_chrome_1366x768_125.png",
+    "fonts": {
+      "originalFont": "Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif",
+      "widthWithFont": 577.46875,
+      "widthWithFallback": 577.46875,
+      "diff": 0,
+      "cls": 0,
+      "fontLoadTimeMs": 642.4000000022352
+    },
+    "dom": {
+      "hero": {
+        "containerWidth": 1092,
+        "containerHeight": 728.109375,
+        "textBlockWidth": 577.46875,
+        "badgeWidth": 462.328125,
+        "descriptionWidth": 560,
+        "ctaGroupWidth": 577.46875,
+        "h1Width": 577.46875,
+        "h1Height": 184,
+        "h1Lines": 12,
+        "h1Wraps": true,
+        "h1Clips": false,
+        "imgBlockWidth": 426.53125,
+        "imgBlockHeight": 660,
+        "floatingCardWidth": 0,
+        "floatingCardPos": 0
+      },
+      "loc": {
+        "sectionWidth": 1092,
+        "headingWidth": 925.43994140625,
+        "headingHeight": 308.280029296875,
+        "headingLines": 4,
+        "mapWidth": 0,
+        "mapHeight": 0,
+        "coverageCardWidth": 0
+      },
+      "imp": {
+        "sectionWidth": 1092,
+        "statsGridWidth": 0,
+        "cardWidths": []
+      },
+      "conf": {
+        "accordionWidth": 0,
+        "labelWidth": 40,
+        "labelLines": 2
+      }
+    }
+  },
+  {
+    "browser": "chrome",
+    "viewport": "1440x900_100",
+    "cssDimensions": "1440x900",
+    "screenshot": "deep_chrome_1440x900_100.png",
+    "fonts": {
+      "originalFont": "Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif",
+      "widthWithFont": 577.46875,
+      "widthWithFallback": 577.46875,
+      "diff": 0,
+      "cls": 0,
+      "fontLoadTimeMs": 579.4000000022352
+    },
+    "dom": {
+      "hero": {
+        "containerWidth": 1280,
+        "containerHeight": 734.15625,
+        "textBlockWidth": 577.46875,
+        "badgeWidth": 462.328125,
+        "descriptionWidth": 560,
+        "ctaGroupWidth": 577.46875,
+        "h1Width": 577.46875,
+        "h1Height": 184,
+        "h1Lines": 12,
+        "h1Wraps": true,
+        "h1Clips": false,
+        "imgBlockWidth": 590.53125,
+        "imgBlockHeight": 660,
+        "floatingCardWidth": 0,
+        "floatingCardPos": 0
+      },
+      "loc": {
+        "sectionWidth": 1440,
+        "headingWidth": 455.9849853515625,
+        "headingHeight": 457.560302734375,
+        "headingLines": 6,
+        "mapWidth": 0,
+        "mapHeight": 0,
+        "coverageCardWidth": 0
+      },
+      "imp": {
+        "sectionWidth": 1280,
+        "statsGridWidth": 0,
+        "cardWidths": []
+      },
+      "conf": {
+        "accordionWidth": 0,
+        "labelWidth": 40,
+        "labelLines": 2
+      }
+    }
+  },
+  {
+    "browser": "chrome",
+    "viewport": "1536x864_100",
+    "cssDimensions": "1536x864",
+    "screenshot": "deep_chrome_1536x864_100.png",
+    "fonts": {
+      "originalFont": "Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif",
+      "widthWithFont": 577.46875,
+      "widthWithFallback": 577.46875,
+      "diff": 0,
+      "cls": 0.013702007478156697,
+      "fontLoadTimeMs": 618
+    },
+    "dom": {
+      "hero": {
+        "containerWidth": 1280,
+        "containerHeight": 734.15625,
+        "textBlockWidth": 577.46875,
+        "badgeWidth": 462.328125,
+        "descriptionWidth": 560,
+        "ctaGroupWidth": 577.46875,
+        "h1Width": 577.46875,
+        "h1Height": 184,
+        "h1Lines": 12,
+        "h1Wraps": true,
+        "h1Clips": false,
+        "imgBlockWidth": 590.53125,
+        "imgBlockHeight": 660,
+        "floatingCardWidth": 0,
+        "floatingCardPos": 0
+      },
+      "loc": {
+        "sectionWidth": 1500,
+        "headingWidth": 477.5849609375,
+        "headingHeight": 308.280029296875,
+        "headingLines": 4,
+        "mapWidth": 0,
+        "mapHeight": 0,
+        "coverageCardWidth": 0
+      },
+      "imp": {
+        "sectionWidth": 1280,
+        "statsGridWidth": 0,
+        "cardWidths": []
+      },
+      "conf": {
+        "accordionWidth": 0,
+        "labelWidth": 40,
+        "labelLines": 2
+      }
+    }
+  },
+  {
+    "browser": "chrome",
+    "viewport": "1600x900_100",
+    "cssDimensions": "1600x900",
+    "screenshot": "deep_chrome_1600x900_100.png",
+    "fonts": {
+      "originalFont": "Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif",
+      "widthWithFont": 577.46875,
+      "widthWithFallback": 577.46875,
+      "diff": 0,
+      "cls": 0.012619374782986113,
+      "fontLoadTimeMs": 584.6999999992549
+    },
+    "dom": {
+      "hero": {
+        "containerWidth": 1280,
+        "containerHeight": 734.15625,
+        "textBlockWidth": 577.46875,
+        "badgeWidth": 462.328125,
+        "descriptionWidth": 560,
+        "ctaGroupWidth": 577.46875,
+        "h1Width": 577.46875,
+        "h1Height": 184,
+        "h1Lines": 12,
+        "h1Wraps": true,
+        "h1Clips": false,
+        "imgBlockWidth": 590.53125,
+        "imgBlockHeight": 660,
+        "floatingCardWidth": 0,
+        "floatingCardPos": 0
+      },
+      "loc": {
+        "sectionWidth": 1500,
+        "headingWidth": 477.5849609375,
+        "headingHeight": 308.280029296875,
+        "headingLines": 4,
+        "mapWidth": 0,
+        "mapHeight": 0,
+        "coverageCardWidth": 0
+      },
+      "imp": {
+        "sectionWidth": 1280,
+        "statsGridWidth": 0,
+        "cardWidths": []
+      },
+      "conf": {
+        "accordionWidth": 0,
+        "labelWidth": 40,
+        "labelLines": 2
+      }
+    }
+  },
+  {
+    "browser": "chrome",
+    "viewport": "1920x1080_100",
+    "cssDimensions": "1920x1080",
+    "screenshot": "deep_chrome_1920x1080_100.png",
+    "fonts": {
+      "originalFont": "Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif",
+      "widthWithFont": 577.46875,
+      "widthWithFallback": 577.46875,
+      "diff": 0,
+      "cls": 0.007636986548027385,
+      "fontLoadTimeMs": 563.5
+    },
+    "dom": {
+      "hero": {
+        "containerWidth": 1280,
+        "containerHeight": 734.15625,
+        "textBlockWidth": 577.46875,
+        "badgeWidth": 462.328125,
+        "descriptionWidth": 560,
+        "ctaGroupWidth": 577.46875,
+        "h1Width": 577.46875,
+        "h1Height": 184,
+        "h1Lines": 12,
+        "h1Wraps": true,
+        "h1Clips": false,
+        "imgBlockWidth": 590.53125,
+        "imgBlockHeight": 660,
+        "floatingCardWidth": 0,
+        "floatingCardPos": 0
+      },
+      "loc": {
+        "sectionWidth": 1500,
+        "headingWidth": 477.5849609375,
+        "headingHeight": 308.280029296875,
+        "headingLines": 4,
+        "mapWidth": 0,
+        "mapHeight": 0,
+        "coverageCardWidth": 0
+      },
+      "imp": {
+        "sectionWidth": 1280,
+        "statsGridWidth": 0,
+        "cardWidths": []
+      },
+      "conf": {
+        "accordionWidth": 0,
+        "labelWidth": 40,
+        "labelLines": 2
+      }
+    }
+  },
+  {
+    "browser": "chrome",
+    "viewport": "1920x1080_125",
+    "cssDimensions": "1536x864",
+    "screenshot": "deep_chrome_1920x1080_125.png",
+    "fonts": {
+      "originalFont": "Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif",
+      "widthWithFont": 577.46875,
+      "widthWithFallback": 577.46875,
+      "diff": 0,
+      "cls": 0.013702007478156697,
+      "fontLoadTimeMs": 644.4000000022352
+    },
+    "dom": {
+      "hero": {
+        "containerWidth": 1280,
+        "containerHeight": 734.15625,
+        "textBlockWidth": 577.46875,
+        "badgeWidth": 462.328125,
+        "descriptionWidth": 560,
+        "ctaGroupWidth": 577.46875,
+        "h1Width": 577.46875,
+        "h1Height": 184,
+        "h1Lines": 12,
+        "h1Wraps": true,
+        "h1Clips": false,
+        "imgBlockWidth": 590.53125,
+        "imgBlockHeight": 660,
+        "floatingCardWidth": 0,
+        "floatingCardPos": 0
+      },
+      "loc": {
+        "sectionWidth": 1500,
+        "headingWidth": 477.5849609375,
+        "headingHeight": 308.280029296875,
+        "headingLines": 4,
+        "mapWidth": 0,
+        "mapHeight": 0,
+        "coverageCardWidth": 0
+      },
+      "imp": {
+        "sectionWidth": 1280,
+        "statsGridWidth": 0,
+        "cardWidths": []
+      },
+      "conf": {
+        "accordionWidth": 0,
+        "labelWidth": 40,
+        "labelLines": 2
+      }
+    }
+  },
+  {
+    "browser": "edge",
+    "viewport": "1366x768_100",
+    "cssDimensions": "1366x768",
+    "screenshot": "deep_edge_1366x768_100.png",
+    "fonts": {
+      "originalFont": "Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif",
+      "widthWithFont": 577.46875,
+      "widthWithFallback": 577.46875,
+      "diff": 0,
+      "cls": 0,
+      "fontLoadTimeMs": 811.4000000022352
+    },
+    "dom": {
+      "hero": {
+        "containerWidth": 1280,
+        "containerHeight": 734.15625,
+        "textBlockWidth": 577.46875,
+        "badgeWidth": 462.328125,
+        "descriptionWidth": 560,
+        "ctaGroupWidth": 577.46875,
+        "h1Width": 577.46875,
+        "h1Height": 184,
+        "h1Lines": 12,
+        "h1Wraps": true,
+        "h1Clips": false,
+        "imgBlockWidth": 590.53125,
+        "imgBlockHeight": 660,
+        "floatingCardWidth": 0,
+        "floatingCardPos": 0
+      },
+      "loc": {
+        "sectionWidth": 1366,
+        "headingWidth": 429.3599853515625,
+        "headingHeight": 532.2001953125,
+        "headingLines": 7,
+        "mapWidth": 0,
+        "mapHeight": 0,
+        "coverageCardWidth": 0
+      },
+      "imp": {
+        "sectionWidth": 1280,
+        "statsGridWidth": 0,
+        "cardWidths": []
+      },
+      "conf": {
+        "accordionWidth": 0,
+        "labelWidth": 40,
+        "labelLines": 2
+      }
+    }
+  },
+  {
+    "browser": "edge",
+    "viewport": "1366x768_125",
+    "cssDimensions": "1092x614",
+    "screenshot": "deep_edge_1366x768_125.png",
+    "fonts": {
+      "originalFont": "Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif",
+      "widthWithFont": 577.46875,
+      "widthWithFallback": 577.46875,
+      "diff": 0,
+      "cls": 0.01665490965879731,
+      "fontLoadTimeMs": 578.1999999992549
+    },
+    "dom": {
+      "hero": {
+        "containerWidth": 1092,
+        "containerHeight": 728.109375,
+        "textBlockWidth": 577.46875,
+        "badgeWidth": 462.328125,
+        "descriptionWidth": 560,
+        "ctaGroupWidth": 577.46875,
+        "h1Width": 577.46875,
+        "h1Height": 184,
+        "h1Lines": 12,
+        "h1Wraps": true,
+        "h1Clips": false,
+        "imgBlockWidth": 426.53125,
+        "imgBlockHeight": 660,
+        "floatingCardWidth": 0,
+        "floatingCardPos": 0
+      },
+      "loc": {
+        "sectionWidth": 1092,
+        "headingWidth": 925.43994140625,
+        "headingHeight": 308.280029296875,
+        "headingLines": 4,
+        "mapWidth": 0,
+        "mapHeight": 0,
+        "coverageCardWidth": 0
+      },
+      "imp": {
+        "sectionWidth": 1092,
+        "statsGridWidth": 0,
+        "cardWidths": []
+      },
+      "conf": {
+        "accordionWidth": 0,
+        "labelWidth": 40,
+        "labelLines": 2
+      }
+    }
+  },
+  {
+    "browser": "edge",
+    "viewport": "1440x900_100",
+    "cssDimensions": "1440x900",
+    "screenshot": "deep_edge_1440x900_100.png",
+    "fonts": {
+      "originalFont": "Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif",
+      "widthWithFont": 577.46875,
+      "widthWithFallback": 577.46875,
+      "diff": 0,
+      "cls": 0.01495966910740312,
+      "fontLoadTimeMs": 541.3000000007451
+    },
+    "dom": {
+      "hero": {
+        "containerWidth": 1280,
+        "containerHeight": 734.15625,
+        "textBlockWidth": 577.46875,
+        "badgeWidth": 462.328125,
+        "descriptionWidth": 560,
+        "ctaGroupWidth": 577.46875,
+        "h1Width": 577.46875,
+        "h1Height": 184,
+        "h1Lines": 12,
+        "h1Wraps": true,
+        "h1Clips": false,
+        "imgBlockWidth": 590.53125,
+        "imgBlockHeight": 660,
+        "floatingCardWidth": 0,
+        "floatingCardPos": 0
+      },
+      "loc": {
+        "sectionWidth": 1440,
+        "headingWidth": 455.9849853515625,
+        "headingHeight": 457.560302734375,
+        "headingLines": 6,
+        "mapWidth": 0,
+        "mapHeight": 0,
+        "coverageCardWidth": 0
+      },
+      "imp": {
+        "sectionWidth": 1280,
+        "statsGridWidth": 0,
+        "cardWidths": []
+      },
+      "conf": {
+        "accordionWidth": 0,
+        "labelWidth": 40,
+        "labelLines": 2
+      }
+    }
+  },
+  {
+    "browser": "edge",
+    "viewport": "1536x864_100",
+    "cssDimensions": "1536x864",
+    "screenshot": "deep_edge_1536x864_100.png",
+    "fonts": {
+      "originalFont": "Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif",
+      "widthWithFont": 577.46875,
+      "widthWithFallback": 577.46875,
+      "diff": 0,
+      "cls": 0.013702007478156697,
+      "fontLoadTimeMs": 623
+    },
+    "dom": {
+      "hero": {
+        "containerWidth": 1280,
+        "containerHeight": 734.15625,
+        "textBlockWidth": 577.46875,
+        "badgeWidth": 462.328125,
+        "descriptionWidth": 560,
+        "ctaGroupWidth": 577.46875,
+        "h1Width": 577.46875,
+        "h1Height": 184,
+        "h1Lines": 12,
+        "h1Wraps": true,
+        "h1Clips": false,
+        "imgBlockWidth": 590.53125,
+        "imgBlockHeight": 660,
+        "floatingCardWidth": 0,
+        "floatingCardPos": 0
+      },
+      "loc": {
+        "sectionWidth": 1500,
+        "headingWidth": 477.5849609375,
+        "headingHeight": 308.280029296875,
+        "headingLines": 4,
+        "mapWidth": 0,
+        "mapHeight": 0,
+        "coverageCardWidth": 0
+      },
+      "imp": {
+        "sectionWidth": 1280,
+        "statsGridWidth": 0,
+        "cardWidths": []
+      },
+      "conf": {
+        "accordionWidth": 0,
+        "labelWidth": 40,
+        "labelLines": 2
+      }
+    }
+  },
+  {
+    "browser": "edge",
+    "viewport": "1600x900_100",
+    "cssDimensions": "1600x900",
+    "screenshot": "deep_edge_1600x900_100.png",
+    "fonts": {
+      "originalFont": "Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif",
+      "widthWithFont": 577.46875,
+      "widthWithFallback": 577.46875,
+      "diff": 0,
+      "cls": 0.012619374782986113,
+      "fontLoadTimeMs": 508.19999999925494
+    },
+    "dom": {
+      "hero": {
+        "containerWidth": 1280,
+        "containerHeight": 734.15625,
+        "textBlockWidth": 577.46875,
+        "badgeWidth": 462.328125,
+        "descriptionWidth": 560,
+        "ctaGroupWidth": 577.46875,
+        "h1Width": 577.46875,
+        "h1Height": 184,
+        "h1Lines": 12,
+        "h1Wraps": true,
+        "h1Clips": false,
+        "imgBlockWidth": 590.53125,
+        "imgBlockHeight": 660,
+        "floatingCardWidth": 0,
+        "floatingCardPos": 0
+      },
+      "loc": {
+        "sectionWidth": 1500,
+        "headingWidth": 477.5849609375,
+        "headingHeight": 308.280029296875,
+        "headingLines": 4,
+        "mapWidth": 0,
+        "mapHeight": 0,
+        "coverageCardWidth": 0
+      },
+      "imp": {
+        "sectionWidth": 1280,
+        "statsGridWidth": 0,
+        "cardWidths": []
+      },
+      "conf": {
+        "accordionWidth": 0,
+        "labelWidth": 40,
+        "labelLines": 2
+      }
+    }
+  },
+  {
+    "browser": "edge",
+    "viewport": "1920x1080_100",
+    "cssDimensions": "1920x1080",
+    "screenshot": "deep_edge_1920x1080_100.png",
+    "fonts": {
+      "originalFont": "Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif",
+      "widthWithFont": 577.46875,
+      "widthWithFallback": 577.46875,
+      "diff": 0,
+      "cls": 0.007636986548027385,
+      "fontLoadTimeMs": 495
+    },
+    "dom": {
+      "hero": {
+        "containerWidth": 1280,
+        "containerHeight": 734.15625,
+        "textBlockWidth": 577.46875,
+        "badgeWidth": 462.328125,
+        "descriptionWidth": 560,
+        "ctaGroupWidth": 577.46875,
+        "h1Width": 577.46875,
+        "h1Height": 184,
+        "h1Lines": 12,
+        "h1Wraps": true,
+        "h1Clips": false,
+        "imgBlockWidth": 590.53125,
+        "imgBlockHeight": 660,
+        "floatingCardWidth": 0,
+        "floatingCardPos": 0
+      },
+      "loc": {
+        "sectionWidth": 1500,
+        "headingWidth": 477.5849609375,
+        "headingHeight": 308.280029296875,
+        "headingLines": 4,
+        "mapWidth": 0,
+        "mapHeight": 0,
+        "coverageCardWidth": 0
+      },
+      "imp": {
+        "sectionWidth": 1280,
+        "statsGridWidth": 0,
+        "cardWidths": []
+      },
+      "conf": {
+        "accordionWidth": 0,
+        "labelWidth": 40,
+        "labelLines": 2
+      }
+    }
+  },
+  {
+    "browser": "edge",
+    "viewport": "1920x1080_125",
+    "cssDimensions": "1536x864",
+    "screenshot": "deep_edge_1920x1080_125.png",
+    "fonts": {
+      "originalFont": "Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif",
+      "widthWithFont": 577.46875,
+      "widthWithFallback": 577.46875,
+      "diff": 0,
+      "cls": 0.013702007478156697,
+      "fontLoadTimeMs": 512.8000000007451
+    },
+    "dom": {
+      "hero": {
+        "containerWidth": 1280,
+        "containerHeight": 734.15625,
+        "textBlockWidth": 577.46875,
+        "badgeWidth": 462.328125,
+        "descriptionWidth": 560,
+        "ctaGroupWidth": 577.46875,
+        "h1Width": 577.46875,
+        "h1Height": 184,
+        "h1Lines": 12,
+        "h1Wraps": true,
+        "h1Clips": false,
+        "imgBlockWidth": 590.53125,
+        "imgBlockHeight": 660,
+        "floatingCardWidth": 0,
+        "floatingCardPos": 0
+      },
+      "loc": {
+        "sectionWidth": 1500,
+        "headingWidth": 477.5849609375,
+        "headingHeight": 308.280029296875,
+        "headingLines": 4,
+        "mapWidth": 0,
+        "mapHeight": 0,
+        "coverageCardWidth": 0
+      },
+      "imp": {
+        "sectionWidth": 1280,
+        "statsGridWidth": 0,
+        "cardWidths": []
+      },
+      "conf": {
+        "accordionWidth": 0,
+        "labelWidth": 40,
+        "labelLines": 2
+      }
+    }
+  }
+]

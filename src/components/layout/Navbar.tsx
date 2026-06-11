@@ -139,7 +139,7 @@ export function Navbar() {
         scrolled && 'shadow-[0_12px_40px_rgba(10,42,34,0.08)]',
       )}
     >
-      <div className="mx-auto flex w-full max-w-360 items-center justify-between px-4 sm:px-6">
+      <div className="flex w-full items-center justify-between desktop-container">
         <button
           type="button"
           className="flex min-w-0 items-center no-underline"

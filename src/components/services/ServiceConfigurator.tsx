@@ -195,11 +195,10 @@ function CategoryCard({
         onClick={() => onSelect(option)}
         aria-expanded={isSelected}
         aria-controls={panelId}
-        aria-pressed={isSelected}
-        className="group flex min-h-[82px] w-full items-center gap-5 bg-[#F8FCF7] px-5 py-5 text-left text-neutral-700 transition duration-300 ease-in-out hover:bg-[#F3FAF2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-700/20 sm:px-6"
+        className="group flex h-16 lg:h-[72px] w-full items-center gap-5 bg-[#F8FCF7] px-5 py-0 text-left text-neutral-700 transition duration-300 ease-in-out hover:bg-[#F3FAF2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-700/20 sm:px-6"
       >
-        <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-primary-700 shadow-[0_8px_20px_rgba(10,42,34,0.06)]">
-          <CategoryIcon size={22} strokeWidth={2} />
+        <span className="inline-flex h-9 w-9 lg:h-10 lg:w-10 shrink-0 items-center justify-center rounded-xl bg-white text-primary-700 shadow-[0_8px_20px_rgba(10,42,34,0.06)]">
+          <CategoryIcon size={20} strokeWidth={2} />
         </span>
         <span className="min-w-0 flex-1 text-[clamp(1.125rem,2vw+0.5rem,1.375rem)] w-full break-words text-wrap-balance font-semibold leading-7 text-neutral-950">
           {displayTitle}
@@ -246,7 +245,7 @@ export function ServiceConfigurator() {
 
   if (isLoading) {
     return (
-      <div className="mx-auto max-w-[1260px] rounded-[24px] border border-[#E7ECE8] bg-white p-6 shadow-card">
+      <div className="mx-auto w-full rounded-[24px] border border-[#E7ECE8] bg-white p-6 shadow-card">
         <div className="h-5 w-36 rounded bg-neutral-100" />
         <div className="mt-4 h-8 max-w-xl rounded bg-neutral-100" />
         <div className="mt-8 grid gap-3">
@@ -260,7 +259,7 @@ export function ServiceConfigurator() {
 
   if (error || !housekeepingService) {
     return (
-      <div className="mx-auto max-w-[1260px] rounded-[24px] border border-[#E7ECE8] bg-white p-6 text-center shadow-card">
+      <div className="mx-auto w-full rounded-[24px] border border-[#E7ECE8] bg-white p-6 text-center shadow-card">
         <h3 className="text-lg font-semibold text-neutral-950">Services are temporarily unavailable</h3>
         <p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-neutral-600">
           Please try again after the catalog is available.
@@ -270,7 +269,7 @@ export function ServiceConfigurator() {
   }
 
   return (
-    <div className="mx-auto max-w-[1260px] rounded-[24px] border border-[#E7ECE8] bg-white p-6 shadow-[0_18px_70px_rgba(10,42,34,0.06)] sm:p-8">
+    <div className="mx-auto w-full rounded-[24px] border border-[#E7ECE8] bg-white p-5 shadow-[0_18px_70px_rgba(10,42,34,0.06)] sm:p-6">
       <section className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-start">
         <div className="flex items-start gap-5">
           <span className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-primary-800 text-white shadow-[0_14px_34px_rgba(18,63,53,0.20)]">

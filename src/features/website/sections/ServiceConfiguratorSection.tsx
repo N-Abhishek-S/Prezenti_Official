@@ -14,7 +14,7 @@ export function ServiceConfiguratorSection() {
   return (
     <motion.section
       id="services"
-      className="bg-canvas py-14 sm:py-16 lg:py-20"
+      className="bg-canvas py-8 sm:py-10 lg:py-12"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-80px' }}

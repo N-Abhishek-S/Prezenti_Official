@@ -22,7 +22,7 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
       <button
         type="button"
         onClick={() => setOpen((current) => !current)}
-        className="flex w-full items-center justify-between gap-5 py-5 text-left"
+        className="flex w-full items-center justify-between gap-5 py-3.5 text-left"
         aria-expanded={open}
       >
         <span className="text-base font-semibold text-neutral-950">{question}</span>
@@ -37,7 +37,7 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
             transition={{ duration: 0.2, ease: 'easeOut' }}
             className="overflow-hidden"
           >
-            <p className="pb-5 text-sm leading-6 text-neutral-600">{answer}</p>
+            <p className="pb-4 text-sm leading-6 text-neutral-600">{answer}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -51,14 +51,14 @@ export function ContactSection() {
   return (
     <motion.section
       id="contact"
-      className="bg-white py-14 sm:py-16 lg:py-20"
+      className="bg-white py-8 sm:py-10 lg:py-12"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-80px' }}
       variants={stagger}
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <motion.div variants={fadeUp} className="mx-auto mb-12 max-w-[760px] text-center">
+      <div className="desktop-container">
+        <motion.div variants={fadeUp} className="mx-auto mb-8 max-w-[760px] text-center">
           <Badge variant="primary" size="lg" className="mb-3">
             FAQs
           </Badge>
@@ -70,7 +70,7 @@ export function ContactSection() {
 
         <motion.div variants={fadeUp} className="grid gap-5 lg:grid-cols-2">
           {groups.map((group) => (
-            <section key={group.title} className="rounded-[28px] border border-neutral-200 bg-canvas p-5 sm:p-6">
+            <section key={group.title} className="rounded-[28px] border border-neutral-200 bg-canvas p-4 sm:p-5">
               <div className="mb-2 flex items-center gap-3">
                 <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-800 text-white">
                   <HelpCircle size={18} />

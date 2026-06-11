@@ -13,9 +13,13 @@ export function HeroSection() {
       <div className="absolute inset-x-0 top-0 -z-10 h-28 bg-white/78" />
       <div className="absolute inset-x-0 bottom-0 -z-10 h-px bg-linear-to-r from-transparent via-primary-200/70 to-transparent" />
 
-      <div className="mx-auto grid w-full max-w-7xl items-center gap-8 px-4 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:gap-10 xl:gap-16">
-        <HeroContent />
-        <HeroMedia />
+      <div className="grid items-center gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-8 xl:gap-12 desktop-container">
+        <div className="min-w-0 w-full">
+          <HeroContent />
+        </div>
+        <div className="min-w-0 w-full">
+          <HeroMedia />
+        </div>
       </div>
     </section>
   );

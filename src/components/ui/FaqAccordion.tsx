@@ -19,11 +19,11 @@ export function FaqAccordion({ faqs }: FaqAccordionProps) {
   };
 
   return (
-    <div className="mx-auto max-w-3xl divide-y divide-neutral-200 mt-8">
+    <div className="mx-auto max-w-3xl divide-y divide-neutral-200 mt-6">
       {faqs.map((faq, index) => {
         const isOpen = openIndex === index;
         return (
-          <div key={index} className="py-4">
+          <div key={index} className="py-3">
             <button
               className="flex w-full items-center justify-between text-left focus:outline-none"
               onClick={() => toggle(index)}
@@ -47,7 +47,7 @@ export function FaqAccordion({ faqs }: FaqAccordionProps) {
                   transition={{ duration: 0.3, ease: 'easeInOut' }}
                   className="overflow-hidden"
                 >
-                  <p className="pb-2 pt-4 text-neutral-600 leading-relaxed">
+                  <p className="pb-1 pt-2 text-neutral-600 leading-relaxed">
                     {faq.answer}
                   </p>
                 </motion.div>

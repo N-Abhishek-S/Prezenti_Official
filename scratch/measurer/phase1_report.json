@@ -1,0 +1,46 @@
+[
+  {
+    "viewport": "1366x768_100",
+    "cssDimensions": "1366x768",
+    "measurements": {
+      "containerWidth": 1280,
+      "textBlockWidth": 537.265625,
+      "imgBlockWidth": 630.734375,
+      "h1Width": 537.265625,
+      "h1Lines": 17
+    }
+  },
+  {
+    "viewport": "1366x768_125",
+    "cssDimensions": "1092x614",
+    "measurements": {
+      "containerWidth": 1092,
+      "textBlockWidth": 461.828125,
+      "imgBlockWidth": 542.171875,
+      "h1Width": 461.828125,
+      "h1Lines": 10
+    }
+  },
+  {
+    "viewport": "1536x864_100",
+    "cssDimensions": "1536x864",
+    "measurements": {
+      "containerWidth": 1280,
+      "textBlockWidth": 537.265625,
+      "imgBlockWidth": 630.734375,
+      "h1Width": 537.265625,
+      "h1Lines": 24
+    }
+  },
+  {
+    "viewport": "1920x1080_100",
+    "cssDimensions": "1920x1080",
+    "measurements": {
+      "containerWidth": 1280,
+      "textBlockWidth": 537.265625,
+      "imgBlockWidth": 630.734375,
+      "h1Width": 537.265625,
+      "h1Lines": 28
+    }
+  }
+]

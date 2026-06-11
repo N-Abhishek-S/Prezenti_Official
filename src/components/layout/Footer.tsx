@@ -19,7 +19,7 @@ export function Footer() {
 
   return (
     <footer className="bg-neutral-900 pt-14 pb-8 text-white/70 sm:pt-16">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      <div className="desktop-container">
         <div className="mb-12 grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <button

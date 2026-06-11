@@ -31,7 +31,12 @@ export function SEO({
   const metaDescription = description || SEO_CONSTANTS.DEFAULT_DESCRIPTION;
   const metaImage = imageUrl ? toAbsoluteUrl(imageUrl) : SEO_CONSTANTS.DEFAULT_IMAGE;
   const metaImageAlt = imageAlt || SEO_CONSTANTS.DEFAULT_IMAGE_ALT;
-  const url = canonicalUrl ? toAbsoluteUrl(canonicalUrl) : SEO_CONSTANTS.BASE_URL;
+  
+  // Use window.location.pathname if available and canonicalUrl is not provided
+  const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
+  const resolvedUrl = canonicalUrl || currentPath;
+  const url = toAbsoluteUrl(resolvedUrl) || SEO_CONSTANTS.BASE_URL;
+  
   const robotsContent = noindex
     ? 'noindex, nofollow'
     : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';

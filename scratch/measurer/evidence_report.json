@@ -1,0 +1,72 @@
+[
+  {
+    "viewport": "1366x768_100",
+    "cssDimensions": "1366x768",
+    "measurements": {
+      "containerWidth": 1280,
+      "textBlockWidth": 577.46875,
+      "imgBlockWidth": 590.53125,
+      "h1Width": 577.46875,
+      "h1Wraps": true,
+      "h1Clips": false,
+      "horizontalOverflow": false,
+      "innerWidth": 1366
+    }
+  },
+  {
+    "viewport": "1366x768_125",
+    "cssDimensions": "1092x614",
+    "measurements": {
+      "containerWidth": 1092,
+      "textBlockWidth": 577.46875,
+      "imgBlockWidth": 426.53125,
+      "h1Width": 577.46875,
+      "h1Wraps": true,
+      "h1Clips": false,
+      "horizontalOverflow": false,
+      "innerWidth": 1092
+    }
+  },
+  {
+    "viewport": "1440x900_100",
+    "cssDimensions": "1440x900",
+    "measurements": {
+      "containerWidth": 1280,
+      "textBlockWidth": 577.46875,
+      "imgBlockWidth": 590.53125,
+      "h1Width": 577.46875,
+      "h1Wraps": true,
+      "h1Clips": false,
+      "horizontalOverflow": false,
+      "innerWidth": 1440
+    }
+  },
+  {
+    "viewport": "1536x864_100",
+    "cssDimensions": "1536x864",
+    "measurements": {
+      "containerWidth": 1280,
+      "textBlockWidth": 577.46875,
+      "imgBlockWidth": 590.53125,
+      "h1Width": 577.46875,
+      "h1Wraps": true,
+      "h1Clips": false,
+      "horizontalOverflow": false,
+      "innerWidth": 1536
+    }
+  },
+  {
+    "viewport": "1920x1080_100",
+    "cssDimensions": "1920x1080",
+    "measurements": {
+      "containerWidth": 1280,
+      "textBlockWidth": 577.46875,
+      "imgBlockWidth": 590.53125,
+      "h1Width": 577.46875,
+      "h1Wraps": true,
+      "h1Clips": false,
+      "horizontalOverflow": false,
+      "innerWidth": 1920
+    }
+  }
+]

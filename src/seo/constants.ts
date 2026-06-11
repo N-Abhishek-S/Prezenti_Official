@@ -1,9 +1,9 @@
 export const SEO_CONSTANTS = {
   SITE_NAME: 'Prezenti',
   BASE_URL: 'https://www.prezenti.com',
-  DEFAULT_TITLE: 'Prezenti - Your Support Staff, On Demand',
+  DEFAULT_TITLE: 'Facility Management & Corporate Staffing Pune | Prezenti',
   DEFAULT_DESCRIPTION:
-    'Book On demand housekeeping staff for your business or building...',
+    'Hire trained support staff for your office, hospital, or commercial facility. Prezenti provides reliable housekeeping, office boys, and facility management.',
   DEFAULT_IMAGE: 'https://www.prezenti.com/brand/prezenti-horizontal-logo.png',
   DEFAULT_IMAGE_ALT: 'Prezenti facility staffing services',
   LOCALE: 'en_IN',

@@ -20,7 +20,7 @@ export function ImpactSection() {
       viewport={{ once: true, margin: '-80px' }}
       variants={stagger}
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      <div className="desktop-container">
         <motion.div variants={fadeUp} className="mb-10 text-center">
           <Badge variant="teal" size="lg" className="mb-3 bg-white/10 text-white">
             Impact

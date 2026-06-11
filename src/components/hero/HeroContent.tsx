@@ -76,7 +76,7 @@ function StoreBadge({ kind, onClick }: StoreBadgeProps) {
         <span className="text-[10px] font-semibold uppercase tracking-[0.08em] text-white/90">
           {copy.eyebrow}
         </span>
-        <span className="mt-1 whitespace-nowrap text-[24px] font-semibold tracking-normal text-white">
+        <span className="mt-1 w-full break-words text-[clamp(1.25rem,2vw,1.5rem)] font-semibold tracking-normal text-white">
           {copy.label}
         </span>
       </span>
@@ -91,7 +91,7 @@ export function HeroContent() {
 
   return (
     <motion.div
-      className="relative z-10 max-w-full py-6 lg:max-w-162.5 lg:py-12"
+      className="relative z-10 w-full min-w-0 max-w-full py-4 lg:py-8"
       initial="hidden"
       animate="visible"
       variants={{
@@ -105,7 +105,7 @@ export function HeroContent() {
  <motion.div
   variants={entrance}
   transition={{ duration: 0.55, ease: 'easeOut' }}
-  className="relative mb-6 block w-full max-w-[min(22rem,calc(100vw-2rem))] overflow-hidden rounded-xl p-[1.5px] sm:inline-block sm:w-auto sm:max-w-full"
+  className="relative mb-4 block w-full max-w-full overflow-hidden rounded-xl p-[1.5px] sm:inline-block sm:w-auto"
 >
   {/* Animated glowing border */}
   <div className="absolute inset-0 rounded-xl bg-[linear-gradient(90deg,#14b8a6,#22c55e,#06b6d4,#14b8a6)] bg-size-[300%_300%] animate-[gradientMove_4s_linear_infinite]" />
@@ -128,7 +128,7 @@ export function HeroContent() {
   </div>
 </motion.div>
 
-<p className="text-[15px] font-semibold text-neutral-950 opacity-90 tracking-[0.01em] mb-4 text-left w-fit border-b border-dotted border-primary-600/50 pb-[5px] leading-[1.4]">
+<p className="text-[15px] font-semibold text-neutral-950 opacity-90 tracking-[0.01em] mb-3 text-left w-fit border-b border-dotted border-primary-600/50 pb-[5px] leading-[1.4]">
   <motion.span
     initial={{ backgroundPosition: '112% 0%' }}
     animate={{ backgroundPosition: ['112% 0%', '-12% 0%'] }}
@@ -153,7 +153,7 @@ export function HeroContent() {
 
  <motion.h1
   id="ps-project-hero-title"
-  className="font-extrabold leading-[1.0] tracking-[-0.025em]"
+  className="font-extrabold leading-[0.95] tracking-[-0.025em]"
 >
   {/* First Line */}
   <motion.span
@@ -176,7 +176,7 @@ export function HeroContent() {
       w-full
       max-w-full
       break-words
-      text-[clamp(1.75rem,4.5vw+1rem,3.8rem)]
+      text-[clamp(2.5rem,4vw,4.75rem)]
       text-neutral-950
     "
   >
@@ -204,7 +204,7 @@ export function HeroContent() {
       w-full
       max-w-full
       break-words
-      text-[clamp(1.85rem,5vw+1rem,3.9rem)]
+      text-[clamp(2.5rem,4vw,4.75rem)]
       font-extrabold
       text-[#16a34a]
     "
@@ -216,7 +216,7 @@ export function HeroContent() {
       <motion.div
         variants={entrance}
         transition={{ duration: 0.6, ease: 'easeOut' }}
-        className="mt-5"
+        className="mt-4"
       >
         <span
           className="block"
@@ -235,7 +235,7 @@ export function HeroContent() {
       <motion.p
         variants={entrance}
         transition={{ duration: 0.62, ease: 'easeOut' }}
-        className="mt-6 max-w-140 text-[17px] font-normal leading-[1.6] tracking-[-0.006em] text-neutral-600"
+        className="mt-4 max-w-140 text-[17px] font-normal leading-[1.6] tracking-[-0.006em] text-neutral-600"
       >
         We Manage Your Support Workforce, While You Focus on Core Operations
       </motion.p>
@@ -243,7 +243,7 @@ export function HeroContent() {
       <motion.div
         variants={entrance}
         transition={{ duration: 0.62, ease: 'easeOut' }}
-        className="mt-8 flex flex-col gap-3 sm:flex-row"
+        className="mt-6 flex flex-col gap-3 sm:flex-row"
       >
         <Button
           type="button"
@@ -252,8 +252,8 @@ export function HeroContent() {
           className="group w-full max-w-[min(22rem,calc(100vw-2rem))] min-w-0 px-3 text-[15px] font-semibold tracking-[-0.006em] shadow-[0_16px_36px_rgba(18,63,53,0.22)] min-[420px]:px-4 min-[420px]:text-[15px] sm:w-auto sm:max-w-none sm:px-10"
           onClick={() => navigate('/talk-to-us')}
         >
-          <span className="min-w-0 text-center leading-[1.3] text-wrap-balance sm:whitespace-nowrap">Let us understand your requirement</span>
-          <ArrowRight size={18} className="shrink-0 transition-transform duration-200 group-hover:translate-x-0.5" />
+          <span className="min-w-0 text-center leading-[1.3] text-wrap-balance break-words">Let us understand your requirement</span>
+          <ArrowRight className="h-[18px] w-[18px] shrink-0 transition-transform duration-300 group-hover:translate-x-1 sm:h-5 sm:w-5" />
         </Button>
         <Button
           type="button"

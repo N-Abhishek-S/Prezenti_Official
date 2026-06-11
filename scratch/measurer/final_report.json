@@ -1,0 +1,296 @@
+[
+  {
+    "viewport": "1366x768_100",
+    "cssDimensions": "1366x768",
+    "measurements": {
+      "containers": {
+        "nav": 1366,
+        "hero": 1366,
+        "imp": 1366,
+        "loc": 1366,
+        "faq": 0,
+        "foot": 1366
+      },
+      "density": {
+        "heroHeight": 771.96875,
+        "heroMediaHeight": 273.71875,
+        "comparisonVideoHeight": 416,
+        "configuratorHeight": 1314,
+        "locationHeight": 672.5,
+        "faqHeight": 0
+      },
+      "loc": {
+        "sectionWidth": 1366,
+        "headingWidth": 497.1750183105469,
+        "headingLines": 4,
+        "mapWidth": 0,
+        "cardWidth": 0
+      },
+      "imp": {
+        "sectionWidth": 1366,
+        "statGridWidth": 0,
+        "cardWidth": 0
+      },
+      "conf": {
+        "sectionWidth": 0,
+        "accordionWidth": 0,
+        "cardWidth": 0,
+        "labelWidth": 0
+      },
+      "faq": {
+        "sectionWidth": 0,
+        "accordionWidth": 0,
+        "textWidth": 0
+      },
+      "cls": 0,
+      "scrollWidth": 1366,
+      "innerWidth": 1366,
+      "overflow": false
+    }
+  },
+  {
+    "viewport": "1440x900_100",
+    "cssDimensions": "1440x900",
+    "measurements": {
+      "containers": {
+        "nav": 1440,
+        "hero": 1440,
+        "imp": 1440,
+        "loc": 1440,
+        "faq": 0,
+        "foot": 1440
+      },
+      "density": {
+        "heroHeight": 828,
+        "heroMediaHeight": 290.296875,
+        "comparisonVideoHeight": 416,
+        "configuratorHeight": 1314,
+        "locationHeight": 604.25,
+        "faqHeight": 0
+      },
+      "loc": {
+        "sectionWidth": 1440,
+        "headingWidth": 510.1199951171875,
+        "headingLines": 4,
+        "mapWidth": 0,
+        "cardWidth": 0
+      },
+      "imp": {
+        "sectionWidth": 1440,
+        "statGridWidth": 0,
+        "cardWidth": 0
+      },
+      "conf": {
+        "sectionWidth": 0,
+        "accordionWidth": 0,
+        "cardWidth": 0,
+        "labelWidth": 0
+      },
+      "faq": {
+        "sectionWidth": 0,
+        "accordionWidth": 0,
+        "textWidth": 0
+      },
+      "cls": 0.01219186706961591,
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "overflow": false
+    }
+  },
+  {
+    "viewport": "1536x864_100",
+    "cssDimensions": "1536x864",
+    "measurements": {
+      "containers": {
+        "nav": 1440,
+        "hero": 1440,
+        "imp": 1440,
+        "loc": 1440,
+        "faq": 0,
+        "foot": 1440
+      },
+      "density": {
+        "heroHeight": 792,
+        "heroMediaHeight": 290.296875,
+        "comparisonVideoHeight": 416,
+        "configuratorHeight": 1314,
+        "locationHeight": 604.25,
+        "faqHeight": 0
+      },
+      "loc": {
+        "sectionWidth": 1440,
+        "headingWidth": 510.1199951171875,
+        "headingLines": 4,
+        "mapWidth": 0,
+        "cardWidth": 0
+      },
+      "imp": {
+        "sectionWidth": 1440,
+        "statGridWidth": 0,
+        "cardWidth": 0
+      },
+      "conf": {
+        "sectionWidth": 0,
+        "accordionWidth": 0,
+        "cardWidth": 0,
+        "labelWidth": 0
+      },
+      "faq": {
+        "sectionWidth": 0,
+        "accordionWidth": 0,
+        "textWidth": 0
+      },
+      "cls": 0.011753647691673703,
+      "scrollWidth": 1536,
+      "innerWidth": 1536,
+      "overflow": false
+    }
+  },
+  {
+    "viewport": "1600x900_100",
+    "cssDimensions": "1600x900",
+    "measurements": {
+      "containers": {
+        "nav": 1440,
+        "hero": 1440,
+        "imp": 1440,
+        "loc": 1440,
+        "faq": 0,
+        "foot": 1440
+      },
+      "density": {
+        "heroHeight": 828,
+        "heroMediaHeight": 290.296875,
+        "comparisonVideoHeight": 416,
+        "configuratorHeight": 1314,
+        "locationHeight": 604.25,
+        "faqHeight": 0
+      },
+      "loc": {
+        "sectionWidth": 1440,
+        "headingWidth": 510.1199951171875,
+        "headingLines": 4,
+        "mapWidth": 0,
+        "cardWidth": 0
+      },
+      "imp": {
+        "sectionWidth": 1440,
+        "statGridWidth": 0,
+        "cardWidth": 0
+      },
+      "conf": {
+        "sectionWidth": 0,
+        "accordionWidth": 0,
+        "cardWidth": 0,
+        "labelWidth": 0
+      },
+      "faq": {
+        "sectionWidth": 0,
+        "accordionWidth": 0,
+        "textWidth": 0
+      },
+      "cls": 0.01090966357421875,
+      "scrollWidth": 1600,
+      "innerWidth": 1600,
+      "overflow": false
+    }
+  },
+  {
+    "viewport": "1728x1117_100",
+    "cssDimensions": "1728x1117",
+    "measurements": {
+      "containers": {
+        "nav": 1440,
+        "hero": 1440,
+        "imp": 1440,
+        "loc": 1440,
+        "faq": 0,
+        "foot": 1440
+      },
+      "density": {
+        "heroHeight": 1045,
+        "heroMediaHeight": 290.296875,
+        "comparisonVideoHeight": 416,
+        "configuratorHeight": 1314,
+        "locationHeight": 604.25,
+        "faqHeight": 0
+      },
+      "loc": {
+        "sectionWidth": 1440,
+        "headingWidth": 510.1199951171875,
+        "headingLines": 4,
+        "mapWidth": 0,
+        "cardWidth": 0
+      },
+      "imp": {
+        "sectionWidth": 1440,
+        "statGridWidth": 0,
+        "cardWidth": 0
+      },
+      "conf": {
+        "sectionWidth": 0,
+        "accordionWidth": 0,
+        "cardWidth": 0,
+        "labelWidth": 0
+      },
+      "faq": {
+        "sectionWidth": 0,
+        "accordionWidth": 0,
+        "textWidth": 0
+      },
+      "cls": 0.008126340366939192,
+      "scrollWidth": 1728,
+      "innerWidth": 1728,
+      "overflow": false
+    }
+  },
+  {
+    "viewport": "1920x1080_100",
+    "cssDimensions": "1920x1080",
+    "measurements": {
+      "containers": {
+        "nav": 1440,
+        "hero": 1440,
+        "imp": 1440,
+        "loc": 1440,
+        "faq": 0,
+        "foot": 1440
+      },
+      "density": {
+        "heroHeight": 1008,
+        "heroMediaHeight": 290.296875,
+        "comparisonVideoHeight": 416,
+        "configuratorHeight": 1314,
+        "locationHeight": 604.25,
+        "faqHeight": 0
+      },
+      "loc": {
+        "sectionWidth": 1440,
+        "headingWidth": 510.1199951171875,
+        "headingLines": 4,
+        "mapWidth": 0,
+        "cardWidth": 0
+      },
+      "imp": {
+        "sectionWidth": 1440,
+        "statGridWidth": 0,
+        "cardWidth": 0
+      },
+      "conf": {
+        "sectionWidth": 0,
+        "accordionWidth": 0,
+        "cardWidth": 0,
+        "labelWidth": 0
+      },
+      "faq": {
+        "sectionWidth": 0,
+        "accordionWidth": 0,
+        "textWidth": 0
+      },
+      "cls": 0.006910734592641822,
+      "scrollWidth": 1920,
+      "innerWidth": 1920,
+      "overflow": false
+    }
+  }
+]

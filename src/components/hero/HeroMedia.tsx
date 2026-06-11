@@ -68,7 +68,7 @@ export function HeroMedia() {
 
   return (
     <motion.div
-      className="relative z-10 min-h-90 sm:min-h-125 lg:min-h-165"
+      className="relative z-10 w-full min-h-[18rem] sm:min-h-[24rem] lg:min-h-[30rem]"
       initial={{ opacity: 0, y: 28 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.78, ease: [0.16, 1, 0.3, 1], delay: 0.12 }}
@@ -86,7 +86,7 @@ export function HeroMedia() {
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.08)_0%,rgba(15,23,42,0)_46%,rgba(15,23,42,0.14)_100%)]" />
       </div>
 
-      <div className="absolute bottom-2 left-0 w-[42%] min-w-35 max-w-52.5 overflow-hidden rounded-[26px] bg-neutral-950 shadow-[0_28px_70px_rgba(15,23,42,0.24)] ring-1 ring-white/70 sm:bottom-10 sm:w-[34%] sm:min-w-44 sm:max-w-61.25 sm:rounded-[30px] lg:left-4">
+      <div className="absolute bottom-2 left-0 w-[30%] min-w-28 max-w-36 overflow-hidden rounded-[26px] bg-neutral-950 shadow-[0_28px_70px_rgba(15,23,42,0.24)] ring-1 ring-white/70 sm:bottom-10 sm:w-[28%] sm:min-w-32 sm:max-w-44 sm:rounded-[30px] lg:left-4">
         <div className="aspect-9/16">
           <HeroVideo
             asset={heroMedia.supporting}

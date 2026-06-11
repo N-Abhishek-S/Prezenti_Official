@@ -38,9 +38,9 @@ const locationVideoSrc = publicAsset('/location/AA.webm');
 
 function LocationVideo() {
   return (
-    <div className="relative h-full w-full overflow-hidden rounded-[28px] bg-neutral-100">
+    <div className="relative h-full w-full overflow-hidden bg-neutral-100">
       <video
-        className="h-full w-full object-contain"
+        className="absolute inset-0 h-full w-full object-cover"
         autoPlay
         muted
         loop
@@ -63,18 +63,18 @@ export function LocationSection() {
   return (
     <motion.section
       id="location"
-      className="bg-[#F3F6F5] py-16 lg:py-24"
+      className="bg-[#F3F6F5] py-10 lg:py-12"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-80px' }}
       variants={stagger}
     >
-      <div className="mx-auto max-w-375 px-6 sm:px-8">
+      <div className="desktop-container">
         <motion.div
           variants={fadeUp}
-          className="grid grid-cols-1 items-center gap-12 xl:grid-cols-[0.9fr_1.5fr] xl:gap-6"
+          className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[0.4fr_0.6fr] lg:gap-8 xl:gap-10"
         >
-          <div className="flex min-w-0 max-w-full flex-col items-start pl-8 text-left sm:pl-12 lg:pl-16 xl:pl-8">
+          <div className="flex min-w-0 max-w-full flex-col justify-center items-start lg:pl-0 xl:pl-4">
             <Badge
               variant="primary"
               size="lg"
@@ -85,62 +85,38 @@ export function LocationSection() {
 
             <motion.h2
               variants={scaleIn}
-              className="w-full max-w-full text-balance text-[clamp(2.5rem,6vw+1rem,4.5rem)] font-black leading-[1.08] tracking-[-0.04em] text-neutral-950"
+              className="w-full text-[clamp(2rem,3.5vw+0.5rem,3rem)] font-black leading-[1.1] tracking-[-0.04em] text-neutral-950"
               style={{ willChange: 'transform' }}
             >
-              <span className="block w-full break-words text-wrap-balance">Pune is just the</span>
-
-              <span className="block w-fit pb-1 leading-[1.02]">
-                <span className="relative inline-block overflow-hidden align-baseline">
-                  <span className="bg-linear-to-r from-teal-700 via-cyan-500 to-sky-400 bg-clip-text text-transparent">
-                    beginning...
-                  </span>
-
-                  <motion.span
-                    aria-hidden
-                    initial={{ x: '-110%' }}
-                    animate={{ x: ['-110%', '110%'] }}
-                    transition={{
-                      duration: 3.2,
-                      repeat: Infinity,
-                      ease: 'linear',
-                      repeatDelay: 3.5,
-                    }}
-                    className="pointer-events-none absolute left-0 top-0 h-full w-full"
-                    style={{
-                      background:
-                        'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.22) 45%, rgba(255,255,255,0.05) 60%, rgba(255,255,255,0) 100%)',
-                      mixBlendMode: 'screen',
-                    }}
-                  />
-
-                  <motion.span
-                    aria-hidden
-                    className="pointer-events-none absolute inset-x-0 bottom-0 h-1 rounded-full bg-[linear-gradient(90deg,rgba(20,143,137,0),rgba(20,143,137,0.7),rgba(77,163,102,0))]"
-                    animate={{
-                      scaleX: [0.55, 1, 0.55],
-                      opacity: [0.45, 0.9, 0.45],
-                    }}
-                    transition={{
-                      duration: 3.6,
-                      repeat: Infinity,
-                      ease: 'easeInOut',
-                    }}
-                  />
+              Pune&nbsp;is&nbsp;just&nbsp;the{' '}
+              <span className="relative inline-block overflow-visible align-baseline">
+                <span className="bg-linear-to-r from-teal-700 via-cyan-500 to-sky-400 bg-clip-text text-transparent">
+                  beginning...
                 </span>
-              </span>
-
-              <span className="block w-full break-words text-wrap-balance">city expansion</span>
-              <span className="block w-full break-words text-wrap-balance">coming soon.</span>
+                <motion.span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-1.5 rounded-full bg-[linear-gradient(90deg,rgba(20,143,137,0),rgba(20,143,137,0.7),rgba(77,163,102,0))]"
+                  animate={{
+                    scaleX: [0.55, 1, 0.55],
+                    opacity: [0.45, 0.9, 0.45],
+                  }}
+                  transition={{
+                    duration: 3.6,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }}
+                />
+              </span>{' '}
+              city&nbsp;expansion coming&nbsp;soon.
             </motion.h2>
           </div>
 
-          <div className="min-w-0">
-            <div className="overflow-hidden rounded-4xl border border-neutral-200 bg-white shadow-sm">
-              <div className="grid grid-cols-1 lg:grid-cols-[0.58fr_1.82fr]">
-                <div className="border-b border-neutral-100 p-6 sm:p-7 lg:border-b-0 lg:border-r lg:border-neutral-100 lg:p-6">
-                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-800">
-                    <MapPin size={21} />
+          <div className="flex min-w-0 items-center justify-center">
+            <div className="w-full overflow-hidden rounded-[28px] border border-neutral-200 bg-white shadow-[0_12px_40px_rgba(0,0,0,0.04)] sm:rounded-[32px]">
+              <div className="grid grid-cols-1 md:grid-cols-[0.35fr_0.65fr] lg:grid-cols-[0.38fr_0.62fr]">
+                <div className="border-b border-neutral-100 p-5 sm:p-6 lg:border-b-0 lg:border-r lg:border-neutral-100 lg:p-7">
+                  <div className="mb-5 flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl bg-primary-50 text-primary-800">
+                    <MapPin size={20} />
                   </div>
 
                   <p className="mb-2 text-xs font-semibold uppercase tracking-[0.22em] text-neutral-500">
@@ -151,12 +127,12 @@ export function LocationSection() {
                     {activeCity?.name ?? 'Pune'}
                   </h3>
 
-                  <div className="mt-7 w-full text-sm leading-relaxed text-neutral-500">
-                    <p className="mb-3 font-semibold text-neutral-800">
+                  <div className="mt-6 w-full text-sm leading-relaxed text-neutral-500">
+                    <p className="mb-2.5 font-semibold text-neutral-800">
                       Local coverage for
                     </p>
 
-                    <ul className="list-inside list-disc space-y-1.5">
+                    <ul className="list-inside list-disc space-y-1">
                       <li>All size Offices</li>
                       <li>Clinics / Consultants / Startups</li>
                       <li>Schools / Colleges</li>
@@ -169,10 +145,8 @@ export function LocationSection() {
                   </div>
                 </div>
 
-                <div className="flex min-w-0 items-center justify-center bg-neutral-50 p-4 lg:min-h-138 lg:p-6">
-                  <div className="aspect-square w-[86%] max-w-132">
-                    <LocationVideo />
-                  </div>
+                <div className="relative flex min-w-0 items-stretch bg-neutral-50 min-h-[260px] sm:min-h-[300px] md:min-h-[340px]">
+                  <LocationVideo />
                 </div>
               </div>
             </div>

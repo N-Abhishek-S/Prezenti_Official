@@ -39,6 +39,19 @@ export default async function handler(req, res) {
       });
     }
 
+    // 13. Add defensive validation for payload
+    const expectedFields = [
+      'fullName', 'mobileNumber', 'email', 'companyName', 
+      'location', 'requiredStartDate', 'services', 
+      'categories', 'additionalRequirement'
+    ];
+    const missingPayloadFields = expectedFields.filter(field => !data[field] || (Array.isArray(data[field]) && data[field].length === 0));
+    
+    if (missingPayloadFields.length > 0) {
+      console.warn(`[INQUIRY WARNING] Missing or empty fields in submission: ${missingPayloadFields.join(', ')}`);
+      console.warn(`[INQUIRY WARNING] Received Payload:`, JSON.stringify(data, null, 2));
+    }
+
     const host = process.env.SMTP_HOST;
     const port = Number(process.env.SMTP_PORT) || 587;
     const secure = port === 465;
@@ -71,31 +84,63 @@ export default async function handler(req, res) {
       return res.status(500).json({ success: false, message: 'Server configuration error: SMTP Verification failed.' });
     }
 
+    const serviceStr = Array.isArray(data.services) ? data.services.join(', ') : (data.services || 'None');
+    const categoryStr = Array.isArray(data.categories) ? data.categories.join(', ') : (data.categories || 'None');
+
     // Setup email data
     const mailOptions = {
       from: `"Prezenti Website" <${process.env.SMTP_USER}>`,
       to: process.env.INQUIRY_EMAIL_TO,
-      subject: `New Inquiry from ${data.firstName || 'Website'} ${data.lastName || ''}`,
-      text: `
-        Name: ${data.firstName || ''} ${data.lastName || ''}
-        Email: ${data.email || ''}
-        Phone: ${data.phone || ''}
-        Company: ${data.company || ''}
-        Service: ${data.serviceType || ''}
-        Message: ${data.message || ''}
-        Submission ID: ${data.submissionId || ''}
-        Submitted At: ${data.submittedAt || ''}
-      `,
+      subject: `New Inquiry from ${data.fullName || 'Website'}`,
+      text: `---
+
+NEW INQUIRY RECEIVED
+
+Name:
+${data.fullName || ''}
+
+Phone:
+${data.mobileNumber || ''}
+
+Email:
+${data.email || ''}
+
+Company:
+${data.companyName || ''}
+
+Location:
+${data.location || ''}
+
+Required Start Date:
+${data.requiredStartDate || ''}
+
+Selected Service:
+${serviceStr}
+
+Selected Categories:
+${categoryStr}
+
+Additional Requirement:
+${data.additionalRequirement || ''}
+
+---
+
+Submission ID: ${data.submissionId || ''}
+Submitted At: ${data.submittedAt || ''}
+`,
       html: `
-        <h3>New Inquiry Received</h3>
-        <ul>
-          <li><strong>Name:</strong> ${data.firstName || ''} ${data.lastName || ''}</li>
-          <li><strong>Email:</strong> ${data.email || ''}</li>
-          <li><strong>Phone:</strong> ${data.phone || ''}</li>
-          <li><strong>Company:</strong> ${data.company || ''}</li>
-          <li><strong>Service:</strong> ${data.serviceType || ''}</li>
-          <li><strong>Message:</strong> ${data.message || ''}</li>
-        </ul>
+        <h3>NEW INQUIRY RECEIVED</h3>
+        <table border="1" cellpadding="8" style="border-collapse: collapse;">
+          <tr><td><strong>Name:</strong></td><td>${data.fullName || ''}</td></tr>
+          <tr><td><strong>Phone:</strong></td><td>${data.mobileNumber || ''}</td></tr>
+          <tr><td><strong>Email:</strong></td><td>${data.email || ''}</td></tr>
+          <tr><td><strong>Company:</strong></td><td>${data.companyName || ''}</td></tr>
+          <tr><td><strong>Location:</strong></td><td>${data.location || ''}</td></tr>
+          <tr><td><strong>Required Start Date:</strong></td><td>${data.requiredStartDate || ''}</td></tr>
+          <tr><td><strong>Selected Service:</strong></td><td>${serviceStr}</td></tr>
+          <tr><td><strong>Selected Categories:</strong></td><td>${categoryStr}</td></tr>
+          <tr><td><strong>Additional Requirement:</strong></td><td>${data.additionalRequirement || ''}</td></tr>
+        </table>
         <br/>
         <small>Submission ID: ${data.submissionId || ''}</small><br/>
         <small>Submitted At: ${data.submittedAt || ''}</small>

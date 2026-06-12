@@ -3,61 +3,83 @@ import { Link, Navigate } from 'react-router-dom';
 import { SEO } from '../seo/SEO';
 import { StructuredData } from '../seo/StructuredData';
 import type { ServiceData } from '../data/servicesContent';
+import type { LocationData } from '../data/locations';
 import { Breadcrumbs } from '../components/ui/Breadcrumbs';
 import { FaqAccordion } from '../components/ui/FaqAccordion';
 import { ServiceCta } from '../components/ui/ServiceCta';
 import { motion } from 'framer-motion';
 import { SEO_CONSTANTS } from '../seo/constants';
 
-export function ServiceLandingPage({ service }: { service: ServiceData }) {
+interface Props {
+  service: ServiceData;
+  location: LocationData;
+}
+
+export function LocationServiceLandingPage({ service, location }: Props) {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-  }, [service.slug]);
+  }, [service.slug, location.slug]);
 
-  if (!service) {
+  if (!service || !location) {
     return <Navigate to="/" replace />;
   }
 
+  const pageTitle = `${service.h1} ${location.h1Prefix}`;
+  const seoTitle = `${service.seoTitle.split('|')[0].trim()} ${location.seoTitlePrefix}`;
+  const seoDescription = `${service.seoDescription.replace('.', '')} ${location.seoDescriptionPrefix}`;
+  
   const breadcrumbs = [
     { name: 'Services', url: '/services' },
-    { name: service.seoTitle.split('|')[0].trim(), url: `/${service.slug}` }
+    { name: service.seoTitle.split('|')[0].trim(), url: `/${service.slug}` },
+    { name: location.name, url: `/${service.slug}-${location.slug}` }
   ];
-  const canonicalUrl = `${SEO_CONSTANTS.BASE_URL}/${service.slug}`;
+  
+  const canonicalUrl = `${SEO_CONSTANTS.BASE_URL}/${service.slug}-${location.slug}`;
+
+  // Localized FAQs
+  const localFaqs = service.faqs.map(faq => ({
+    question: faq.question.includes('?') 
+      ? faq.question.replace('?', ` in ${location.name}?`)
+      : `${faq.question} in ${location.name}`,
+    answer: faq.answer.includes('we provide') 
+      ? faq.answer.replace('we provide', `we provide across ${location.name}`)
+      : `${faq.answer} We actively serve clients throughout ${location.name}.`
+  }));
 
   return (
     <main className="bg-canvas pt-24 pb-14 sm:pt-28 lg:pb-20">
       <SEO 
-        title={service.seoTitle}
-        description={service.seoDescription}
-        canonicalUrl={`/${service.slug}`}
+        title={seoTitle}
+        description={seoDescription}
+        canonicalUrl={`/${service.slug}-${location.slug}`}
         keywords={[
-          service.h1,
-          `${service.h1} Pune`,
-          'verified support staff',
-          'corporate facility services',
-          'managed workplace staffing',
+          pageTitle,
+          `${service.h1} in ${location.name}`,
+          `${service.slug.replace('-', ' ')} ${location.name}`,
+          `corporate facility services ${location.name}`,
         ]}
       />
       
       <StructuredData
         type="WebPage"
         data={{
-          name: service.h1,
-          description: service.seoDescription,
+          name: pageTitle,
+          description: seoDescription,
           url: canonicalUrl,
         }}
       />
       <StructuredData
         type="Service"
         data={{
-          name: service.h1,
-          description: service.seoDescription,
+          name: pageTitle,
+          description: seoDescription,
           serviceType: service.h1,
           url: canonicalUrl,
+          areaServed: location.name
         }}
       />
       <StructuredData type="BreadcrumbList" data={{ breadcrumbs }} />
-      <StructuredData type="FAQPage" data={{ faqs: service.faqs }} />
+      <StructuredData type="FAQPage" data={{ faqs: localFaqs }} />
 
       <article className="mx-auto max-w-4xl px-4 sm:px-6">
         <Breadcrumbs items={breadcrumbs} />
@@ -68,19 +90,27 @@ export function ServiceLandingPage({ service }: { service: ServiceData }) {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl sm:text-5xl font-bold tracking-tight text-neutral-900 mb-6"
           >
-            {service.h1}
+            {pageTitle}
           </motion.h1>
           <p className="text-xl text-neutral-600 leading-relaxed">
-            {service.seoDescription}
+            {seoDescription}
           </p>
         </header>
 
         <div className="prose prose-lg prose-neutral max-w-none">
           {service.sections.map((section, idx) => (
             <section key={idx} className="mb-12">
-              <h2 className="text-2xl sm:text-3xl font-semibold text-neutral-900 mb-4">{section.title}</h2>
+              <h2 className="text-2xl sm:text-3xl font-semibold text-neutral-900 mb-4">
+                {section.title.includes(service.h1) 
+                  ? section.title.replace(service.h1, pageTitle)
+                  : section.title}
+              </h2>
               {section.paragraphs.map((p, pIdx) => (
-                <p key={pIdx} className="mb-4 text-neutral-700 leading-relaxed">{p}</p>
+                <p key={pIdx} className="mb-4 text-neutral-700 leading-relaxed">
+                  {pIdx === 0 && idx === 0 
+                    ? `Looking for ${service.h1.toLowerCase()} in ${location.name}? ${p}` 
+                    : p}
+                </p>
               ))}
               {section.listItems && (
                 <ul className="list-disc pl-6 mb-4 text-neutral-700">
@@ -94,22 +124,22 @@ export function ServiceLandingPage({ service }: { service: ServiceData }) {
         </div>
 
         <ServiceCta 
-          title={`Ready to transform your ${service.h1.toLowerCase()}?`} 
-          description="Contact our expert team today for a customized quote tailored to your facility's unique requirements." 
+          title={`Ready to transform your facility in ${location.name}?`} 
+          description="Contact our expert local team today for a customized quote tailored to your unique requirements." 
         />
 
         <section className="my-16">
           <h2 className="text-3xl font-bold text-center text-neutral-900 mb-8">Frequently Asked Questions</h2>
-          <FaqAccordion faqs={service.faqs} />
+          <FaqAccordion faqs={localFaqs} />
         </section>
 
         <section className="mt-16 pt-12 border-t border-neutral-200">
-          <h2 className="text-2xl font-bold text-neutral-900 mb-6">Explore Related Services</h2>
+          <h2 className="text-2xl font-bold text-neutral-900 mb-6">Explore Related Services in {location.name}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {service.relatedServices.map((related) => (
               <Link 
                 key={related.slug} 
-                to={`/${related.slug}`}
+                to={`/${related.slug}-${location.slug}`}
                 className="p-6 rounded-xl border border-neutral-200 hover:border-primary-500 hover:shadow-md transition-all group bg-white"
               >
                 <h3 className="text-lg font-semibold text-neutral-900 group-hover:text-primary-600 transition-colors">
@@ -117,11 +147,6 @@ export function ServiceLandingPage({ service }: { service: ServiceData }) {
                 </h3>
               </Link>
             ))}
-          </div>
-          <div className="mt-8 text-center">
-            <Link to="/services" className="inline-flex items-center text-primary-600 font-semibold hover:text-primary-700 transition-colors">
-              <span className="mr-2">←</span> View All Services
-            </Link>
           </div>
         </section>
       </article>

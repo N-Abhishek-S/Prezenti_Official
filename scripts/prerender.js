@@ -15,20 +15,49 @@ const ORIGINAL_INDEX_PATH = path.join(DIST_DIR, 'index.html');
 const isVercelBuild = Boolean(process.env.VERCEL);
 const shouldUseVercelChromium = isVercelBuild && process.platform === 'linux';
 
-const routes = [
+const staticRoutes = [
   '/',
   '/services',
-  '/housekeeping-services',
-  '/security-services',
-  '/receptionist-staffing-services',
-  '/office-boy-services',
-  '/pantry-staff-services',
-  '/facility-management-services',
-  '/property-management-services',
   '/talk-to-us',
   '/privacy-policy',
   '/terms-and-conditions'
 ];
+
+const serviceSlugs = [
+  'housekeeping-services',
+  'security-services',
+  'receptionist-staffing-services',
+  'office-boy-services',
+  'pantry-staff-services',
+  'facility-management-services',
+  'property-management-services'
+];
+
+const locationSlugs = [
+  'pune', 'mumbai', 'navi-mumbai', 'thane', 'nagpur', 'nashik', 'aurangabad'
+];
+
+const industrySlugs = [
+  'offices', 'hospitals', 'schools', 'warehouses', 'residential'
+];
+
+const routes = [...staticRoutes];
+
+// Add pure service routes
+serviceSlugs.forEach(s => routes.push(`/${s}`));
+
+// Add pure location routes
+locationSlugs.forEach(l => routes.push(`/${l}`));
+
+// Add industry routes
+industrySlugs.forEach(i => routes.push(`/industries/${i}`));
+
+// Add Programmatic Service x Location routes
+serviceSlugs.forEach(s => {
+  locationSlugs.forEach(l => {
+    routes.push(`/${s}-${l}`);
+  });
+});
 
 const mimeTypes = {
   '.html': 'text/html',

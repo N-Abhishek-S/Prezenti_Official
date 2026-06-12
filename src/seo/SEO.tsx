@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { SEO_CONSTANTS } from './constants';
+import { generateOrganizationSchema } from './schemaGenerator';
 
 interface SEOProps {
   title?: string;
@@ -73,6 +74,11 @@ export function SEO({
       <meta name="twitter:description" content={metaDescription} />
       <meta name="twitter:image" content={metaImage} />
       <meta name="twitter:image:alt" content={metaImageAlt} />
+
+      {/* Global Organization Schema */}
+      <script type="application/ld+json">
+        {JSON.stringify(generateOrganizationSchema())}
+      </script>
     </Helmet>
   );
 }

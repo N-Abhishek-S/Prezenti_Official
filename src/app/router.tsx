@@ -6,7 +6,8 @@ import { RouteError } from '../components/errors/RouteError';
 import { HomePage } from '../features/website/HomePage';
 import { RouteFallback } from '../components/layout/RouteFallback';
 import { SectionRedirect } from '../components/layout/SectionRedirect';
-import { TalkToUs, ServiceLandingPage, ServicesHubPage, PrivacyPolicy, TermsAndConditions } from './lazyRouteComponents';
+import { TalkToUs, ServicesHubPage, PrivacyPolicy, TermsAndConditions, IndustryLandingPage } from './lazyRouteComponents';
+import { DynamicRouteResolver } from '../pages/DynamicRouteResolver';
 
 function withSuspense(element: ReactNode) {
   return <Suspense fallback={<RouteFallback />}>{element}</Suspense>;
@@ -33,7 +34,8 @@ export const router = createBrowserRouter([
       { path: '/faq', element: <SectionRedirect sectionId="contact" /> },
       { path: '/contact', element: <SectionRedirect sectionId="contact" /> },
       { path: '/security', element: <SectionRedirect sectionId="services" /> },
-      { path: '/:slug', element: withSuspense(<ServiceLandingPage />) },
+      { path: '/industries/:slug', element: withSuspense(<IndustryLandingPage />) },
+      { path: '/:slug', element: <DynamicRouteResolver /> },
     ],
   },
   { path: '/app', element: <Navigate to="/" replace />,errorElement: <RouteError /> },

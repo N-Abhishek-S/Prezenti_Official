@@ -90,7 +90,7 @@ export function LocationLandingPage({ location }: { location: LocationData }) {
                 <h3 className="text-xl font-bold text-neutral-900 group-hover:text-primary-600 transition-colors mb-3">
                   {service.h1}
                 </h3>
-                <p className="text-neutral-600 flex-grow">
+                <p className="text-neutral-600 grow">
                   Professional {service.h1.toLowerCase()} tailored for {location.name} businesses.
                 </p>
                 <span className="mt-4 font-semibold text-primary-600 group-hover:text-primary-700 inline-flex items-center">

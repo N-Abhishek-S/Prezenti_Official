@@ -46,10 +46,10 @@ export function ComparisonSection() {
             </ul>
           </div>
 
-          <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-[20px] border border-neutral-200 bg-white shadow-[0_34px_90px_rgba(10,42,34,0.12)] sm:rounded-[24px] lg:rounded-[28px]">
+          <div className="relative flex h-full min-h-[300px] w-full items-center justify-center overflow-hidden rounded-[20px] border border-neutral-200 bg-white shadow-[0_34px_90px_rgba(10,42,34,0.12)] sm:rounded-[24px] lg:rounded-[28px]">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(106,189,126,0.16),transparent_32%),linear-gradient(135deg,rgba(10,42,34,0.04),rgba(255,255,255,0)_44%)]" />
             <video
-              className="relative z-10 w-full h-auto max-h-full object-contain"
+              className="relative z-10 w-full h-auto max-h-full object-contain object-center"
               autoPlay
               muted
               loop

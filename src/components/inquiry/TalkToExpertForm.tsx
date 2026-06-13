@@ -393,7 +393,7 @@ export function TalkToExpertForm({
                   />
                   <span
                     className={cn(
-                      'relative flex min-h-18 items-center justify-between gap-4 overflow-hidden rounded-[14px] border px-4 py-4 text-sm font-semibold transition-all duration-[250ms] peer-focus-visible:ring-2 peer-focus-visible:ring-success-500/25',
+                      'relative flex min-h-18 items-center justify-between gap-4 overflow-hidden rounded-[14px] border px-4 py-4 text-sm font-semibold transition-all duration-250 peer-focus-visible:ring-2 peer-focus-visible:ring-success-500/25',
                       selected
                         ? 'border-success-500 bg-[#ECFDF5] text-neutral-950 shadow-[0_14px_34px_rgba(22,163,74,0.12)]'
                         : 'border-neutral-200 bg-white text-neutral-800 hover:-translate-y-0.5 hover:border-success-500 hover:shadow-[0_12px_28px_rgba(15,23,42,0.08)]',
@@ -407,7 +407,7 @@ export function TalkToExpertForm({
                     </span>
                     <span
                       className={cn(
-                        'flex h-6 w-6 shrink-0 items-center justify-center rounded-full border transition-all duration-[250ms]',
+                        'flex h-6 w-6 shrink-0 items-center justify-center rounded-full border transition-all duration-250',
                         selected ? 'border-success-500 bg-success-500 text-white' : 'border-neutral-300 bg-white text-transparent',
                       )}
                       aria-hidden="true"

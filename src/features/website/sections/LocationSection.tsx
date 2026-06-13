@@ -38,9 +38,9 @@ const locationVideoSrc = publicAsset('/location/AA.webm');
 
 function LocationVideo() {
   return (
-    <div className="relative h-full w-full overflow-hidden bg-neutral-100">
+    <div className="w-full h-full flex items-center justify-center">
       <video
-        className="absolute inset-0 h-full w-full object-cover"
+        className="block w-full h-full object-contain object-center"
         autoPlay
         muted
         loop
@@ -72,9 +72,9 @@ export function LocationSection() {
       <div className="desktop-container">
         <motion.div
           variants={fadeUp}
-          className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[0.4fr_0.6fr] lg:gap-8 xl:gap-10"
+          className="grid grid-cols-1 items-center gap-10 sm:gap-12 lg:grid-cols-[0.4fr_0.6fr] lg:gap-8 xl:gap-10"
         >
-          <div className="flex min-w-0 max-w-full flex-col justify-center items-start lg:pl-0 xl:pl-4">
+          <div className="flex min-w-0 max-w-full flex-col justify-center items-center text-center lg:items-start lg:text-left lg:pl-0 xl:pl-4 mb-2 lg:mb-0">
             <Badge
               variant="primary"
               size="lg"
@@ -88,7 +88,7 @@ export function LocationSection() {
               className="w-full text-[clamp(2rem,3.5vw+0.5rem,3rem)] font-black leading-[1.1] tracking-[-0.04em] text-neutral-950"
               style={{ willChange: 'transform' }}
             >
-              Pune&nbsp;is&nbsp;just&nbsp;the{' '}
+              Pune is just the{' '}
               <span className="relative inline-block overflow-visible align-baseline">
                 <span className="bg-linear-to-r from-teal-700 via-cyan-500 to-sky-400 bg-clip-text text-transparent">
                   beginning...
@@ -107,32 +107,32 @@ export function LocationSection() {
                   }}
                 />
               </span>{' '}
-              city&nbsp;expansion coming&nbsp;soon.
+              city expansion coming soon.
             </motion.h2>
           </div>
 
           <div className="flex min-w-0 items-center justify-center">
             <div className="w-full overflow-hidden rounded-[28px] border border-neutral-200 bg-white shadow-[0_12px_40px_rgba(0,0,0,0.04)] sm:rounded-[32px]">
-              <div className="grid grid-cols-1 md:grid-cols-[0.35fr_0.65fr] lg:grid-cols-[0.38fr_0.62fr]">
-                <div className="border-b border-neutral-100 p-5 sm:p-6 lg:border-b-0 lg:border-r lg:border-neutral-100 lg:p-7">
-                  <div className="mb-5 flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl bg-primary-50 text-primary-800">
-                    <MapPin size={20} />
+              <div className="grid grid-cols-1 md:grid-cols-[0.4fr_0.6fr] lg:grid-cols-[0.42fr_0.58fr]">
+                <div className="flex flex-col justify-center items-center text-center lg:items-start lg:text-left border-b border-neutral-100 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:border-neutral-100 lg:p-8 xl:p-8">
+                  <div className="mb-4 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-800">
+                    <MapPin size={22} />
                   </div>
 
-                  <p className="mb-2 text-xs font-semibold uppercase tracking-[0.22em] text-neutral-500">
+                  <p className="mb-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-neutral-500">
                     Live city
                   </p>
 
-                  <h3 className="text-2xl font-semibold leading-tight text-neutral-950">
+                  <h3 className="text-2xl sm:text-3xl font-semibold leading-tight text-neutral-950">
                     {activeCity?.name ?? 'Pune'}
                   </h3>
 
-                  <div className="mt-6 w-full text-sm leading-relaxed text-neutral-500">
-                    <p className="mb-2.5 font-semibold text-neutral-800">
+                  <div className="mt-5 w-full text-sm sm:text-[15px] leading-relaxed text-neutral-500 lg:text-left text-center">
+                    <p className="mb-2 font-semibold text-neutral-800">
                       Local coverage for
                     </p>
 
-                    <ul className="list-inside list-disc space-y-1">
+                    <ul className="inline-block text-left list-inside list-disc space-y-0.5">
                       <li>All size Offices</li>
                       <li>Clinics / Consultants / Startups</li>
                       <li>Schools / Colleges</li>
@@ -145,7 +145,7 @@ export function LocationSection() {
                   </div>
                 </div>
 
-                <div className="relative flex min-w-0 items-stretch bg-neutral-50 min-h-[260px] sm:min-h-[300px] md:min-h-[340px]">
+                <div className="relative flex min-w-0 items-center justify-center bg-neutral-50 lg:items-stretch">
                   <LocationVideo />
                 </div>
               </div>

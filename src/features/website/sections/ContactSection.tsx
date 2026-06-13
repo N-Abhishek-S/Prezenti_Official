@@ -22,7 +22,7 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
       <button
         type="button"
         onClick={() => setOpen((current) => !current)}
-        className="flex w-full items-center justify-between gap-5 py-3.5 text-left"
+        className="flex w-full min-h-[44px] items-center justify-between gap-5 py-3.5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600/20 rounded-md"
         aria-expanded={open}
       >
         <span className="text-base font-semibold text-neutral-950">{question}</span>

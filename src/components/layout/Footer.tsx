@@ -2,7 +2,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { BrandLogo } from '../brand/BrandLogo';
 import { publicSections, scrollToSection, setPendingSection, type PublicSectionId } from '../../lib/sectionNavigation';
 
-
 export function Footer() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -24,7 +23,7 @@ export function Footer() {
           <div>
             <button
               type="button"
-              className="mb-4 flex items-center"
+              className="mb-4 flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600/50 rounded-md"
               onClick={() => goToSection('home')}
               aria-label="Go to home"
             >
@@ -42,7 +41,7 @@ export function Footer() {
                 <li key={section.id}>
                   <button
                     type="button"
-                    className="text-sm text-white/60 transition-colors duration-150 hover:text-white"
+                    className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20 rounded-sm"
                     onClick={() => goToSection(section.id)}
                   >
                     {section.label}
@@ -55,14 +54,14 @@ export function Footer() {
           <div>
             <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">Services</h4>
             <ul className="flex flex-col gap-2">
-              <li><Link to="/services" className="text-sm text-white/60 transition-colors duration-150 hover:text-white">All Services</Link></li>
-              <li><Link to="/housekeeping-services" className="text-sm text-white/60 transition-colors duration-150 hover:text-white">Housekeeping</Link></li>
-              <li><Link to="/security-services" className="text-sm text-white/60 transition-colors duration-150 hover:text-white">Security</Link></li>
-              <li><Link to="/receptionist-staffing-services" className="text-sm text-white/60 transition-colors duration-150 hover:text-white">Receptionist</Link></li>
-              <li><Link to="/office-boy-services" className="text-sm text-white/60 transition-colors duration-150 hover:text-white">Office Boy</Link></li>
-              <li><Link to="/pantry-staff-services" className="text-sm text-white/60 transition-colors duration-150 hover:text-white">Pantry Staff</Link></li>
-              <li><Link to="/facility-management-services" className="text-sm text-white/60 transition-colors duration-150 hover:text-white">Facility Management</Link></li>
-              <li><Link to="/property-management-services" className="text-sm text-white/60 transition-colors duration-150 hover:text-white">Property Management</Link></li>
+              <li><Link to="/services" className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20">All Services</Link></li>
+              <li><Link to="/housekeeping-services" className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20">Housekeeping</Link></li>
+              <li><Link to="/security-services" className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20">Security</Link></li>
+              <li><Link to="/receptionist-staffing-services" className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20">Receptionist</Link></li>
+              <li><Link to="/office-boy-services" className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20">Office Boy</Link></li>
+              <li><Link to="/pantry-staff-services" className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20">Pantry Staff</Link></li>
+              <li><Link to="/facility-management-services" className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20">Facility Management</Link></li>
+              <li><Link to="/property-management-services" className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20">Property Management</Link></li>
             </ul>
           </div>
 
@@ -72,7 +71,7 @@ export function Footer() {
               <li>
                 <button
                   type="button"
-                  className="text-sm text-white/60 transition-colors duration-150 hover:text-white"
+                  className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20 rounded-sm"
                   onClick={() => goToSection('contact')}
                 >
                   Contact
@@ -81,14 +80,14 @@ export function Footer() {
               <li>
                 <button
                   type="button"
-                  className="text-sm text-white/60 transition-colors duration-150 hover:text-white"
+                  className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20 rounded-sm"
                   onClick={() => navigate('/login')}
                 >
                   Open App
                 </button>
               </li>
-              <li><Link to="/privacy-policy" className="text-sm text-white/60 transition-colors duration-150 hover:text-white">Privacy Policy</Link></li>
-              <li><Link to="/terms-and-conditions" className="text-sm text-white/60 transition-colors duration-150 hover:text-white">Terms & Conditions</Link></li>
+              <li><Link to="/privacy-policy" className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20">Privacy Policy</Link></li>
+              <li><Link to="/terms-and-conditions" className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20">Terms & Conditions</Link></li>
             </ul>
           </div>
         </div>
@@ -96,8 +95,8 @@ export function Footer() {
         <div className="flex flex-col gap-4 border-t border-white/10 pt-8 text-sm sm:flex-row sm:items-center sm:justify-between">
           <div>&copy; 2026 Prezenti. All rights reserved.</div>
           <div className="flex gap-4">
-            <span aria-label="LinkedIn" className="text-lg text-white/50 no-underline transition-colors hover:text-white">in</span>
-            <span aria-label="X (Twitter)" className="text-lg text-white/50 no-underline transition-colors hover:text-white">x</span>
+            <span aria-label="LinkedIn" className="text-lg text-white/50 no-underline transition-colors hover:text-white cursor-pointer">in</span>
+            <span aria-label="X (Twitter)" className="text-lg text-white/50 no-underline transition-colors hover:text-white cursor-pointer">x</span>
             <a href="mailto:bd@kargar.co.in" aria-label="Email" className="text-lg text-white/50 no-underline transition-colors hover:text-white">@</a>
           </div>
         </div>

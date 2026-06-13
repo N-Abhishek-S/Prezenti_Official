@@ -69,14 +69,14 @@ function StoreBadge({ kind, onClick }: StoreBadgeProps) {
       type="button"
       onClick={onClick}
       aria-label={`Open ${copy.label}`}
-      className="group flex h-14.5 w-full max-w-57.5 items-center gap-3 rounded-[10px] border border-neutral-700 bg-black px-4 text-left text-white shadow-[0_14px_28px_rgba(15,23,42,0.16)] ring-1 ring-white/15 transition-all duration-200 hover:-translate-y-0.5 hover:bg-neutral-950 hover:shadow-[0_18px_34px_rgba(15,23,42,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600/25 sm:w-57.5"
+      className="group flex h-[3.25rem] sm:h-14.5 w-full flex-1 max-w-[160px] items-center justify-center gap-2 rounded-[10px] border border-neutral-700 bg-black px-2 text-left text-white shadow-[0_14px_28px_rgba(15,23,42,0.16)] ring-1 ring-white/15 transition-all duration-200 hover:-translate-y-0.5 hover:bg-neutral-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600/25 sm:w-57.5 sm:max-w-57.5 sm:justify-start sm:gap-3 sm:px-4"
     >
       <StoreIcon kind={kind} />
       <span className="grid min-w-0 leading-none">
-        <span className="text-[10px] font-semibold uppercase tracking-[0.08em] text-white/90">
+        <span className="text-[9px] font-semibold uppercase tracking-[0.08em] text-white/90 sm:text-[10px]">
           {copy.eyebrow}
         </span>
-        <span className="mt-1 w-full break-words text-[clamp(1.25rem,2vw,1.5rem)] font-semibold tracking-normal text-white">
+        <span className="mt-[2px] w-full break-words text-[13px] font-semibold tracking-normal text-white sm:mt-1 sm:text-[clamp(1.25rem,2vw,1.5rem)]">
           {copy.label}
         </span>
       </span>
@@ -102,33 +102,34 @@ export function HeroContent() {
         },
       }}
     >
+      <div className="mx-auto w-full max-w-[420px] sm:mx-0 sm:max-w-none">
  <motion.div
   variants={entrance}
   transition={{ duration: 0.55, ease: 'easeOut' }}
-  className="relative mb-4 block w-full max-w-full overflow-hidden rounded-xl p-[1.5px] sm:inline-block sm:w-auto"
+  className="relative mb-6 mx-auto flex w-fit max-w-full overflow-hidden rounded-xl p-[1.5px] sm:mx-0 sm:inline-block sm:w-auto"
 >
   {/* Animated glowing border */}
-  <div className="absolute inset-0 rounded-xl bg-[linear-gradient(90deg,#14b8a6,#22c55e,#06b6d4,#14b8a6)] bg-size-[300%_300%] animate-[gradientMove_4s_linear_infinite]" />
+  <div className="absolute inset-0 animate-[gradientMove_4s_linear_infinite] rounded-xl bg-[linear-gradient(90deg,#14b8a6,#22c55e,#06b6d4,#14b8a6)] bg-size-[300%_300%]" />
 
   {/* Glow */}
-  <div className="absolute inset-0 rounded-xl blur-md opacity-60 bg-[linear-gradient(90deg,#14b8a6,#22c55e,#06b6d4,#14b8a6)] bg-size-[300%_300%] animate-[gradientMove_4s_linear_infinite]" />
+  <div className="absolute inset-0 animate-[gradientMove_4s_linear_infinite] rounded-xl bg-[linear-gradient(90deg,#14b8a6,#22c55e,#06b6d4,#14b8a6)] bg-size-[300%_300%] opacity-60 blur-md" />
 
   {/* Content */}
-  <div className="relative flex w-full flex-row items-start gap-2.5 rounded-xl bg-white/90 px-4 py-2.5 font-medium text-primary-800 backdrop-blur-md sm:w-auto sm:px-5">
-    <span className="relative mt-[0.35rem] flex h-2 w-2 shrink-0 sm:mt-1.5" aria-hidden="true">
+  <div className="relative flex w-full flex-row items-center gap-2 rounded-xl bg-white/90 px-3 py-2 font-medium text-primary-800 backdrop-blur-md sm:w-auto sm:gap-2.5 sm:px-5 sm:py-2.5">
+    <span className="relative flex h-2 w-2 shrink-0" aria-hidden="true">
       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-400 opacity-75" />
       <span className="relative inline-flex h-2 w-2 rounded-full bg-teal-500" />
     </span>
 
-    <div className="min-w-0 text-[clamp(10px,2.8vw,13px)] leading-[1.4] sm:text-[13px] sm:leading-[1.4]">
+    <div className="min-w-0 overflow-hidden text-ellipsis whitespace-nowrap text-[10.5px] leading-tight sm:text-[13px] sm:leading-[1.4]">
       <span>
-        3000+ Trained Professionals Already on Duty — Let's Connect...
+        3000+ Trained Professionals Already on Duty — Let's Connect
       </span>
     </div>
   </div>
 </motion.div>
 
-<p className="text-[15px] font-semibold text-neutral-950 opacity-90 tracking-[0.01em] mb-3 text-left w-fit border-b border-dotted border-primary-600/50 pb-[5px] leading-[1.4]">
+<p className="mb-6 w-fit border-b border-dotted border-primary-600/50 pb-[5px] text-left text-[14px] font-semibold leading-[1.4] tracking-[0.01em] text-neutral-950 opacity-90 sm:text-[15px]">
   <motion.span
     initial={{ backgroundPosition: '112% 0%' }}
     animate={{ backgroundPosition: ['112% 0%', '-12% 0%'] }}
@@ -153,7 +154,7 @@ export function HeroContent() {
 
  <motion.h1
   id="ps-project-hero-title"
-  className="font-extrabold leading-[0.95] tracking-[-0.025em]"
+  className="text-left font-extrabold leading-[1.1] tracking-[-0.025em] sm:leading-[0.95]"
 >
   {/* First Line */}
   <motion.span
@@ -175,9 +176,13 @@ export function HeroContent() {
       block
       w-full
       max-w-full
-      break-words
-      text-[clamp(2.5rem,4vw,4.75rem)]
+      whitespace-nowrap
+      text-[26px]
       text-neutral-950
+      min-[375px]:text-[32px]
+      sm:whitespace-normal
+      sm:break-words
+      sm:text-[clamp(2.5rem,4vw,4.75rem)]
     "
   >
     Trained support staff -
@@ -203,10 +208,14 @@ export function HeroContent() {
       block
       w-full
       max-w-full
-      break-words
-      text-[clamp(2.5rem,4vw,4.75rem)]
+      whitespace-nowrap
+      text-[26px]
       font-extrabold
       text-[#16a34a]
+      min-[375px]:text-[32px]
+      sm:whitespace-normal
+      sm:break-words
+      sm:text-[clamp(2.5rem,4vw,4.75rem)]
     "
   >
     just a click away
@@ -216,14 +225,14 @@ export function HeroContent() {
       <motion.div
         variants={entrance}
         transition={{ duration: 0.6, ease: 'easeOut' }}
-        className="mt-4"
+        className="mt-6 text-left sm:mt-4"
       >
         <span
           className="block"
           role="text"
           aria-label={`Now deploying Housekeeping across ${deploymentCategories.join(', ')}`}
         >
-          <span className="block text-[13px] font-semibold uppercase tracking-[0.2em] text-[#64748B]" aria-hidden="true">
+          <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.2em] text-[#64748B] sm:mb-3 sm:text-[13px]" aria-hidden="true">
             NOW DEPLOYING
           </span>
           <span className="mt-3 block w-full max-w-full min-w-0 align-top">
@@ -235,7 +244,7 @@ export function HeroContent() {
       <motion.p
         variants={entrance}
         transition={{ duration: 0.62, ease: 'easeOut' }}
-        className="mt-4 max-w-140 text-[17px] font-normal leading-[1.6] tracking-[-0.006em] text-neutral-600"
+        className="mb-8 mt-6 max-w-[280px] text-left text-[15px] font-normal leading-[1.6] tracking-[-0.006em] text-neutral-600 sm:max-w-140 sm:text-[17px]"
       >
         We Manage Your Support Workforce, While You Focus on Core Operations
       </motion.p>
@@ -243,23 +252,23 @@ export function HeroContent() {
       <motion.div
         variants={entrance}
         transition={{ duration: 0.62, ease: 'easeOut' }}
-        className="mt-6 flex flex-col gap-3 sm:flex-row"
+        className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-start sm:gap-3"
       >
         <Button
           type="button"
           variant="primary"
           size="xl"
-          className="group w-full max-w-[min(22rem,calc(100vw-2rem))] min-w-0 px-3 text-[15px] font-semibold tracking-[-0.006em] shadow-[0_16px_36px_rgba(18,63,53,0.22)] min-[420px]:px-4 min-[420px]:text-[15px] sm:w-auto sm:max-w-none sm:px-10"
+          className="group min-h-[56px] w-[95%] min-w-0 max-w-[min(22rem,calc(100vw-2rem))] px-3 text-[15px] font-semibold tracking-[-0.006em] shadow-[0_16px_36px_rgba(18,63,53,0.22)] sm:w-auto sm:max-w-none sm:px-10 min-[420px]:px-4 min-[420px]:text-[15px]"
           onClick={() => navigate('/talk-to-us')}
         >
-          <span className="min-w-0 text-center leading-[1.3] text-wrap-balance break-words">Let us understand your requirement</span>
+          <span className="min-w-0 text-balance break-words text-center leading-[1.3]">Let us understand your requirement</span>
           <ArrowRight className="h-[18px] w-[18px] shrink-0 transition-transform duration-300 group-hover:translate-x-1 sm:h-5 sm:w-5" />
         </Button>
         <Button
           type="button"
           variant="secondary"
           size="xl"
-          className="w-full max-w-[min(22rem,calc(100vw-2rem))] border-primary-200 bg-white/86 px-5 text-[15px] font-medium tracking-[-0.006em] sm:w-auto sm:max-w-none sm:px-10"
+          className="min-h-[56px] w-[95%] max-w-[min(22rem,calc(100vw-2rem))] border-primary-200 bg-white/86 px-5 text-[15px] font-medium tracking-[-0.006em] sm:w-auto sm:max-w-none sm:px-10"
           onClick={() => scrollToSection('services')}
         >
           Explore Services
@@ -269,11 +278,12 @@ export function HeroContent() {
       <motion.div
         variants={entrance}
         transition={{ duration: 0.62, ease: 'easeOut' }}
-        className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap"
+        className="mt-8 flex flex-row justify-center gap-4 px-2 sm:mt-6 sm:justify-start sm:px-0"
       >
         <StoreBadge kind="google-play" onClick={openApp} />
         <StoreBadge kind="app-store" onClick={openApp} />
       </motion.div>
+      </div>
     </motion.div>
   );
 }

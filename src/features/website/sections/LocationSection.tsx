@@ -152,7 +152,7 @@ export function LocationSection() {
             </div>
           </div>
         </motion.div>
-      </div>
+      </div>  
     </motion.section>
   );
 }

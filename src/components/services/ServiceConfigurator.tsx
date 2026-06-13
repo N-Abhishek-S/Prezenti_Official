@@ -25,8 +25,6 @@ interface CategoryDetailContent {
   notIncluded: string[];
 }
 
-const roleDescription =
-  'Trained housekeeping support for offices, commercial buildings, societies, hospitals, educational institutions, restaurants, and managed facilities.';
 
 const slotOptions: { id: SlotOption; label: string }[] = [
   { id: 'full-day', label: 'FULL DAY (8 HOURS)' },
@@ -141,7 +139,7 @@ function DetailColumn({
 
   return (
     <section className="p-1">
-      <div className="mb-4 flex items-center gap-2 text-[clamp(0.875rem,1.5vw+0.5rem,1rem)] font-bold text-neutral-950 w-full wrap-break-word">
+      <div className="mb-4 flex w-full items-center gap-2 break-words text-[clamp(0.875rem,1.5vw+0.5rem,1rem)] font-bold text-neutral-950">
         <span
           className={cn(
             'inline-flex h-7 w-7 items-center justify-center rounded-full',
@@ -200,7 +198,7 @@ function CategoryCard({
         <span className="inline-flex h-9 w-9 lg:h-10 lg:w-10 shrink-0 items-center justify-center rounded-xl bg-white text-primary-700 shadow-[0_8px_20px_rgba(10,42,34,0.06)]">
           <CategoryIcon size={20} strokeWidth={2} />
         </span>
-        <span className="min-w-0 flex-1 text-[clamp(1.125rem,2vw+0.5rem,1.375rem)] w-full wrap-break-word font-semibold leading-[1.4] text-neutral-950 py-1">
+        <span className="min-w-0 flex-1 break-words py-1 text-[clamp(1.125rem,2vw+0.5rem,1.375rem)] font-semibold leading-[1.4] text-neutral-950">
           {displayTitle}
         </span>
         <span className="inline-flex shrink-0 items-center">
@@ -277,10 +275,12 @@ export function ServiceConfigurator() {
           </span>
           <div className="min-w-0">
             <div className="text-[clamp(0.75rem,1.5vw+0.3rem,0.8125rem)] font-bold uppercase tracking-[0.28em] text-primary-800">Role Details</div>
-            <h3 className="mt-3 w-full wrap-break-word text-wrap-balance text-[clamp(2.125rem,4vw+1rem,3rem)] font-bold leading-tight text-neutral-950">
-              Housekeeping
+            <h3 className="mt-3 w-full break-words text-[28px] font-bold leading-tight text-neutral-950 min-[375px]:text-3xl sm:text-wrap-balance md:text-4xl lg:text-5xl">
+              {housekeepingService.name}
             </h3>
-            <p className="mt-3 w-full max-w-2xl wrap-break-word text-[clamp(0.875rem,1.5vw+0.5rem,1rem)] leading-7 text-neutral-600">{roleDescription}</p>
+            <p className="mt-3 w-full max-w-2xl break-words text-[clamp(0.875rem,1.5vw+0.5rem,1rem)] leading-7 text-neutral-600">
+              {housekeepingService.description}
+            </p>
           </div>
         </div>
 
@@ -300,7 +300,7 @@ export function ServiceConfigurator() {
         <div className="mb-7 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <div className="text-[clamp(0.75rem,1.5vw+0.3rem,0.8125rem)] font-bold uppercase tracking-[0.28em] text-primary-800">Site Categories</div>
-            <h3 className="mt-3 w-full wrap-break-word text-wrap-balance text-[clamp(1.75rem,3vw+1rem,2.25rem)] font-bold leading-tight text-neutral-950">
+            <h3 className="mt-3 w-full break-words text-[clamp(1.75rem,3vw+1rem,2.25rem)] font-bold leading-tight text-neutral-950 sm:text-wrap-balance">
               Select site category
             </h3>
           </div>

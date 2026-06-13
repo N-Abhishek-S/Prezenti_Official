@@ -49,7 +49,7 @@ export function DeploymentCategoryRotator({
     >
       {/* Green bullet */}
       <span
-        className="block h-[0.3em] w-[0.3em] shrink-0 rounded-full bg-[#22C55E] translate-y-[-0.15em]"
+        className="block h-[0.3em] w-[0.3em] shrink-0 rounded-full bg-success-400 translate-y-[-0.15em]"
         aria-hidden="true"
       />
 
@@ -74,7 +74,7 @@ export function DeploymentCategoryRotator({
         style={{ fontSize: '0.72em' }}
       >
         {shouldReduceMotion || validCategories.length === 1 ? (
-          <span className="text-[#16A34A]">{activeCategory}</span>
+          <span className="text-success-500">{activeCategory}</span>
         ) : (
           <AnimatePresence mode="wait">
             <motion.span
@@ -83,7 +83,7 @@ export function DeploymentCategoryRotator({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.65, ease: customEase }}
-              className="text-[#16A34A] inline-block will-change-[transform,opacity]"
+              className="text-success-500 inline-block will-change-[transform,opacity]"
             >
               {activeCategory}
             </motion.span>

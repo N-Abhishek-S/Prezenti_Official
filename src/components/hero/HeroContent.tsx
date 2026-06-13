@@ -69,14 +69,14 @@ function StoreBadge({ kind, onClick }: StoreBadgeProps) {
       type="button"
       onClick={onClick}
       aria-label={`Open ${copy.label}`}
-      className="group flex h-[3.25rem] sm:h-14.5 w-full flex-1 max-w-[160px] items-center justify-center gap-2 rounded-[10px] border border-neutral-700 bg-black px-2 text-left text-white shadow-[0_14px_28px_rgba(15,23,42,0.16)] ring-1 ring-white/15 transition-all duration-200 hover:-translate-y-0.5 hover:bg-neutral-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600/25 sm:w-57.5 sm:max-w-57.5 sm:justify-start sm:gap-3 sm:px-4"
+      className="group flex h-13 sm:h-14.5 w-full flex-1 max-w-[160px] items-center justify-center gap-2 rounded-[10px] border border-neutral-700 bg-black px-2 text-left text-white shadow-[0_14px_28px_rgba(15,23,42,0.16)] ring-1 ring-white/15 transition-all duration-200 hover:-translate-y-0.5 hover:bg-neutral-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600/25 sm:w-57.5 sm:max-w-57.5 sm:justify-start sm:gap-3 sm:px-4"
     >
       <StoreIcon kind={kind} />
       <span className="grid min-w-0 leading-none">
         <span className="text-[9px] font-semibold uppercase tracking-[0.08em] text-white/90 sm:text-[10px]">
           {copy.eyebrow}
         </span>
-        <span className="mt-[2px] w-full break-words text-[13px] font-semibold tracking-normal text-white sm:mt-1 sm:text-[clamp(1.25rem,2vw,1.5rem)]">
+        <span className="mt-[2px] w-full wrap-break-word text-[13px] font-semibold tracking-normal text-white sm:mt-1 sm:text-[clamp(1.25rem,2vw,1.5rem)]">
           {copy.label}
         </span>
       </span>
@@ -154,7 +154,7 @@ export function HeroContent() {
 
  <motion.h1
   id="ps-project-hero-title"
-  className="text-left font-extrabold leading-[1.1] tracking-[-0.025em] sm:leading-[0.95]"
+  className="text-left font-extrabold leading-[1.1] tracking-tight sm:leading-[0.95]"
 >
   {/* First Line */}
   <motion.span
@@ -181,7 +181,7 @@ export function HeroContent() {
       text-neutral-950
       min-[375px]:text-[32px]
       sm:whitespace-normal
-      sm:break-words
+      sm:wrap-break-word
       sm:text-[clamp(2.5rem,4vw,4.75rem)]
     "
   >
@@ -214,7 +214,7 @@ export function HeroContent() {
       text-[#16a34a]
       min-[375px]:text-[32px]
       sm:whitespace-normal
-      sm:break-words
+      sm:wrap-break-word
       sm:text-[clamp(2.5rem,4vw,4.75rem)]
     "
   >
@@ -261,7 +261,7 @@ export function HeroContent() {
           className="group min-h-[56px] w-[95%] min-w-0 max-w-[min(22rem,calc(100vw-2rem))] px-3 text-[15px] font-semibold tracking-[-0.006em] shadow-[0_16px_36px_rgba(18,63,53,0.22)] sm:w-auto sm:max-w-none sm:px-10 min-[420px]:px-4 min-[420px]:text-[15px]"
           onClick={() => navigate('/talk-to-us')}
         >
-          <span className="min-w-0 text-balance break-words text-center leading-[1.3]">Let us understand your requirement</span>
+          <span className="min-w-0 text-balance wrap-break-word text-center leading-[1.3]">Let us understand your requirement</span>
           <ArrowRight className="h-[18px] w-[18px] shrink-0 transition-transform duration-300 group-hover:translate-x-1 sm:h-5 sm:w-5" />
         </Button>
         <Button

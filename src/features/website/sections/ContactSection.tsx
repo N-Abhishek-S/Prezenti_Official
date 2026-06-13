@@ -62,7 +62,7 @@ export function ContactSection() {
           <Badge variant="primary" size="lg" className="mb-3">
             FAQs
           </Badge>
-          <h2 className="mb-4 w-full break-words text-wrap-balance text-2xl font-semibold sm:text-[clamp(1.5rem,3vw+1rem,1.875rem)]">Quick Answers</h2>
+          <h2 className="mb-4 w-full wrap-break-word text-wrap-balance text-2xl font-semibold sm:text-[clamp(1.5rem,3vw+1rem,1.875rem)]">Quick Answers</h2>
           <p className="text-base leading-relaxed text-neutral-500 sm:text-lg">
             Quick answers for staffing scope, deployment timelines, support, and pricing.
           </p>

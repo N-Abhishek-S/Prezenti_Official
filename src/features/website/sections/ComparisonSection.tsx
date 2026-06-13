@@ -26,13 +26,13 @@ export function ComparisonSection() {
           <Badge variant="primary" size="lg" className="mb-3">
             Why Prezenti
           </Badge>
-          <h2 className="mb-4 w-full break-words text-wrap-balance text-2xl font-semibold sm:text-[clamp(1.5rem,3vw+1rem,1.875rem)]">Support staff, on demand — powered by Prezenti.</h2>
+          <h2 className="mb-4 w-full wrap-break-word text-wrap-balance text-2xl font-semibold sm:text-[clamp(1.5rem,3vw+1rem,1.875rem)]">Support staff, on demand — powered by Prezenti.</h2>
           <p className="text-base leading-relaxed text-neutral-500 sm:text-lg">Reliable Support Staff. Ready On Demand</p>
         </motion.div>
 
         <motion.div variants={fadeUp} className="grid items-stretch gap-6 lg:gap-8 lg:grid-cols-[0.4fr_0.6fr]">
           <div className="flex flex-col justify-center rounded-[20px] border border-success-100 bg-success-50 p-6 shadow-[0_24px_70px_rgba(10,42,34,0.07)] sm:p-7 lg:p-8 lg:py-10">
-            <h3 className="mb-5 flex items-center gap-3 w-full break-words text-wrap-balance text-[clamp(1.125rem,2vw+0.5rem,1.375rem)] font-semibold">
+            <h3 className="mb-5 flex items-center gap-3 w-full wrap-break-word text-wrap-balance text-[clamp(1.125rem,2vw+0.5rem,1.375rem)] font-semibold">
               <CheckCircle size={26} className="shrink-0 text-success-500" />
               With Prezenti
             </h3>

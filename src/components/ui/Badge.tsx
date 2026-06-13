@@ -50,7 +50,7 @@ interface BadgeCountProps {
 export function BadgeCount({ count, className }: BadgeCountProps) {
   return (
     <span className={cn(
-      'inline-flex items-center justify-center min-w-[1.25rem] min-h-[1.25rem] py-0.5 px-1.5 text-[11px] font-semibold rounded-full bg-critical-500 text-white break-words',
+      'inline-flex items-center justify-center min-w-5 min-h-5 py-0.5 px-1.5 text-[11px] font-semibold rounded-full bg-critical-500 text-white wrap-break-word',
       className
     )}>
       {count > 99 ? '99+' : count}

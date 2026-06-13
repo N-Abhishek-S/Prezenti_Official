@@ -68,14 +68,14 @@ export function HeroMedia() {
 
   return (
     <motion.div
-      className="relative z-10 w-full min-h-[32rem] sm:min-h-[24rem] lg:min-h-[30rem]"
+      className="relative z-10 w-full min-h-128 sm:min-h-96 lg:min-h-120"
       initial={{ opacity: 0, y: 28 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.78, ease: [0.16, 1, 0.3, 1], delay: 0.12 }}
     >
       <div className="absolute inset-x-[8%] bottom-8 h-20 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(15,23,42,0.16)_0%,rgba(15,23,42,0.07)_42%,rgba(15,23,42,0)_72%)]" />
 
-      <div className="absolute inset-y-5 inset-x-0 mx-auto w-[92%] overflow-hidden rounded-[2rem] bg-neutral-950 shadow-[0_34px_100px_rgba(15,23,42,0.2)] ring-1 ring-white/70 sm:inset-x-auto sm:inset-y-8 sm:right-0 sm:w-[80%] sm:rounded-[36px] lg:w-[86%]">
+      <div className="absolute inset-y-5 inset-x-0 mx-auto w-[92%] overflow-hidden rounded-4xl bg-neutral-950 shadow-[0_34px_100px_rgba(15,23,42,0.2)] ring-1 ring-white/70 sm:inset-x-auto sm:inset-y-8 sm:right-0 sm:w-[80%] sm:rounded-[36px] lg:w-[86%]">
         <HeroVideo
           asset={heroMedia.primary}
           className="h-full w-full object-cover object-[center_15%] backface-hidden transform-[translateZ(0)] sm:object-[50%_center]"

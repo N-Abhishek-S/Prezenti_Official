@@ -32,6 +32,7 @@ export const router = createBrowserRouter([
       { path: '/compliance', element: <SectionRedirect sectionId="services" /> },
       { path: '/case-studies', element: <SectionRedirect sectionId="home" /> },
       { path: '/faq', element: <SectionRedirect sectionId="contact" /> },
+      { path: '/faqs', element: <SectionRedirect sectionId="contact" /> },
       { path: '/contact', element: <SectionRedirect sectionId="contact" /> },
       { path: '/security', element: <SectionRedirect sectionId="services" /> },
       { path: '/industries/:slug', element: withSuspense(<IndustryLandingPage />) },

@@ -79,7 +79,11 @@ const programmaticRoutes = serviceSlugs.flatMap(service =>
 );
 
 const baseRoutes = [
+  '/about',
+  '/blog',
   '/services',
+  '/faqs',
+  '/faq',
   '/talk-to-us',
   '/privacy-policy',
   '/terms-and-conditions',

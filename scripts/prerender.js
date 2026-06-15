@@ -17,7 +17,11 @@ const shouldUseVercelChromium = isVercelBuild && process.platform === 'linux';
 
 const staticRoutes = [
   '/',
+  '/about',
+  '/blog',
   '/services',
+  '/faqs',
+  '/faq',
   '/talk-to-us',
   '/privacy-policy',
   '/terms-and-conditions'

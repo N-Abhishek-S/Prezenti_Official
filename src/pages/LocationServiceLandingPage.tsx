@@ -52,6 +52,7 @@ export function LocationServiceLandingPage({ service, location }: Props) {
         title={seoTitle}
         description={seoDescription}
         canonicalUrl={`/${service.slug}-${location.slug}`}
+        imageUrl={`/og-images/og-${service.id}.jpg`}
         keywords={[
           pageTitle,
           `${service.h1} in ${location.name}`,
@@ -60,14 +61,7 @@ export function LocationServiceLandingPage({ service, location }: Props) {
         ]}
       />
       
-      <StructuredData
-        type="WebPage"
-        data={{
-          name: pageTitle,
-          description: seoDescription,
-          url: canonicalUrl,
-        }}
-      />
+
       <StructuredData
         type="Service"
         data={{

@@ -18,6 +18,7 @@ export function AboutUs() {
         title={pageTitle}
         description={seoDescription}
         canonicalUrl="/about" 
+        imageUrl="/og-images/og-about.jpg"
         keywords={['about prezenti', 'facility management company profile', 'corporate staffing agency history', 'trusted staffing maharashtra']}
       />
       
@@ -29,16 +30,6 @@ export function AboutUs() {
           url: `${SEO_CONSTANTS.BASE_URL}/about`,
         }}
       />
-      <StructuredData
-        type="Organization"
-        data={{
-          name: "Prezenti",
-          url: SEO_CONSTANTS.BASE_URL,
-          logo: `${SEO_CONSTANTS.BASE_URL}/brand/prezenti-mark.png`,
-          description: seoDescription
-        }}
-      />
-
       <section className="mx-auto max-w-4xl px-4 sm:px-6">
         <header className="mb-16 text-center">
           <motion.h1 

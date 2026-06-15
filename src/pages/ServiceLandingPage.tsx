@@ -30,6 +30,7 @@ export function ServiceLandingPage({ service }: { service: ServiceData }) {
         title={service.seoTitle}
         description={service.seoDescription}
         canonicalUrl={`/${service.slug}`}
+        imageUrl={`/og-images/og-${service.id}.jpg`}
         keywords={[
           service.h1,
           `${service.h1} Pune`,
@@ -39,14 +40,7 @@ export function ServiceLandingPage({ service }: { service: ServiceData }) {
         ]}
       />
       
-      <StructuredData
-        type="WebPage"
-        data={{
-          name: service.h1,
-          description: service.seoDescription,
-          url: canonicalUrl,
-        }}
-      />
+
       <StructuredData
         type="Service"
         data={{

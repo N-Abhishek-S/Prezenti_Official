@@ -13,7 +13,9 @@ type SchemaType =
   | 'AboutPage'
   | 'SoftwareApplication'
   | 'ItemList'
-  | 'SiteNavigationElement';
+  | 'SiteNavigationElement'
+  | 'Blog'
+  | 'BlogPosting';
 
 interface StructuredDataProps {
   type?: SchemaType;
@@ -239,6 +241,35 @@ export function StructuredData({ type = 'Organization', data = {} }: StructuredD
           name: item.name,
           url: item.url.startsWith('http') ? item.url : `${SEO_CONSTANTS.BASE_URL}${item.url}`,
         })) : [],
+      };
+      break;
+    case 'Blog':
+      specificSchema = {
+        '@id': dataUrl ? `${dataUrl}#blog` : `${SEO_CONSTANTS.BASE_URL}/blog#blog`,
+        name: data.name || 'Prezenti Blog',
+        description: data.description || 'Facility Management Insights',
+        url: dataUrl || `${SEO_CONSTANTS.BASE_URL}/blog`,
+        publisher: {
+          '@type': 'Organization',
+          '@id': organizationId,
+        },
+      };
+      break;
+    case 'BlogPosting':
+      specificSchema = {
+        '@id': dataUrl ? `${dataUrl}#blogposting` : `${SEO_CONSTANTS.BASE_URL}/#blogposting`,
+        headline: data.name || data.headline,
+        description: data.description,
+        url: dataUrl,
+        publisher: {
+          '@type': 'Organization',
+          '@id': organizationId,
+        },
+        author: {
+          '@type': 'Organization',
+          '@id': organizationId,
+          name: SEO_CONSTANTS.SITE_NAME,
+        },
       };
       break;
   }

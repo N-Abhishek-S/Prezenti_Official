@@ -9,8 +9,6 @@ import { ServiceConfiguratorSection } from './sections/ServiceConfiguratorSectio
 import { SEO } from '../../seo/SEO';
 import { StructuredData } from '../../seo/StructuredData';
 import { SEO_CONSTANTS } from '../../seo/constants';
-import { faqsData } from '../../data/faqsData';
-
 export function HomePage() {
   useEffect(() => {
     const sectionId = consumePendingSection();
@@ -20,8 +18,6 @@ export function HomePage() {
     return () => window.cancelAnimationFrame(frame);
   }, []);
 
-  const homepageFaqs = faqsData.flatMap((group) => group.items);
-  const homepageUrl = SEO_CONSTANTS.BASE_URL;
   const homepageTitle = SEO_CONSTANTS.DEFAULT_TITLE;
   const homepageDescription = SEO_CONSTANTS.DEFAULT_DESCRIPTION;
 
@@ -31,6 +27,8 @@ export function HomePage() {
         title={homepageTitle}
         description={homepageDescription}
         canonicalUrl="/" 
+        imageUrl="/og-images/og-homepage.jpg"
+        preloadImageUrl="/hero/staff/receptionist-staffing-pune.png"
         keywords={[
           'facility staffing Pune',
           'housekeeping services Pune',
@@ -39,28 +37,8 @@ export function HomePage() {
           'commercial facility management',
         ]}
       />
-      <StructuredData />
       <StructuredData type="LocalBusiness" />
-      <StructuredData 
-        type="Service" 
-        data={{
-          name: 'Facility Staffing Services in Pune',
-          description: homepageDescription,
-          serviceType: 'Facility staffing and workplace support services',
-          url: homepageUrl,
-        }} 
-      />
       <StructuredData type="WebSite" data={{ description: homepageDescription }} />
-      <StructuredData type="SoftwareApplication" data={{ description: homepageDescription }} />
-      <StructuredData
-        type="WebPage"
-        data={{
-          name: homepageTitle,
-          description: homepageDescription,
-          url: homepageUrl,
-        }}
-      />
-      <StructuredData type="FAQPage" data={{ faqs: homepageFaqs }} />
       <HeroSection />
       <ComparisonSection />
       <ServiceConfiguratorSection />

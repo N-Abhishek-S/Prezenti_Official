@@ -56,6 +56,8 @@ export function BlogPostPage() {
         title={blog.seoTitle}
         description={blog.seoDescription}
         canonicalUrl={`/blog/${blog.slug}`} 
+        imageUrl="/og-images/og-blog.jpg"
+        type="article"
         keywords={[blog.targetKeyword, blog.category.toLowerCase(), 'prezenti blog']}
       />
       

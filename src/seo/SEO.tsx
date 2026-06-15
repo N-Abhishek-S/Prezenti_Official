@@ -7,6 +7,7 @@ interface SEOProps {
   description?: string;
   canonicalUrl?: string;
   imageUrl?: string;
+  preloadImageUrl?: string;
   imageAlt?: string;
   type?: string;
   keywords?: string[];
@@ -23,6 +24,7 @@ export function SEO({
   description,
   canonicalUrl,
   imageUrl,
+  preloadImageUrl,
   imageAlt,
   type = 'website',
   keywords = [],
@@ -54,6 +56,11 @@ export function SEO({
       <meta name="theme-color" content={SEO_CONSTANTS.THEME_COLOR} />
       {keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
       
+      {/* Dynamic Hero Preloads */}
+      {preloadImageUrl && (
+        <link rel="preload" as="image" href={preloadImageUrl.startsWith('http') ? preloadImageUrl : `${SEO_CONSTANTS.BASE_URL}${preloadImageUrl}`} fetchPriority="high" />
+      )}
+
       {/* Canonical */}
       <link rel="canonical" href={url} />
 

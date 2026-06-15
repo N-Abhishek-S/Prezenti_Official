@@ -20,16 +20,25 @@ export function BlogHubPage() {
         title={pageTitle}
         description={seoDescription}
         canonicalUrl="/blog" 
-        keywords={['facility management blog', 'corporate staffing insights', 'housekeeping tips', 'workplace optimization']}
+        imageUrl="/og-images/og-blog.jpg"
+        keywords={['facility management blog', 'corporate staffing trends', 'office management tips', 'Maharashtra facility management', 'workplace optimization']}
       />
       
       <StructuredData
-        type="WebPage"
+        type="Blog"
         data={{
           name: pageTitle,
           description: seoDescription,
           url: `${SEO_CONSTANTS.BASE_URL}/blog`,
         }}
+      />
+      <StructuredData 
+        type="BreadcrumbList" 
+        data={{ 
+          breadcrumbs: [
+            { name: 'Blog', url: '/blog' }
+          ] 
+        }} 
       />
 
       <section className="mx-auto max-w-7xl px-4 sm:px-6">

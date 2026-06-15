@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { SEO } from '../seo/SEO';
 import { StructuredData } from '../seo/StructuredData';
-import type { ServiceData } from '../data/servicesContent';
+import { type ServiceData, generateLocalizedContent } from '../data/servicesContent';
 import type { LocationData } from '../data/locations';
 import { Breadcrumbs } from '../components/ui/Breadcrumbs';
 import { FaqAccordion } from '../components/ui/FaqAccordion';
@@ -78,6 +78,15 @@ export function LocationServiceLandingPage({ service, location }: Props) {
           areaServed: location.name
         }}
       />
+      <StructuredData
+        type="LocalBusiness"
+        data={{
+          name: `${SEO_CONSTANTS.SITE_NAME} - ${location.name}`,
+          description: seoDescription,
+          url: canonicalUrl,
+          city: location.name
+        }}
+      />
       <StructuredData type="BreadcrumbList" data={{ breadcrumbs }} />
       <StructuredData type="FAQPage" data={{ faqs: localFaqs }} />
 
@@ -98,18 +107,14 @@ export function LocationServiceLandingPage({ service, location }: Props) {
         </header>
 
         <div className="prose prose-lg prose-neutral max-w-none">
-          {service.sections.map((section, idx) => (
+          {generateLocalizedContent(service.h1, location.name).map((section, idx) => (
             <section key={idx} className="mb-12">
               <h2 className="text-2xl sm:text-3xl font-semibold text-neutral-900 mb-4">
-                {section.title.includes(service.h1) 
-                  ? section.title.replace(service.h1, pageTitle)
-                  : section.title}
+                {section.title}
               </h2>
               {section.paragraphs.map((p, pIdx) => (
                 <p key={pIdx} className="mb-4 text-neutral-700 leading-relaxed">
-                  {pIdx === 0 && idx === 0 
-                    ? `Looking for ${service.h1.toLowerCase()} in ${location.name}? ${p}` 
-                    : p}
+                  {p}
                 </p>
               ))}
               {section.listItems && (

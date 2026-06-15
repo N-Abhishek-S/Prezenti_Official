@@ -27,12 +27,10 @@ export type TimePreference = (typeof timePreferenceOptions)[number];
 export type ServiceSubcategory = (typeof serviceSubcategoryOptions)[number];
 export type InquiryType = (typeof inquiryTypeOptions)[number];
 
-export interface ServiceSubcategoryDetails {
+export type ServiceDetailsBySubcategory = Record<ServiceSubcategory, {
   included: string[];
   notIncluded: string[];
-}
-
-export type ServiceDetailsBySubcategory = Record<ServiceSubcategory, ServiceSubcategoryDetails>;
+}>;
 
 export interface ExpertServiceConfig {
   id: string;

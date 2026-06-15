@@ -1,11 +1,5 @@
 import { publicAsset } from '../../lib/publicAsset';
 
-export interface HeroRole {
-  id: string;
-  name: string;
-  accent: string;
-}
-
 export interface HeroVideoAsset {
   id: string;
   label: string;
@@ -16,15 +10,11 @@ export interface HeroVideoAsset {
   poster?: string;
 }
 
-export const heroRoles: HeroRole[] = [
-  { id: 'housekeeping', name: 'Housekeeping', accent: '#16A34A' },
-];
-
 export const heroMedia = {
   primary: {
     id: 'housekeeping-deployment',
     label: 'Housekeeping professional on duty',
-    poster: publicAsset('/hero/staff/receptionist.png'),
+    poster: publicAsset('/hero/staff/receptionist-staffing-pune.png'),
     sources: [
       {
         src: publicAsset('/hero/video/prezenti-namaste-reception.webm'),
@@ -35,7 +25,7 @@ export const heroMedia = {
   supporting: {
     id: 'workforce-showcase',
     label: 'Prezenti workforce actions',
-    poster: publicAsset('/hero/staff/office-boy.png'),
+    poster: publicAsset('/hero/staff/office-boy-services-pune.png'),
     sources: [
       {
         src: publicAsset('/hero/video/prezenti-workforce-vertical.webm'),

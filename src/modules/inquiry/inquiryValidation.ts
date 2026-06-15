@@ -19,7 +19,7 @@ export function getTodayDateValue() {
   return localDate.toISOString().slice(0, 10);
 }
 
-export function sanitizeText(value: string) {
+function sanitizeText(value: string) {
   let output = '';
 
   for (const char of value) {
@@ -32,7 +32,7 @@ export function sanitizeText(value: string) {
     .trim();
 }
 
-export function sanitizeMultilineText(value: string) {
+function sanitizeMultilineText(value: string) {
   let output = '';
 
   for (const char of value) {
@@ -48,15 +48,15 @@ export function sanitizeMultilineText(value: string) {
     .trim();
 }
 
-export function normalizeIndianMobile(value: string) {
+function normalizeIndianMobile(value: string) {
   return value.replace(/[\s()-]/g, '').trim();
 }
 
-export function isValidIndianMobile(value: string) {
+function isValidIndianMobile(value: string) {
   return /^(?:\+91|91)?[6-9]\d{9}$/.test(normalizeIndianMobile(value));
 }
 
-export function sanitizeInquiryForm(values: ExpertInquiryFormValues): ExpertInquiryFormValues {
+function sanitizeInquiryForm(values: ExpertInquiryFormValues): ExpertInquiryFormValues {
   return {
     fullName: sanitizeText(values.fullName).replace(/\s+/g, ' '),
     mobileNumber: normalizeIndianMobile(values.mobileNumber),

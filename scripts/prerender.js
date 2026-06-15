@@ -152,48 +152,64 @@ async function run() {
     console.log('Launching headless browser...');
     browser = await puppeteer.launch(await getBrowserLaunchOptions());
 
-    const page = await browser.newPage();
-
     // Attach detailed debug logging
-    page.on('console', msg => console.log('[Browser Console]', msg.text()));
-    page.on('pageerror', err => console.error('[Page Error]', err));
-    page.on('requestfailed', request => {
-      console.error('[Request Failed]', request.url(), request.failure()?.errorText);
-    });
-
-    // Step 4: Crawl and save each route
-    for (const route of routes) {
-      const url = `http://127.0.0.1:${PORT}${route}`;
-      console.log(`\nPrerendering route: ${route} (${url})`);
-      
-      await page.goto(url, {
-        waitUntil: 'networkidle2',
-        timeout: 45000
+    const logPage = async (p) => {
+      p.on('console', msg => console.log('[Browser Console]', msg.text()));
+      p.on('pageerror', err => console.error('[Page Error]', err));
+      p.on('requestfailed', request => {
+        console.error('[Request Failed]', request.url(), request.failure()?.errorText);
       });
+    };
 
-      // Wait a little extra to ensure react-helmet and schemas are injected
-      await new Promise(resolve => setTimeout(resolve, 1000));
+    // Helper to chunk the routes array
+    const chunkArray = (arr, size) => Array.from({ length: Math.ceil(arr.length / size) }, (v, i) => arr.slice(i * size, i * size + size));
+    
+    // Process 5 routes concurrently to speed up the build without overloading memory
+    const routeChunks = chunkArray(routes, 5);
 
-      const html = await page.content();
+    // Step 4: Crawl and save routes in batches
+    for (const chunk of routeChunks) {
+      await Promise.all(chunk.map(async (route) => {
+        const page = await browser.newPage();
+        await logPage(page);
+        const url = `http://127.0.0.1:${PORT}${route}`;
+        console.log(`\nPrerendering route: ${route} (${url})`);
+        
+        try {
+          await page.goto(url, {
+            waitUntil: 'networkidle2',
+            timeout: 90000 // Increased timeout to 90 seconds
+          });
 
-      // Determine output directory & file name
-      let destFile;
-      if (route === '/') {
-        destFile = ORIGINAL_INDEX_PATH;
-      } else {
-        const destDir = path.join(DIST_DIR, route.substring(1));
-        fs.mkdirSync(destDir, { recursive: true });
-        destFile = path.join(destDir, 'index.html');
-      }
+          // Wait a little extra to ensure react-helmet and schemas are injected
+          await new Promise(resolve => setTimeout(resolve, 1000));
 
-      fs.writeFileSync(destFile, html, 'utf-8');
-      console.log(`Successfully saved to: ${destFile}`);
+          const html = await page.content();
 
-      // Basic validation log
-      const hasTitle = html.includes('<title>');
-      const hasDescription = html.includes('name="description"');
-      const hasLDJson = html.includes('type="application/ld+json"');
-      console.log(`  Validation status: title=${hasTitle}, description=${hasDescription}, schema=${hasLDJson}`);
+          // Determine output directory & file name
+          let destFile;
+          if (route === '/') {
+            destFile = ORIGINAL_INDEX_PATH;
+          } else {
+            const destDir = path.join(DIST_DIR, route.substring(1));
+            fs.mkdirSync(destDir, { recursive: true });
+            destFile = path.join(destDir, 'index.html');
+          }
+
+          fs.writeFileSync(destFile, html, 'utf-8');
+          console.log(`Successfully saved to: ${destFile}`);
+
+          // Basic validation log
+          const hasTitle = html.includes('<title>');
+          const hasDescription = html.includes('name="description"');
+          const hasLDJson = html.includes('type="application/ld+json"');
+          console.log(`  Validation status [${route}]: title=${hasTitle}, description=${hasDescription}, schema=${hasLDJson}`);
+        } catch (err) {
+          console.error(`Failed to prerender ${route}:`, err);
+        } finally {
+          await page.close();
+        }
+      }));
     }
 
   } catch (error) {

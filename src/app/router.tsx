@@ -6,7 +6,7 @@ import { RouteError } from '../components/errors/RouteError';
 import { HomePage } from '../features/website/HomePage';
 import { RouteFallback } from '../components/layout/RouteFallback';
 import { SectionRedirect } from '../components/layout/SectionRedirect';
-import { TalkToUs, ServicesHubPage, PrivacyPolicy, TermsAndConditions, IndustryLandingPage } from './lazyRouteComponents';
+import { TalkToUs, ServicesHubPage, PrivacyPolicy, TermsAndConditions, IndustryLandingPage, BlogHubPage, BlogPostPage, AboutUs } from './lazyRouteComponents';
 import { DynamicRouteResolver } from '../pages/DynamicRouteResolver';
 
 function withSuspense(element: ReactNode) {
@@ -24,7 +24,7 @@ export const router = createBrowserRouter([
       { path: '/privacy-policy', element: withSuspense(<PrivacyPolicy />) },
       { path: '/terms-and-conditions', element: withSuspense(<TermsAndConditions />) },
       { path: '/industries', element: <SectionRedirect sectionId="services" /> },
-      { path: '/about', element: <SectionRedirect sectionId="home" /> },
+      { path: '/about', element: withSuspense(<AboutUs />) },
       { path: '/pricing', element: <SectionRedirect sectionId="services" /> },
       { path: '/talk-to-us', element: withSuspense(<TalkToUs />) },
       { path: '/live-support', element: <Navigate to="/talk-to-us" replace /> },
@@ -35,10 +35,12 @@ export const router = createBrowserRouter([
       { path: '/contact', element: <SectionRedirect sectionId="contact" /> },
       { path: '/security', element: <SectionRedirect sectionId="services" /> },
       { path: '/industries/:slug', element: withSuspense(<IndustryLandingPage />) },
+      { path: '/blog', element: withSuspense(<BlogHubPage />) },
+      { path: '/blog/:slug', element: withSuspense(<BlogPostPage />) },
       { path: '/:slug', element: <DynamicRouteResolver /> },
     ],
   },
-  { path: '/app', element: <Navigate to="/" replace />,errorElement: <RouteError /> },
+  { path: '/app', element: <Navigate to="/" replace />, errorElement: <RouteError /> },
   { path: '/login', element: <Navigate to="/" replace />, errorElement: <RouteError /> },
   { path: '*', element: <Navigate to="/" replace /> },
 ]);

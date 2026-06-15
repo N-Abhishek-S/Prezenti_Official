@@ -1,9 +1,12 @@
+import { lazy, Suspense } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { servicesData } from '../data/servicesContent';
 import { locationsData } from '../data/locations';
-import { ServiceLandingPage } from './ServiceLandingPage';
-import { LocationLandingPage } from './LocationLandingPage';
-import { LocationServiceLandingPage } from './LocationServiceLandingPage';
+import { RouteFallback } from '../components/layout/RouteFallback';
+
+const ServiceLandingPage = lazy(() => import('./ServiceLandingPage').then(m => ({ default: m.ServiceLandingPage })));
+const LocationLandingPage = lazy(() => import('./LocationLandingPage').then(m => ({ default: m.LocationLandingPage })));
+const LocationServiceLandingPage = lazy(() => import('./LocationServiceLandingPage').then(m => ({ default: m.LocationServiceLandingPage })));
 
 export function DynamicRouteResolver() {
   const { slug } = useParams<{ slug: string }>();
@@ -12,12 +15,20 @@ export function DynamicRouteResolver() {
 
   // 1. Is it an exact service?
   if (servicesData[slug]) {
-    return <ServiceLandingPage service={servicesData[slug]} />;
+    return (
+      <Suspense fallback={<RouteFallback />}>
+        <ServiceLandingPage service={servicesData[slug]} />
+      </Suspense>
+    );
   }
 
   // 2. Is it an exact location?
   if (locationsData[slug]) {
-    return <LocationLandingPage location={locationsData[slug]} />;
+    return (
+      <Suspense fallback={<RouteFallback />}>
+        <LocationLandingPage location={locationsData[slug]} />
+      </Suspense>
+    );
   }
 
   // 3. Is it a Service x Location?
@@ -28,10 +39,12 @@ export function DynamicRouteResolver() {
       const possibleServiceSlug = slug.slice(0, -(locKey.length + 1));
       if (servicesData[possibleServiceSlug]) {
         return (
-          <LocationServiceLandingPage 
-            service={servicesData[possibleServiceSlug]} 
-            location={locationsData[locKey]} 
-          />
+          <Suspense fallback={<RouteFallback />}>
+            <LocationServiceLandingPage 
+              service={servicesData[possibleServiceSlug]} 
+              location={locationsData[locKey]} 
+            />
+          </Suspense>
         );
       }
     }

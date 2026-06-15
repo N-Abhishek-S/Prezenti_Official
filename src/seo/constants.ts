@@ -3,7 +3,7 @@ export const SEO_CONSTANTS = {
   BASE_URL: 'https://www.prezenti.com',
   DEFAULT_TITLE: 'Facility Management & Corporate Staffing Pune | Prezenti',
   DEFAULT_DESCRIPTION:
-    'Hire trained support staff for your office, hospital, or commercial facility. Prezenti provides reliable housekeeping, office boys, and facility management.',
+    'Hire trained support staff for your office, hospital, or commercial facility. Prezenti provides reliable housekeeping, office boys, and facility management across Maharashtra.',
   DEFAULT_IMAGE: 'https://www.prezenti.com/brand/prezenti-horizontal-logo.png',
   DEFAULT_IMAGE_ALT: 'Prezenti facility staffing services',
   LOCALE: 'en_IN',
@@ -14,12 +14,19 @@ export const SEO_CONSTANTS = {
   STATE: 'Maharashtra',
   COUNTRY: 'IN',
   AREA_SERVED: [
+    'Pune',
+    'Mumbai',
+    'Navi Mumbai',
+    'Thane',
+    'Nagpur',
+    'Nashik',
+    'Aurangabad',
+    'Kolhapur',
     'Baner',
     'Hinjewadi',
     'Wakad',
     'Balewadi',
     'Kharadi',
-    'Viman Nagar',
-    'Pune',
+    'Viman Nagar'
   ],
 };

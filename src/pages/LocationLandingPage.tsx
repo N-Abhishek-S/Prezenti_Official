@@ -73,10 +73,25 @@ export function LocationLandingPage({ location }: { location: LocationData }) {
           >
             {pageTitle}
           </motion.h1>
-          <p className="text-xl text-neutral-600 leading-relaxed">
+          <p className="text-xl text-neutral-600 leading-relaxed font-medium">
             {location.shortDescription} Whether you run an IT park, corporate office, or manufacturing facility, Prezenti is your trusted partner for integrated facility management in {location.name}.
           </p>
         </header>
+
+        <div className="prose prose-lg prose-neutral max-w-none mb-16">
+          {location.detailedContent.map((section, idx) => (
+            <section key={idx} className="mb-12">
+              <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 mb-6">
+                {section.heading}
+              </h2>
+              {section.paragraphs.map((p, pIdx) => (
+                <p key={pIdx} className="mb-4 text-neutral-700 leading-relaxed">
+                  {p}
+                </p>
+              ))}
+            </section>
+          ))}
+        </div>
 
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-neutral-900 mb-8">Our Services in {location.name}</h2>

@@ -40,6 +40,14 @@ export function TalkToUs() {
         type="BreadcrumbList"
         data={{ breadcrumbs: [{ name: 'Talk to Us', url: '/talk-to-us' }] }}
       />
+      <StructuredData
+        type="ContactPage"
+        data={{
+          name: 'Contact Prezenti | Enterprise Staffing',
+          description: 'Get in touch for enterprise-grade facility management and corporate staffing in Pune.',
+          url: `${SEO_CONSTANTS.BASE_URL}/talk-to-us`,
+        }}
+      />
       <main className="bg-canvas pt-24 pb-14 sm:pt-28 lg:pb-20">
       <section className="mx-auto max-w-7xl px-4 sm:px-6">
         <motion.div initial="hidden" animate="visible" variants={fadeUp} className="mx-auto mb-9 max-w-3xl text-center">
@@ -53,6 +61,30 @@ export function TalkToUs() {
         </motion.div>
 
         <TalkToExpertForm />
+
+        <motion.div initial="hidden" animate="visible" variants={fadeUp} className="mx-auto mt-16 max-w-3xl text-center border-t border-neutral-200 pt-10">
+          <h3 className="text-xl font-semibold text-neutral-900 mb-4">Why Businesses Trust Prezenti</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-sm text-neutral-600">
+            <div>
+              <div className="font-semibold text-neutral-900 mb-1">100% Compliant</div>
+              <p>Strict adherence to labor laws, PF, ESIC, and background verifications.</p>
+            </div>
+            <div>
+              <div className="font-semibold text-neutral-900 mb-1">Dedicated Support</div>
+              <p>Assigned Key Account Managers to oversee your facility operations.</p>
+            </div>
+            <div>
+              <div className="font-semibold text-neutral-900 mb-1">Rapid Deployment</div>
+              <p>Quick turnaround times with a pipeline of pre-trained support staff.</p>
+            </div>
+          </div>
+          
+          <div className="mt-8 text-neutral-500">
+            <p className="mb-2 font-medium">Corporate Contact Information:</p>
+            <p>Email: <a href="mailto:bd@kargar.co.in" className="text-primary-600 hover:underline">bd@kargar.co.in</a></p>
+            <p>Location: Pune, Maharashtra, India</p>
+          </div>
+        </motion.div>
       </section>
     </main>
     </>

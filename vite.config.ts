@@ -51,6 +51,42 @@ const vercelApiPlugin = () => ({
   }
 });
 
+const serviceSlugs = [
+  'housekeeping-services',
+  'security-services',
+  'receptionist-staffing-services',
+  'office-boy-services',
+  'pantry-staff-services',
+  'facility-management-services',
+  'property-management-services'
+];
+
+const locationSlugs = [
+  'pune',
+  'mumbai',
+  'navi-mumbai',
+  'thane',
+  'nagpur',
+  'nashik',
+  'aurangabad',
+  'kolhapur',
+  'maharashtra'
+];
+
+// Generate programmatic URLs: /service-location
+const programmaticRoutes = serviceSlugs.flatMap(service => 
+  locationSlugs.map(location => `/${service}-${location}`)
+);
+
+const baseRoutes = [
+  '/services',
+  '/talk-to-us',
+  '/privacy-policy',
+  '/terms-and-conditions',
+  ...serviceSlugs.map(s => `/${s}`),
+  ...locationSlugs.map(l => `/${l}`)
+];
+
 export default defineConfig({
   plugins: [
     vercelApiPlugin(),
@@ -60,19 +96,7 @@ export default defineConfig({
       hostname: 'https://www.prezenti.com',
       generateRobotsTxt: false,
       exclude: ['/404'],
-      dynamicRoutes: [
-        '/services',
-        '/talk-to-us',
-        '/privacy-policy',
-        '/terms-and-conditions',
-        '/housekeeping-services',
-        '/security-services',
-        '/receptionist-staffing-services',
-        '/office-boy-services',
-        '/pantry-staff-services',
-        '/facility-management-services',
-        '/property-management-services'
-      ]
+      dynamicRoutes: [...baseRoutes, ...programmaticRoutes]
     })
   ],
   resolve: {

@@ -3,11 +3,14 @@ import { SEO_CONSTANTS } from './constants';
 type SchemaType =
   | 'Organization'
   | 'LocalBusiness'
+  | 'ProfessionalService'
   | 'Service'
   | 'WebSite'
   | 'FAQPage'
   | 'BreadcrumbList'
   | 'WebPage'
+  | 'ContactPage'
+  | 'AboutPage'
   | 'SoftwareApplication'
   | 'ItemList'
   | 'SiteNavigationElement';
@@ -64,7 +67,28 @@ export function StructuredData({ type = 'Organization', data = {} }: StructuredD
         priceRange: '$$',
         address: {
           '@type': 'PostalAddress',
-          addressLocality: SEO_CONSTANTS.CITY,
+          addressLocality: data.city || SEO_CONSTANTS.CITY,
+          addressRegion: SEO_CONSTANTS.STATE,
+          addressCountry: SEO_CONSTANTS.COUNTRY,
+        },
+        areaServed: SEO_CONSTANTS.AREA_SERVED.map((name) => ({
+          '@type': 'Place',
+          name,
+        })),
+      };
+      break;
+    case 'ProfessionalService':
+      specificSchema = {
+        '@id': dataUrl ? `${dataUrl}#professionalservice` : `${SEO_CONSTANTS.BASE_URL}/#professionalservice`,
+        name: data.name || SEO_CONSTANTS.SITE_NAME,
+        image: SEO_CONSTANTS.DEFAULT_IMAGE,
+        url: dataUrl || SEO_CONSTANTS.BASE_URL,
+        email: SEO_CONSTANTS.CONTACT_EMAIL,
+        priceRange: '$$',
+        description: data.description || SEO_CONSTANTS.DEFAULT_DESCRIPTION,
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: data.city || SEO_CONSTANTS.CITY,
           addressRegion: SEO_CONSTANTS.STATE,
           addressCountry: SEO_CONSTANTS.COUNTRY,
         },
@@ -120,6 +144,32 @@ export function StructuredData({ type = 'Organization', data = {} }: StructuredD
           '@id': websiteId,
         },
         about: {
+          '@type': 'Organization',
+          '@id': organizationId,
+        },
+        inLanguage: 'en-IN',
+      };
+      break;
+    case 'ContactPage':
+      specificSchema = {
+        '@id': dataUrl ? `${dataUrl}#contactpage` : `${SEO_CONSTANTS.BASE_URL}/#contactpage`,
+        name: data.name || 'Contact Us | Prezenti',
+        description: data.description || 'Get in touch with Prezenti for facility management and staffing solutions.',
+        url: dataUrl || SEO_CONSTANTS.BASE_URL,
+        mainEntity: {
+          '@type': 'Organization',
+          '@id': organizationId,
+        },
+        inLanguage: 'en-IN',
+      };
+      break;
+    case 'AboutPage':
+      specificSchema = {
+        '@id': dataUrl ? `${dataUrl}#aboutpage` : `${SEO_CONSTANTS.BASE_URL}/#aboutpage`,
+        name: data.name || 'About Us | Prezenti',
+        description: data.description || 'Learn about Prezenti, a leading facility management and corporate staffing company.',
+        url: dataUrl || SEO_CONSTANTS.BASE_URL,
+        mainEntity: {
           '@type': 'Organization',
           '@id': organizationId,
         },
@@ -194,7 +244,7 @@ export function StructuredData({ type = 'Organization', data = {} }: StructuredD
   }
 
   const publicData = Object.fromEntries(
-    Object.entries(data).filter(([key]) => !['faqs', 'breadcrumbs', 'items'].includes(key)),
+    Object.entries(data).filter(([key]) => !['faqs', 'breadcrumbs', 'items', 'city'].includes(key)),
   );
   const schema = { ...baseSchema, ...specificSchema, ...publicData };
 

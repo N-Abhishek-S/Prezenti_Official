@@ -36,6 +36,7 @@ interface ExpertInquiryFormValues {
   location: string;
   requiredStartDate: string;
   services: string[];
+  categories: string[];
   additionalRequirement: string;
 }
 
@@ -89,7 +90,7 @@ function getConfig(): NotificationConfig {
     twilioAccountSid: process.env.TWILIO_ACCOUNT_SID || '',
     twilioAuthToken: process.env.TWILIO_AUTH_TOKEN || '',
     twilioWhatsAppFrom: process.env.TWILIO_WHATSAPP_FROM || '',
-    twilioWhatsAppTo: 'whatsapp:+15555555555',
+    twilioWhatsAppTo: process.env.TWILIO_WHATSAPP_TO || '',
     twilioContentSid: process.env.TWILIO_CONTENT_SID || '',
   };
 }
@@ -135,6 +136,7 @@ function normalizeBody(body: Partial<InquiryRequestBody>): ExpertInquiryFormValu
     location: String(body.location || ''),
     requiredStartDate: String(body.requiredStartDate || ''),
     services: Array.isArray(body.services) ? body.services.map(String) : [],
+    categories: Array.isArray(body.categories) ? body.categories.map(String) : [],
     additionalRequirement: String(body.additionalRequirement || ''),
   };
 }
@@ -190,6 +192,7 @@ function sanitizeInquiryForm(values: ExpertInquiryFormValues): ExpertInquiryForm
     location: sanitizeText(values.location).replace(/\s+/g, ' '),
     requiredStartDate: values.requiredStartDate.trim(),
     services: values.services.map((service) => sanitizeText(service).replace(/\s+/g, ' ')).filter(Boolean).slice(0, 8),
+    categories: values.categories ? values.categories.map((category) => sanitizeText(category).replace(/\s+/g, ' ')).filter(Boolean).slice(0, 4) : [],
     additionalRequirement: sanitizeMultilineText(values.additionalRequirement),
   };
 }
@@ -333,6 +336,7 @@ function buildEmailHtmlBody(payload: ExpertInquiryFormValues, timestamp: string)
   const serviceRows = [
     ['Required Start Date', requiredStartDate],
     ['Selected Services', selectedServices],
+    ['Selected Categories', payload.categories.join(', ') || 'None'],
   ];
   const submissionRows = [
     ['Source', 'Prezenti Website - Talk To Expert'],
@@ -650,12 +654,21 @@ export default async function handler(request: ApiRequest, response: ApiResponse
     console.log('[SMTP RESULT]', emailSent ? `MessageId: ${emailResult.value.messageId}, Response: ${emailResult.value.response}` : JSON.stringify(emailResult.reason));
     console.log('[TWILIO RESULT]', twilioSent ? `SID: ${twilioResult.value.sid}, Status: ${twilioResult.value.status}` : JSON.stringify(twilioResult.reason));
 
-    if (!emailSent) {
-      console.error('[DELIVERY FAILURE] Email failed. Lead not delivered via primary method.');
+    if (!emailSent && !twilioSent) {
+      console.error('[DELIVERY FAILURE] Both Email and WhatsApp failed.');
       return response.status(502).json({
         success: false,
-        stage: 'SMTP',
-        error: emailResult.reason?.error || emailResult.reason?.message || 'SMTP Authentication or network failed'
+        stage: 'DELIVERY',
+        message: 'All notification services failed: ' + (emailResult.reason?.error || emailResult.reason?.message || twilioResult.reason?.message || 'Authentication or network failed')
+      });
+    }
+
+    if (!emailSent && twilioSent) {
+      console.warn('[PARTIAL SUCCESS] WhatsApp sent but Email failed.');
+      return response.status(200).json({
+        success: true,
+        message: 'Inquiry was sent via WhatsApp. Email notification is delayed.',
+        stage: 'SMTP_FALLBACK'
       });
     }
 

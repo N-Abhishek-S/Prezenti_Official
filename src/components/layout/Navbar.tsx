@@ -216,11 +216,8 @@ export function Navbar() {
         </div>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <Button type="button" variant="outline" size="sm" onClick={() => goToSection('contact')}>
-            Contact Us
-          </Button>
-          <Button type="button" variant="primary" size="sm" onClick={() => goToSection('contact')}>
-            Get Staffing Solutions
+          <Button type="button" variant="primary" size="sm" onClick={() => navigate('/talk-to-us')}>
+            Talk to Expert
           </Button>
         </div>
 
@@ -271,11 +268,8 @@ export function Navbar() {
             </div>
           </div>
 
-          <Button type="button" variant="outline" size="md" className="mt-3 w-full" onClick={() => goToSection('contact')}>
-            Contact Us
-          </Button>
-          <Button type="button" variant="primary" size="md" className="mt-3 w-full" onClick={() => goToSection('contact')}>
-            Get Staffing Solutions
+          <Button type="button" variant="primary" size="md" className="mt-3 w-full" onClick={() => { setMobileOpen(false); navigate('/talk-to-us'); }}>
+            Talk to Expert
           </Button>
         </div>
       )}

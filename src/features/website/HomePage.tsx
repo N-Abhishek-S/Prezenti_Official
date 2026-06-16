@@ -6,6 +6,11 @@ import { ContactSection } from './sections/ContactSection';
 import { ImpactSection } from './sections/ImpactSection';
 import { LocationSection } from './sections/LocationSection';
 import { ServiceConfiguratorSection } from './sections/ServiceConfiguratorSection';
+import { ServiceCards } from '../../components/sections/ServiceCards';
+import { TrustSection } from '../../components/sections/TrustSection';
+import { IndustriesWeServe } from '../../components/sections/IndustriesWeServe';
+import { FollowPrezenti } from '../../components/sections/FollowPrezenti';
+import { ContactSection as ContactFormSection } from '../../components/sections/ContactSection';
 import { SEO } from '../../seo/SEO';
 import { StructuredData } from '../../seo/StructuredData';
 import { SEO_CONSTANTS } from '../../seo/constants';
@@ -44,6 +49,11 @@ export function HomePage() {
       <ServiceConfiguratorSection />
       <ImpactSection />
       <LocationSection />
+      <ServiceCards />
+      <TrustSection />
+      <IndustriesWeServe />
+      <FollowPrezenti />
+      <ContactFormSection />
       <ContactSection />
     </div>
   );

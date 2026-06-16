@@ -134,10 +134,7 @@ export function Navbar() {
     scrollToSection(sectionId);
   };
 
-  const goToTalkPage = () => {
-    setMobileOpen(false);
-    navigate('/talk-to-us');
-  };
+
 
   return (
     <nav
@@ -219,8 +216,11 @@ export function Navbar() {
         </div>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <Button type="button" variant="primary" size="sm" onClick={goToTalkPage}>
-            Talk to Expert
+          <Button type="button" variant="outline" size="sm" onClick={() => goToSection('contact')}>
+            Contact Us
+          </Button>
+          <Button type="button" variant="primary" size="sm" onClick={() => goToSection('contact')}>
+            Request a Quote
           </Button>
         </div>
 
@@ -271,8 +271,11 @@ export function Navbar() {
             </div>
           </div>
 
-          <Button type="button" variant="primary" size="md" className="mt-3 w-full" onClick={goToTalkPage}>
-            Talk to Expert
+          <Button type="button" variant="outline" size="md" className="mt-3 w-full" onClick={() => goToSection('contact')}>
+            Contact Us
+          </Button>
+          <Button type="button" variant="primary" size="md" className="mt-3 w-full" onClick={() => goToSection('contact')}>
+            Request a Quote
           </Button>
         </div>
       )}

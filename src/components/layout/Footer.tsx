@@ -66,24 +66,18 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">Company & Legal</h4>
+            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">Contact</h4>
             <ul className="flex flex-col gap-2">
+              <li className="text-sm text-white/60 mb-1">+91 8788726752</li>
+              <li className="text-sm text-white/60 mb-1">weprezenti@gmail.com</li>
+              <li className="text-sm text-white/60 mb-1">Pune, Maharashtra, India</li>
               <li>
                 <button
                   type="button"
-                  className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20 rounded-sm"
+                  className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20 rounded-sm mt-2"
                   onClick={() => goToSection('contact')}
                 >
-                  Contact
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20 rounded-sm"
-                  onClick={() => navigate('/login')}
-                >
-                  Open App
+                  Contact Form
                 </button>
               </li>
               <li><Link to="/privacy-policy" className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20">Privacy Policy</Link></li>
@@ -104,11 +98,13 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col gap-4 border-t border-white/10 pt-8 text-sm sm:flex-row sm:items-center sm:justify-between">
-          <div>&copy; 2026 Prezenti. All rights reserved.</div>
+          <div>&copy; 2026 Prezenti Staffing Services. All rights reserved.</div>
           <div className="flex gap-4">
-            <span aria-label="LinkedIn" className="text-lg text-white/50 no-underline transition-colors hover:text-white cursor-pointer">in</span>
-            <span aria-label="X (Twitter)" className="text-lg text-white/50 no-underline transition-colors hover:text-white cursor-pointer">x</span>
-            <a href="mailto:bd@kargar.co.in" aria-label="Email" className="text-lg text-white/50 no-underline transition-colors hover:text-white">@</a>
+            <a href="https://x.com/PrezentiOffici" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="text-lg text-white/50 no-underline transition-colors hover:text-white">X</a>
+            <a href="https://www.youtube.com/@PrezentiStaffingServices" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-lg text-white/50 no-underline transition-colors hover:text-white">YouTube</a>
+            <a href="https://www.instagram.com/prezentiofficial/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-lg text-white/50 no-underline transition-colors hover:text-white">Instagram</a>
+            <a href="https://www.facebook.com/profile.php?id=61590792212198" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-lg text-white/50 no-underline transition-colors hover:text-white">Facebook</a>
+            <a href="mailto:weprezenti@gmail.com" aria-label="Email" className="text-lg text-white/50 no-underline transition-colors hover:text-white">Email</a>
           </div>
         </div>
       </div>

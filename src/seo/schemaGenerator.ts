@@ -8,14 +8,17 @@ export const generateOrganizationSchema = () => ({
   logo: `${SEO_CONSTANTS.BASE_URL}/logo.png`,
   contactPoint: {
     '@type': 'ContactPoint',
-    telephone: '+91-1234567890', // To be updated
+    telephone: SEO_CONSTANTS.PHONE,
+    email: SEO_CONSTANTS.CONTACT_EMAIL,
     contactType: 'customer service',
     areaServed: 'IN',
     availableLanguage: ['en', 'hi', 'mr'],
   },
   sameAs: [
-    'https://www.linkedin.com/company/prezenti',
-    'https://www.facebook.com/prezenti',
+    SEO_CONSTANTS.SOCIAL_LINKS.YOUTUBE,
+    SEO_CONSTANTS.SOCIAL_LINKS.INSTAGRAM,
+    SEO_CONSTANTS.SOCIAL_LINKS.FACEBOOK,
+    SEO_CONSTANTS.SOCIAL_LINKS.X
   ],
 });
 
@@ -26,7 +29,8 @@ export const generateLocalBusinessSchema = (areaServed: string = 'Pune') => ({
   image: `${SEO_CONSTANTS.BASE_URL}/og-image.jpg`,
   '@id': `${SEO_CONSTANTS.BASE_URL}/#localbusiness`,
   url: SEO_CONSTANTS.BASE_URL,
-  telephone: '+91-1234567890', // To be updated
+  telephone: SEO_CONSTANTS.PHONE,
+  email: SEO_CONSTANTS.CONTACT_EMAIL,
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Corporate HQ, Phase 1',
@@ -48,4 +52,32 @@ export const generateLocalBusinessSchema = (areaServed: string = 'Pune') => ({
     opens: '09:00',
     closes: '18:00'
   }
+});
+
+export const generateFaqSchema = (faqs: { question: string, answer: string }[]) => ({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(faq => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer
+    }
+  }))
+});
+
+export const generateServiceSchema = (serviceName: string, description: string) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: serviceName,
+  provider: {
+    '@type': 'LocalBusiness',
+    name: SEO_CONSTANTS.SITE_NAME
+  },
+  areaServed: {
+    '@type': 'State',
+    name: 'Maharashtra'
+  },
+  description: description
 });

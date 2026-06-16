@@ -9,10 +9,18 @@ export const SEO_CONSTANTS = {
   LOCALE: 'en_IN',
   THEME_COLOR: '#123f35',
 
-  CONTACT_EMAIL: 'bd@kargar.co.in',
+  CONTACT_EMAIL: 'weprezenti@gmail.com',
+  PHONE: '+91 8788726752',
+  WHATSAPP: 'https://wa.me/918788726752',
   CITY: 'Pune',
   STATE: 'Maharashtra',
   COUNTRY: 'IN',
+  SOCIAL_LINKS: {
+    YOUTUBE: 'https://www.youtube.com/@PrezentiStaffingServices',
+    INSTAGRAM: 'https://www.instagram.com/prezentiofficial/',
+    FACEBOOK: 'https://www.facebook.com/profile.php?id=61590792212198',
+    X: 'https://x.com/PrezentiOffici'
+  },
   AREA_SERVED: [
     'Pune',
     'Mumbai',

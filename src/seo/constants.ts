@@ -19,7 +19,8 @@ export const SEO_CONSTANTS = {
     YOUTUBE: 'https://www.youtube.com/@PrezentiStaffingServices',
     INSTAGRAM: 'https://www.instagram.com/prezentiofficial/',
     FACEBOOK: 'https://www.facebook.com/profile.php?id=61590792212198',
-    X: 'https://x.com/PrezentiOffici'
+    X: 'https://x.com/PrezentiOffici',
+    LINKEDIN: 'https://www.linkedin.com/company/prezenti-staffing-services'
   },
   AREA_SERVED: [
     'Pune',

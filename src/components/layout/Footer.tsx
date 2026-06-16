@@ -1,6 +1,9 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { BrandLogo } from '../brand/BrandLogo';
+import { Mail } from 'lucide-react';
+import { YoutubeIcon, InstagramIcon, FacebookIcon, TwitterIcon, LinkedinIcon } from '../ui/SocialIcons';
 import { publicSections, scrollToSection, setPendingSection, type PublicSectionId } from '../../lib/sectionNavigation';
+import { SEO_CONSTANTS } from '../../seo/constants';
 
 export function Footer() {
   const location = useLocation();
@@ -100,11 +103,24 @@ export function Footer() {
         <div className="flex flex-col gap-4 border-t border-white/10 pt-8 text-sm sm:flex-row sm:items-center sm:justify-between">
           <div>&copy; 2026 Prezenti Staffing Services. All rights reserved.</div>
           <div className="flex gap-4">
-            <a href="https://x.com/PrezentiOffici" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="text-lg text-white/50 no-underline transition-colors hover:text-white">X</a>
-            <a href="https://www.youtube.com/@PrezentiStaffingServices" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-lg text-white/50 no-underline transition-colors hover:text-white">YouTube</a>
-            <a href="https://www.instagram.com/prezentiofficial/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-lg text-white/50 no-underline transition-colors hover:text-white">Instagram</a>
-            <a href="https://www.facebook.com/profile.php?id=61590792212198" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-lg text-white/50 no-underline transition-colors hover:text-white">Facebook</a>
-            <a href="mailto:weprezenti@gmail.com" aria-label="Email" className="text-lg text-white/50 no-underline transition-colors hover:text-white">Email</a>
+            <a href={SEO_CONSTANTS.SOCIAL_LINKS?.FACEBOOK || '#'} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-white/50 transition-colors hover:text-[#1877F2]">
+              <FacebookIcon className="h-5 w-5" />
+            </a>
+            <a href={SEO_CONSTANTS.SOCIAL_LINKS?.INSTAGRAM || '#'} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-white/50 transition-colors hover:text-[#E1306C]">
+              <InstagramIcon className="h-5 w-5" />
+            </a>
+            <a href={SEO_CONSTANTS.SOCIAL_LINKS?.X || '#'} target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="text-white/50 transition-colors hover:text-white">
+              <TwitterIcon className="h-5 w-5" />
+            </a>
+            <a href={SEO_CONSTANTS.SOCIAL_LINKS?.LINKEDIN || '#'} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-white/50 transition-colors hover:text-[#0A66C2]">
+              <LinkedinIcon className="h-5 w-5" />
+            </a>
+            <a href={SEO_CONSTANTS.SOCIAL_LINKS?.YOUTUBE || '#'} target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-white/50 transition-colors hover:text-[#FF0000]">
+              <YoutubeIcon className="h-5 w-5" />
+            </a>
+            <a href={`mailto:${SEO_CONSTANTS.CONTACT_EMAIL}`} aria-label="Email" className="text-white/50 transition-colors hover:text-white">
+              <Mail className="h-5 w-5" />
+            </a>
           </div>
         </div>
       </div>

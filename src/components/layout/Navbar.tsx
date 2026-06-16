@@ -220,7 +220,7 @@ export function Navbar() {
             Contact Us
           </Button>
           <Button type="button" variant="primary" size="sm" onClick={() => goToSection('contact')}>
-            Request a Quote
+            Get Staffing Solutions
           </Button>
         </div>
 
@@ -275,7 +275,7 @@ export function Navbar() {
             Contact Us
           </Button>
           <Button type="button" variant="primary" size="md" className="mt-3 w-full" onClick={() => goToSection('contact')}>
-            Request a Quote
+            Get Staffing Solutions
           </Button>
         </div>
       )}

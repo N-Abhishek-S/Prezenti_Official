@@ -58,7 +58,7 @@ export function SEO({
       
       {/* Dynamic Hero Preloads */}
       {preloadImageUrl && (
-        <link rel="preload" as="image" href={preloadImageUrl.startsWith('http') ? preloadImageUrl : `${SEO_CONSTANTS.BASE_URL}${preloadImageUrl}`} fetchPriority="high" />
+        <link rel="preload" as="image" href={preloadImageUrl.startsWith('http') ? preloadImageUrl : preloadImageUrl} fetchPriority="high" />
       )}
 
       {/* Canonical */}

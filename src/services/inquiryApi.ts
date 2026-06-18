@@ -6,11 +6,19 @@ const requestTimeoutMs = 18_000;
 export interface SendInquiryResponse {
   success: boolean;
   message: string;
+  emailSent?: boolean;
+  twilioSent?: boolean;
+  dbSaved?: boolean;
+  partialSuccess?: boolean;
 }
 
 interface InquiryApiResponse {
   success?: boolean;
   message?: string;
+  emailSent?: boolean;
+  twilioSent?: boolean;
+  dbSaved?: boolean;
+  partialSuccess?: boolean;
 }
 
 function createSubmissionId() {
@@ -59,6 +67,10 @@ export async function sendExpertInquiry(payload: ExpertInquiryFormValues): Promi
     return {
       success: true,
       message: data.message || 'Inquiry sent successfully. Our team has been notified.',
+      emailSent: data.emailSent,
+      twilioSent: data.twilioSent,
+      dbSaved: data.dbSaved,
+      partialSuccess: data.partialSuccess,
     };
   } catch (error) {
     if (error instanceof DOMException && error.name === 'AbortError') {

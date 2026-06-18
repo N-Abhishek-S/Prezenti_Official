@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import nodemailer from 'nodemailer';
+import { createClient } from '@supabase/supabase-js';
 
 interface ApiRequest {
   method?: string;
@@ -24,7 +25,7 @@ const allowedServices = [
   'Receptionist',
 ];
 
-const successMessage = 'Inquiry sent successfully. Our team has been notified.';
+const successMessage = 'Inquiry received successfully. Our team has been notified.';
 const requestTimeoutMs = 18_000;
 const maxJsonBodyBytes = 32_000;
 
@@ -52,6 +53,8 @@ interface NotificationConfig {
   smtpPort: number;
   smtpUser: string;
   smtpPass: string;
+  supabaseUrl: string;
+  supabaseKey: string;
   emailTo: string;
   twilioAccountSid: string;
   twilioAuthToken: string;
@@ -86,7 +89,9 @@ function getConfig(): NotificationConfig {
     smtpPort: Number.isFinite(smtpPort) ? smtpPort : 587,
     smtpUser,
     smtpPass: process.env.SMTP_PASS || '',
-    emailTo: process.env.INQUIRY_EMAIL_TO || smtpUser,
+    supabaseUrl: process.env.VITE_SUPABASE_URL || '',
+    supabaseKey: process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY || '',
+    emailTo: process.env.INQUIRY_EMAIL_TO || '',
     twilioAccountSid: process.env.TWILIO_ACCOUNT_SID || '',
     twilioAuthToken: process.env.TWILIO_AUTH_TOKEN || '',
     twilioWhatsAppFrom: process.env.TWILIO_WHATSAPP_FROM || '',
@@ -99,7 +104,9 @@ function assertConfig(config: NotificationConfig) {
   const missing = [
     ['SMTP_USER', config.smtpUser],
     ['SMTP_PASS', config.smtpPass],
-    ['INQUIRY_EMAIL_TO or SMTP_USER', config.emailTo],
+    ['VITE_SUPABASE_URL', config.supabaseUrl],
+    ['SUPABASE_SERVICE_ROLE_KEY or VITE_SUPABASE_ANON_KEY', config.supabaseKey],
+    ['INQUIRY_EMAIL_TO', config.emailTo],
     ['TWILIO_ACCOUNT_SID', config.twilioAccountSid],
     ['TWILIO_AUTH_TOKEN', config.twilioAuthToken],
     ['TWILIO_WHATSAPP_FROM', config.twilioWhatsAppFrom],
@@ -107,7 +114,7 @@ function assertConfig(config: NotificationConfig) {
   ].filter(([, value]) => !value);
 
   if (missing.length > 0) {
-    throw new Error(`Missing notification configuration: ${missing.map(([key]) => key).join(', ')}`);
+    throw new Error(`Missing configuration: ${missing.map(([key]) => key).join(', ')}`);
   }
 }
 
@@ -285,42 +292,6 @@ function escapeHtml(value: string) {
     .replace(/'/g, '&#39;');
 }
 
-function buildEmailBody(payload: ExpertInquiryFormValues, timestamp: string) {
-  const selectedServices = getSelectedServices(payload);
-  const additionalRequirement = getDisplayValue(payload.additionalRequirement, 'No additional requirement provided.');
-
-  return [
-    'New Business Inquiry | Prezenti',
-    '',
-    'Hello Team,',
-    '',
-    'A new business inquiry has been submitted through the Prezenti website.',
-    '',
-    'Customer Information:',
-    `Full Name: ${payload.fullName}`,
-    `Mobile Number: ${payload.mobileNumber}`,
-    `Email Address: ${payload.email}`,
-    `Company Name: ${payload.companyName}`,
-    `Location / Area: ${payload.location}`,
-    '',
-    'Service Requirement:',
-    `Required Start Date: ${formatDisplayDate(payload.requiredStartDate)}`,
-    `Selected Services: ${selectedServices}`,
-    '',
-    'Additional Requirement:',
-    additionalRequirement,
-    '',
-    'Submission Details:',
-    'Source: Prezenti Website - Talk To Expert',
-    `Submitted At: ${timestamp}`,
-    '',
-    'Please review this inquiry and connect with the customer at the earliest convenience.',
-    '',
-    'Regards,',
-    'Prezenti Automated Notification System',
-  ].join('\n');
-}
-
 function buildEmailHtmlBody(payload: ExpertInquiryFormValues, timestamp: string) {
   const selectedServices = getSelectedServices(payload);
   const additionalRequirement = getDisplayValue(payload.additionalRequirement, 'No additional requirement provided.');
@@ -462,6 +433,39 @@ async function withTimeout<T>(operation: Promise<T>, message: string): Promise<T
   }
 }
 
+async function storeInquiry(config: NotificationConfig, payload: ExpertInquiryFormValues) {
+  try {
+    const supabase = createClient(config.supabaseUrl, config.supabaseKey);
+
+    // Using a typical 'inquiries' table name. Ensure this table is created in Supabase.
+    const { error } = await supabase
+      .from('inquiries')
+      .insert([
+        {
+          name: payload.fullName,
+          phone: payload.mobileNumber,
+          email: payload.email,
+          company: payload.companyName,
+          location: payload.location,
+          required_start_date: payload.requiredStartDate,
+          services: payload.services,
+          categories: payload.categories,
+          message: payload.additionalRequirement,
+        },
+      ]);
+
+    if (error) {
+      throw error;
+    }
+
+    console.log('[SUPABASE SUCCESS] Inquiry stored in database.');
+    return true;
+  } catch (err: any) {
+    console.error('[SUPABASE ERROR] Failed to store inquiry:', err.message);
+    throw { stage: 'DATABASE', error: err.message || 'Database insert failed' };
+  }
+}
+
 async function sendEmail(config: NotificationConfig, payload: ExpertInquiryFormValues, timestamp: string) {
   try {
     const transporter = nodemailer.createTransport({
@@ -483,7 +487,6 @@ async function sendEmail(config: NotificationConfig, payload: ExpertInquiryFormV
         to: config.emailTo,
         replyTo: payload.email,
         subject: 'New Business Inquiry | Prezenti',
-        text: buildEmailBody(payload, timestamp),
         html: buildEmailHtmlBody(payload, timestamp),
       }),
       'Email notification timed out.',
@@ -611,27 +614,6 @@ export default async function handler(request: ApiRequest, response: ApiResponse
 
   try {
     config = getConfig();
-    
-    // Step 4: Verify all required variables exist
-    const requiredVars = {
-      SMTP_HOST: !!process.env.SMTP_HOST,
-      SMTP_PORT: !!process.env.SMTP_PORT,
-      SMTP_USER: !!process.env.SMTP_USER,
-      SMTP_PASS: !!process.env.SMTP_PASS,
-      INQUIRY_EMAIL_TO: !!process.env.INQUIRY_EMAIL_TO,
-      TWILIO_ACCOUNT_SID: !!process.env.TWILIO_ACCOUNT_SID,
-      TWILIO_AUTH_TOKEN: !!process.env.TWILIO_AUTH_TOKEN,
-      TWILIO_WHATSAPP_FROM: !!process.env.TWILIO_WHATSAPP_FROM,
-      TWILIO_WHATSAPP_TO: !!process.env.TWILIO_WHATSAPP_TO
-    };
-    
-    const missingVars = Object.entries(requiredVars).filter(([_, exists]) => !exists).map(([key]) => key);
-    
-    console.log('[CONFIG CHECK] Loaded Variables:', Object.entries(requiredVars).filter(([_, exists]) => exists).map(([key]) => key).join(', '));
-    if (missingVars.length > 0) {
-      console.log('[CONFIG CHECK] Missing Variables:', missingVars.join(', '));
-    }
-    
     assertConfig(config);
   } catch (error: any) {
     console.error('[CONFIG ERROR]', error.message);
@@ -640,8 +622,19 @@ export default async function handler(request: ApiRequest, response: ApiResponse
 
   try {
     const timestamp = formatTimestamp(requestBody.submittedAt);
-    
-    // Process deliveries
+
+    // Process database storage first
+    let dbSaved = false;
+    let dbError = null;
+    try {
+      await storeInquiry(config, validation.sanitized);
+      dbSaved = true;
+    } catch (err: any) {
+      dbError = err;
+      // If db fails, we still want to try sending notifications so we don't completely lose the lead
+    }
+
+    // Process delivery channels concurrently
     const emailPromise = sendEmail(config, validation.sanitized, timestamp);
     const twilioPromise = sendWhatsApp(config, validation.sanitized, timestamp);
 
@@ -651,37 +644,49 @@ export default async function handler(request: ApiRequest, response: ApiResponse
     const twilioSent = twilioResult.status === 'fulfilled';
 
     // Logging exact outcomes
-    console.log('[SMTP RESULT]', emailSent ? `MessageId: ${emailResult.value.messageId}, Response: ${emailResult.value.response}` : JSON.stringify(emailResult.reason));
-    console.log('[TWILIO RESULT]', twilioSent ? `SID: ${twilioResult.value.sid}, Status: ${twilioResult.value.status}` : JSON.stringify(twilioResult.reason));
+    if (!emailSent) console.error('[EMAIL FAILURE]', emailResult.reason);
+    if (!twilioSent) console.error('[WHATSAPP FAILURE]', twilioResult.reason);
 
-    if (!emailSent && !twilioSent) {
-      console.error('[DELIVERY FAILURE] Both Email and WhatsApp failed.');
+    // Logging complete transaction status
+    console.log(JSON.stringify({
+      inquiryId: requestBody.submissionId,
+      timestamp: new Date().toISOString(),
+      emailStatus: emailSent ? 'SUCCESS' : 'FAILED',
+      whatsappStatus: twilioSent ? 'SUCCESS' : 'FAILED',
+      dbStatus: dbSaved ? 'SUCCESS' : 'FAILED'
+    }));
+
+    if (!dbSaved && !emailSent && !twilioSent) {
       return response.status(502).json({
         success: false,
         stage: 'DELIVERY',
-        message: 'All notification services failed: ' + (emailResult.reason?.error || emailResult.reason?.message || twilioResult.reason?.message || 'Authentication or network failed')
+        message: 'All systems failed to process the inquiry. Please try again.',
+        emailSent,
+        twilioSent,
+        dbSaved
       });
     }
 
-    if (!emailSent && twilioSent) {
-      console.warn('[PARTIAL SUCCESS] WhatsApp sent but Email failed.');
-      return response.status(200).json({
-        success: true,
-        message: 'Inquiry was sent via WhatsApp. Email notification is delayed.',
-        stage: 'SMTP_FALLBACK'
-      });
+    let finalMessage = successMessage;
+
+    if (!emailSent && !twilioSent && dbSaved) {
+      finalMessage = 'Inquiry was saved securely, but instant notifications are delayed. Our team will check the system and follow up.';
+    } else if (!emailSent) {
+      finalMessage = 'Inquiry received. Inquiry was sent via WhatsApp. Email notification is delayed.';
+    } else if (!twilioSent) {
+      finalMessage = 'Inquiry received. Email notification was sent. WhatsApp notification is delayed.';
+    } else if (!dbSaved) {
+      finalMessage = 'Inquiry sent via Email and WhatsApp. Database archiving failed.';
     }
 
-    if (emailSent && !twilioSent) {
-      console.warn('[PARTIAL SUCCESS] Email sent but WhatsApp failed.');
-      return response.status(200).json({
-        success: true,
-        message: 'Inquiry was sent to our email team. WhatsApp notification is delayed.',
-        stage: 'TWILIO_FALLBACK'
-      });
-    }
-
-    return response.status(200).json({ success: true, message: successMessage });
+    return response.status(200).json({
+      success: true,
+      message: finalMessage,
+      emailSent,
+      twilioSent,
+      dbSaved,
+      partialSuccess: (!emailSent || !twilioSent || !dbSaved)
+    });
   } catch (error: any) {
     console.error('[CRITICAL HANDLER ERROR]', error);
     return response.status(500).json({ success: false, stage: 'INTERNAL', error: error.message });

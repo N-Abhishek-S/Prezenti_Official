@@ -1,6 +1,6 @@
 import { useEffect, useId, useState, type FormEvent } from 'react';
 import { motion } from 'framer-motion';
-import { AlertCircle, CalendarDays, Check, CheckCircle2, Loader2, PhoneCall, School, Send, ShieldCheck, Utensils, Building2, Building, Home, HeartPulse } from 'lucide-react';
+import { CalendarDays, Check, CheckCircle2, Loader2, PhoneCall, School, Send, ShieldCheck, Utensils, Building2, Building, Home, HeartPulse } from 'lucide-react';
 import { toast } from 'sonner';
 import { Button } from '../ui/Button';
 import { cn } from '../../lib/cn';
@@ -71,12 +71,10 @@ function SuccessState({
   compact,
   message,
   onReset,
-  partialSuccess,
 }: {
   compact: boolean;
   message: string;
   onReset: () => void;
-  partialSuccess?: boolean;
 }) {
   return (
     <motion.div
@@ -84,15 +82,13 @@ function SuccessState({
       animate={{ opacity: 1, y: 0 }}
       className={cn('mx-auto w-full', compact ? 'max-w-3xl' : 'max-w-4xl')}
     >
-      <div className={cn("rounded-lg border bg-white p-6 shadow-[0_24px_70px_rgba(15,23,42,0.10)] sm:p-8", partialSuccess ? "border-warning-300" : "border-success-100")}>
+      <div className="rounded-lg border border-success-100 bg-white p-6 shadow-[0_24px_70px_rgba(15,23,42,0.10)] sm:p-8">
         <div className="flex flex-col items-start gap-5 sm:flex-row">
-          <span className={cn("flex h-12 w-12 shrink-0 items-center justify-center rounded-lg", partialSuccess ? "bg-warning-50 text-warning-600" : "bg-success-50 text-success-600")}>
-            {partialSuccess ? <AlertCircle size={26} /> : <CheckCircle2 size={26} />}
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-success-50 text-success-600">
+            <CheckCircle2 size={26} />
           </span>
           <div className="min-w-0 flex-1">
-            <h2 className="text-2xl font-semibold tracking-tight text-neutral-950">
-              {partialSuccess ? 'Inquiry saved' : 'Inquiry received'}
-            </h2>
+            <h2 className="text-2xl font-semibold tracking-tight text-neutral-950">Inquiry received</h2>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600">{message}</p>
             <Button type="button" variant="secondary" size="lg" className="mt-6" onClick={onReset}>
               Send another inquiry
@@ -205,7 +201,6 @@ export function TalkToExpertForm({
         compact={compact}
         message={response.message}
         onReset={() => setResponse(null)}
-        partialSuccess={response.partialSuccess}
       />
     );
   }

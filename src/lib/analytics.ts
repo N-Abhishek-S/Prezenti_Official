@@ -42,8 +42,9 @@ export function initializeAnalytics() {
   }
 
   window.dataLayer = window.dataLayer ?? [];
-  window.gtag = window.gtag ?? function gtag(...args: Parameters<Gtag>) {
-    window.dataLayer?.push(args);
+  window.gtag = window.gtag ?? function gtag() {
+    // eslint-disable-next-line prefer-rest-params
+    window.dataLayer?.push(arguments);
   };
 
   if (!document.getElementById(GA_SCRIPT_ID)) {

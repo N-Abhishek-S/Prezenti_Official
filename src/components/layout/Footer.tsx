@@ -91,10 +91,10 @@ export function Footer() {
           <div>
             <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">Service Areas</h4>
             <ul className="flex flex-col gap-2">
-              <li><Link to="/housekeeping-services-pune" className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20">Housekeeping in Pune</Link></li>
-              <li><Link to="/security-services-mumbai" className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20">Security in Mumbai</Link></li>
-              <li><Link to="/receptionist-staffing-services-thane" className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20">Receptionists in Thane</Link></li>
-              <li><Link to="/office-boy-services-navi-mumbai" className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20">Office Boys in Navi Mumbai</Link></li>
+              <li><Link to="/housekeeping-services-pune" className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20">Corporate Housekeeping in Pune</Link></li>
+              <li><Link to="/office-boy-services-pune" className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20">Hire Office Boys in Pune</Link></li>
+              <li><Link to="/pantry-staff-services-pune" className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20">Pantry Staff Services in Pune</Link></li>
+              <li><Link to="/facility-management-services-pune" className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20">Facility Management in Pune</Link></li>
               <li><Link to="/pune" className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20">All Services in Pune</Link></li>
             </ul>
           </div>

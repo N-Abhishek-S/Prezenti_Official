@@ -72,7 +72,19 @@ const generateLongContent = (serviceName: string) => [
   }
 ];
 
-export const generateLocalizedContent = (serviceName: string, locationName: string): ContentSection[] => [
+import { housekeepingPuneContent } from './pune/housekeeping_pune_content';
+import { officeBoyPuneContent } from './pune/office_boy_pune_content';
+import { pantryStaffPuneContent } from './pune/pantry_staff_pune_content';
+import { facilityManagementPuneContent } from './pune/facility_management_pune_content';
+
+export const generateLocalizedContent = (serviceName: string, locationName: string, serviceSlug?: string, locationSlug?: string): ContentSection[] => {
+  if (locationSlug === 'pune') {
+    if (serviceSlug === 'housekeeping-services') return housekeepingPuneContent;
+    if (serviceSlug === 'office-boy-services') return officeBoyPuneContent;
+    if (serviceSlug === 'pantry-staff-services') return pantryStaffPuneContent;
+    if (serviceSlug === 'facility-management-services') return facilityManagementPuneContent;
+  }
+  return [
   {
     title: `${serviceName} in ${locationName}: Local Business Context`,
     paragraphs: [
@@ -111,7 +123,8 @@ export const generateLocalizedContent = (serviceName: string, locationName: stri
       "Increased agility to scale operations up or down as business demands fluctuate."
     ]
   }
-];
+  ];
+};
 
 export const servicesData: Record<string, ServiceData> = {
   'housekeeping-services': {

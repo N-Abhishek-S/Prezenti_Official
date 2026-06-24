@@ -9,6 +9,11 @@ import { FaqAccordion } from '../components/ui/FaqAccordion';
 import { ServiceCta } from '../components/ui/ServiceCta';
 import { motion } from 'framer-motion';
 import { SEO_CONSTANTS } from '../seo/constants';
+import { housekeepingPuneSEO, housekeepingPuneFAQs } from '../data/pune/housekeeping_pune_content';
+import { officeBoyPuneSEO, officeBoyPuneFAQs } from '../data/pune/office_boy_pune_content';
+import { pantryStaffPuneSEO, pantryStaffPuneFAQs } from '../data/pune/pantry_staff_pune_content';
+import { facilityManagementPuneSEO, facilityManagementPuneFAQs } from '../data/pune/facility_management_pune_content';
+import { generatePuneSchema } from '../data/pune/seo_schema_and_linking';
 
 interface Props {
   service: ServiceData;
@@ -24,20 +29,10 @@ export function LocationServiceLandingPage({ service, location }: Props) {
     return <Navigate to="/" replace />;
   }
 
-  const pageTitle = `${service.h1} ${location.h1Prefix}`;
-  const seoTitle = `${service.seoTitle.split('|')[0].trim()} ${location.seoTitlePrefix}`;
-  const seoDescription = `${service.seoDescription.replace('.', '')} ${location.seoDescriptionPrefix}`;
-  
-  const breadcrumbs = [
-    { name: 'Services', url: '/services' },
-    { name: service.seoTitle.split('|')[0].trim(), url: `/${service.slug}` },
-    { name: location.name, url: `/${service.slug}-${location.slug}` }
-  ];
-  
-  const canonicalUrl = `${SEO_CONSTANTS.BASE_URL}/${service.slug}-${location.slug}`;
-
-  // Localized FAQs
-  const localFaqs = service.faqs.map(faq => ({
+  let pageTitle = `${service.h1} ${location.h1Prefix}`;
+  let seoTitle = `${service.seoTitle.split('|')[0].trim()} ${location.seoTitlePrefix}`;
+  let seoDescription = `${service.seoDescription.replace('.', '')} ${location.seoDescriptionPrefix}`;
+  let localFaqs = service.faqs.map(faq => ({
     question: faq.question.includes('?') 
       ? faq.question.replace('?', ` in ${location.name}?`)
       : `${faq.question} in ${location.name}`,
@@ -45,6 +40,43 @@ export function LocationServiceLandingPage({ service, location }: Props) {
       ? faq.answer.replace('we provide', `we provide across ${location.name}`)
       : `${faq.answer} We actively serve clients throughout ${location.name}.`
   }));
+  let customSchema = null;
+
+  if (location.slug === 'pune') {
+    if (service.slug === 'housekeeping-services') {
+      pageTitle = housekeepingPuneSEO.h1;
+      seoTitle = housekeepingPuneSEO.metaTitle;
+      seoDescription = housekeepingPuneSEO.metaDescription;
+      localFaqs = housekeepingPuneFAQs;
+      customSchema = generatePuneSchema(pageTitle, `${service.slug}-${location.slug}`, seoDescription);
+    } else if (service.slug === 'office-boy-services') {
+      pageTitle = officeBoyPuneSEO.h1;
+      seoTitle = officeBoyPuneSEO.metaTitle;
+      seoDescription = officeBoyPuneSEO.metaDescription;
+      localFaqs = officeBoyPuneFAQs;
+      customSchema = generatePuneSchema(pageTitle, `${service.slug}-${location.slug}`, seoDescription);
+    } else if (service.slug === 'pantry-staff-services') {
+      pageTitle = pantryStaffPuneSEO.h1;
+      seoTitle = pantryStaffPuneSEO.metaTitle;
+      seoDescription = pantryStaffPuneSEO.metaDescription;
+      localFaqs = pantryStaffPuneFAQs;
+      customSchema = generatePuneSchema(pageTitle, `${service.slug}-${location.slug}`, seoDescription);
+    } else if (service.slug === 'facility-management-services') {
+      pageTitle = facilityManagementPuneSEO.h1;
+      seoTitle = facilityManagementPuneSEO.metaTitle;
+      seoDescription = facilityManagementPuneSEO.metaDescription;
+      localFaqs = facilityManagementPuneFAQs;
+      customSchema = generatePuneSchema(pageTitle, `${service.slug}-${location.slug}`, seoDescription);
+    }
+  }
+
+  const breadcrumbs = [
+    { name: 'Services', url: '/services' },
+    { name: service.seoTitle.split('|')[0].trim(), url: `/${service.slug}` },
+    { name: location.name, url: `/${service.slug}-${location.slug}` }
+  ];
+  
+  const canonicalUrl = `${SEO_CONSTANTS.BASE_URL}/${service.slug}-${location.slug}`;
 
   return (
     <main className="bg-canvas pt-24 pb-14 sm:pt-28 lg:pb-20">
@@ -61,26 +93,32 @@ export function LocationServiceLandingPage({ service, location }: Props) {
         ]}
       />
       
-
-      <StructuredData
-        type="Service"
-        data={{
-          name: pageTitle,
-          description: seoDescription,
-          serviceType: service.h1,
-          url: canonicalUrl,
-          areaServed: location.name
-        }}
-      />
-      <StructuredData
-        type="LocalBusiness"
-        data={{
-          name: `${SEO_CONSTANTS.SITE_NAME} - ${location.name}`,
-          description: seoDescription,
-          url: canonicalUrl,
-          city: location.name
-        }}
-      />
+      {customSchema ? (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(customSchema) }} />
+      ) : (
+        <>
+          <StructuredData
+            type="Service"
+            data={{
+              name: pageTitle,
+              description: seoDescription,
+              serviceType: service.h1,
+              url: canonicalUrl,
+              areaServed: location.name
+            }}
+          />
+          <StructuredData
+            type="LocalBusiness"
+            data={{
+              name: `${SEO_CONSTANTS.SITE_NAME} - ${location.name}`,
+              description: seoDescription,
+              url: canonicalUrl,
+              city: location.name
+            }}
+          />
+        </>
+      )}
+      
       <StructuredData type="BreadcrumbList" data={{ breadcrumbs }} />
       <StructuredData type="FAQPage" data={{ faqs: localFaqs }} />
 
@@ -101,20 +139,18 @@ export function LocationServiceLandingPage({ service, location }: Props) {
         </header>
 
         <div className="prose prose-lg prose-neutral max-w-none">
-          {generateLocalizedContent(service.h1, location.name).map((section, idx) => (
+          {generateLocalizedContent(service.h1, location.name, service.slug, location.slug).map((section, idx) => (
             <section key={idx} className="mb-12">
               <h2 className="text-2xl sm:text-3xl font-semibold text-neutral-900 mb-4">
                 {section.title}
               </h2>
               {section.paragraphs.map((p, pIdx) => (
-                <p key={pIdx} className="mb-4 text-neutral-700 leading-relaxed">
-                  {p}
-                </p>
+                <p key={pIdx} className="mb-4 text-neutral-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: p }} />
               ))}
               {section.listItems && (
                 <ul className="list-disc pl-6 mb-4 text-neutral-700">
                   {section.listItems.map((li, liIdx) => (
-                    <li key={liIdx} className="mb-2">{li}</li>
+                    <li key={liIdx} className="mb-2" dangerouslySetInnerHTML={{ __html: li }} />
                   ))}
                 </ul>
               )}

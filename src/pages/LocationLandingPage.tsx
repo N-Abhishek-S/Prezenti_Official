@@ -1,126 +1,148 @@
 import { useEffect } from 'react';
-import { Link, Navigate } from 'react-router-dom';
 import { SEO } from '../seo/SEO';
 import { StructuredData } from '../seo/StructuredData';
-import type { LocationData } from '../data/locations';
-import { servicesData } from '../data/servicesContent';
+import { locationData } from '../content/locations/locationData';
 import { Breadcrumbs } from '../components/ui/Breadcrumbs';
 import { ServiceCta } from '../components/ui/ServiceCta';
 import { motion } from 'framer-motion';
-import { SEO_CONSTANTS } from '../seo/constants';
+import { RelatedContentWidget } from '../components/seo/RelatedContentWidget';
+import { AiSummaryBlock } from '../components/seo/AiSummaryBlock';
+import { Container } from '../components/ui/Container';
+import type { RouteDefinition } from '../app/routes/routeRegistry';
+import { FaqAccordion } from '../components/ui/FaqAccordion';
+import { NotFoundPage } from './NotFoundPage';
 
-export function LocationLandingPage({ location }: { location: LocationData }) {
+interface LocationLandingPageProps {
+  routeDef: RouteDefinition;
+}
+
+export function LocationLandingPage({ routeDef }: LocationLandingPageProps) {
+  const location = locationData[routeDef.dataKey];
+
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-  }, [location.slug]);
+  }, [routeDef.dataKey]);
 
-  if (!location) {
-    return <Navigate to="/" replace />;
+  if (!routeDef?.dataKey || !location) {
+    return <NotFoundPage />;
   }
 
-  const pageTitle = `Facility Management & Corporate Staffing ${location.h1Prefix}`;
-  const seoTitle = `Top Facility Management & Staffing ${location.seoTitlePrefix}`;
-  const seoDescription = location.shortDescription;
-  
   const breadcrumbs = [
-    { name: 'Locations', url: '/' }, // No Locations hub yet, so back to home
-    { name: location.name, url: `/${location.slug}` }
+    { name: 'Locations', url: '/' }, // To be replaced when locations hub is built
+    { name: location.locationName, url: `/locations/${location.slug}` }
   ];
   
-  const canonicalUrl = `${SEO_CONSTANTS.BASE_URL}/${location.slug}`;
+  const canonicalUrl = location.seo.canonical;
 
   return (
     <main className="bg-canvas pt-24 pb-14 sm:pt-28 lg:pb-20">
       <SEO 
-        title={seoTitle}
-        description={seoDescription}
-        canonicalUrl={`/${location.slug}`}
-        keywords={[
-          pageTitle,
-          `facility management ${location.name}`,
-          `corporate staffing ${location.name}`,
-          `housekeeping services ${location.name}`,
-        ]}
+        title={location.title}
+        description={location.description}
+        canonicalUrl={`/locations/${location.slug}`}
+        keywords={location.seo.keywords}
       />
       
       <StructuredData
         type="WebPage"
         data={{
-          name: pageTitle,
-          description: seoDescription,
+          name: location.title,
+          description: location.description,
           url: canonicalUrl,
-        }}
-      />
-      <StructuredData
-        type="LocalBusiness"
-        data={{
-          name: 'Prezenti',
-          description: seoDescription,
-          url: canonicalUrl,
-          areaServed: location.name
         }}
       />
       <StructuredData type="BreadcrumbList" data={{ breadcrumbs }} />
+      {/* Inject LocalBusiness Schema for Location Pages */}
+      <StructuredData 
+        type="LocalBusiness" 
+        data={{
+          name: `Prezenti Facility Management ${location.locationName}`,
+          description: location.description,
+          url: canonicalUrl,
+          areaServed: location.locationName
+        }} 
+      />
 
-      <article className="mx-auto max-w-4xl px-4 sm:px-6">
+      <Container>
         <Breadcrumbs items={breadcrumbs} />
 
-        <header className="mb-12">
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl sm:text-5xl font-bold tracking-tight text-neutral-900 mb-6"
-          >
-            {pageTitle}
-          </motion.h1>
-          <p className="text-xl text-neutral-600 leading-relaxed font-medium">
-            {location.shortDescription} Whether you run an IT park, corporate office, or manufacturing facility, Prezenti is your trusted partner for integrated facility management in {location.name}.
-          </p>
-        </header>
-
-        <div className="prose prose-lg prose-neutral max-w-none mb-16">
-          {location.detailedContent.map((section, idx) => (
-            <section key={idx} className="mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 mb-6">
-                {section.heading}
-              </h2>
-              {section.paragraphs.map((p, pIdx) => (
-                <p key={pIdx} className="mb-4 text-neutral-700 leading-relaxed">
-                  {p}
-                </p>
-              ))}
-            </section>
-          ))}
-        </div>
-
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold text-neutral-900 mb-8">Our Services in {location.name}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {Object.values(servicesData).map((service) => (
-              <Link 
-                key={service.slug} 
-                to={`/${service.slug}-${location.slug}`}
-                className="p-6 rounded-xl border border-neutral-200 hover:border-primary-500 hover:shadow-md transition-all group bg-white flex flex-col"
+        <div className="flex flex-col lg:flex-row gap-12 mt-8">
+          <article className="lg:w-2/3">
+            <header className="mb-12">
+              <motion.h1 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-4xl sm:text-5xl font-bold tracking-tight text-brand-dark mb-6"
               >
-                <h3 className="text-xl font-bold text-neutral-900 group-hover:text-primary-600 transition-colors mb-3">
-                  {service.h1}
-                </h3>
-                <p className="text-neutral-600 grow">
-                  Professional {service.h1.toLowerCase()} tailored for {location.name} businesses.
-                </p>
-                <span className="mt-4 font-semibold text-primary-600 group-hover:text-primary-700 inline-flex items-center">
-                  Learn more <span className="ml-1 group-hover:translate-x-1 transition-transform">→</span>
-                </span>
-              </Link>
-            ))}
-          </div>
-        </section>
+                {location.title}
+              </motion.h1>
+              <p className="text-xl text-brand-muted leading-relaxed border-l-4 border-brand-accent pl-4 mb-8">
+                {location.overview}
+              </p>
 
-        <ServiceCta 
-          title={`Need dedicated staffing in ${location.name}?`} 
-          description="Get in touch with our local team for a quick site audit and customized proposal." 
-        />
-      </article>
+              <AiSummaryBlock 
+                title={`${location.locationName} Facility Management Definition`}
+                summary={`Prezenti delivers enterprise-grade facility management and corporate staffing solutions tailored for ${location.locationName}. Specializing in IT parks and commercial estates, we offer 100% compliant, background-verified support staff.`}
+                entities={['Facility Management', 'Corporate Staffing', 'IT Park Operations', 'Compliance', location.locationName]}
+              />
+            </header>
+
+            <section className="mb-12 prose prose-lg max-w-none text-brand-dark">
+              <h2 className="text-3xl font-bold mb-6">Business Hubs & Commercial Areas</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="bg-white p-6 rounded-xl border border-brand-accent/10 shadow-sm">
+                  <h3 className="text-lg font-semibold mb-4 text-brand-accent">Major IT Parks & Estates</h3>
+                  <ul className="space-y-2">
+                    {location.businessHubs.concat(location.nearbyItParks).map((hub, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm font-medium">
+                        <span className="text-brand-accent font-bold mt-1">•</span>
+                        {hub}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="bg-white p-6 rounded-xl border border-brand-accent/10 shadow-sm">
+                  <h3 className="text-lg font-semibold mb-4 text-brand-accent">Nearby Areas Served</h3>
+                  <ul className="space-y-2">
+                    {location.nearbyAreas.map((area, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm font-medium">
+                        <span className="text-brand-accent font-bold mt-1">•</span>
+                        {area}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            <section className="mb-12 prose prose-lg max-w-none text-brand-dark">
+              <h2 className="text-3xl font-bold mb-6">Local Challenges & Solutions</h2>
+              <ul className="space-y-3 bg-brand-light p-6 rounded-xl border border-brand-accent/20">
+                {location.challenges.map((challenge, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <span className="text-brand-accent font-bold mt-1">✓</span>
+                    {challenge}
+                  </li>
+                ))}
+              </ul>
+            </section>
+            
+            <section className="my-16">
+              <h2 className="text-3xl font-bold text-neutral-900 mb-8">Frequently Asked Questions ({location.locationName})</h2>
+              <FaqAccordion faqs={location.faqs} />
+            </section>
+
+            <ServiceCta 
+              title={`Secure reliable facility management in ${location.locationName}.`} 
+              description="Contact our local operations team today for a rapid site audit and customized staffing plan." 
+            />
+          </article>
+          
+          <aside className="lg:w-1/3">
+            <RelatedContentWidget relationships={location.relationships} title={`${location.locationName} Hub`} />
+          </aside>
+        </div>
+      </Container>
     </main>
   );
 }

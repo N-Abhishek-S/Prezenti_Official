@@ -6,6 +6,8 @@ import { ContactSection } from './sections/ContactSection';
 import { ImpactSection } from './sections/ImpactSection';
 import { LocationSection } from './sections/LocationSection';
 import { ServiceConfiguratorSection } from './sections/ServiceConfiguratorSection';
+import { HomepageFaqSection } from './sections/HomepageFaqSection';
+import { homepageFaqs } from './websiteData';
 
 import { SEO } from '../../seo/SEO';
 import { StructuredData } from '../../seo/StructuredData';
@@ -40,11 +42,13 @@ export function HomePage() {
       />
       <StructuredData type="LocalBusiness" />
       <StructuredData type="WebSite" data={{ description: homepageDescription }} />
+      <StructuredData type="FAQPage" data={{ faqs: homepageFaqs }} />
       <HeroSection />
       <ComparisonSection />
       <ServiceConfiguratorSection />
       <ImpactSection />
       <LocationSection />
+      <HomepageFaqSection />
 
       <ContactSection />
     </div>

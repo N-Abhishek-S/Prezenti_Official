@@ -4,6 +4,7 @@ import { defineConfig, loadEnv } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import Sitemap from 'vite-plugin-sitemap'
+import viteCompression from 'vite-plugin-compression'
 import path from 'path'
 import type { IncomingMessage, ServerResponse } from 'http'
 import fs from 'fs'
@@ -75,10 +76,7 @@ const locationSlugs = [
   'maharashtra'
 ];
 
-// Generate programmatic URLs: /service-location
-const programmaticRoutes = serviceSlugs.flatMap(service => 
-  locationSlugs.map(location => `/${service}-${location}`)
-);
+// Programmatic routes are no longer used since Sprint 7 (Migrated to Location Hubs)
 
 const baseRoutes = [
   '/about',
@@ -90,7 +88,7 @@ const baseRoutes = [
   '/privacy-policy',
   '/terms-and-conditions',
   ...serviceSlugs.map(s => `/${s}`),
-  ...locationSlugs.map(l => `/${l}`)
+  ...locationSlugs.map(l => `/locations/${l}`)
 ];
 
 export default defineConfig({
@@ -98,11 +96,13 @@ export default defineConfig({
     vercelApiPlugin(),
     tailwindcss(),
     react(),
+    viteCompression({ algorithm: 'brotliCompress', ext: '.br' }),
+    viteCompression({ algorithm: 'gzip', ext: '.gz' }),
     Sitemap({
       hostname: 'https://www.prezenti.com',
       generateRobotsTxt: false,
       exclude: ['/404'],
-      dynamicRoutes: [...baseRoutes, ...programmaticRoutes]
+      dynamicRoutes: baseRoutes
     })
   ],
   resolve: {

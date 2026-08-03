@@ -1,4 +1,5 @@
-import { Suspense } from 'react';
+/* eslint-disable react-refresh/only-export-components */
+import { lazy, Suspense } from 'react';
 import type { ReactNode } from 'react';
 import { Navigate, createBrowserRouter } from 'react-router-dom';
 import { PublicLayout } from '../components/layout/PublicLayout';
@@ -6,8 +7,14 @@ import { RouteError } from '../components/errors/RouteError';
 import { HomePage } from '../features/website/HomePage';
 import { RouteFallback } from '../components/layout/RouteFallback';
 import { SectionRedirect } from '../components/layout/SectionRedirect';
-import { TalkToUs, ServicesHubPage, PrivacyPolicy, TermsAndConditions, IndustryLandingPage, BlogHubPage, BlogPostPage, AboutUs } from './lazyRouteComponents';
 import { DynamicRouteResolver } from '../pages/DynamicRouteResolver';
+import { NotFoundPage } from '../pages/NotFoundPage';
+import './routes/index'; // Initialize global route registry
+const ServicesHubPage = lazy(() => import('./lazyRouteComponents').then(m => ({ default: m.ServicesHubPage })));
+const PrivacyPolicy = lazy(() => import('./lazyRouteComponents').then(m => ({ default: m.PrivacyPolicy })));
+const TermsAndConditions = lazy(() => import('./lazyRouteComponents').then(m => ({ default: m.TermsAndConditions })));
+const AboutUs = lazy(() => import('./lazyRouteComponents').then(m => ({ default: m.AboutUs })));
+const TalkToUs = lazy(() => import('../pages/TalkToUs').then(m => ({ default: m.TalkToUs })));
 
 function withSuspense(element: ReactNode) {
   return <Suspense fallback={<RouteFallback />}>{element}</Suspense>;
@@ -35,13 +42,14 @@ export const router = createBrowserRouter([
       { path: '/faqs', element: <SectionRedirect sectionId="contact" /> },
       { path: '/contact', element: <SectionRedirect sectionId="contact" /> },
       { path: '/security', element: <SectionRedirect sectionId="services" /> },
-      { path: '/industries/:slug', element: withSuspense(<IndustryLandingPage />) },
-      { path: '/blog', element: withSuspense(<BlogHubPage />) },
-      { path: '/blog/:slug', element: withSuspense(<BlogPostPage />) },
+      { path: '/blog', element: <DynamicRouteResolver /> },
+      { path: '/blog/:slug', element: <DynamicRouteResolver /> },
+      { path: '/industries/:slug', element: <DynamicRouteResolver /> },
+      { path: '/locations/:slug', element: <DynamicRouteResolver /> },
       { path: '/:slug', element: <DynamicRouteResolver /> },
     ],
   },
   { path: '/app', element: <Navigate to="/" replace />, errorElement: <RouteError /> },
   { path: '/login', element: <Navigate to="/" replace />, errorElement: <RouteError /> },
-  { path: '*', element: <Navigate to="/" replace /> },
+  { path: '*', element: <NotFoundPage /> },
 ]);

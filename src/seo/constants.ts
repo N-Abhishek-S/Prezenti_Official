@@ -1,9 +1,9 @@
 export const SEO_CONSTANTS = {
   SITE_NAME: 'Prezenti',
   BASE_URL: 'https://www.prezenti.com',
-  DEFAULT_TITLE: 'Facility Management & Corporate Staffing Pune | Prezenti',
+  DEFAULT_TITLE: 'Integrated Facility Management Company in Pune | Prezenti',
   DEFAULT_DESCRIPTION:
-    'Hire trained support staff for your office, hospital, or commercial facility. Prezenti provides reliable housekeeping, office boys, and facility management across Maharashtra.',
+    'Prezenti provides reliable housekeeping, security, and office support staff for corporate facilities across Pune. 100% PF & ESIC Compliant.',
   DEFAULT_IMAGE: 'https://www.prezenti.com/brand/prezenti-horizontal-logo.png',
   DEFAULT_IMAGE_ALT: 'Prezenti facility staffing services',
   LOCALE: 'en_IN',

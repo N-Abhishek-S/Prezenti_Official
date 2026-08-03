@@ -1,142 +1,140 @@
 import { useEffect } from 'react';
-import { Navigate, useParams, Link } from 'react-router-dom';
+import { Container } from '../components/ui/Container';
+import type { RouteDefinition } from '../app/routes/routeRegistry';
+import { allBlogsMetadata } from '../app/routes/blogRoutes';
+import { Link } from 'react-router-dom';
+import { Calendar, Clock, User, ArrowRight, Tag } from 'lucide-react';
+import { NotFoundPage } from './NotFoundPage';
 import { SEO } from '../seo/SEO';
 import { StructuredData } from '../seo/StructuredData';
-import { SEO_CONSTANTS } from '../seo/constants';
-import { blogsData } from '../data/blogs';
 import { Breadcrumbs } from '../components/ui/Breadcrumbs';
-import { FaqAccordion } from '../components/ui/FaqAccordion';
-import { ServiceCta } from '../components/ui/ServiceCta';
 import { motion } from 'framer-motion';
+import { AiSummaryBlock } from '../components/seo/AiSummaryBlock';
 
-export function BlogPostPage() {
-  const { slug } = useParams<{ slug: string }>();
-  const blog = blogsData.find((b) => b.slug === slug);
+interface BlogPostPageProps {
+  routeDef: RouteDefinition;
+}
 
+export function BlogPostPage({ routeDef }: BlogPostPageProps) {
+  const meta = allBlogsMetadata[routeDef.dataKey];
+  
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-  }, [slug]);
+  }, [routeDef?.dataKey]);
 
-  if (!blog) {
-    return <Navigate to="/blog" replace />;
+  if (!routeDef?.dataKey || !meta) {
+    return <NotFoundPage />;
   }
 
   const breadcrumbs = [
     { name: 'Blog', url: '/blog' },
-    { name: blog.title, url: `/blog/${blog.slug}` }
+    { name: meta.title, url: `/blog/${meta.slug}` }
   ];
-
-  const canonicalUrl = `${SEO_CONSTANTS.BASE_URL}/blog/${blog.slug}`;
-
-  // Article Schema
-  const articleSchema = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": blog.seoTitle,
-    "description": blog.seoDescription,
-    "author": {
-      "@type": "Organization",
-      "name": "Prezenti"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Prezenti",
-      "logo": {
-        "@type": "ImageObject",
-        "url": `${SEO_CONSTANTS.BASE_URL}/brand/prezenti-mark.png`
-      }
-    },
-    "datePublished": blog.date,
-    "mainEntityOfPage": canonicalUrl
-  };
 
   return (
     <main className="bg-canvas pt-24 pb-14 sm:pt-28 lg:pb-20">
       <SEO 
-        title={blog.seoTitle}
-        description={blog.seoDescription}
-        canonicalUrl={`/blog/${blog.slug}`} 
-        imageUrl="/og-images/og-blog.jpg"
-        type="article"
-        keywords={[blog.targetKeyword, blog.category.toLowerCase(), 'prezenti blog']}
+        title={`${meta.title} | Prezenti Facility Management`}
+        description={meta.aiSearch.summary}
+        canonicalUrl={`/blog/${meta.slug}`}
+        keywords={[meta.title, meta.category]}
       />
-      
       <StructuredData
-        type="WebPage"
+        type="BlogPosting"
         data={{
-          name: blog.seoTitle,
-          description: blog.seoDescription,
-          url: canonicalUrl,
+          headline: meta.title,
+          description: meta.aiSearch.summary,
+          url: `https://prezenti.in/blog/${meta.slug}`,
+          author: { "@type": "Organization", name: meta.author },
+          datePublished: meta.history.createdAt,
+          dateModified: meta.history.updatedAt
         }}
       />
       <StructuredData type="BreadcrumbList" data={{ breadcrumbs }} />
-      <StructuredData type="FAQPage" data={{ faqs: blog.faqs }} />
-      
-      {/* Inject custom Article schema since our StructuredData doesn't have it natively mapped yet */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
 
-      <article className="mx-auto max-w-4xl px-4 sm:px-6">
+      <Container>
         <Breadcrumbs items={breadcrumbs} />
 
-        <header className="mb-12">
-          <div className="flex items-center gap-4 mb-6">
-            <span className="text-xs font-semibold uppercase tracking-wider text-primary-600 bg-primary-50 px-3 py-1 rounded-full">
-              {blog.category}
-            </span>
-            <span className="text-sm text-neutral-500 font-medium">
-              {new Date(blog.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-            </span>
-          </div>
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl sm:text-5xl font-bold tracking-tight text-neutral-900 mb-6"
-          >
-            {blog.title}
-          </motion.h1>
-          <p className="text-xl text-neutral-600 leading-relaxed font-medium">
-            {blog.excerpt}
-          </p>
-        </header>
+        <div className="flex flex-col lg:flex-row gap-12 mt-8">
+          
+          <article className="lg:w-2/3">
+            <header className="mb-12">
+              <div className="flex flex-wrap items-center gap-4 mb-6 text-sm text-brand-muted font-medium">
+                <span className="bg-brand-accent/20 text-brand-accent px-3 py-1 rounded-full font-semibold">
+                  {meta.category}
+                </span>
+                <span className="flex items-center gap-1"><Calendar className="w-4 h-4" /> {new Date(meta.history.createdAt).toLocaleDateString('en-IN')}</span>
+                <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> {meta.readingTime} min read</span>
+                <span className="flex items-center gap-1"><User className="w-4 h-4" /> {meta.author}</span>
+              </div>
+              <motion.h1 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-4xl sm:text-5xl font-bold tracking-tight text-brand-dark mb-6"
+              >
+                {meta.title}
+              </motion.h1>
+              <p className="text-xl text-brand-muted leading-relaxed border-l-4 border-brand-accent pl-4 mb-8">
+                {meta.aiSearch.summary}
+              </p>
+            </header>
 
-        <div className="prose prose-lg prose-neutral max-w-none mb-16">
-          {blog.content.map((section, idx) => (
-            <section key={idx} className="mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 mb-6">
-                {section.heading}
-              </h2>
-              {section.paragraphs.map((p, pIdx) => (
-                <p key={pIdx} className="mb-4 text-neutral-700 leading-relaxed">
-                  {p}
-                </p>
-              ))}
-              {section.list && (
-                <ul className="list-disc pl-6 mb-4 text-neutral-700 space-y-2">
-                  {section.list.map((li, liIdx) => (
-                    <li key={liIdx}>{li}</li>
+            <AiSummaryBlock 
+              title="Article Summary"
+              summary={meta.aiSearch.summary}
+              entities={meta.keywords.entities.map(e => e.replace('ent-', ''))}
+            />
+
+            <div className="prose prose-lg max-w-none text-brand-dark mb-12">
+              {/* Content will be injected here dynamically by rendering content.md */}
+              <p className="italic text-brand-muted">The markdown content will be rendered here.</p>
+            </div>
+
+            <div className="mt-12 p-10 bg-brand-accent rounded-2xl text-white text-center">
+              <h3 className="text-3xl font-bold text-white mb-4">{meta.conversion.primaryCTA}</h3>
+              <p className="text-lg mb-8 opacity-90 max-w-2xl mx-auto">Get a tailored quote for your facility today.</p>
+              <Link to="/talk-to-us" className="inline-flex items-center gap-2 bg-white text-brand-accent px-8 py-4 rounded-xl font-bold hover:bg-brand-light transition-all hover:scale-105 no-underline">
+                Request a Quote <ArrowRight className="w-5 h-5" />
+              </Link>
+            </div>
+          </article>
+
+          <aside className="lg:w-1/3 space-y-8">
+            
+            {meta.relationships.service.length > 0 && (
+              <div className="bg-white p-8 rounded-2xl shadow-sm border border-brand-accent/10">
+                <h3 className="text-xl font-bold text-brand-dark mb-6 border-b pb-4">Related Services</h3>
+                <ul className="space-y-4">
+                  {meta.relationships.service.map(service => (
+                    <li key={service}>
+                      <Link to={`/${service}`} className="flex items-center gap-3 text-brand-dark font-medium hover:text-brand-accent transition-colors">
+                        <ArrowRight className="w-5 h-5 text-brand-accent" />
+                        {service.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                      </Link>
+                    </li>
                   ))}
                 </ul>
-              )}
-            </section>
-          ))}
+              </div>
+            )}
+
+            {meta.relationships.pricing.length > 0 && (
+              <div className="bg-brand-dark text-white p-8 rounded-2xl shadow-sm">
+                <h3 className="text-xl font-bold text-white mb-6 border-b border-white/20 pb-4">Pricing & Cost Guides</h3>
+                <ul className="space-y-4">
+                  {meta.relationships.pricing.map(guide => (
+                    <li key={guide}>
+                      <Link to={`/${guide}`} className="flex items-center gap-3 text-brand-muted/90 hover:text-white transition-colors">
+                        <Tag className="w-5 h-5 text-brand-accent" />
+                        {guide.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </aside>
         </div>
-
-        <ServiceCta 
-          title="Looking for Expert Staffing Solutions?" 
-          description="Contact Prezenti today to streamline your facility management and corporate staffing needs." 
-        />
-
-        <section className="my-16">
-          <h2 className="text-3xl font-bold text-neutral-900 mb-8">Frequently Asked Questions</h2>
-          <FaqAccordion faqs={blog.faqs} />
-        </section>
-
-        <div className="mt-16 pt-12 border-t border-neutral-200">
-          <Link to="/blog" className="inline-flex items-center text-primary-600 hover:text-primary-700 font-semibold transition-colors">
-            <span className="mr-2">←</span> Back to all articles
-          </Link>
-        </div>
-      </article>
+      </Container>
     </main>
   );
 }

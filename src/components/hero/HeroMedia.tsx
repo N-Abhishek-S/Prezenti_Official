@@ -22,7 +22,7 @@ function HeroVideo({
     return (
       <img
         src={asset.poster}
-        alt=""
+        alt={asset.label}
         title={asset.label}
         className={className}
         loading="eager"

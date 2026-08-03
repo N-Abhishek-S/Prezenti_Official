@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { SEO } from '../seo/SEO';
 import { StructuredData } from '../seo/StructuredData';
-import { type ServiceData, generateLocalizedContent } from '../data/servicesContent';
-import type { LocationData } from '../data/locations';
+import { servicesData, generateLocalizedContent } from '../data/servicesContent';
+import { locationsData } from '../data/locations';
+import type { RouteDefinition } from '../app/routes/routeRegistry';
+import { NotFoundPage } from './NotFoundPage';
 import { Breadcrumbs } from '../components/ui/Breadcrumbs';
 import { FaqAccordion } from '../components/ui/FaqAccordion';
 import { ServiceCta } from '../components/ui/ServiceCta';
@@ -16,17 +18,23 @@ import { facilityManagementPuneSEO, facilityManagementPuneFAQs } from '../data/p
 import { generatePuneSchema } from '../data/pune/seo_schema_and_linking';
 
 interface Props {
-  service: ServiceData;
-  location: LocationData;
+  routeDef: RouteDefinition;
 }
 
-export function LocationServiceLandingPage({ service, location }: Props) {
+export function LocationServiceLandingPage({ routeDef }: Props) {
+  const service = servicesData[routeDef.serviceKey!];
+  const location = locationsData[routeDef.locationKey!];
+
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-  }, [service.slug, location.slug]);
+  }, [routeDef.dataKey]);
+
+  if (!routeDef?.dataKey) {
+    return <NotFoundPage />;
+  }
 
   if (!service || !location) {
-    return <Navigate to="/" replace />;
+    return <NotFoundPage />;
   }
 
   let pageTitle = `${service.h1} ${location.h1Prefix}`;

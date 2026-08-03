@@ -38,11 +38,11 @@ const serviceSlugs = [
 ];
 
 const locationSlugs = [
-  'pune', 'mumbai', 'navi-mumbai', 'thane', 'nagpur', 'nashik', 'aurangabad'
+  'pune', 'hinjawadi', 'kharadi'
 ];
 
 const industrySlugs = [
-  'offices', 'hospitals', 'schools', 'warehouses', 'residential'
+  'it-companies', 'hospitals', 'manufacturing'
 ];
 
 const routes = [...staticRoutes];
@@ -50,18 +50,30 @@ const routes = [...staticRoutes];
 // Add pure service routes
 serviceSlugs.forEach(s => routes.push(`/${s}`));
 
-// Add pure location routes
-locationSlugs.forEach(l => routes.push(`/${l}`));
+// Add location hub routes
+locationSlugs.forEach(l => routes.push(`/locations/${l}`));
 
 // Add industry routes
 industrySlugs.forEach(i => routes.push(`/industries/${i}`));
 
-// Add Programmatic Service x Location routes
-serviceSlugs.forEach(s => {
-  locationSlugs.forEach(l => {
-    routes.push(`/${s}-${l}`);
-  });
-});
+// Automatically register Knowledge pages from Sprint 4
+const knowledgeSlugs = [
+  'housekeeping-cost',
+  'security-guard-pricing',
+  'pf-compliance',
+  'background-verification',
+  'facility-management-vs-housekeeping'
+];
+knowledgeSlugs.forEach(slug => routes.push(`/${slug}`));
+
+// Automatically discover Blog routes from src/content/blogs
+const blogsDir = path.resolve(__dirname, '../src/content/blogs');
+if (fs.existsSync(blogsDir)) {
+  const blogFolders = fs.readdirSync(blogsDir, { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory())
+    .map(dirent => dirent.name);
+  blogFolders.forEach(slug => routes.push(`/blog/${slug}`));
+}
 
 const mimeTypes = {
   '.html': 'text/html',

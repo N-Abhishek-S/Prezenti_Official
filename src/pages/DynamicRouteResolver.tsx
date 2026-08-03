@@ -1,55 +1,26 @@
-import { lazy, Suspense } from 'react';
-import { useParams, Navigate } from 'react-router-dom';
-import { servicesData } from '../data/servicesContent';
-import { locationsData } from '../data/locations';
+import { Suspense } from 'react';
+import { useLocation } from 'react-router-dom';
+import { globalRouteRegistry } from '../app/routes/routeRegistry';
 import { RouteFallback } from '../components/layout/RouteFallback';
-
-const ServiceLandingPage = lazy(() => import('./ServiceLandingPage').then(m => ({ default: m.ServiceLandingPage })));
-const LocationLandingPage = lazy(() => import('./LocationLandingPage').then(m => ({ default: m.LocationLandingPage })));
-const LocationServiceLandingPage = lazy(() => import('./LocationServiceLandingPage').then(m => ({ default: m.LocationServiceLandingPage })));
+import { NotFoundPage } from './NotFoundPage';
 
 export function DynamicRouteResolver() {
-  const { slug } = useParams<{ slug: string }>();
+  const location = useLocation();
+  const pathKey = location.pathname.replace(/^\//, '');
 
-  if (!slug) return <Navigate to="/" replace />;
+  if (!pathKey) return <NotFoundPage />;
 
-  // 1. Is it an exact service?
-  if (servicesData[slug]) {
-    return (
-      <Suspense fallback={<RouteFallback />}>
-        <ServiceLandingPage service={servicesData[slug]} />
-      </Suspense>
-    );
+  const routeDef = globalRouteRegistry[pathKey];
+
+  if (!routeDef) {
+    return <NotFoundPage />;
   }
 
-  // 2. Is it an exact location?
-  if (locationsData[slug]) {
-    return (
-      <Suspense fallback={<RouteFallback />}>
-        <LocationLandingPage location={locationsData[slug]} />
-      </Suspense>
-    );
-  }
+  const Component: any = routeDef.component;
 
-  // 3. Is it a Service x Location?
-  // We need to find if the slug is formed by serviceSlug + '-' + locationSlug
-  // Iterate through locations first (since there are fewer locations)
-  for (const locKey of Object.keys(locationsData)) {
-    if (slug.endsWith(`-${locKey}`)) {
-      const possibleServiceSlug = slug.slice(0, -(locKey.length + 1));
-      if (servicesData[possibleServiceSlug]) {
-        return (
-          <Suspense fallback={<RouteFallback />}>
-            <LocationServiceLandingPage 
-              service={servicesData[possibleServiceSlug]} 
-              location={locationsData[locKey]} 
-            />
-          </Suspense>
-        );
-      }
-    }
-  }
-
-  // 4. Not found
-  return <Navigate to="/" replace />;
+  return (
+    <Suspense fallback={<RouteFallback />}>
+      <Component routeDef={routeDef} />
+    </Suspense>
+  );
 }

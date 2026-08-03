@@ -15,7 +15,8 @@ type SchemaType =
   | 'ItemList'
   | 'SiteNavigationElement'
   | 'Blog'
-  | 'BlogPosting';
+  | 'BlogPosting'
+  | 'Article';
 
 interface StructuredDataProps {
   type?: SchemaType;

@@ -1,21 +1,34 @@
 import { useEffect } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+
 import { SEO } from '../seo/SEO';
 import { StructuredData } from '../seo/StructuredData';
-import type { ServiceData } from '../data/servicesContent';
+import { servicesData } from '../data/servicesContent';
+import type { RouteDefinition } from '../app/routes/routeRegistry';
+import { NotFoundPage } from './NotFoundPage';
 import { Breadcrumbs } from '../components/ui/Breadcrumbs';
 import { FaqAccordion } from '../components/ui/FaqAccordion';
 import { ServiceCta } from '../components/ui/ServiceCta';
 import { motion } from 'framer-motion';
 import { SEO_CONSTANTS } from '../seo/constants';
+import { LocationSection } from '../features/website/sections/LocationSection';
+import { ComplianceSection } from '../features/website/sections/ComplianceSection';
+import { RelatedContentWidget } from '../components/seo/RelatedContentWidget';
+import { AiSummaryBlock } from '../components/seo/AiSummaryBlock';
+import { Container } from '../components/ui/Container';
 
-export function ServiceLandingPage({ service }: { service: ServiceData }) {
+export function ServiceLandingPage({ routeDef }: { routeDef: RouteDefinition }) {
+  const service = servicesData[routeDef.dataKey];
+
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-  }, [service.slug]);
+  }, [routeDef.dataKey]);
+
+  if (!routeDef?.dataKey) {
+    return <NotFoundPage />;
+  }
 
   if (!service) {
-    return <Navigate to="/" replace />;
+    return <NotFoundPage />;
   }
 
   const breadcrumbs = [
@@ -29,7 +42,7 @@ export function ServiceLandingPage({ service }: { service: ServiceData }) {
       <SEO 
         title={service.seoTitle}
         description={service.seoDescription}
-        canonicalUrl={`/${service.slug}`}
+        canonicalUrl={canonicalUrl}
         imageUrl={`/og-images/og-${service.id}.jpg`}
         keywords={[
           service.h1,
@@ -53,10 +66,12 @@ export function ServiceLandingPage({ service }: { service: ServiceData }) {
       <StructuredData type="BreadcrumbList" data={{ breadcrumbs }} />
       <StructuredData type="FAQPage" data={{ faqs: service.faqs }} />
 
-      <article className="mx-auto max-w-4xl px-4 sm:px-6">
+      <Container>
         <Breadcrumbs items={breadcrumbs} />
 
-        <header className="mb-12">
+        <div className="flex flex-col lg:flex-row gap-12 mt-8">
+          <article className="lg:w-2/3">
+            <header className="mb-12">
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -68,6 +83,12 @@ export function ServiceLandingPage({ service }: { service: ServiceData }) {
             {service.seoDescription}
           </p>
         </header>
+
+        <AiSummaryBlock 
+          title={`${service.h1} - Quick Definition`}
+          summary={`Prezenti provides enterprise-grade ${service.h1.toLowerCase()} across Pune. All staff are 100% PF and ESIC compliant, police-verified, and fully trained for corporate environments.`}
+          entities={['PF Compliant', 'ESIC Compliant', 'ISO Standards', 'Background Verified', 'Corporate Soft Services']}
+        />
 
         <div className="prose prose-lg prose-neutral max-w-none">
           {service.sections.map((section, idx) => (
@@ -92,33 +113,39 @@ export function ServiceLandingPage({ service }: { service: ServiceData }) {
           description="Contact our expert team today for a customized quote tailored to your facility's unique requirements." 
         />
 
-        <section className="my-16">
-          <h2 className="text-3xl font-bold text-center text-neutral-900 mb-8">Frequently Asked Questions</h2>
-          <FaqAccordion faqs={service.faqs} />
-        </section>
+          <section className="my-16">
+            <h2 className="text-3xl font-bold text-neutral-900 mb-8">Frequently Asked Questions</h2>
+            <FaqAccordion faqs={service.faqs} />
+          </section>
+          </article>
+          
+          <aside className="lg:w-1/3">
+            {service.relationships ? (
+              <RelatedContentWidget relationships={service.relationships} title={`${service.h1} Ecosystem`} />
+            ) : (
+              <RelatedContentWidget 
+                title={`${service.h1} Ecosystem`}
+                relationships={{
+                  service: service.relatedServices.map(s => s.slug),
+                  industry: ['it-companies', 'hospitals', 'manufacturing'],
+                  pricing: [],
+                  siblings: [],
+                  children: [],
+                  knowledge: ['pf-compliance'],
+                  comparison: ['fm-vs-housekeeping'],
+                  location: ['pune', 'hinjawadi', 'kharadi']
+                }} 
+              />
+            )}
+          </aside>
+        </div>
+      </Container>
 
-        <section className="mt-16 pt-12 border-t border-neutral-200">
-          <h2 className="text-2xl font-bold text-neutral-900 mb-6">Explore Related Services</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {service.relatedServices.map((related) => (
-              <Link 
-                key={related.slug} 
-                to={`/${related.slug}`}
-                className="p-6 rounded-xl border border-neutral-200 hover:border-primary-500 hover:shadow-md transition-all group bg-white"
-              >
-                <h3 className="text-lg font-semibold text-neutral-900 group-hover:text-primary-600 transition-colors">
-                  {related.name}
-                </h3>
-              </Link>
-            ))}
-          </div>
-          <div className="mt-8 text-center">
-            <Link to="/services" className="inline-flex items-center text-primary-600 font-semibold hover:text-primary-700 transition-colors">
-              <span className="mr-2">←</span> View All Services
-            </Link>
-          </div>
-        </section>
-      </article>
+      {/* Trust & Compliance Signals */}
+      <ComplianceSection />
+      
+      {/* Local SEO Targets */}
+      <LocationSection />
     </main>
   );
 }

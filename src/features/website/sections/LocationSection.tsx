@@ -129,18 +129,18 @@ export function LocationSection() {
 
                   <div className="mt-5 w-full text-sm sm:text-[15px] leading-relaxed text-neutral-500 lg:text-left text-center">
                     <p className="mb-2 font-semibold text-neutral-800">
-                      Local coverage for
+                      Top Corporate Hubs Served in Pune:
                     </p>
 
                     <ul className="inline-block text-left list-inside list-disc space-y-0.5">
-                      <li>All size Offices</li>
-                      <li>Clinics / Consultants / Startups</li>
-                      <li>Schools / Colleges</li>
-                      <li>Educational Institutions</li>
-                      <li>Commercial buildings</li>
-                      <li>Residential Properties</li>
-                      <li>Managed properties</li>
-                      <li>All size hospitals</li>
+                      <li>Hinjawadi IT Park</li>
+                      <li>Kharadi & Magarpatta</li>
+                      <li>Baner & Balewadi</li>
+                      <li>Viman Nagar</li>
+                      <li>Kalyani Nagar</li>
+                      <li>Pimpri-Chinchwad (PCMC)</li>
+                      <li>Shivajinagar & FC Road</li>
+                      <li>Koregaon Park</li>
                     </ul>
                   </div>
                 </div>

@@ -3,6 +3,7 @@ import { SEO } from '../seo/SEO';
 import { StructuredData } from '../seo/StructuredData';
 import { SEO_CONSTANTS } from '../seo/constants';
 import { motion } from 'framer-motion';
+import { ComplianceSection } from '../features/website/sections/ComplianceSection';
 
 export function AboutUs() {
   useEffect(() => {
@@ -13,7 +14,7 @@ export function AboutUs() {
   const seoDescription = "Learn about Prezenti's mission to elevate corporate facility management and support staff outsourcing across Pune, Mumbai, and Maharashtra. Discover our core values, leadership, and commitment to compliance.";
 
   return (
-    <main className="bg-canvas pt-24 pb-14 sm:pt-28 lg:pb-20">
+    <div className="bg-canvas pt-24 pb-14 sm:pt-28 lg:pb-20">
       <SEO 
         title={pageTitle}
         description={seoDescription}
@@ -53,23 +54,19 @@ export function AboutUs() {
             Our approach fundamentally shifted the paradigm from mere manpower supply to end-to-end service delivery. By acting as the principal employer, we absorb the administrative and compliance burdens of our clients, allowing them to focus entirely on their core business operations.
           </p>
 
-          <h2 className="text-3xl font-bold text-neutral-900 mb-6">Our Mission & Core Values</h2>
-          <ul className="mb-12 space-y-4">
-            <li className="flex items-start">
-              <span className="text-primary-600 font-bold mr-3">1.</span>
-              <span><strong>Uncompromising Compliance:</strong> We adhere strictly to all statutory labor laws, including PF, ESIC, PT, and Minimum Wages, ensuring complete legal protection for our clients.</span>
+          <h2 className="text-3xl font-bold text-neutral-900 mb-6">Our Core Values</h2>
+          <ul className="space-y-4 text-neutral-700 leading-relaxed list-none pl-0">
+            <li className="flex items-start gap-3">
+              <span className="text-primary-600 font-bold mt-1">1.</span>
+              <span><strong>Compliance First:</strong> We believe that taking shortcuts on compliance is a risk no enterprise should bear. We handle all legalities transparently.</span>
             </li>
-            <li className="flex items-start">
-              <span className="text-primary-600 font-bold mr-3">2.</span>
-              <span><strong>Rigorous Vetting:</strong> 100% of our deployed personnel undergo comprehensive police and address verification. Security and trust are our cornerstones.</span>
+            <li className="flex items-start gap-3">
+              <span className="text-primary-600 font-bold mt-1">2.</span>
+              <span><strong>Dignity of Labor:</strong> We train, respect, and pay our staff on time. A happy workforce translates directly to excellent service for our clients.</span>
             </li>
-            <li className="flex items-start">
-              <span className="text-primary-600 font-bold mr-3">3.</span>
-              <span><strong>Continuous Training:</strong> We believe that an empowered worker is an effective worker. Our ongoing soft-skills and operational training programs ensure our team always represents your brand perfectly.</span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-primary-600 font-bold mr-3">4.</span>
-              <span><strong>Client-Centric Agility:</strong> From providing immediate relievers for absentees to scaling up teams rapidly for large events, our operational agility is unmatched.</span>
+            <li className="flex items-start gap-3">
+              <span className="text-primary-600 font-bold mt-1">3.</span>
+              <span><strong>Operational Excellence:</strong> Through tech-enabled tracking and rigorous SOPs, we deliver consistent quality every single day.</span>
             </li>
           </ul>
 
@@ -92,6 +89,8 @@ export function AboutUs() {
           </div>
         </div>
       </section>
-    </main>
+
+      <ComplianceSection />
+    </div>
   );
 }

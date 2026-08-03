@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { SEO_CONSTANTS } from './constants';
-import { generateOrganizationSchema } from './schemaGenerator';
+import { buildSchema } from './StructuredData';
 
 interface SEOProps {
   title?: string;
@@ -84,7 +84,7 @@ export function SEO({
 
       {/* Global Organization Schema */}
       <script type="application/ld+json">
-        {JSON.stringify(generateOrganizationSchema())}
+        {JSON.stringify(buildSchema('Organization'))}
       </script>
     </Helmet>
   );

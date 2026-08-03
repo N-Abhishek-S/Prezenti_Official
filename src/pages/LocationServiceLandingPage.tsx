@@ -15,7 +15,6 @@ import { housekeepingPuneSEO, housekeepingPuneFAQs } from '../data/pune/housekee
 import { officeBoyPuneSEO, officeBoyPuneFAQs } from '../data/pune/office_boy_pune_content';
 import { pantryStaffPuneSEO, pantryStaffPuneFAQs } from '../data/pune/pantry_staff_pune_content';
 import { facilityManagementPuneSEO, facilityManagementPuneFAQs } from '../data/pune/facility_management_pune_content';
-import { generatePuneSchema } from '../data/pune/seo_schema_and_linking';
 
 interface Props {
   routeDef: RouteDefinition;
@@ -48,33 +47,27 @@ export function LocationServiceLandingPage({ routeDef }: Props) {
       ? faq.answer.replace('we provide', `we provide across ${location.name}`)
       : `${faq.answer} We actively serve clients throughout ${location.name}.`
   }));
-  let customSchema = null;
-
   if (location.slug === 'pune') {
     if (service.slug === 'housekeeping-services') {
       pageTitle = housekeepingPuneSEO.h1;
       seoTitle = housekeepingPuneSEO.metaTitle;
       seoDescription = housekeepingPuneSEO.metaDescription;
       localFaqs = housekeepingPuneFAQs;
-      customSchema = generatePuneSchema(pageTitle, `${service.slug}-${location.slug}`, seoDescription);
     } else if (service.slug === 'office-boy-services') {
       pageTitle = officeBoyPuneSEO.h1;
       seoTitle = officeBoyPuneSEO.metaTitle;
       seoDescription = officeBoyPuneSEO.metaDescription;
       localFaqs = officeBoyPuneFAQs;
-      customSchema = generatePuneSchema(pageTitle, `${service.slug}-${location.slug}`, seoDescription);
     } else if (service.slug === 'pantry-staff-services') {
       pageTitle = pantryStaffPuneSEO.h1;
       seoTitle = pantryStaffPuneSEO.metaTitle;
       seoDescription = pantryStaffPuneSEO.metaDescription;
       localFaqs = pantryStaffPuneFAQs;
-      customSchema = generatePuneSchema(pageTitle, `${service.slug}-${location.slug}`, seoDescription);
     } else if (service.slug === 'facility-management-services') {
       pageTitle = facilityManagementPuneSEO.h1;
       seoTitle = facilityManagementPuneSEO.metaTitle;
       seoDescription = facilityManagementPuneSEO.metaDescription;
       localFaqs = facilityManagementPuneFAQs;
-      customSchema = generatePuneSchema(pageTitle, `${service.slug}-${location.slug}`, seoDescription);
     }
   }
 
@@ -101,31 +94,25 @@ export function LocationServiceLandingPage({ routeDef }: Props) {
         ]}
       />
       
-      {customSchema ? (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(customSchema) }} />
-      ) : (
-        <>
-          <StructuredData
-            type="Service"
-            data={{
-              name: pageTitle,
-              description: seoDescription,
-              serviceType: service.h1,
-              url: canonicalUrl,
-              areaServed: location.name
-            }}
-          />
-          <StructuredData
-            type="LocalBusiness"
-            data={{
-              name: `${SEO_CONSTANTS.SITE_NAME} - ${location.name}`,
-              description: seoDescription,
-              url: canonicalUrl,
-              city: location.name
-            }}
-          />
-        </>
-      )}
+      <StructuredData
+        type="Service"
+        data={{
+          name: pageTitle,
+          description: seoDescription,
+          serviceType: service.h1,
+          url: canonicalUrl,
+          areaServed: location.name
+        }}
+      />
+      <StructuredData
+        type="LocalBusiness"
+        data={{
+          name: `${SEO_CONSTANTS.SITE_NAME} - ${location.name}`,
+          description: seoDescription,
+          url: canonicalUrl,
+          city: location.name
+        }}
+      />
       
       <StructuredData type="BreadcrumbList" data={{ breadcrumbs }} />
       <StructuredData type="FAQPage" data={{ faqs: localFaqs }} />

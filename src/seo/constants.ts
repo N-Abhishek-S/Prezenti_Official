@@ -6,6 +6,7 @@ export const SEO_CONSTANTS = {
     'Prezenti provides reliable housekeeping, security, and office support staff for corporate facilities across Pune. 100% PF & ESIC Compliant.',
   DEFAULT_IMAGE: 'https://www.prezenti.com/brand/prezenti-horizontal-logo.png',
   DEFAULT_IMAGE_ALT: 'Prezenti facility staffing services',
+  LOGO_URL: 'https://www.prezenti.com/brand/prezenti-mark.png',
   LOCALE: 'en_IN',
   THEME_COLOR: '#123f35',
 
@@ -15,6 +16,13 @@ export const SEO_CONSTANTS = {
   CITY: 'Pune',
   STATE: 'Maharashtra',
   COUNTRY: 'IN',
+  // Provisional Pune HQ coordinates carried over from the former Pune-only schema
+  // generator. Not verified against a confirmed business address — see
+  // PHASE_A_IMPLEMENTATION_BLUEPRINT.md Task 4 for the open business-input item.
+  GEO: {
+    LATITUDE: '18.5204',
+    LONGITUDE: '73.8567',
+  },
   SOCIAL_LINKS: {
     YOUTUBE: 'https://www.youtube.com/@PrezentiStaffingServices',
     INSTAGRAM: 'https://www.instagram.com/prezentiofficial/',

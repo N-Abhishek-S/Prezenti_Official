@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { SEO_CONSTANTS } from './constants';
 
 type SchemaType =
@@ -26,7 +27,13 @@ interface StructuredDataProps {
 const organizationId = `${SEO_CONSTANTS.BASE_URL}/#organization`;
 const websiteId = `${SEO_CONSTANTS.BASE_URL}/#website`;
 
-export function StructuredData({ type = 'Organization', data = {} }: StructuredDataProps) {
+/**
+ * Single source of truth for every schema.org object rendered on the site.
+ * Both the <StructuredData> component below and SEO.tsx's global Organization
+ * injection consume this function, so there is exactly one place that maps
+ * business identity (name/logo/contact/address/sameAs/@id/url) to JSON-LD.
+ */
+export function buildSchema(type: SchemaType = 'Organization', data: Record<string, unknown> = {}): Record<string, unknown> {
   const dataUrl = typeof data.url === 'string' ? data.url : undefined;
   const baseSchema = {
     '@context': 'https://schema.org',
@@ -43,13 +50,14 @@ export function StructuredData({ type = 'Organization', data = {} }: StructuredD
         url: SEO_CONSTANTS.BASE_URL,
         logo: {
           '@type': 'ImageObject',
-          url: `${SEO_CONSTANTS.BASE_URL}/brand/prezenti-mark.png`,
+          url: SEO_CONSTANTS.LOGO_URL,
         },
         image: SEO_CONSTANTS.DEFAULT_IMAGE,
         description: SEO_CONSTANTS.DEFAULT_DESCRIPTION,
         contactPoint: {
           '@type': 'ContactPoint',
           contactType: 'sales',
+          telephone: SEO_CONSTANTS.PHONE,
           email: SEO_CONSTANTS.CONTACT_EMAIL,
           areaServed: SEO_CONSTANTS.COUNTRY,
           availableLanguage: ['English', 'Hindi', 'Marathi'],
@@ -58,14 +66,17 @@ export function StructuredData({ type = 'Organization', data = {} }: StructuredD
           '@type': 'City',
           name,
         })),
+        sameAs: Object.values(SEO_CONSTANTS.SOCIAL_LINKS),
       };
       break;
-    case 'LocalBusiness':
+    case 'LocalBusiness': {
+      const isDefaultCity = !data.city || data.city === SEO_CONSTANTS.CITY;
       specificSchema = {
         '@id': `${SEO_CONSTANTS.BASE_URL}/#localbusiness`,
         name: SEO_CONSTANTS.SITE_NAME,
         image: SEO_CONSTANTS.DEFAULT_IMAGE,
         url: SEO_CONSTANTS.BASE_URL,
+        telephone: SEO_CONSTANTS.PHONE,
         email: SEO_CONSTANTS.CONTACT_EMAIL,
         priceRange: '$$',
         address: {
@@ -74,12 +85,22 @@ export function StructuredData({ type = 'Organization', data = {} }: StructuredD
           addressRegion: SEO_CONSTANTS.STATE,
           addressCountry: SEO_CONSTANTS.COUNTRY,
         },
+        ...(isDefaultCity
+          ? {
+              geo: {
+                '@type': 'GeoCoordinates',
+                latitude: SEO_CONSTANTS.GEO.LATITUDE,
+                longitude: SEO_CONSTANTS.GEO.LONGITUDE,
+              },
+            }
+          : {}),
         areaServed: SEO_CONSTANTS.AREA_SERVED.map((name) => ({
           '@type': 'Place',
           name,
         })),
       };
       break;
+    }
     case 'ProfessionalService':
       specificSchema = {
         '@id': dataUrl ? `${dataUrl}#professionalservice` : `${SEO_CONSTANTS.BASE_URL}/#professionalservice`,
@@ -278,7 +299,11 @@ export function StructuredData({ type = 'Organization', data = {} }: StructuredD
   const publicData = Object.fromEntries(
     Object.entries(data).filter(([key]) => !['faqs', 'breadcrumbs', 'items', 'city'].includes(key)),
   );
-  const schema = { ...baseSchema, ...specificSchema, ...publicData };
+  return { ...baseSchema, ...specificSchema, ...publicData };
+}
+
+export function StructuredData({ type = 'Organization', data = {} }: StructuredDataProps) {
+  const schema = buildSchema(type, data);
 
   return (
     <script

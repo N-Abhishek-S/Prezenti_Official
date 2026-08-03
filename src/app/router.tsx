@@ -1,5 +1,4 @@
-/* eslint-disable react-refresh/only-export-components */
-import { lazy, Suspense } from 'react';
+import { Suspense } from 'react';
 import type { ReactNode } from 'react';
 import { Navigate, createBrowserRouter } from 'react-router-dom';
 import { PublicLayout } from '../components/layout/PublicLayout';
@@ -10,11 +9,11 @@ import { SectionRedirect } from '../components/layout/SectionRedirect';
 import { DynamicRouteResolver } from '../pages/DynamicRouteResolver';
 import { NotFoundPage } from '../pages/NotFoundPage';
 import './routes/index'; // Initialize global route registry
-const ServicesHubPage = lazy(() => import('./lazyRouteComponents').then(m => ({ default: m.ServicesHubPage })));
-const PrivacyPolicy = lazy(() => import('./lazyRouteComponents').then(m => ({ default: m.PrivacyPolicy })));
-const TermsAndConditions = lazy(() => import('./lazyRouteComponents').then(m => ({ default: m.TermsAndConditions })));
-const AboutUs = lazy(() => import('./lazyRouteComponents').then(m => ({ default: m.AboutUs })));
-const TalkToUs = lazy(() => import('../pages/TalkToUs').then(m => ({ default: m.TalkToUs })));
+// lazyRouteComponents.ts already exports React.lazy()-wrapped components.
+// Consume them directly here — wrapping them in a second lazy() call caused
+// React error #306 ("Lazy element type must resolve to a class or function.
+// Did you wrap a component in React.lazy() more than once?").
+import { ServicesHubPage, PrivacyPolicy, TermsAndConditions, AboutUs, TalkToUs } from './lazyRouteComponents';
 
 function withSuspense(element: ReactNode) {
   return <Suspense fallback={<RouteFallback />}>{element}</Suspense>;

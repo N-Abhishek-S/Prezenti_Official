@@ -15,64 +15,58 @@ const ORIGINAL_INDEX_PATH = path.join(DIST_DIR, 'index.html');
 const isVercelBuild = Boolean(process.env.VERCEL);
 const shouldUseVercelChromium = isVercelBuild && process.platform === 'linux';
 
-const staticRoutes = [
-  '/',
-  '/about',
-  '/blog',
-  '/services',
-  '/faqs',
-  '/faq',
-  '/talk-to-us',
-  '/privacy-policy',
-  '/terms-and-conditions'
-];
+// Single authoritative source of truth for which routes are indexable
+// (prerendered + sitemap-listed). See src/seo/indexableRoutes.json and
+// COMMIT_3_INDEXABILITY_MATRIX.md for the full classification rationale.
+const MANIFEST_PATH = path.resolve(__dirname, '../src/seo/indexableRoutes.json');
+const manifest = JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf-8'));
+const BASE_URL = manifest.domain;
 
-const serviceSlugs = [
-  'housekeeping-services',
-  'security-services',
-  'receptionist-staffing-services',
-  'office-boy-services',
-  'pantry-staff-services',
-  'facility-management-services',
-  'property-management-services'
-];
-
-const locationSlugs = [
-  'pune', 'hinjawadi', 'kharadi'
-];
-
-const industrySlugs = [
-  'it-companies', 'hospitals', 'manufacturing'
-];
-
-const routes = [...staticRoutes];
+const routes = [...manifest.staticRoutes, manifest.blog.hub];
 
 // Add pure service routes
-serviceSlugs.forEach(s => routes.push(`/${s}`));
+manifest.serviceSlugs.forEach(s => routes.push(`/${s}`));
 
 // Add location hub routes
-locationSlugs.forEach(l => routes.push(`/locations/${l}`));
+manifest.locationSlugs.forEach(l => routes.push(`/locations/${l}`));
 
 // Add industry routes
-industrySlugs.forEach(i => routes.push(`/industries/${i}`));
+manifest.industrySlugs.forEach(i => routes.push(`/industries/${i}`));
 
-// Automatically register Knowledge pages from Sprint 4
-const knowledgeSlugs = [
-  'housekeeping-cost',
-  'security-guard-pricing',
-  'pf-compliance',
-  'background-verification',
-  'facility-management-vs-housekeeping'
-];
-knowledgeSlugs.forEach(slug => routes.push(`/${slug}`));
+// Add knowledge/pricing/trust/comparison pages
+manifest.knowledgeSlugs.forEach(slug => routes.push(`/${slug}`));
 
-// Automatically discover Blog routes from src/content/blogs
-const blogsDir = path.resolve(__dirname, '../src/content/blogs');
+// Automatically discover Blog post routes from src/content/blogs — the only
+// family that is legitimately dynamic; every other route above comes from
+// the static manifest so there is exactly one place to add/remove a route.
+// A post is only included if its meta.ts status is one BlogHubPage.tsx
+// itself treats as publishable ('Published' or 'Ready') — matching that
+// component's own filter (`b.status === 'Published' || b.status === 'Ready'`)
+// so a Draft/Review/Archived post folder can never become prerendered or
+// sitemap-listed just because the folder exists. meta.ts is plain source
+// TypeScript here (this script isn't part of the Vite/TS build graph), so
+// the status is read via a targeted regex rather than a full TS import.
+const PUBLISHABLE_STATUSES = ['Published', 'Ready'];
+const blogsDir = path.resolve(__dirname, '..', manifest.blog.sourceDir);
 if (fs.existsSync(blogsDir)) {
   const blogFolders = fs.readdirSync(blogsDir, { withFileTypes: true })
     .filter(dirent => dirent.isDirectory())
     .map(dirent => dirent.name);
-  blogFolders.forEach(slug => routes.push(`/blog/${slug}`));
+  blogFolders.forEach(slug => {
+    const metaPath = path.join(blogsDir, slug, 'meta.ts');
+    if (!fs.existsSync(metaPath)) {
+      console.warn(`[prerender] Skipping /blog/${slug}: no meta.ts found.`);
+      return;
+    }
+    const metaSource = fs.readFileSync(metaPath, 'utf-8');
+    const statusMatch = metaSource.match(/status:\s*['"]([^'"]+)['"]/);
+    const status = statusMatch ? statusMatch[1] : null;
+    if (status && PUBLISHABLE_STATUSES.includes(status)) {
+      routes.push(`/blog/${slug}`);
+    } else {
+      console.warn(`[prerender] Excluding /blog/${slug} from prerender/sitemap: status is "${status ?? 'unknown'}", not Published/Ready.`);
+    }
+  });
 }
 
 const mimeTypes = {
@@ -238,19 +232,24 @@ async function run() {
     }
     server.close();
 
-    if (fs.existsSync(SHELL_PATH)) {
-      console.log('Removing temp SPA shell...');
-      fs.unlinkSync(SHELL_PATH);
-    }
-    
-    // Step 6: Generate sitemap.xml
-    const BASE_URL = 'https://www.prezenti.com';
+    // index.shell.html is kept in dist/ (not deleted) — it's the clean,
+    // unhydrated SPA shell with no page-specific Helmet content baked in.
+    // vercel.json rewrites any request that doesn't match a real static
+    // file to this shell, so routes that are intentionally not prerendered
+    // (see COMMIT_3_INDEXABILITY_MATRIX.md — Category B/non-existent paths)
+    // never inherit stale title/canonical/robots tags left over from a
+    // *different* page's prerendered output the way serving the prerendered
+    // homepage as a generic fallback would.
+
+    // Step 6: Generate sitemap.xml — URLs only, sourced from the same
+    // authoritative `routes` list used for prerendering. No changefreq or
+    // priority values are emitted: there is no real update-frequency or
+    // relative-priority data behind them, and Google largely ignores both,
+    // so fabricating them would just be SEO decoration.
     const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${routes.map(route => `  <url>
     <loc>${BASE_URL}${route}</loc>
-    <changefreq>weekly</changefreq>
-    <priority>${route === '/' ? '1.0' : '0.8'}</priority>
   </url>`).join('\n')}
 </urlset>`;
     

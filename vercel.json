@@ -66,6 +66,7 @@
     { "source": "/receptionist-services", "destination": "/receptionist-staffing-services", "permanent": true }
   ],
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" }
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/(.*)", "destination": "/index.shell.html" }
   ]
 }

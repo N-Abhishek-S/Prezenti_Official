@@ -92,8 +92,9 @@ export function LocationServiceLandingPage({ routeDef }: Props) {
           `${service.slug.replace('-', ' ')} ${location.name}`,
           `corporate facility services ${location.name}`,
         ]}
+        noindex
       />
-      
+
       <StructuredData
         type="Service"
         data={{

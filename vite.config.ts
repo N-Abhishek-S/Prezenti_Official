@@ -3,7 +3,6 @@
 import { defineConfig, loadEnv } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
-import Sitemap from 'vite-plugin-sitemap'
 import viteCompression from 'vite-plugin-compression'
 import path from 'path'
 import type { IncomingMessage, ServerResponse } from 'http'
@@ -54,42 +53,13 @@ const vercelApiPlugin = () => ({
   }
 });
 
-const serviceSlugs = [
-  'housekeeping-services',
-  'security-services',
-  'receptionist-staffing-services',
-  'office-boy-services',
-  'pantry-staff-services',
-  'facility-management-services',
-  'property-management-services'
-];
-
-const locationSlugs = [
-  'pune',
-  'mumbai',
-  'navi-mumbai',
-  'thane',
-  'nagpur',
-  'nashik',
-  'aurangabad',
-  'kolhapur',
-  'maharashtra'
-];
-
-// Programmatic routes are no longer used since Sprint 7 (Migrated to Location Hubs)
-
-const baseRoutes = [
-  '/about',
-  '/blog',
-  '/services',
-  '/faqs',
-  '/faq',
-  '/talk-to-us',
-  '/privacy-policy',
-  '/terms-and-conditions',
-  ...serviceSlugs.map(s => `/${s}`),
-  ...locationSlugs.map(l => `/locations/${l}`)
-];
+// Sitemap generation lives entirely in scripts/prerender.js, driven by the
+// single authoritative route manifest at src/seo/indexableRoutes.json — see
+// COMMIT_3_INDEXABILITY_MATRIX.md. vite-plugin-sitemap previously duplicated
+// that route list here (with its own inconsistent set, including an
+// orphaned "maharashtra" entry matching no real page) and its output was
+// always overwritten by the prerender step, so it added risk with no effect
+// and has been removed.
 
 export default defineConfig({
   plugins: [
@@ -98,12 +68,6 @@ export default defineConfig({
     react(),
     viteCompression({ algorithm: 'brotliCompress', ext: '.br' }),
     viteCompression({ algorithm: 'gzip', ext: '.gz' }),
-    Sitemap({
-      hostname: 'https://www.prezenti.com',
-      generateRobotsTxt: false,
-      exclude: ['/404'],
-      dynamicRoutes: baseRoutes
-    })
   ],
   resolve: {
     alias: {

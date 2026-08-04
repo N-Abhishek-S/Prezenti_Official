@@ -1,18 +1,19 @@
-import { Helmet } from 'react-helmet-async';
 import { Container } from '../components/ui/Container';
 import { allBlogsMetadata } from '../app/routes/blogRoutes';
 import { Link } from 'react-router-dom';
 import { Calendar, ArrowRight } from 'lucide-react';
+import { SEO } from '../seo/SEO';
 
 export function BlogHubPage() {
   const blogs = Object.values(allBlogsMetadata).filter(b => b.status === 'Published' || b.status === 'Ready');
 
   return (
     <>
-      <Helmet>
-        <title>Knowledge Center & Blog | Prezenti</title>
-        <meta name="description" content="Explore expert insights on facility management, corporate housekeeping, security, and compliance in India." />
-      </Helmet>
+      <SEO
+        title="Knowledge Center & Blog | Prezenti"
+        description="Explore expert insights on facility management, corporate housekeeping, security, and compliance in India."
+        canonicalUrl="/blog"
+      />
 
       {/* Hero Section */}
       <section className="pt-32 pb-16 bg-brand-dark text-white">

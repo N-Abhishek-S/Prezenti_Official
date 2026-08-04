@@ -1,0 +1,43 @@
+{
+  "_comment": "Single authoritative source of truth for which routes are INDEXABLE (prerendered + sitemap-listed). Absence from this file is the default classification (retained-but-non-indexable or removed) — see COMMIT_3_INDEXABILITY_MATRIX.md for the full classification of every route family, including why routes are deliberately NOT listed here (63 service-location combinatorial routes, unsupported secondary-city routes, /faq and /faqs duplicate redirects). Consumed by scripts/prerender.js to derive both the prerender crawl list and sitemap.xml.",
+  "domain": "https://www.prezenti.com",
+  "staticRoutes": [
+    "/",
+    "/about",
+    "/services",
+    "/talk-to-us",
+    "/privacy-policy",
+    "/terms-and-conditions"
+  ],
+  "serviceSlugs": [
+    "housekeeping-services",
+    "security-services",
+    "receptionist-staffing-services",
+    "office-boy-services",
+    "pantry-staff-services",
+    "facility-management-services",
+    "property-management-services"
+  ],
+  "locationSlugs": [
+    "pune",
+    "hinjawadi",
+    "kharadi"
+  ],
+  "industrySlugs": [
+    "it-companies",
+    "hospitals",
+    "manufacturing"
+  ],
+  "knowledgeSlugs": [
+    "housekeeping-cost",
+    "security-guard-pricing",
+    "pf-compliance",
+    "background-verification",
+    "facility-management-vs-housekeeping"
+  ],
+  "blog": {
+    "hub": "/blog",
+    "sourceDir": "src/content/blogs",
+    "note": "Post slugs are discovered dynamically from sourceDir at build time, not hardcoded here."
+  }
+}

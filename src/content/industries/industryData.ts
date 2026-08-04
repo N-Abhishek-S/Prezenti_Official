@@ -175,7 +175,7 @@ export const industryData: Record<string, IndustryMetadata> = {
     },
     seo: {
       canonical: `${SEO_CONSTANTS.BASE_URL}/industries/hospitals`,
-      keywords: ['hospital housekeeping services pune', 'healthcare facility management', 'NABH compliant cleaning'],
+      keywords: ['hospital housekeeping services pune', 'healthcare facility management', 'NABH hygiene standards'],
       schema: ['Organization', 'Service', 'FAQPage', 'WebPage']
     }
   },

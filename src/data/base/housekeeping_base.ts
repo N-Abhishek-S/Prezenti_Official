@@ -15,6 +15,20 @@ export const housekeepingBaseContent = [
     ]
   },
   {
+    title: "Commercial and Office Housekeeping for Every Workplace",
+    paragraphs: [
+      "Commercial housekeeping covers the ongoing cleaning and hygiene needs of any business premises — corporate offices, IT parks, retail spaces, and industrial facilities alike. Office housekeeping is the specific application of that service within a corporate workplace: daily desk and workstation cleaning, meeting room turnaround between bookings, reception area presentation, washroom sanitation, and upkeep of pantry-adjacent common areas. Prezenti's housekeeping teams are trained across both — the same rigorous SOPs and compliance standards apply whether we're maintaining a single-floor office or a multi-building commercial campus.",
+      "This is distinct from general office support staffing, such as peons or office assistants who handle tasks like file movement, courier runs, or serving refreshments. Housekeeping is specifically about the cleanliness, hygiene, and upkeep of your physical workspace."
+    ],
+    listItems: [
+      "Daily workstation, desk, and common-area cleaning.",
+      "Meeting room and conference room turnaround between bookings.",
+      "Reception and lobby area presentation.",
+      "Washroom sanitation and pantry-adjacent common area upkeep.",
+      "Floor care and waste management across office and commercial spaces."
+    ]
+  },
+  {
     title: "100% Statutory Compliance and Uncompromising Staff Verification",
     paragraphs: [
       "One of the most critical, yet frequently overlooked, aspects of outsourcing housekeeping services is strict adherence to state and federal labor laws. Engaging with unverified or non-compliant manpower agencies introduces catastrophic legal and financial risks, including liability for unpaid wages and workplace injuries under the Contract Labour (Regulation and Abolition) Act. Prezenti completely shields your organization from these liabilities by acting as the principal employer for all deployed personnel. We maintain an absolute, zero-tolerance policy towards compliance violations. We meticulously manage and process all statutory obligations, including Provident Fund (PF), Employee State Insurance Corporation (ESIC) benefits, Professional Tax (PT), and strict adherence to the latest Minimum Wage revisions. Furthermore, we provide our clients with transparent, monthly compliance dossiers, complete with remittance challans, ensuring that your organization is always audit-ready and legally protected.",
@@ -57,6 +71,13 @@ export const housekeepingBaseContent = [
       "Premium Corporate Offices: Hospitality-level detailing and executive suite maintenance.",
       "Healthcare Facilities: Hospital-grade disinfection and strict cross-contamination barriers.",
       "Educational Institutions: Safe, hygienic environments fostering productive learning."
+    ]
+  },
+  {
+    title: "Housekeeping Services in Pune",
+    paragraphs: [
+      "Prezenti provides corporate housekeeping services across Pune's major commercial and industrial hubs, including the Hinjawadi Rajiv Gandhi Infotech Park, the Kharadi EON IT Park, Magarpatta City, and the Chakan MIDC industrial area. Our teams are trained to work within Pune's mix of established corporate offices, expanding IT campuses, and manufacturing facilities, applying the same statutory-compliant, tech-enabled service model across every site.",
+      "All statutory compliance — Provident Fund, ESIC, Professional Tax, and Minimum Wages — is handled in line with Maharashtra state requirements, with the same transparent monthly compliance documentation described above extended to every Pune deployment."
     ]
   },
   {

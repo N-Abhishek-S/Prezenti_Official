@@ -83,15 +83,16 @@ export const servicesData: Record<string, ServiceData> = {
   'housekeeping-services': {
     id: 'housekeeping',
     slug: 'housekeeping-services',
-    seoTitle: 'Professional Housekeeping Services | Prezenti',
-    seoDescription: 'Expert housekeeping services for corporate offices, IT parks, and enterprises. Get highly trained, verified housekeeping staff for a pristine environment.',
-    h1: 'Enterprise Housekeeping Services',
+    seoTitle: 'Professional Housekeeping Services in Pune | Prezenti',
+    seoDescription: 'Expert housekeeping services for corporate offices, IT parks, and enterprises in Pune. Get highly trained, verified housekeeping staff for a pristine, compliant workplace.',
+    h1: 'Enterprise Housekeeping Services in Pune',
     sections: housekeepingBaseContent,
     faqs: [
       { question: 'What is included in your housekeeping services?', answer: 'Our housekeeping services cover comprehensive daily cleaning, deep cleaning, restroom sanitation, floor care, waste management, and pantry maintenance tailored to corporate environments.' },
       { question: 'Are your housekeeping staff background-verified?', answer: 'Yes, 100% of our housekeeping personnel undergo strict police verification, background checks, and health screenings before deployment.' },
       { question: 'Do you provide cleaning materials and equipment?', answer: 'Yes, we provide an end-to-end solution including eco-friendly cleaning chemicals, modern mechanized equipment, and all necessary consumables.' },
-      { question: 'Can you scale the housekeeping team based on our needs?', answer: 'Absolutely. We offer flexible staffing models allowing you to scale up or down based on your occupancy and operational requirements.' }
+      { question: 'Can you scale the housekeeping team based on our needs?', answer: 'Absolutely. We offer flexible staffing models allowing you to scale up or down based on your occupancy and operational requirements.' },
+      { question: 'Which areas of Pune do you provide housekeeping services in?', answer: 'We provide housekeeping services across Pune’s major commercial and industrial hubs, including Hinjawadi, Baner, Wakad, Kharadi, Magarpatta, Hadapsar, Viman Nagar, Pimpri-Chinchwad, and Chakan.' }
     ],
     relatedServices: [
       { name: 'Security Services', slug: 'security-services' },

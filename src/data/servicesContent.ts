@@ -179,15 +179,17 @@ export const servicesData: Record<string, ServiceData> = {
   'facility-management-services': {
     id: 'facility-management',
     slug: 'facility-management-services',
-    seoTitle: 'Integrated Facility Management Services | Prezenti',
-    seoDescription: 'End-to-end integrated facility management services for corporate parks, hospitals, and enterprises. Maintenance, soft services, and operations.',
-    h1: 'Integrated Facility Management Services',
+    seoTitle: 'Integrated Facility Management Services in Pune | Prezenti',
+    seoDescription: 'End-to-end integrated facility management services for corporate parks, hospitals, and enterprises in Pune. A single facility management company handling maintenance, soft services, and daily operations.',
+    h1: 'Integrated Facility Management Services in Pune',
     sections: facilityManagementBaseContent,
     faqs: [
       { question: 'What does Integrated Facility Management (IFM) include?', answer: 'IFM includes soft services (housekeeping, security), hard services (MEP maintenance, HVAC), and specialized services (pest control, landscaping) under a single contract.' },
       { question: 'How do you ensure service quality across multiple locations?', answer: 'We utilize a centralized tech-platform for ticketing, audits, and SLA tracking, overseen by a dedicated Key Account Manager.' },
       { question: 'Can you manage technical and MEP maintenance?', answer: 'Yes, we provide trained technicians, electricians, and plumbers for comprehensive preventative and reactive maintenance.' },
-      { question: 'Is your facility management tech-enabled?', answer: 'Yes, we deploy proprietary software for visitor management, helpdesk ticketing, and asset management.' }
+      { question: 'Is your facility management tech-enabled?', answer: 'Yes, we deploy proprietary software for visitor management, helpdesk ticketing, and asset management.' },
+      { question: 'Is housekeeping included in your Integrated Facility Management services?', answer: 'Yes, housekeeping is one of the soft services included under our IFM contracts, delivered by the same trained, compliant teams behind our dedicated housekeeping service, combined with hard services like MEP maintenance under a single SLA.' },
+      { question: 'Do you provide facility management services across Pune?', answer: 'Yes, we provide integrated facility management across Pune’s major commercial and industrial hubs, including Hinjawadi, Kharadi, Baner, Wakad, Magarpatta, Hadapsar, Pimpri-Chinchwad, and Chakan.' }
     ],
     relatedServices: [
       { name: 'Property Management', slug: 'property-management-services' },

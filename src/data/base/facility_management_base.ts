@@ -15,6 +15,13 @@ export const facilityManagementBaseContent = [
     ]
   },
   {
+    title: "Integrated Facility Management in Pune",
+    paragraphs: [
+      "Prezenti is a facility management company serving corporate parks, commercial buildings, and manufacturing sites across Pune, including the Hinjawadi Rajiv Gandhi Infotech Park, the Kharadi EON Free Zone, Baner, Wakad, Magarpatta, Hadapsar, and the Pimpri-Chinchwad and Chakan industrial belts. Our IFM contracts bring soft services and hard services under one accountable team, so a facility in Hinjawadi and a manufacturing plant in Chakan can both be managed against the same statutory-compliant, tech-enabled service standard.",
+      "As with our other services, all statutory compliance — Provident Fund, ESIC, Professional Tax, and Minimum Wages — is handled in line with Maharashtra state requirements, with the same transparent monthly compliance documentation extended to every Pune site under an IFM contract."
+    ]
+  },
+  {
     title: "Proactive MEP and Hard Services Maintenance",
     paragraphs: [
       "The invisible backbone of any modern facility is its Mechanical, Electrical, and Plumbing (MEP) infrastructure. When these critical systems fail, the consequences are immediate and severe—ranging from catastrophic data loss due to power failures to plummeted employee productivity caused by malfunctioning HVAC systems. Prezenti’s hard services division is dedicated to ensuring that your critical infrastructure never falters. We deploy highly qualified, certified engineers and technicians who specialize in the complex demands of corporate and industrial environments. We do not wait for systems to break; we implement rigorous, calendarized Preventative Maintenance (PM) schedules designed to identify and rectify minor wear-and-tear before it escalates into costly downtime.",

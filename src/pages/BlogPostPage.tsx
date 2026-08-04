@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { Calendar, Clock, User, ArrowRight, Tag } from 'lucide-react';
 import { NotFoundPage } from './NotFoundPage';
 import { SEO } from '../seo/SEO';
+import { SEO_CONSTANTS } from '../seo/constants';
 import { StructuredData } from '../seo/StructuredData';
 import { Breadcrumbs } from '../components/ui/Breadcrumbs';
 import { motion } from 'framer-motion';
@@ -44,7 +45,7 @@ export function BlogPostPage({ routeDef }: BlogPostPageProps) {
         data={{
           headline: meta.title,
           description: meta.aiSearch.summary,
-          url: `https://prezenti.in/blog/${meta.slug}`,
+          url: `${SEO_CONSTANTS.BASE_URL}/blog/${meta.slug}`,
           author: { "@type": "Organization", name: meta.author },
           datePublished: meta.history.createdAt,
           dateModified: meta.history.updatedAt

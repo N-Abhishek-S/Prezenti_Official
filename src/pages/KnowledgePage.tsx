@@ -8,6 +8,7 @@ import { Shield, CheckCircle2, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { NotFoundPage } from './NotFoundPage';
 import { SEO } from '../seo/SEO';
+import { SEO_CONSTANTS } from '../seo/constants';
 import { StructuredData } from '../seo/StructuredData';
 import { Breadcrumbs } from '../components/ui/Breadcrumbs';
 import { motion } from 'framer-motion';
@@ -53,7 +54,7 @@ export function KnowledgePage({ routeDef }: KnowledgePageProps) {
         data={{
           headline: data.h1,
           description: data.seoDescription,
-          url: `https://prezenti.in/${data.slug}`,
+          url: `${SEO_CONSTANTS.BASE_URL}/${data.slug}`,
           author: { "@type": "Organization", name: "Prezenti Facility Management" }
         }}
       />

@@ -2,61 +2,59 @@ export const officeBoyBaseContent = [
   {
     title: "Reliable Office Boy and Support Staff Services",
     paragraphs: [
-      "In any bustling corporate environment, the seamless execution of daily administrative and logistical tasks is vital to maintaining operational momentum. While your core team focuses on high-level strategic objectives, a multitude of essential micro-tasks—from document movement and pantry management to mail sorting and bank runs—must be handled with precision and reliability. Prezenti provides professional Office Boy and Support Staff services designed to eliminate these administrative bottlenecks. We supply highly trained, verified, and well-groomed personnel who act as the logistical backbone of your workplace. Our support staff integrate seamlessly into your organizational culture, providing the essential, behind-the-scenes assistance required to keep your office running efficiently.",
-      "We understand that support staff are often the most visible members of your operational team, constantly interacting with employees, executives, and visiting clients. Therefore, we place a massive emphasis on soft skills, corporate etiquette, and professional presentation. Our office boys are not merely unskilled labor; they are trained professionals who understand the nuances of a corporate environment. They are instructed in polite communication, unobtrusive service delivery, and the importance of confidentiality when handling sensitive documents. By deploying staff who understand corporate decorum, we ensure that every interaction reflects positively on your brand and contributes to a professional, welcoming workplace atmosphere.",
-      "Partnering with Prezenti for your support staff requirements removes the significant administrative burden of recruiting, vetting, and managing these essential roles. We handle the entire lifecycle of employment, from stringent background verification to ongoing training and compliance management. This allows your HR and administrative teams to reclaim their time and focus on higher-value initiatives. With Prezenti, you gain a reliable, scalable support infrastructure that adapts to your changing business needs, ensuring that your office never slows down due to a lack of essential logistical support."
+      "In any busy corporate environment, the seamless execution of daily administrative and logistical tasks supports operational momentum. While your core team focuses on strategic objectives, tasks such as document movement, pantry support, mail sorting, and bank runs need to be handled reliably. Prezenti provides office boy and support staff services designed to help with these administrative needs, with staffing structured around your workplace's requirements.",
+      "Support staff are often visible members of your operational team, interacting with employees, executives, and visiting clients. Soft skills, workplace etiquette, and professional presentation can be discussed and built into onboarding and expectations for deployed staff.",
+      "Partnering with Prezenti for your support staff requirements transfers the administrative coordination of these roles to a dedicated point of contact. Personnel selection and deployment requirements can be defined according to the role and site, so your HR and administrative teams can focus on other priorities."
     ],
     listItems: [
-      "Highly trained and well-groomed support staff tailored for corporate environments.",
-      "Comprehensive training in soft skills, corporate etiquette, and polite communication.",
-      "Complete offloading of recruitment, vetting, and daily management tasks.",
-      "Strict adherence to confidentiality protocols when handling sensitive documents.",
-      "Scalable support infrastructure that adapts to your organization's evolving needs."
+      "Support staff for corporate environments, structured to your site's requirements.",
+      "Soft skills and workplace etiquette expectations that can be built into onboarding.",
+      "Personnel coordination handled through a dedicated point of contact.",
+      "Confidentiality expectations for handling sensitive documents discussed as part of the engagement.",
+      "Staffing levels that can be scaled to your organization's evolving needs."
     ]
   },
   {
     title: "Comprehensive Scope of Work for Office Support Staff",
     paragraphs: [
-      "The role of an office boy extends far beyond simple fetching tasks; they are multifaceted support professionals capable of managing a wide array of daily administrative responsibilities. Our personnel are trained to handle internal document circulation, ensuring that files, memos, and sensitive contracts reach the appropriate departments securely and promptly. They manage external errands, including crucial bank deposits, post office drops, and the dispatch or collection of important parcels. By delegating these time-consuming external tasks to our verified staff, you ensure that your core employees remain at their desks, focused on their primary objectives.",
-      "Within the office, our support staff provide invaluable assistance in maintaining the flow of the workday. They are responsible for pantry and cafeteria support, ensuring that tea, coffee, and refreshments are served to executives and visiting clients with hospitality-level etiquette. They assist in the preparation and setup of conference rooms prior to important meetings, ensuring whiteboards are clean, stationary is stocked, and presentation equipment is physically arranged as required. Furthermore, they take on routine inventory management, tracking the consumption of office supplies, printer toner, and pantry consumables, and proactively alerting management when restocking is necessary.",
-      "Our office boys also play a crucial role in maintaining the immediate tidiness of the workspace throughout the day. While our housekeeping teams handle deep cleaning, our support staff ensure that desks are cleared of used cups, meeting rooms are rapidly reset between sessions, and reception areas remain pristine. This continuous, low-level maintenance ensures that your office always looks its best, preventing the accumulation of clutter and maintaining a highly professional aesthetic from morning until evening."
+      "The role of an office boy extends beyond simple fetching tasks; they can support a range of daily administrative responsibilities. Personnel can be tasked with internal document circulation, so that files, memos, and documents reach the appropriate departments. They can also manage external errands, including bank deposits, post office drops, and the dispatch or collection of parcels — delegating these tasks so your core employees can remain focused on their primary objectives.",
+      "Within the office, support staff can assist with the flow of the workday, including pantry and cafeteria support, serving tea, coffee, and refreshments to employees and visiting clients. They can also assist in preparing and setting up conference rooms before meetings, and take on routine inventory tracking of office supplies, printer toner, and pantry consumables, flagging management when restocking is needed.",
+      "Office boys can also help maintain the immediate tidiness of the workspace throughout the day — clearing used cups from desks, resetting meeting rooms between sessions, and keeping reception areas presentable, alongside the deeper cleaning handled by housekeeping teams."
     ],
     listItems: [
-      "Secure and prompt internal circulation of files, memos, and sensitive documents.",
-      "Reliable execution of external errands including bank runs and parcel dispatch.",
-      "Hospitality-level pantry support and refreshment service for executives and guests.",
-      "Conference room setup, maintenance, and rapid resetting between meetings.",
-      "Proactive inventory tracking of office supplies, stationary, and consumables."
+      "Internal circulation of files, memos, and documents.",
+      "External errands including bank runs and parcel dispatch.",
+      "Pantry support and refreshment service for employees and guests.",
+      "Conference room setup and resetting between meetings.",
+      "Inventory tracking of office supplies, stationery, and consumables."
     ]
   },
   {
-    title: "100% Verified, Compliant, and Trustworthy Personnel",
+    title: "Personnel Selection and Statutory Considerations",
     paragraphs: [
-      "When bringing support staff into the heart of your corporate operations, trust is the absolute most critical factor. These individuals have access to your premises, interact with your employees, and often handle confidential paperwork or financial instruments during bank runs. Prezenti mitigates the risks associated with support staff deployment through a zero-compromise vetting process. Every single candidate undergoes a rigorous multi-tier background check before they are even considered for deployment. This includes comprehensive address verification, identity authentication via national databases, and most importantly, formal police verification.",
-      "Beyond security, we shield our clients from the complex and often punitive landscape of Indian labor laws. By partnering with Prezenti, you are completely insulated from compliance liabilities. We act as the principal employer, meticulously managing all statutory obligations for our deployed staff. This includes the timely remittance of Provident Fund (PF), Employee State Insurance Corporation (ESIC) contributions, Professional Tax (PT), and strict adherence to the Minimum Wages Act. We provide our clients with transparent, audit-ready compliance dossiers every month, complete with all necessary challans.",
-      "Our commitment to compliance not only protects your organization legally but also fosters a highly motivated and stable workforce. By ensuring that our staff receive their rightful benefits, fair wages, and a supportive working environment, we dramatically reduce employee turnover. This stability is directly passed on to our clients, who benefit from consistent, familiar faces in their office—support staff who learn the specific nuances of your workplace and become trusted, long-term assets to your daily operations."
+      "When bringing support staff into your corporate operations, trust matters — these individuals may have access to your premises, interact with employees, and handle documents or errands involving bank runs. Personnel selection and deployment requirements — including the checks appropriate for a given role and site — are defined according to the engagement, and can be discussed and agreed with your organization during onboarding.",
+      "Statutory requirements for deployed personnel — including Provident Fund (PF), Employee State Insurance Corporation (ESIC) contributions, Professional Tax (PT), and the Minimum Wages Act — depend on the applicable engagement and workforce arrangement, and can be addressed as part of the contract structure agreed with your organization.",
+      "Fair and timely compensation, along with a respectful working environment, is part of how we aim to support a more consistent, motivated workforce for your site."
     ],
     listItems: [
-      "Zero-compromise vetting including address validation and formal police verification.",
-      "Absolute insulation from compliance liabilities under Indian labor laws.",
-      "Meticulous management of PF, ESIC, PT, and Minimum Wage obligations.",
-      "Transparent, audit-ready monthly compliance dossiers provided to clients.",
-      "High staff retention rates resulting from ethical employment practices and fair benefits."
+      "Personnel selection requirements defined according to role and site, agreed during onboarding.",
+      "Statutory considerations — PF, ESIC, PT, Minimum Wages — addressed as part of the agreed contract structure.",
+      "Compliance documentation availability can be discussed as part of your contract.",
+      "Compensation and workplace practices structured to support a consistent workforce."
     ]
   },
   {
-    title: "Zero-Downtime Guarantee and Tech-Enabled Management",
+    title: "Reliever Coverage and Deployment Support",
     paragraphs: [
-      "The absence of a crucial support staff member can cause immediate friction in a busy office, disrupting meetings, delaying document circulation, and frustrating executives. Prezenti solves the industry-wide problem of absenteeism through our ironclad Zero-Downtime Replacement Guarantee. We maintain a robust bench of fully trained, verified reliever staff at our local hubs. If a primary office boy falls ill or faces a personal emergency, our automated attendance tracking system immediately flags the absence, and a replacement is dispatched to your office rapidly. This ensures that your administrative operations never skip a beat.",
-      "Our tech-enabled deployment model extends beyond attendance management. We utilize digital platforms to bring absolute transparency to our service delivery. Clients have access to real-time dashboards where they can view attendance records, track the completion of daily checklists, and communicate directly with their dedicated Key Account Manager (KAM). This digital oversight eliminates the need for manual micromanagement by your administrative team. You are always informed, but never burdened by the operational details.",
-      "Furthermore, our dedicated Key Account Managers serve as your strategic partners. They conduct regular performance reviews, gather feedback from your team, and proactively address any issues before they escalate. If your organization experiences sudden growth or requires temporary additional support for a major corporate event, your KAM can seamlessly scale your support staff deployment up or down. This agile, technology-driven approach ensures that you always have exactly the right level of support required to drive your business forward."
+      "The absence of a support staff member can disrupt a busy office. Coverage continuity — including how absences are handled — can be planned and agreed as part of your deployment structure, with reliever arrangements discussed during onboarding.",
+      "Attendance tracking and task-completion processes can be structured to your requirements, with reporting arrangements agreed as part of your service plan.",
+      "Ongoing account coordination — including periodic check-ins and scaling support staff up or down for changing needs — can be structured as part of your engagement."
     ],
     listItems: [
-      "Ironclad Zero-Downtime Guarantee to ensure uninterrupted administrative support.",
-      "Rapid dispatch of trained relievers from our local hubs in the event of absenteeism.",
-      "Tech-enabled attendance tracking and digital task management for absolute transparency.",
-      "Dedicated Key Account Managers for proactive oversight and strategic alignment.",
-      "Agile deployment capabilities allowing you to scale support staff up or down seamlessly."
+      "Coverage-continuity planning agreed as part of your deployment structure.",
+      "Reliever arrangements discussed during onboarding to help minimize disruption.",
+      "Attendance and task-tracking processes structured to your requirements.",
+      "Account coordination structured to support scaling needs over time."
     ]
   }
 ];

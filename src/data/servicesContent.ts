@@ -84,12 +84,12 @@ export const servicesData: Record<string, ServiceData> = {
     id: 'housekeeping',
     slug: 'housekeeping-services',
     seoTitle: 'Professional Housekeeping Services in Pune | Prezenti',
-    seoDescription: 'Expert housekeeping services for corporate offices, IT parks, and enterprises in Pune. Get highly trained, verified housekeeping staff for a pristine, compliant workplace.',
+    seoDescription: 'Expert housekeeping services for corporate offices, IT parks, and enterprises in Pune. Get housekeeping staff for a pristine, well-maintained workplace.',
     h1: 'Enterprise Housekeeping Services in Pune',
     sections: housekeepingBaseContent,
     faqs: [
       { question: 'What is included in your housekeeping services?', answer: 'Our housekeeping services cover comprehensive daily cleaning, deep cleaning, restroom sanitation, floor care, waste management, and pantry maintenance tailored to corporate environments.' },
-      { question: 'Are your housekeeping staff background-verified?', answer: 'Yes, 100% of our housekeeping personnel undergo strict police verification, background checks, and health screenings before deployment.' },
+      { question: 'Are your housekeeping staff background-verified?', answer: 'Personnel screening, verification, and health-related requirements can be defined according to the role, site, and engagement requirements.' },
       { question: 'Do you provide cleaning materials and equipment?', answer: 'Yes, we provide an end-to-end solution including eco-friendly cleaning chemicals, modern mechanized equipment, and all necessary consumables.' },
       { question: 'Can you scale the housekeeping team based on our needs?', answer: 'Absolutely. We offer flexible staffing models allowing you to scale up or down based on your occupancy and operational requirements.' },
       { question: 'Which areas of Pune do you provide housekeeping services in?', answer: 'We provide housekeeping services across Pune’s major commercial and industrial hubs, including Hinjawadi, Baner, Wakad, Kharadi, Magarpatta, Hadapsar, Viman Nagar, Pimpri-Chinchwad, and Chakan.' }
@@ -130,7 +130,7 @@ export const servicesData: Record<string, ServiceData> = {
     faqs: [
       { question: 'What skills do your receptionists possess?', answer: 'Our receptionists are trained in visitor management, EPABX handling, corporate communication, mailroom management, and front-desk administration.' },
       { question: 'Can you provide bilingual receptionists?', answer: 'Yes, depending on your location and requirement, we can provide receptionists fluent in English and local languages.' },
-      { question: 'What happens if a receptionist takes leave?', answer: 'We ensure zero downtime by providing immediate relievers or trained backups to cover any planned or unplanned absences.' },
+      { question: 'What happens if a receptionist takes leave?', answer: 'Reliever and coverage-continuity arrangements can be discussed during service planning based on your front-desk requirements.' },
       { question: 'Do you provide temporary receptionist staffing?', answer: 'Yes, we cater to both long-term contracts and temporary staffing needs for events or interim coverage.' }
     ],
     relatedServices: [
@@ -143,12 +143,12 @@ export const servicesData: Record<string, ServiceData> = {
     id: 'office-boy',
     slug: 'office-boy-services',
     seoTitle: 'Reliable Office Boy Services & Support Staff | Prezenti',
-    seoDescription: 'Hire verified and trained office boys, peons, and support staff to keep your corporate office running smoothly. Trusted by top enterprises.',
+    seoDescription: 'Hire office boys, peons, and support staff to keep your corporate office running smoothly.',
     h1: 'Reliable Office Boy & Support Staff Services',
     sections: officeBoyBaseContent,
     faqs: [
       { question: 'What duties do office boys perform?', answer: 'Duties include file movement, serving tea/coffee, document photocopying, bank runs, managing stationary, and assisting with general office administration.' },
-      { question: 'Are your office boys verified?', answer: 'Yes, strict background checks, including address and police verification, are mandatory for all support staff.' },
+      { question: 'Are your office boys verified?', answer: 'Personnel screening and verification requirements can be defined according to the role, site, and engagement requirements.' },
       { question: 'Do they wear uniforms?', answer: 'Yes, all our office boys are provided with professional, clean uniforms and ID cards to maintain corporate decorum.' },
       { question: 'Can we hire office boys for multiple shifts?', answer: 'Yes, we provide support staff across various shifts depending on your office operational hours.' }
     ],
@@ -208,7 +208,7 @@ export const servicesData: Record<string, ServiceData> = {
     faqs: [
       { question: 'How is property management different from facility management?', answer: 'Property management focuses on the commercial lifecycle of the real estate, including tenant relations, lease administration, and asset value enhancement, alongside physical upkeep.' },
       { question: 'Do you handle vendor management for the property?', answer: 'Yes, we manage all third-party vendors (elevators, fire safety, AMC contracts) to ensure seamless operations.' },
-      { question: 'Can you help reduce operational costs for the property?', answer: 'Absolutely. Through energy audits, preventative maintenance, and optimized staffing, we significantly reduce OPEX.' },
+      { question: 'Can you help reduce operational costs for the property?', answer: 'Energy audits, preventative maintenance, and staffing optimization can be structured as part of your engagement to help manage OPEX.' },
       { question: 'Do you manage tenant complaints and helpdesk?', answer: 'Yes, we run a centralized 24/7 helpdesk to address and resolve all tenant queries and maintenance requests swiftly.' }
     ],
     relatedServices: [

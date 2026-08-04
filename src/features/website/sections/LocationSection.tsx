@@ -1,4 +1,5 @@
 import { motion, type Variants } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { MapPin } from 'lucide-react';
 import { Badge } from '../../../components/ui/Badge';
 import { useCatalogData } from '../../../hooks/useCatalogData';
@@ -124,7 +125,9 @@ export function LocationSection() {
                   </p>
 
                   <h3 className="text-2xl sm:text-3xl font-semibold leading-tight text-neutral-950">
-                    {activeCity?.name ?? 'Pune'}
+                    <Link to="/locations/pune" className="hover:text-primary-700 hover:underline">
+                      {activeCity?.name ?? 'Pune'}
+                    </Link>
                   </h3>
 
                   <div className="mt-5 w-full text-sm sm:text-[15px] leading-relaxed text-neutral-500 lg:text-left text-center">
@@ -133,8 +136,16 @@ export function LocationSection() {
                     </p>
 
                     <ul className="inline-block text-left list-inside list-disc space-y-0.5">
-                      <li>Hinjawadi IT Park</li>
-                      <li>Kharadi & Magarpatta</li>
+                      <li>
+                        <Link to="/locations/hinjawadi" className="hover:text-primary-700 hover:underline">
+                          Hinjawadi IT Park
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/locations/kharadi" className="hover:text-primary-700 hover:underline">
+                          Kharadi & Magarpatta
+                        </Link>
+                      </li>
                       <li>Baner & Balewadi</li>
                       <li>Viman Nagar</li>
                       <li>Kalyani Nagar</li>

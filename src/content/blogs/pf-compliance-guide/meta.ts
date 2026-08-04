@@ -16,7 +16,7 @@ export const meta: BlogMetadata = {
   priority: 'High',
   
   conversion: {
-    primaryCTA: 'Hire 100% PF Compliant Staff Today',
+    primaryCTA: 'Talk to Us About Compliant Staffing',
     secondaryCTA: 'Free Compliance Audit',
     conversionGoal: 'Lead Generation',
     targetService: 'contract-staffing'

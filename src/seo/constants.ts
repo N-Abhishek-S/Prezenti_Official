@@ -30,20 +30,17 @@ export const SEO_CONSTANTS = {
     X: 'https://x.com/PrezentiOffici',
     LINKEDIN: 'https://www.linkedin.com/company/prezenti-staffing-services'
   },
+  // Restricted to areas with actual evidenced service coverage in
+  // content/locations/locationData.ts (Pune, Hinjawadi, Kharadi and their
+  // documented nearby areas). Previously included Mumbai, Navi Mumbai,
+  // Thane, Nagpur, Nashik, Aurangabad, Kolhapur, and Balewadi — none of
+  // which have any supporting Category A content anywhere on the site.
   AREA_SERVED: [
     'Pune',
-    'Mumbai',
-    'Navi Mumbai',
-    'Thane',
-    'Nagpur',
-    'Nashik',
-    'Aurangabad',
-    'Kolhapur',
-    'Baner',
     'Hinjewadi',
-    'Wakad',
-    'Balewadi',
     'Kharadi',
+    'Baner',
+    'Wakad',
     'Viman Nagar'
   ],
 };

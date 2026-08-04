@@ -6,7 +6,7 @@ export const locationData: Record<string, LocationMetadata> = {
     id: 'loc-001',
     slug: 'pune',
     title: 'Facility Management & Housekeeping Services in Pune',
-    description: 'Premier facility management, corporate housekeeping, and contract staffing for IT parks, manufacturing hubs, and commercial offices across Pune.',
+    description: 'Facility management, corporate housekeeping, and contract staffing for IT parks, manufacturing hubs, and commercial offices across Pune.',
     locationName: 'Pune',
     overview: 'Pune is a rapidly growing metropolitan hub driven by IT/ITES, automotive manufacturing, and education. We provide specialized, localized facility management solutions tailored to the unique operational demands of Pune’s diverse commercial landscape.',
     businessHubs: [
@@ -29,7 +29,7 @@ export const locationData: Record<string, LocationMetadata> = {
     challenges: [
       'High attrition rates among blue-collar workforce due to competitive local labor markets.',
       'Logistical challenges in deploying staff across distant hubs (e.g., Hinjawadi to Kharadi).',
-      'Strict adherence to Maharashtra State minimum wages and labor compliance laws.'
+      'Navigating Maharashtra State minimum wage and labor compliance requirements.'
     ],
     recommendedServices: [
       'facility-management-services',
@@ -44,7 +44,7 @@ export const locationData: Record<string, LocationMetadata> = {
       },
       {
         question: 'Are your staff familiar with the local Pune business environment?',
-        answer: 'Absolutely. We actively recruit from local communities and conduct specialized training to align our staff with the corporate culture of Pune’s leading IT and manufacturing firms.'
+        answer: 'Staff recruitment and training can be aligned with the local Pune business environment and the corporate culture of IT and manufacturing firms in the area.'
       }
     ],
     nearbyAreas: ['Hinjawadi', 'Kharadi', 'Baner', 'Viman Nagar', 'Chakan', 'Pimpri-Chinchwad'],
@@ -70,7 +70,7 @@ export const locationData: Record<string, LocationMetadata> = {
     title: 'Corporate Housekeeping & Facility Management in Hinjawadi, Pune',
     description: '24/7 IFM and corporate housekeeping services tailored for IT companies and BPOs located in Hinjawadi Rajiv Gandhi Infotech Park.',
     locationName: 'Hinjawadi',
-    overview: 'Hinjawadi is the epicenter of Pune’s IT revolution. With multi-national software companies running round-the-clock operations, our facility management services are designed to ensure zero downtime, stringent data center security, and pristine hygiene standards.',
+    overview: 'Hinjawadi is a major hub of Pune’s IT sector. With multi-national software companies running round-the-clock operations, facility management arrangements can be structured around service continuity, data center access requirements, and hygiene standards for the site.',
     businessHubs: [
       'Rajiv Gandhi Infotech Park Phase 1',
       'Rajiv Gandhi Infotech Park Phase 2',
@@ -125,7 +125,7 @@ export const locationData: Record<string, LocationMetadata> = {
     title: 'Facility Management & Office Boy Services in Kharadi, Pune',
     description: 'Expert facility management, office boy staffing, and housekeeping services for corporate offices in EON IT Park and World Trade Center Kharadi.',
     locationName: 'Kharadi',
-    overview: 'Kharadi represents the premium commercial corridor of Eastern Pune. Home to the World Trade Center and EON Free Zone, it demands the highest standards of corporate hygiene, soft services, and executive support staffing.',
+    overview: 'Kharadi is a commercial corridor of Eastern Pune. Home to the World Trade Center and EON Free Zone, it calls for high standards of corporate hygiene, soft services, and executive support staffing.',
     businessHubs: [
       'EON Free Zone IT Park',
       'World Trade Center (WTC) Pune',
@@ -152,7 +152,7 @@ export const locationData: Record<string, LocationMetadata> = {
     faqs: [
       {
         question: 'Can you provide English-speaking receptionists for offices in WTC Kharadi?',
-        answer: 'Yes, we provide highly trained, English-speaking front desk executives and receptionists tailored for premium corporate offices.'
+        answer: 'Yes, we can provide English-speaking front desk executives and receptionists for premium corporate offices.'
       }
     ],
     nearbyAreas: ['Viman Nagar', 'Magarpatta City', 'Kalyani Nagar', 'Wagholi'],

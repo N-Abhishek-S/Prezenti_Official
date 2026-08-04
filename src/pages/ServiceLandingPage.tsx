@@ -47,7 +47,7 @@ export function ServiceLandingPage({ routeDef }: { routeDef: RouteDefinition }) 
         keywords={[
           service.h1,
           `${service.h1} Pune`,
-          'verified support staff',
+          'workplace support staff',
           'corporate facility services',
           'managed workplace staffing',
         ]}

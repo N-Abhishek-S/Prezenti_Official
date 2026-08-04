@@ -156,7 +156,7 @@ export function KnowledgePage({ routeDef }: KnowledgePageProps) {
                         <h2 className="text-2xl font-bold text-white mb-0">{block.title}</h2>
                       </div>
                       <p className="text-brand-muted/80 text-base m-0">
-                        Our commitment to absolute compliance and ethical staffing ensures your enterprise is protected from operational and legal risks.
+                        Statutory and compliance considerations for your engagement can be addressed transparently as part of the contract structure.
                       </p>
                     </div>
                   );

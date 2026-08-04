@@ -21,8 +21,8 @@ export function ServicesHubPage() {
 
   const faqs = [
     { question: 'What facility management services do you provide?', answer: 'We provide an integrated suite of services including housekeeping, security, receptionist staffing, office boy support, pantry staff, and comprehensive commercial property management.' },
-    { question: 'Do you cater to multiple locations?', answer: 'Yes, our enterprise-grade operations platform is designed specifically for multi-location enterprises, ensuring standard quality and reporting across all your facilities.' },
-    { question: 'Are your support staff verified and trained?', answer: 'Absolutely. We conduct rigorous police and background verifications on all staff. They also undergo extensive training before deployment.' },
+    { question: 'Do you cater to multiple locations?', answer: 'Yes, service delivery and reporting can be structured consistently across multiple facilities as part of your engagement.' },
+    { question: 'Are your support staff verified and trained?', answer: 'Personnel screening, verification, and training requirements can be defined according to the role, site, and engagement requirements.' },
     { question: 'How can I request a customized quote?', answer: 'You can contact our expert team via the "Get a Quote" or "Talk to Expert" buttons on our website, and we will tailor a solution to your facility needs.' }
   ];
 
@@ -30,7 +30,7 @@ export function ServicesHubPage() {
     <main className="bg-canvas pt-24 pb-14 sm:pt-28 lg:pb-20">
       <SEO 
         title="Facility Management Services in Pune | Prezenti"
-        description="Explore verified housekeeping, security, receptionist, office boy, pantry, facility, and property management staffing services in Pune."
+        description="Explore housekeeping, security, receptionist, office boy, pantry, facility, and property management staffing services in Pune."
         canonicalUrl="/services"
         keywords={[
           'facility management services Pune',
@@ -45,7 +45,7 @@ export function ServicesHubPage() {
         type="WebPage"
         data={{
           name: 'Facility management services in Pune',
-          description: 'Explore verified workplace staffing and managed facility services for Pune businesses.',
+          description: 'Explore workplace staffing and managed facility services for Pune businesses.',
           url: `${SEO_CONSTANTS.BASE_URL}/services`,
         }}
       />
@@ -76,7 +76,7 @@ export function ServicesHubPage() {
               Facility Management Services by Prezenti
             </motion.h1>
             <p className="text-xl text-neutral-600 leading-relaxed max-w-3xl mx-auto">
-              We empower modern enterprises with world-class facility operations. Our reliable, trained, and verified professionals ensure your environment remains safe, clean, and productive so you can focus on what matters most.
+              Facility operations for modern enterprises, structured around service planning and workforce coordination, so your environment can remain safe, clean, and productive.
             </p>
           </header>
         </div>

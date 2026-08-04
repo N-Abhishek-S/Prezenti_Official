@@ -80,10 +80,10 @@ export function LocationLandingPage({ routeDef }: LocationLandingPageProps) {
                 {location.overview}
               </p>
 
-              <AiSummaryBlock 
+              <AiSummaryBlock
                 title={`${location.locationName} Facility Management Definition`}
-                summary={`Prezenti delivers enterprise-grade facility management and corporate staffing solutions tailored for ${location.locationName}. Specializing in IT parks and commercial estates, we offer 100% compliant, background-verified support staff.`}
-                entities={['Facility Management', 'Corporate Staffing', 'IT Park Operations', 'Compliance', location.locationName]}
+                summary={`Prezenti provides facility management and corporate staffing for ${location.locationName}, with service scope and delivery structured around the needs of each site.`}
+                entities={['Facility Management', 'Corporate Staffing', 'Site-Specific Deployment', location.locationName]}
               />
             </header>
 

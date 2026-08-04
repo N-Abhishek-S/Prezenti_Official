@@ -19,12 +19,12 @@ export function TalkToUs() {
     <>
       <SEO 
         title="Contact Prezenti | Facility Staffing in Pune"
-        description="Contact Prezenti to hire verified housekeeping, office boy, receptionist, pantry, security, and facility support staff for Pune workplaces."
-        canonicalUrl="/talk-to-us" 
+        description="Contact Prezenti to hire housekeeping, office boy, receptionist, pantry, security, and facility support staff for Pune workplaces."
+        canonicalUrl="/talk-to-us"
         keywords={[
           'contact facility staffing Pune',
           'hire housekeeping staff Pune',
-          'verified support staff',
+          'workplace support staff',
           'facility management quote',
         ]}
       />
@@ -32,7 +32,7 @@ export function TalkToUs() {
         type="WebPage"
         data={{
           name: 'Contact Prezenti',
-          description: 'Request a callback for verified workplace staffing and facility services in Pune.',
+          description: 'Request a callback for workplace staffing and facility services in Pune.',
           url: `${SEO_CONSTANTS.BASE_URL}/talk-to-us`,
         }}
       />
@@ -44,7 +44,7 @@ export function TalkToUs() {
         type="ContactPage"
         data={{
           name: 'Contact Prezenti | Enterprise Staffing',
-          description: 'Get in touch for enterprise-grade facility management and corporate staffing in Pune.',
+          description: 'Get in touch about facility management and corporate staffing in Pune.',
           url: `${SEO_CONSTANTS.BASE_URL}/talk-to-us`,
         }}
       />
@@ -66,16 +66,16 @@ export function TalkToUs() {
           <h3 className="text-xl font-semibold text-neutral-900 mb-4">Why Businesses Trust Prezenti</h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-sm text-neutral-600">
             <div>
-              <div className="font-semibold text-neutral-900 mb-1">100% Compliant</div>
-              <p>Strict adherence to labor laws, PF, ESIC, and background verifications.</p>
+              <div className="font-semibold text-neutral-900 mb-1">Statutory Considerations</div>
+              <p>PF, ESIC, and screening requirements can be addressed as part of your engagement.</p>
             </div>
             <div>
-              <div className="font-semibold text-neutral-900 mb-1">Dedicated Support</div>
-              <p>Assigned Key Account Managers to oversee your facility operations.</p>
+              <div className="font-semibold text-neutral-900 mb-1">Coordinated Support</div>
+              <p>Account coordination that can be structured to oversee your facility operations.</p>
             </div>
             <div>
-              <div className="font-semibold text-neutral-900 mb-1">Rapid Deployment</div>
-              <p>Quick turnaround times with a pipeline of pre-trained support staff.</p>
+              <div className="font-semibold text-neutral-900 mb-1">Flexible Deployment</div>
+              <p>Staffing timelines that can be discussed based on your requirements.</p>
             </div>
           </div>
           

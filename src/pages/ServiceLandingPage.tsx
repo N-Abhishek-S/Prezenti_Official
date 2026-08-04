@@ -84,10 +84,10 @@ export function ServiceLandingPage({ routeDef }: { routeDef: RouteDefinition }) 
           </p>
         </header>
 
-        <AiSummaryBlock 
+        <AiSummaryBlock
           title={`${service.h1} - Quick Definition`}
-          summary={`Prezenti provides enterprise-grade ${service.h1.toLowerCase()} across Pune. All staff are 100% PF and ESIC compliant, police-verified, and fully trained for corporate environments.`}
-          entities={['PF Compliant', 'ESIC Compliant', 'ISO Standards', 'Background Verified', 'Corporate Soft Services']}
+          summary={`Prezenti provides ${service.h1.toLowerCase()} for corporate and commercial clients, with service scope and delivery structured around the needs of each site.`}
+          entities={['Corporate Staffing', 'Site-Specific Deployment', 'Service Level Planning']}
         />
 
         <div className="prose prose-lg prose-neutral max-w-none">

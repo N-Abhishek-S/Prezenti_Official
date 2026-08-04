@@ -103,15 +103,16 @@ export const servicesData: Record<string, ServiceData> = {
   'security-services': {
     id: 'security',
     slug: 'security-services',
-    seoTitle: 'Top Corporate Security Services & Guards | Prezenti',
-    seoDescription: 'Hire highly trained, professional security guards and security management personnel for your corporate office, IT park, or enterprise facility.',
-    h1: 'Professional Corporate Security Services',
+    seoTitle: 'Corporate Security Services & Guards in Pune | Prezenti',
+    seoDescription: 'Hire highly trained, professional security guards and security management personnel for your corporate office, IT park, or enterprise facility in Pune.',
+    h1: 'Professional Corporate Security Services in Pune',
     sections: securityBaseContent,
     faqs: [
-      { question: 'What type of security personnel do you provide?', answer: 'We provide unarmed guards, armed guards, security supervisors, CCTV operators, and specialized corporate security officers.' },
-      { question: 'Are your security guards trained for emergencies?', answer: 'Yes, our guards receive rigorous training in fire safety, emergency evacuation, first aid, and crowd control.' },
-      { question: 'Do you offer 24/7 security coverage?', answer: 'Yes, we provide round-the-clock security services with highly managed shift rotations and dedicated night supervisors.' },
-      { question: 'How do you monitor security guard performance?', answer: 'We use digital attendance, real-time patrol tracking systems, and surprise site audits by our area managers.' }
+      { question: 'What type of security personnel do you provide?', answer: 'We provide unarmed guards, security supervisors, CCTV operators, and specialized corporate security officers.' },
+      { question: 'Are your security guards trained for emergencies?', answer: 'Emergency-response requirements — such as first aid, fire safety, evacuation, and crowd control — can be discussed and built into your site’s deployment plan.' },
+      { question: 'Do you offer 24/7 security coverage?', answer: 'Coverage schedules, including round-the-clock arrangements where required, are determined based on your site’s requirements and confirmed during deployment planning.' },
+      { question: 'How do you monitor security guard performance?', answer: 'Guard performance monitoring and site-audit processes can be structured according to your requirements and agreed during deployment planning.' },
+      { question: 'Do you provide security services across Pune?', answer: 'Yes, we provide corporate and industrial security services to businesses across Pune, including areas such as Hinjawadi, Kharadi, Baner, Wakad, Magarpatta, Hadapsar, Viman Nagar, Pimpri-Chinchwad, and Chakan.' }
     ],
     relatedServices: [
       { name: 'Receptionist Staffing', slug: 'receptionist-staffing-services' },

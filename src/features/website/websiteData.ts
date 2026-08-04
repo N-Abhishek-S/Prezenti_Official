@@ -13,10 +13,10 @@ export const comparisonMedia = {
 } as const;
 
 export const impactMetrics = [
-  { value: '100%', label: 'Statutory Compliant (PF/ESIC)' },
-  { value: '100%', label: 'Police Verified Staff' },
-  { value: '200+', label: 'Enterprise Clients' },
-  { value: '98.4%', label: 'SLA Compliance' },
+  { value: 'Housekeeping', label: 'Workplace Services' },
+  { value: 'Facility', label: 'Management Services' },
+  { value: 'Support', label: 'Staffing Services' },
+  { value: 'Site-Specific', label: 'Service Planning' },
 ] as const;
 
 export const homepageFaqs = [
@@ -26,11 +26,11 @@ export const homepageFaqs = [
   },
   {
     question: 'Are all your deployed staff PF and ESIC compliant?',
-    answer: 'Yes. 100% of our workforce is deployed strictly adhering to state and central labor laws, with full PF, ESIC, and PT compliance managed by our in-house HR operations.'
+    answer: 'PF, ESIC, and PT requirements can be considered when defining workforce responsibilities and engagement requirements in line with applicable labour regulations.'
   },
   {
     question: 'Do you conduct background checks on your facility staff?',
-    answer: 'Absolutely. Every staff member undergoes rigorous address verification and police background checks before deployment to ensure the highest level of security for your corporate premises.'
+    answer: 'Personnel verification requirements can be defined according to the site, role, and engagement requirements.'
   },
   {
     question: 'Which areas in Pune do you serve?',

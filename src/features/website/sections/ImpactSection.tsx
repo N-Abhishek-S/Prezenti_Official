@@ -25,7 +25,7 @@ export function ImpactSection() {
           <Badge variant="teal" size="lg" className="mb-3 bg-white/10 text-white">
             Impact
           </Badge>
-          <h2 className="w-full wrap-break-word text-wrap-balance text-2xl font-semibold sm:text-[clamp(1.5rem,3vw+1rem,1.875rem)]">Proven Enterprise Results</h2>
+          <h2 className="w-full wrap-break-word text-wrap-balance text-2xl font-semibold sm:text-[clamp(1.5rem,3vw+1rem,1.875rem)]">Our Service Focus</h2>
         </motion.div>
         <motion.div variants={fadeUp} className="grid grid-cols-2 gap-px overflow-hidden rounded-[24px] bg-white/10 lg:grid-cols-4">
           {impactMetrics.map((metric) => (

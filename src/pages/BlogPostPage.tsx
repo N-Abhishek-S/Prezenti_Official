@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Container } from '../components/ui/Container';
 import type { RouteDefinition } from '../app/routes/routeRegistry';
+import { resolveRoutePath } from '../app/routes/routeRegistry';
 import { allBlogsMetadata } from '../app/routes/blogRoutes';
 import { Link } from 'react-router-dom';
 import { Calendar, Clock, User, ArrowRight, Tag } from 'lucide-react';
@@ -102,37 +103,49 @@ export function BlogPostPage({ routeDef }: BlogPostPageProps) {
 
           <aside className="lg:w-1/3 space-y-8">
             
-            {meta.relationships.service.length > 0 && (
-              <div className="bg-white p-8 rounded-2xl shadow-sm border border-brand-accent/10">
-                <h3 className="text-xl font-bold text-brand-dark mb-6 border-b pb-4">Related Services</h3>
-                <ul className="space-y-4">
-                  {meta.relationships.service.map(service => (
-                    <li key={service}>
-                      <Link to={`/${service}`} className="flex items-center gap-3 text-brand-dark font-medium hover:text-brand-accent transition-colors">
-                        <ArrowRight className="w-5 h-5 text-brand-accent" />
-                        {service.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            {(() => {
+              const relatedServices = meta.relationships.service
+                .map(service => ({ service, path: resolveRoutePath('SERVICE', service) }))
+                .filter((entry): entry is { service: string; path: string } => Boolean(entry.path));
+              if (relatedServices.length === 0) return null;
+              return (
+                <div className="bg-white p-8 rounded-2xl shadow-sm border border-brand-accent/10">
+                  <h3 className="text-xl font-bold text-brand-dark mb-6 border-b pb-4">Related Services</h3>
+                  <ul className="space-y-4">
+                    {relatedServices.map(({ service, path }) => (
+                      <li key={service}>
+                        <Link to={path} className="flex items-center gap-3 text-brand-dark font-medium hover:text-brand-accent transition-colors">
+                          <ArrowRight className="w-5 h-5 text-brand-accent" />
+                          {service.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })()}
 
-            {meta.relationships.pricing.length > 0 && (
-              <div className="bg-brand-dark text-white p-8 rounded-2xl shadow-sm">
-                <h3 className="text-xl font-bold text-white mb-6 border-b border-white/20 pb-4">Pricing & Cost Guides</h3>
-                <ul className="space-y-4">
-                  {meta.relationships.pricing.map(guide => (
-                    <li key={guide}>
-                      <Link to={`/${guide}`} className="flex items-center gap-3 text-brand-muted/90 hover:text-white transition-colors">
-                        <Tag className="w-5 h-5 text-brand-accent" />
-                        {guide.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            {(() => {
+              const relatedGuides = meta.relationships.pricing
+                .map(guide => ({ guide, path: resolveRoutePath('KNOWLEDGE', guide) }))
+                .filter((entry): entry is { guide: string; path: string } => Boolean(entry.path));
+              if (relatedGuides.length === 0) return null;
+              return (
+                <div className="bg-brand-dark text-white p-8 rounded-2xl shadow-sm">
+                  <h3 className="text-xl font-bold text-white mb-6 border-b border-white/20 pb-4">Pricing & Cost Guides</h3>
+                  <ul className="space-y-4">
+                    {relatedGuides.map(({ guide, path }) => (
+                      <li key={guide}>
+                        <Link to={path} className="flex items-center gap-3 text-brand-muted/90 hover:text-white transition-colors">
+                          <Tag className="w-5 h-5 text-brand-accent" />
+                          {guide.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })()}
           </aside>
         </div>
       </Container>

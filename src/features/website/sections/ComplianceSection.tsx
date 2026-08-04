@@ -4,23 +4,23 @@ import { Container } from '../../../components/ui/Container';
 export function ComplianceSection() {
   const compliances = [
     {
-      title: '100% PF & ESIC Compliant',
-      description: 'Full adherence to EPF and ESIC regulations, ensuring secure and legal employment for all our staff.',
+      title: 'PF & ESIC Considerations',
+      description: 'PF and ESIC requirements can be considered when defining the workforce structure and responsibilities for an engagement.',
       icon: <CheckCircle className="w-6 h-6 text-brand-accent" />
     },
     {
-      title: 'Background Verification',
-      description: 'Rigorous 5-step police and address verification process before any deployment.',
+      title: 'Personnel Requirements',
+      description: 'Personnel screening and verification requirements can be defined according to the needs and responsibilities of each engagement.',
       icon: <ShieldCheck className="w-6 h-6 text-brand-accent" />
     },
     {
-      title: 'Labour Law Adherence',
-      description: 'Strict compliance with minimum wage, gratuity, and all local Maharashtra state labour laws.',
+      title: 'Labour Law Considerations',
+      description: 'Applicable wage and labour-law requirements can be considered when structuring workforce responsibilities for an engagement.',
       icon: <FileCheck className="w-6 h-6 text-brand-accent" />
     },
     {
-      title: 'ISO & SOP Driven',
-      description: 'Operations managed through documented Standard Operating Procedures and SLAs.',
+      title: 'Service Process Planning',
+      description: 'Site-specific service procedures and operating expectations can be defined as part of the engagement.',
       icon: <Award className="w-6 h-6 text-brand-accent" />
     }
   ];
@@ -29,9 +29,9 @@ export function ComplianceSection() {
     <section className="py-16 bg-brand-dark text-white border-y border-brand-accent/20">
       <Container>
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Enterprise-Grade Compliance & Security</h2>
+          <h2 className="text-3xl font-bold mb-4">Compliance & Operational Framework</h2>
           <p className="text-brand-light/80 max-w-2xl mx-auto">
-            We assume 100% of the compliance liability. From payroll to background checks, your facility is protected by rigorous legal and operational frameworks.
+            From workforce administration to personnel requirements, engagements can be structured around clear operational frameworks tailored to each site.
           </p>
         </div>
         

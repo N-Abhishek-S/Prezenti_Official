@@ -148,7 +148,7 @@ export function HeroContent() {
       display: 'inline-block',
     }}
   >
-    A Platform for offices, Admins and Management Committees
+    Integrated Facility Management & Corporate Staffing in Pune.
   </motion.span>
 </p>
 
@@ -184,9 +184,9 @@ export function HeroContent() {
       sm:wrap-break-word
       sm:text-[clamp(2.5rem,4vw,4.75rem)]
     "
-  >
-    Trained support staff -
-  </motion.span>
+    >
+      Trained support staff -
+    </motion.span>
 
   <motion.span
     initial={{
@@ -217,9 +217,9 @@ export function HeroContent() {
       sm:wrap-break-word
       sm:text-[clamp(2.5rem,4vw,4.75rem)]
     "
-  >
-    just a click away
-  </motion.span>
+    >
+      just a click away
+    </motion.span>
 </motion.h1>
 
       <motion.div
@@ -246,8 +246,7 @@ export function HeroContent() {
         transition={{ duration: 0.62, ease: 'easeOut' }}
         className="mb-8 mt-6 max-w-[280px] text-left text-[15px] font-normal leading-[1.6] tracking-[-0.006em] text-neutral-600 sm:max-w-140 sm:text-[17px]"
       >
-        We Manage Your Support Workforce, While You Focus on Core Operations
-      </motion.p>
+We Manage Your Support Workforce, While You Focus on Core Operations      </motion.p>
 
       <motion.div
         variants={entrance}

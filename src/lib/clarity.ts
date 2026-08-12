@@ -1,3 +1,5 @@
+import { hasAnalyticsConsent } from './consent';
+
 type ClarityCommand = 'consent' | 'event' | 'identify' | 'set' | 'upgrade';
 
 type Clarity = (command: ClarityCommand, ...args: Array<string | boolean | string[] | null | undefined>) => void;
@@ -19,7 +21,7 @@ export function isClarityEnabled() {
 }
 
 export function initializeClarity() {
-  if (!isClarityEnabled() || initialized || typeof window === 'undefined') {
+  if (!isClarityEnabled() || !hasAnalyticsConsent() || initialized || typeof window === 'undefined') {
     return initialized;
   }
 
@@ -42,7 +44,7 @@ export function initializeClarity() {
 }
 
 export function trackClarityPageView(path: string, title = document.title) {
-  if (!isClarityEnabled() || !window.clarity || path === lastTrackedPath) {
+  if (!isClarityEnabled() || !hasAnalyticsConsent() || !window.clarity || path === lastTrackedPath) {
     return;
   }
 

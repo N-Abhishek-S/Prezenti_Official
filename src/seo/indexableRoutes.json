@@ -7,7 +7,10 @@
     "/services",
     "/talk-to-us",
     "/privacy-policy",
-    "/terms-and-conditions"
+    "/terms-and-conditions",
+    "/refund-policy",
+    "/cancellation-policy",
+    "/pricing"
   ],
   "serviceSlugs": [
     "housekeeping-services",

@@ -1,3 +1,5 @@
+import { hasAnalyticsConsent } from './consent';
+
 type GtagCommand = 'config' | 'event' | 'js' | 'set';
 
 type Gtag = (
@@ -37,7 +39,7 @@ function withDebugParams(params: AnalyticsEventParams = {}) {
 }
 
 export function initializeAnalytics() {
-  if (!isAnalyticsEnabled() || initialized || typeof window === 'undefined') {
+  if (!isAnalyticsEnabled() || !hasAnalyticsConsent() || initialized || typeof window === 'undefined') {
     return initialized;
   }
 
@@ -67,7 +69,7 @@ export function initializeAnalytics() {
 }
 
 export function trackEvent(eventName: string, params: AnalyticsEventParams = {}) {
-  if (!isAnalyticsEnabled() || !window.gtag) return;
+  if (!isAnalyticsEnabled() || !hasAnalyticsConsent() || !window.gtag) return;
 
   window.gtag('event', eventName, withDebugParams(params));
 }

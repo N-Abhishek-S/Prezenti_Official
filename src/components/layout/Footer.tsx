@@ -4,6 +4,7 @@ import { Mail } from 'lucide-react';
 import { YoutubeIcon, InstagramIcon, FacebookIcon, TwitterIcon, LinkedinIcon } from '../ui/SocialIcons';
 import { publicSections, scrollToSection, setPendingSection, type PublicSectionId } from '../../lib/sectionNavigation';
 import { SEO_CONSTANTS } from '../../seo/constants';
+import { resetAnalyticsConsent } from '../../lib/consent';
 
 export function Footer() {
   const location = useLocation();
@@ -85,6 +86,18 @@ export function Footer() {
               </li>
               <li><Link to="/privacy-policy" className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20">Privacy Policy</Link></li>
               <li><Link to="/terms-and-conditions" className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20">Terms & Conditions</Link></li>
+              <li><Link to="/pricing" className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20">Pricing & Payment</Link></li>
+              <li><Link to="/refund-policy" className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20">Refund Policy</Link></li>
+              <li><Link to="/cancellation-policy" className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20">Cancellation Policy</Link></li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => resetAnalyticsConsent()}
+                  className="inline-block py-1.5 text-sm text-white/60 transition-colors duration-150 hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20 rounded-sm"
+                >
+                  Cookie Preferences
+                </button>
+              </li>
             </ul>
           </div>
 

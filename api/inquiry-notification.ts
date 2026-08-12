@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import nodemailer from 'nodemailer';
 
 interface ApiRequest {
   method?: string;
   headers: {
     origin?: string;
+    referer?: string;
+    [key: string]: string | string[] | undefined;
   };
+  socket?: { remoteAddress?: string };
   body?: unknown;
 }
 
@@ -24,9 +26,132 @@ const allowedServices = [
   'Receptionist',
 ];
 
+// Mirrors the fixed categoryOptions list in TalkToExpertForm.tsx.
+const allowedCategories = [
+  'Offices / Corporate / Educational Institute',
+  'Commercial Buildings',
+  'Residential Buildings',
+  'Hospital / Healthcare',
+  'Cafes / Restaurants',
+  'Pre Schools',
+];
+
 const successMessage = 'Inquiry sent successfully. Our team has been notified.';
 const requestTimeoutMs = 18_000;
 const maxJsonBodyBytes = 32_000;
+
+const fieldLimits = {
+  fullName: 100,
+  mobileNumber: 20,
+  email: 254,
+  companyName: 150,
+  location: 150,
+  requiredStartDate: 10,
+  serviceItem: 60,
+  categoryItem: 80,
+  additionalRequirement: 2000,
+} as const;
+
+const maxServices = 8;
+const maxCategories = 4;
+
+// --- Abuse protection state -------------------------------------------------
+// Per-instance rate limiting. Not globally distributed across serverless
+// instances — each warm Vercel Fluid Compute instance keeps its own counters,
+// so an attacker hitting multiple cold-started instances in parallel sees a
+// higher effective limit than the numbers below suggest. This is still real,
+// dependency-free protection against a single scripted client, not a
+// distributed guarantee. A shared store (e.g. Upstash Redis via the Vercel
+// Marketplace) would close that gap; it is not added here since it is new
+// infrastructure this repository doesn't already depend on.
+const RATE_LIMIT_WINDOW_MS = 15 * 60_000;
+const RATE_LIMIT_MAX_PER_WINDOW = 5;
+const RATE_LIMIT_MIN_GAP_MS = 15_000;
+const SUBMISSION_ID_TTL_MS = 10 * 60_000;
+const MAX_TRACKED_IPS = 5_000;
+
+const requestLogByIp = new Map<string, number[]>();
+const seenSubmissionIds = new Map<string, number>();
+
+function pruneRequestLog(ip: string, now: number): number[] {
+  const timestamps = (requestLogByIp.get(ip) ?? []).filter((ts) => now - ts < RATE_LIMIT_WINDOW_MS);
+  requestLogByIp.set(ip, timestamps);
+  return timestamps;
+}
+
+function pruneSubmissionIds(now: number) {
+  for (const [id, seenAt] of seenSubmissionIds) {
+    if (now - seenAt > SUBMISSION_ID_TTL_MS) {
+      seenSubmissionIds.delete(id);
+    }
+  }
+}
+
+function checkRateLimit(ip: string): { allowed: boolean; reason?: string } {
+  const now = Date.now();
+
+  if (requestLogByIp.size > MAX_TRACKED_IPS) {
+    requestLogByIp.clear();
+  }
+
+  const timestamps = pruneRequestLog(ip, now);
+  const lastRequest = timestamps[timestamps.length - 1];
+
+  if (lastRequest && now - lastRequest < RATE_LIMIT_MIN_GAP_MS) {
+    return { allowed: false, reason: 'TOO_FAST' };
+  }
+
+  if (timestamps.length >= RATE_LIMIT_MAX_PER_WINDOW) {
+    return { allowed: false, reason: 'TOO_MANY' };
+  }
+
+  timestamps.push(now);
+  requestLogByIp.set(ip, timestamps);
+  return { allowed: true };
+}
+
+function isDuplicateSubmission(submissionId: string | undefined): boolean {
+  if (!submissionId) return false;
+
+  const now = Date.now();
+  pruneSubmissionIds(now);
+
+  if (seenSubmissionIds.has(submissionId)) {
+    return true;
+  }
+
+  seenSubmissionIds.set(submissionId, now);
+  return false;
+}
+
+function getClientIp(request: ApiRequest): string {
+  // Vercel's edge is the only hop in front of this function. Standard proxy
+  // behavior is that each hop APPENDS its own address to the end of
+  // X-Forwarded-For, so the LAST entry is the one Vercel's own infrastructure
+  // set and the FIRST entry can be arbitrary client-supplied input. Trusting
+  // the first entry made the rate limiter trivially bypassable (an attacker
+  // just sends a different fake X-Forwarded-For on every request). x-real-ip,
+  // when present, is set directly by Vercel to the single connecting IP and
+  // is preferred when available.
+  const realIp = request.headers['x-real-ip'];
+  const realIpValue = Array.isArray(realIp) ? realIp[0] : realIp;
+
+  if (realIpValue) {
+    return realIpValue.trim();
+  }
+
+  const forwarded = request.headers['x-forwarded-for'];
+  const forwardedValue = Array.isArray(forwarded) ? forwarded[0] : forwarded;
+
+  if (forwardedValue) {
+    const hops = forwardedValue.split(',').map((hop) => hop.trim()).filter(Boolean);
+    return hops[hops.length - 1] || 'unknown';
+  }
+
+  return request.socket?.remoteAddress || 'unknown';
+}
+
+// -----------------------------------------------------------------------------
 
 interface ExpertInquiryFormValues {
   fullName: string;
@@ -43,6 +168,10 @@ interface ExpertInquiryFormValues {
 interface InquiryRequestBody extends ExpertInquiryFormValues {
   submissionId?: string;
   submittedAt?: string;
+  // Honeypot: a field real users never see or fill. Any non-empty value here
+  // marks the request as automated; we accept the request outward (so the
+  // bot gets no useful error signal) but never dispatch a notification.
+  website?: string;
 }
 
 type InquiryFormErrors = Partial<Record<keyof ExpertInquiryFormValues, string>>;
@@ -60,21 +189,46 @@ interface NotificationConfig {
   twilioContentSid: string;
 }
 
-function setCorsHeaders(request: ApiRequest, response: ApiResponse) {
-  const allowedOrigin = process.env.INQUIRY_ALLOWED_ORIGIN;
+function resolveAllowedOrigin(): string | undefined {
+  const configured = process.env.INQUIRY_ALLOWED_ORIGIN;
+  return configured || undefined;
+}
+
+/**
+ * Sets CORS headers AND returns whether this request is authorized to
+ * proceed. Setting a CORS header alone does not stop a non-browser client
+ * (curl, a script) from reaching this handler — the previous version only
+ * gated the header and let every request through regardless of Origin.
+ */
+function enforceOrigin(request: ApiRequest, response: ApiResponse): boolean {
+  const allowedOrigin = resolveAllowedOrigin();
   const requestOrigin = request.headers.origin;
 
   response.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   response.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept');
   response.setHeader('Vary', 'Origin');
 
-  if (!requestOrigin) {
-    return;
+  if (!allowedOrigin) {
+    // No allowlist configured: cannot safely restrict by origin, so we don't
+    // set Access-Control-Allow-Origin (browser fetches from other origins
+    // will be blocked client-side) but we don't reject server-side either,
+    // since a same-origin server-rendered form has no Origin header to check.
+    return true;
   }
 
-  if (allowedOrigin && requestOrigin === allowedOrigin) {
-    response.setHeader('Access-Control-Allow-Origin', requestOrigin);
+  if (!requestOrigin) {
+    // Same-origin requests and some non-browser tooling omit Origin. We allow
+    // this rather than block legitimate same-origin submissions, and rely on
+    // rate limiting / honeypot / validation as defense in depth.
+    return true;
   }
+
+  if (requestOrigin === allowedOrigin) {
+    response.setHeader('Access-Control-Allow-Origin', requestOrigin);
+    return true;
+  }
+
+  return false;
 }
 
 function getConfig(): NotificationConfig {
@@ -107,6 +261,7 @@ function assertConfig(config: NotificationConfig) {
   ].filter(([, value]) => !value);
 
   if (missing.length > 0) {
+    // Detail stays server-side only; callers never learn which var is missing.
     throw new Error(`Missing notification configuration: ${missing.map(([key]) => key).join(', ')}`);
   }
 }
@@ -121,23 +276,35 @@ function readBody(body: unknown): Partial<InquiryRequestBody> {
   }
 
   if (body && typeof body === 'object') {
+    if (JSON.stringify(body).length > maxJsonBodyBytes) {
+      throw new Error('Request body is too large.');
+    }
+
     return body as Partial<InquiryRequestBody>;
   }
 
   return {};
 }
 
+function clamp(value: string, maxLength: number) {
+  return value.slice(0, maxLength);
+}
+
 function normalizeBody(body: Partial<InquiryRequestBody>): ExpertInquiryFormValues {
   return {
-    fullName: String(body.fullName || ''),
-    mobileNumber: String(body.mobileNumber || ''),
-    email: String(body.email || ''),
-    companyName: String(body.companyName || ''),
-    location: String(body.location || ''),
-    requiredStartDate: String(body.requiredStartDate || ''),
-    services: Array.isArray(body.services) ? body.services.map(String) : [],
-    categories: Array.isArray(body.categories) ? body.categories.map(String) : [],
-    additionalRequirement: String(body.additionalRequirement || ''),
+    fullName: clamp(String(body.fullName || ''), fieldLimits.fullName),
+    mobileNumber: clamp(String(body.mobileNumber || ''), fieldLimits.mobileNumber),
+    email: clamp(String(body.email || ''), fieldLimits.email),
+    companyName: clamp(String(body.companyName || ''), fieldLimits.companyName),
+    location: clamp(String(body.location || ''), fieldLimits.location),
+    requiredStartDate: clamp(String(body.requiredStartDate || ''), fieldLimits.requiredStartDate),
+    services: Array.isArray(body.services)
+      ? body.services.slice(0, maxServices).map((service) => clamp(String(service), fieldLimits.serviceItem))
+      : [],
+    categories: Array.isArray(body.categories)
+      ? body.categories.slice(0, maxCategories).map((category) => clamp(String(category), fieldLimits.categoryItem))
+      : [],
+    additionalRequirement: clamp(String(body.additionalRequirement || ''), fieldLimits.additionalRequirement),
   };
 }
 
@@ -191,18 +358,23 @@ function sanitizeInquiryForm(values: ExpertInquiryFormValues): ExpertInquiryForm
     companyName: sanitizeText(values.companyName).replace(/\s+/g, ' '),
     location: sanitizeText(values.location).replace(/\s+/g, ' '),
     requiredStartDate: values.requiredStartDate.trim(),
-    services: values.services.map((service) => sanitizeText(service).replace(/\s+/g, ' ')).filter(Boolean).slice(0, 8),
-    categories: values.categories ? values.categories.map((category) => sanitizeText(category).replace(/\s+/g, ' ')).filter(Boolean).slice(0, 4) : [],
+    services: values.services.map((service) => sanitizeText(service).replace(/\s+/g, ' ')).filter(Boolean).slice(0, maxServices),
+    categories: values.categories ? values.categories.map((category) => sanitizeText(category).replace(/\s+/g, ' ')).filter(Boolean).slice(0, maxCategories) : [],
     additionalRequirement: sanitizeMultilineText(values.additionalRequirement),
   };
 }
 
-function validateInquiryForm(values: ExpertInquiryFormValues, availableServices: string[] = []) {
+function validateInquiryForm(
+  values: ExpertInquiryFormValues,
+  availableServices: string[] = [],
+  availableCategories: string[] = [],
+) {
   const sanitized = sanitizeInquiryForm(values);
   const errors: InquiryFormErrors = {};
   const activeServiceNames = new Set(availableServices.map((service) => service.toLowerCase()));
+  const activeCategoryNames = new Set(availableCategories.map((category) => category.toLowerCase()));
 
-  if (sanitized.fullName.length < 2) {
+  if (sanitized.fullName.length < 2 || sanitized.fullName.length > fieldLimits.fullName) {
     errors.fullName = 'Enter full name.';
   }
 
@@ -210,19 +382,22 @@ function validateInquiryForm(values: ExpertInquiryFormValues, availableServices:
     errors.mobileNumber = 'Enter a valid Indian mobile number.';
   }
 
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(sanitized.email)) {
+  if (
+    sanitized.email.length > fieldLimits.email ||
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(sanitized.email)
+  ) {
     errors.email = 'Enter a valid email address.';
   }
 
-  if (sanitized.companyName.length < 2) {
+  if (sanitized.companyName.length < 2 || sanitized.companyName.length > fieldLimits.companyName) {
     errors.companyName = 'Enter company name.';
   }
 
-  if (sanitized.location.length < 2) {
+  if (sanitized.location.length < 2 || sanitized.location.length > fieldLimits.location) {
     errors.location = 'Enter location or area.';
   }
 
-  if (!sanitized.requiredStartDate) {
+  if (!sanitized.requiredStartDate || !/^\d{4}-\d{2}-\d{2}$/.test(sanitized.requiredStartDate)) {
     errors.requiredStartDate = 'Select required start date.';
   } else if (sanitized.requiredStartDate < getTodayDateValue()) {
     errors.requiredStartDate = 'Date cannot be in the past.';
@@ -234,7 +409,11 @@ function validateInquiryForm(values: ExpertInquiryFormValues, availableServices:
     errors.services = 'Choose a currently active service.';
   }
 
-  if (sanitized.additionalRequirement.length < 5) {
+  if (activeCategoryNames.size > 0 && sanitized.categories.some((category) => !activeCategoryNames.has(category.toLowerCase()))) {
+    errors.categories = 'Choose a valid facility category.';
+  }
+
+  if (sanitized.additionalRequirement.length < 5 || sanitized.additionalRequirement.length > fieldLimits.additionalRequirement) {
     errors.additionalRequirement = 'Add a short requirement.';
   }
 
@@ -488,10 +667,11 @@ async function sendEmail(config: NotificationConfig, payload: ExpertInquiryFormV
       }),
       'Email notification timed out.',
     );
-    console.log('[SMTP SUCCESS] Email sent to', config.emailTo, '| Message ID:', info.messageId);
+    console.log('[SMTP SUCCESS]');
     return info;
   } catch (err: any) {
-    console.error('[SMTP ERROR] Failed to send email:', err.message);
+    // Log full detail server-side only; callers only ever see a generic message (see handler).
+    console.error('[SMTP ERROR]', err.message);
     throw { stage: 'SMTP', error: err.message || 'Authentication or network failed' };
   }
 }
@@ -511,7 +691,7 @@ async function sendWhatsApp(config: NotificationConfig, payload: ExpertInquiryFo
           }),
           'WhatsApp template notification timed out.',
         );
-        console.log('[TWILIO SUCCESS] WhatsApp template sent to', config.twilioWhatsAppTo, '| SID:', result.sid || result.sid);
+        console.log('[TWILIO SUCCESS] (template)');
         return result;
       } catch (error: any) {
         console.error('[TWILIO WARNING] Content API notification failed; falling back to direct body:', error.message);
@@ -526,10 +706,10 @@ async function sendWhatsApp(config: NotificationConfig, payload: ExpertInquiryFo
       }),
       'WhatsApp notification timed out.',
     );
-    console.log('[TWILIO SUCCESS] WhatsApp message sent to', config.twilioWhatsAppTo, '| SID:', result.sid);
+    console.log('[TWILIO SUCCESS]');
     return result;
   } catch (err: any) {
-    console.error('[TWILIO ERROR] Failed to send WhatsApp:', err.message);
+    console.error('[TWILIO ERROR]', err.message);
     throw { stage: 'TWILIO', error: err.message || 'Twilio API failed' };
   }
 }
@@ -561,6 +741,7 @@ async function sendTwilioMessage(
     params.set('Body', message.body);
   }
 
+  // Never log this value: it is the Basic-auth credential for the Twilio API.
   const credentials = Buffer.from(`${config.twilioAccountSid}:${config.twilioAuthToken}`).toString('base64');
   const response = await fetch(`https://api.twilio.com/2010-04-01/Accounts/${config.twilioAccountSid}/Messages.json`, {
     method: 'POST',
@@ -572,15 +753,26 @@ async function sendTwilioMessage(
   });
 
   if (!response.ok) {
+    // Twilio error bodies can restate account SID / phone numbers / other
+    // account detail. Extract only the numeric error code (safe, operationally
+    // useful for looking up the error in Twilio's docs) and discard the rest,
+    // even from the server-side log.
     const errorBody = await response.text();
-    throw new Error(`Twilio message request failed with status ${response.status}: ${errorBody}`);
+    let twilioErrorCode: unknown;
+    try {
+      twilioErrorCode = JSON.parse(errorBody)?.code;
+    } catch {
+      twilioErrorCode = undefined;
+    }
+    console.error('[TWILIO HTTP ERROR]', response.status, twilioErrorCode ?? 'unknown');
+    throw new Error(`Twilio message request failed with status ${response.status}.`);
   }
 
   return response.json();
 }
 
 export default async function handler(request: ApiRequest, response: ApiResponse) {
-  setCorsHeaders(request, response);
+  const originOk = enforceOrigin(request, response);
 
   if (request.method === 'OPTIONS') {
     return response.status(204).end();
@@ -590,58 +782,75 @@ export default async function handler(request: ApiRequest, response: ApiResponse
     return response.status(405).json({ success: false, message: 'Method not allowed.' });
   }
 
-  let requestBody: any;
-  let normalized: any;
-  let validation: any;
-  let config: any;
+  if (!originOk) {
+    return response.status(403).json({ success: false, message: 'Request origin is not allowed.' });
+  }
+
+  const contentType = request.headers['content-type'];
+  const contentTypeValue = Array.isArray(contentType) ? contentType[0] : contentType;
+
+  if (!contentTypeValue || !contentTypeValue.toLowerCase().includes('application/json')) {
+    return response.status(415).json({ success: false, message: 'Content-Type must be application/json.' });
+  }
+
+  const clientIp = getClientIp(request);
+  const rateLimit = checkRateLimit(clientIp);
+
+  if (!rateLimit.allowed) {
+    console.warn('[RATE LIMIT]', rateLimit.reason, 'ip:', clientIp);
+    return response.status(429).json({
+      success: false,
+      message: 'Too many inquiries submitted recently. Please try again in a few minutes.',
+    });
+  }
+
+  let requestBody: Partial<InquiryRequestBody>;
+  let normalized: ExpertInquiryFormValues;
+  let validation: ReturnType<typeof validateInquiryForm>;
+  let config: NotificationConfig;
 
   try {
     requestBody = readBody(request.body);
+  } catch (error: any) {
+    console.warn('[BODY READ ERROR]', error?.message);
+    return response.status(400).json({ success: false, stage: 'VALIDATION', error: 'Invalid request body.' });
+  }
+
+  // Honeypot: a real visitor never populates this field. Accept quietly
+  // without sending any notification, so scripted submitters get no signal
+  // that they were detected.
+  if (typeof requestBody.website === 'string' && requestBody.website.trim() !== '') {
+    console.warn('[HONEYPOT] Rejected automated submission.');
+    return response.status(200).json({ success: true, message: successMessage });
+  }
+
+  if (isDuplicateSubmission(requestBody.submissionId)) {
+    return response.status(200).json({ success: true, message: successMessage });
+  }
+
+  try {
     normalized = normalizeBody(requestBody);
-    validation = validateInquiryForm(normalized, allowedServices);
+    validation = validateInquiryForm(normalized, allowedServices, allowedCategories);
 
     if (!validation.isValid) {
-      console.error('[VALIDATION ERROR]', validation.errors);
       return response.status(400).json({ success: false, stage: 'VALIDATION', error: 'Payload validation failed', details: validation.errors });
     }
   } catch (error: any) {
-    console.error('[BODY READ/VALIDATION ERROR]', error);
-    return response.status(400).json({ success: false, stage: 'VALIDATION', error: error.message });
+    console.error('[BODY VALIDATION ERROR]', error?.message);
+    return response.status(400).json({ success: false, stage: 'VALIDATION', error: 'Unable to process request.' });
   }
 
   try {
     config = getConfig();
-    
-    // Step 4: Verify all required variables exist
-    const requiredVars = {
-      SMTP_HOST: !!process.env.SMTP_HOST,
-      SMTP_PORT: !!process.env.SMTP_PORT,
-      SMTP_USER: !!process.env.SMTP_USER,
-      SMTP_PASS: !!process.env.SMTP_PASS,
-      INQUIRY_EMAIL_TO: !!process.env.INQUIRY_EMAIL_TO,
-      TWILIO_ACCOUNT_SID: !!process.env.TWILIO_ACCOUNT_SID,
-      TWILIO_AUTH_TOKEN: !!process.env.TWILIO_AUTH_TOKEN,
-      TWILIO_WHATSAPP_FROM: !!process.env.TWILIO_WHATSAPP_FROM,
-      TWILIO_WHATSAPP_TO: !!process.env.TWILIO_WHATSAPP_TO
-    };
-    
-    const missingVars = Object.entries(requiredVars).filter(([_, exists]) => !exists).map(([key]) => key);
-    
-    console.log('[CONFIG CHECK] Loaded Variables:', Object.entries(requiredVars).filter(([_, exists]) => exists).map(([key]) => key).join(', '));
-    if (missingVars.length > 0) {
-      console.log('[CONFIG CHECK] Missing Variables:', missingVars.join(', '));
-    }
-    
     assertConfig(config);
   } catch (error: any) {
     console.error('[CONFIG ERROR]', error.message);
-    return response.status(500).json({ success: false, stage: 'CONFIGURATION', error: error.message });
+    return response.status(500).json({ success: false, stage: 'CONFIGURATION', error: 'Service is temporarily unavailable.' });
   }
 
   try {
     const timestamp = formatTimestamp(requestBody.submittedAt);
-    
-    // Process deliveries
+
     const emailPromise = sendEmail(config, validation.sanitized, timestamp);
     const twilioPromise = sendWhatsApp(config, validation.sanitized, timestamp);
 
@@ -650,40 +859,41 @@ export default async function handler(request: ApiRequest, response: ApiResponse
     const emailSent = emailResult.status === 'fulfilled';
     const twilioSent = twilioResult.status === 'fulfilled';
 
-    // Logging exact outcomes
-    console.log('[SMTP RESULT]', emailSent ? `MessageId: ${emailResult.value.messageId}, Response: ${emailResult.value.response}` : JSON.stringify(emailResult.reason));
-    console.log('[TWILIO RESULT]', twilioSent ? `SID: ${twilioResult.value.sid}, Status: ${twilioResult.value.status}` : JSON.stringify(twilioResult.reason));
+    if (!emailSent) {
+      console.error('[SMTP RESULT] Failed:', JSON.stringify(emailResult.reason));
+    }
+    if (!twilioSent) {
+      console.error('[TWILIO RESULT] Failed:', JSON.stringify(twilioResult.reason));
+    }
 
     if (!emailSent && !twilioSent) {
       console.error('[DELIVERY FAILURE] Both Email and WhatsApp failed.');
       return response.status(502).json({
         success: false,
         stage: 'DELIVERY',
-        message: 'All notification services failed: ' + (emailResult.reason?.error || emailResult.reason?.message || twilioResult.reason?.message || 'Authentication or network failed')
+        message: 'We could not deliver your inquiry right now. Please try again shortly or contact us directly.',
       });
     }
 
     if (!emailSent && twilioSent) {
-      console.warn('[PARTIAL SUCCESS] WhatsApp sent but Email failed.');
       return response.status(200).json({
         success: true,
         message: 'Inquiry was sent via WhatsApp. Email notification is delayed.',
-        stage: 'SMTP_FALLBACK'
+        stage: 'SMTP_FALLBACK',
       });
     }
 
     if (emailSent && !twilioSent) {
-      console.warn('[PARTIAL SUCCESS] Email sent but WhatsApp failed.');
       return response.status(200).json({
         success: true,
         message: 'Inquiry was sent to our email team. WhatsApp notification is delayed.',
-        stage: 'TWILIO_FALLBACK'
+        stage: 'TWILIO_FALLBACK',
       });
     }
 
     return response.status(200).json({ success: true, message: successMessage });
   } catch (error: any) {
-    console.error('[CRITICAL HANDLER ERROR]', error);
-    return response.status(500).json({ success: false, stage: 'INTERNAL', error: error.message });
+    console.error('[CRITICAL HANDLER ERROR]', error?.message || error);
+    return response.status(500).json({ success: false, stage: 'INTERNAL', error: 'Unable to process your inquiry right now.' });
   }
 }

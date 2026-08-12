@@ -8,3 +8,6 @@ export const IndustryLandingPage = lazy(() => import('../pages/IndustryLandingPa
 export const BlogHubPage = lazy(() => import('../pages/BlogHubPage').then((module) => ({ default: module.BlogHubPage })));
 export const BlogPostPage = lazy(() => import('../pages/BlogPostPage').then((module) => ({ default: module.BlogPostPage })));
 export const AboutUs = lazy(() => import('../pages/AboutUs').then((module) => ({ default: module.AboutUs })));
+export const RefundPolicy = lazy(() => import('../pages/RefundPolicy').then((module) => ({ default: module.RefundPolicy })));
+export const CancellationPolicy = lazy(() => import('../pages/CancellationPolicy').then((module) => ({ default: module.CancellationPolicy })));
+export const PricingPage = lazy(() => import('../pages/PricingPage').then((module) => ({ default: module.PricingPage })));

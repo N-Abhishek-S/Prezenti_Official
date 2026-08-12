@@ -31,7 +31,7 @@ async function parseResponse(response: Response): Promise<InquiryApiResponse> {
   return response.json() as Promise<InquiryApiResponse>;
 }
 
-export async function sendExpertInquiry(payload: ExpertInquiryFormValues): Promise<SendInquiryResponse> {
+export async function sendExpertInquiry(payload: ExpertInquiryFormValues, honeypot = ''): Promise<SendInquiryResponse> {
   const controller = new AbortController();
   const timeoutId = window.setTimeout(() => controller.abort(), requestTimeoutMs);
 
@@ -44,6 +44,8 @@ export async function sendExpertInquiry(payload: ExpertInquiryFormValues): Promi
       },
       body: JSON.stringify({
         ...payload,
+        // Honeypot field: left empty by real users, silently rejected server-side if filled.
+        website: honeypot,
         submissionId: createSubmissionId(),
         submittedAt: new Date().toISOString(),
       }),

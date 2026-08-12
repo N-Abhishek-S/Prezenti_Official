@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import type { router } from '../app/router';
 import { initializeClarity, isClarityEnabled, trackClarityPageView } from '../lib/clarity';
+import { hasAnalyticsConsent, subscribeToConsentChange } from '../lib/consent';
 
 type AppRouter = typeof router;
 
@@ -9,8 +10,12 @@ function currentPagePath() {
 }
 
 export function Clarity({ router }: { router: AppRouter }) {
+  const [consentGranted, setConsentGranted] = useState(hasAnalyticsConsent());
+
+  useEffect(() => subscribeToConsentChange(() => setConsentGranted(hasAnalyticsConsent())), []);
+
   useEffect(() => {
-    if (!isClarityEnabled() || !initializeClarity()) {
+    if (!isClarityEnabled() || !consentGranted || !initializeClarity()) {
       return undefined;
     }
 
@@ -25,7 +30,7 @@ export function Clarity({ router }: { router: AppRouter }) {
     return () => {
       unsubscribe();
     };
-  }, [router]);
+  }, [router, consentGranted]);
 
   return null;
 }

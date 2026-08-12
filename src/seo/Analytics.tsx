@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import type { router } from '../app/router';
 import {
   getOutboundOrDownloadEvent,
@@ -7,6 +7,7 @@ import {
   trackEvent,
   trackPageView,
 } from '../lib/analytics';
+import { hasAnalyticsConsent, subscribeToConsentChange } from '../lib/consent';
 
 type AppRouter = typeof router;
 
@@ -30,8 +31,12 @@ function trackCurrentPage() {
 }
 
 export function Analytics({ router }: { router: AppRouter }) {
+  const [consentGranted, setConsentGranted] = useState(hasAnalyticsConsent());
+
+  useEffect(() => subscribeToConsentChange(() => setConsentGranted(hasAnalyticsConsent())), []);
+
   useEffect(() => {
-    if (!isAnalyticsEnabled() || !initializeAnalytics()) {
+    if (!isAnalyticsEnabled() || !consentGranted || !initializeAnalytics()) {
       return undefined;
     }
 
@@ -77,7 +82,7 @@ export function Analytics({ router }: { router: AppRouter }) {
       window.removeEventListener('scroll', handleScroll);
       document.removeEventListener('click', handleClick, true);
     };
-  }, [router]);
+  }, [router, consentGranted]);
 
   return null;
 }

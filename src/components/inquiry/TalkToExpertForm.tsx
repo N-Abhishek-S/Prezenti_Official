@@ -2,6 +2,7 @@ import { useEffect, useId, useState, type FormEvent } from 'react';
 import { motion } from 'framer-motion';
 import { CalendarDays, Check, CheckCircle2, Loader2, PhoneCall, School, Send, ShieldCheck, Utensils, Building2, Building, Home, HeartPulse } from 'lucide-react';
 import { toast } from 'sonner';
+import { Link } from 'react-router-dom';
 import { Button } from '../ui/Button';
 import { cn } from '../../lib/cn';
 import type { ExpertServiceName } from '../../modules/inquiry/inquiryConfig';
@@ -115,6 +116,10 @@ export function TalkToExpertForm({
   const [errors, setErrors] = useState<InquiryFormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [response, setResponse] = useState<SendInquiryResponse | null>(null);
+  // Honeypot: hidden from sighted and screen-reader users; only scripted
+  // submitters populate it. Left non-empty, the server silently drops the
+  // submission instead of notifying our team.
+  const [honeypot, setHoneypot] = useState('');
   const { serviceNames, isLoading: servicesLoading, error: servicesError } = usePublicServiceCatalog();
   const today = getTodayDateValue();
 
@@ -171,7 +176,7 @@ export function TalkToExpertForm({
     setIsSubmitting(true);
 
     try {
-      const result = await sendExpertInquiry(validation.sanitized);
+      const result = await sendExpertInquiry(validation.sanitized, honeypot);
       trackContactFormSubmitted({
         form_name: 'Talk To Expert',
         selected_services: validation.sanitized.services.join(', '),
@@ -208,6 +213,18 @@ export function TalkToExpertForm({
   return (
     <form onSubmit={submitInquiry} className={cn('mx-auto w-full', compact ? 'max-w-3xl' : 'max-w-4xl')}>
       <div className="rounded-lg border border-neutral-200 bg-white p-5 shadow-[0_24px_70px_rgba(15,23,42,0.10)] sm:p-7 lg:p-8">
+        <div className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+          <label htmlFor={`${formId}-website`}>Leave this field empty</label>
+          <input
+            id={`${formId}-website`}
+            name="website"
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+            value={honeypot}
+            onChange={(event) => setHoneypot(event.target.value)}
+          />
+        </div>
         <div className="flex flex-col gap-4 border-b border-neutral-100 pb-6 sm:flex-row sm:items-start">
           <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary-800 text-white">
             <PhoneCall size={22} />
@@ -448,7 +465,15 @@ export function TalkToExpertForm({
         <div className="mt-7 flex flex-col gap-4 border-t border-neutral-100 pt-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-start gap-3 text-sm leading-6 text-neutral-600">
             <ShieldCheck size={18} className="mt-0.5 shrink-0 text-primary-800" />
-            <span>Your inquiry is sent through email and WhatsApp.</span>
+            <span>
+              We'll use these details only to respond to this inquiry &mdash; sent to our team by email and WhatsApp. See
+              our{' '}
+              <Link to="/privacy-policy" className="font-medium text-primary-800 underline underline-offset-2 hover:text-primary-900">
+                Privacy Policy
+              </Link>{' '}
+              for how we handle it. This is separate from optional site analytics, which you control via the cookie
+              banner.
+            </span>
           </div>
           <Button type="submit" variant="primary" size="xl" className="w-full sm:w-auto" isLoading={isSubmitting} disabled={isSubmitting}>
             {isSubmitting ? 'Sending inquiry' : 'Send Inquiry'}

@@ -13,7 +13,7 @@ import './routes/index'; // Initialize global route registry
 // Consume them directly here — wrapping them in a second lazy() call caused
 // React error #306 ("Lazy element type must resolve to a class or function.
 // Did you wrap a component in React.lazy() more than once?").
-import { ServicesHubPage, PrivacyPolicy, TermsAndConditions, AboutUs, TalkToUs } from './lazyRouteComponents';
+import { ServicesHubPage, PrivacyPolicy, TermsAndConditions, AboutUs, TalkToUs, RefundPolicy, CancellationPolicy, PricingPage } from './lazyRouteComponents';
 
 function withSuspense(element: ReactNode) {
   return <Suspense fallback={<RouteFallback />}>{element}</Suspense>;
@@ -29,9 +29,11 @@ export const router = createBrowserRouter([
       { path: '/services', element: withSuspense(<ServicesHubPage />) },
       { path: '/privacy-policy', element: withSuspense(<PrivacyPolicy />) },
       { path: '/terms-and-conditions', element: withSuspense(<TermsAndConditions />) },
+      { path: '/refund-policy', element: withSuspense(<RefundPolicy />) },
+      { path: '/cancellation-policy', element: withSuspense(<CancellationPolicy />) },
       { path: '/industries', element: <SectionRedirect sectionId="services" /> },
       { path: '/about', element: withSuspense(<AboutUs />) },
-      { path: '/pricing', element: <SectionRedirect sectionId="services" /> },
+      { path: '/pricing', element: withSuspense(<PricingPage />) },
       { path: '/talk-to-us', element: withSuspense(<TalkToUs />) },
       { path: '/live-support', element: <Navigate to="/talk-to-us" replace /> },
       { path: '/receptionist-services', element: <Navigate to="/receptionist-staffing-services" replace /> },

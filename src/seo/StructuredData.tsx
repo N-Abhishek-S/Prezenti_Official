@@ -81,8 +81,10 @@ export function buildSchema(type: SchemaType = 'Organization', data: Record<stri
         priceRange: '$$',
         address: {
           '@type': 'PostalAddress',
+          streetAddress: SEO_CONSTANTS.ADDRESS.STREET_ADDRESS,
           addressLocality: data.city || SEO_CONSTANTS.CITY,
           addressRegion: SEO_CONSTANTS.STATE,
+          postalCode: SEO_CONSTANTS.ADDRESS.POSTAL_CODE,
           addressCountry: SEO_CONSTANTS.COUNTRY,
         },
         ...(isDefaultCity
@@ -112,6 +114,9 @@ export function buildSchema(type: SchemaType = 'Organization', data: Record<stri
         description: data.description || SEO_CONSTANTS.DEFAULT_DESCRIPTION,
         address: {
           '@type': 'PostalAddress',
+          ...(!data.city || data.city === SEO_CONSTANTS.CITY
+            ? { streetAddress: SEO_CONSTANTS.ADDRESS.STREET_ADDRESS, postalCode: SEO_CONSTANTS.ADDRESS.POSTAL_CODE }
+            : {}),
           addressLocality: data.city || SEO_CONSTANTS.CITY,
           addressRegion: SEO_CONSTANTS.STATE,
           addressCountry: SEO_CONSTANTS.COUNTRY,

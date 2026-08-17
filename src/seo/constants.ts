@@ -16,8 +16,22 @@ export const SEO_CONSTANTS = {
   CITY: 'Pune',
   STATE: 'Maharashtra',
   COUNTRY: 'IN',
+  // Registered office address. Single source of truth — consumed by
+  // StructuredData.tsx (LocalBusiness/ProfessionalService PostalAddress),
+  // Footer.tsx, and the contact page. Update here only.
+  ADDRESS: {
+    LINE1: 'FL 2, Unity Constructions',
+    LINE2: 'N 1163 14, Baner, Baner Gaon',
+    DISTRICT: 'Haveli',
+    CITY: 'Pune',
+    STATE: 'Maharashtra',
+    POSTAL_CODE: '411045',
+    COUNTRY: 'India',
+    // Single-line form for places that need one string (JSON-LD streetAddress, etc.)
+    STREET_ADDRESS: 'FL 2, Unity Constructions, N 1163 14, Baner, Baner Gaon',
+  },
   // Provisional Pune HQ coordinates carried over from the former Pune-only schema
-  // generator. Not verified against a confirmed business address — see
+  // generator. Not verified against the confirmed business address above — see
   // PHASE_A_IMPLEMENTATION_BLUEPRINT.md Task 4 for the open business-input item.
   GEO: {
     LATITUDE: '18.5204',

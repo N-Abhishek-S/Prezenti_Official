@@ -5,6 +5,7 @@ import { YoutubeIcon, InstagramIcon, FacebookIcon, TwitterIcon, LinkedinIcon } f
 import { publicSections, scrollToSection, setPendingSection, type PublicSectionId } from '../../lib/sectionNavigation';
 import { SEO_CONSTANTS } from '../../seo/constants';
 import { resetAnalyticsConsent } from '../../lib/consent';
+import { ServiceAreasPopover } from './ServiceAreasPopover';
 
 export function Footer() {
   const location = useLocation();
@@ -74,7 +75,9 @@ export function Footer() {
             <ul className="flex flex-col gap-2">
               <li className="text-sm text-white/60 mb-1">+91 8788726752</li>
               <li className="text-sm text-white/60 mb-1">weprezenti@gmail.com</li>
-              <li className="text-sm text-white/60 mb-1">Pune, Maharashtra, India</li>
+              <li className="mb-1">
+                <ServiceAreasPopover tone="dark" />
+              </li>
               <li>
                 <button
                   type="button"

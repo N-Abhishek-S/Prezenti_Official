@@ -4,6 +4,7 @@ import { TalkToExpertForm } from '../components/inquiry/TalkToExpertForm';
 import { SEO } from '../seo/SEO';
 import { StructuredData } from '../seo/StructuredData';
 import { SEO_CONSTANTS } from '../seo/constants';
+import { ServiceAreasPopover } from '../components/layout/ServiceAreasPopover';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -63,7 +64,7 @@ export function TalkToUs() {
         <TalkToExpertForm />
 
         <motion.div initial="hidden" animate="visible" variants={fadeUp} className="mx-auto mt-16 max-w-3xl text-center border-t border-neutral-200 pt-10">
-          <h3 className="text-xl font-semibold text-neutral-900 mb-4">Why Businesses Trust Prezenti</h3>
+          <h2 className="text-xl font-semibold text-neutral-900 mb-4">Why Businesses Trust Prezenti</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-sm text-neutral-600">
             <div>
               <div className="font-semibold text-neutral-900 mb-1">Statutory Considerations</div>
@@ -82,7 +83,9 @@ export function TalkToUs() {
           <div className="mt-8 text-neutral-500">
             <p className="mb-2 font-medium">Corporate Contact Information:</p>
             <p>Email: <a href="mailto:bd@kargar.co.in" className="text-primary-600 hover:underline">bd@kargar.co.in</a></p>
-            <p>Location: Pune, Maharashtra, India</p>
+            <div className="mt-1 flex justify-center">
+              <ServiceAreasPopover tone="light" />
+            </div>
           </div>
         </motion.div>
       </section>

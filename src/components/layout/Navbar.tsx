@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Building2, ChevronDown, MapPin, Menu, Search, X } from 'lucide-react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { BrandLogo } from '../brand/BrandLogo';
 import { Button } from '../ui/Button';
 import { cn } from '../../lib/cn';
 import { useCatalogData } from '../../hooks/useCatalogData';
+import type { Area } from '../../modules/catalog/locationData';
+import { LocationDetailsModal } from './LocationDetailsModal';
 import {
   publicSections,
   scrollToSection,
@@ -15,10 +17,14 @@ import {
 
 const sectionIds = publicSections.map((section) => section.id);
 
-function CitiesMegaMenu({ onNavigate }: { onNavigate: () => void }) {
+function CitiesMegaMenu({ onSelectArea, onViewAll }: { onSelectArea: (area: Area) => void; onViewAll: () => void }) {
   const { cities, areas } = useCatalogData();
   const activeCity = cities.find((city) => city.isActive) ?? cities[0];
   const activeAreas = areas.filter((area) => area.isActive && area.cityId === activeCity?.id);
+  const [query, setQuery] = useState('');
+  const visibleAreas = query.trim()
+    ? activeAreas.filter((area) => area.name.toLowerCase().includes(query.trim().toLowerCase()))
+    : activeAreas;
 
   return (
     <div className="w-[760px] overflow-hidden rounded-2xl border border-neutral-200 bg-white text-left shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] ring-1 ring-neutral-900/5">
@@ -37,7 +43,7 @@ function CitiesMegaMenu({ onNavigate }: { onNavigate: () => void }) {
           </div>
           <button
             type="button"
-            onClick={onNavigate}
+            onClick={onViewAll}
             className="mt-8 w-full inline-flex h-9 items-center justify-center rounded-lg bg-white px-3 text-xs font-medium text-neutral-700 shadow-sm ring-1 ring-inset ring-neutral-300 hover:bg-neutral-50 hover:text-neutral-900 transition-all duration-200"
           >
             View all areas
@@ -51,27 +57,35 @@ function CitiesMegaMenu({ onNavigate }: { onNavigate: () => void }) {
             </div>
             <div className="relative">
               <Search size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-neutral-400" />
-              <input 
-                type="text" 
+              <label htmlFor="cities-search" className="sr-only">
+                {`Search localities in ${activeCity?.name ?? 'Pune'}`}
+              </label>
+              <input
+                id="cities-search"
+                type="text"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
                 placeholder={`Search in ${activeCity?.name}...`}
                 className="h-8 w-48 rounded-md border border-neutral-200 bg-neutral-50/50 pl-8 pr-3 text-[13px] text-neutral-900 placeholder:text-neutral-400 focus:border-primary-500 focus:bg-white focus:outline-none focus:ring-1 focus:ring-primary-500 transition-all"
-                disabled
               />
             </div>
           </div>
 
           <div className="grid max-h-[300px] grid-cols-2 gap-1 overflow-y-auto pr-2" style={{ scrollbarWidth: 'thin' }}>
-            {activeAreas.map((area) => (
+            {visibleAreas.map((area) => (
               <button
                 key={area.id}
                 type="button"
-                onClick={onNavigate}
-                className="flex items-center rounded-md px-3 py-2 text-left text-[13px] font-medium text-neutral-600 transition-colors hover:bg-neutral-50 hover:text-primary-700"
+                onClick={() => onSelectArea(area)}
+                className="flex items-center rounded-md px-3 py-2 text-left text-[13px] font-medium text-neutral-600 transition-colors hover:bg-neutral-50 hover:text-primary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40"
               >
                 <span className="truncate">{area.name}</span>
               </button>
             ))}
           </div>
+          <p role="status" aria-live="polite" className="px-1 py-2 text-[13px] text-neutral-500">
+            {visibleAreas.length === 0 ? `No localities match "${query}".` : ''}
+          </p>
         </div>
       </div>
     </div>
@@ -84,6 +98,7 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<PublicSectionId>('home');
   const [citiesPanelOpen, setCitiesPanelOpen] = useState(false);
+  const [selectedArea, setSelectedArea] = useState<Area | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
   const activeCity = cities.find((city) => city.isActive) ?? cities[0];
@@ -122,6 +137,18 @@ export function Navbar() {
     return () => observer.disconnect();
   }, [location.pathname]);
 
+  // Escape closes the cities mega-menu even though it also opens on hover.
+  useEffect(() => {
+    if (!citiesPanelOpen) return undefined;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setCitiesPanelOpen(false);
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [citiesPanelOpen]);
+
   const goToSection = (sectionId: PublicSectionId) => {
     setMobileOpen(false);
 
@@ -134,7 +161,13 @@ export function Navbar() {
     scrollToSection(sectionId);
   };
 
-
+  // Now Serving → click a locality → mega-menu/mobile menu closes → the
+  // Location Details modal opens with that locality's content.
+  const openLocationDetails = (area: Area) => {
+    setCitiesPanelOpen(false);
+    setMobileOpen(false);
+    setSelectedArea(area);
+  };
 
   return (
     <nav
@@ -166,9 +199,19 @@ export function Navbar() {
                   className="relative"
                   onMouseEnter={() => setCitiesPanelOpen(true)}
                   onMouseLeave={() => setCitiesPanelOpen(false)}
+                  onBlur={(event) => {
+                    // Closes when keyboard focus leaves the whole menu
+                    // subtree (mouseleave never fires for keyboard users
+                    // tabbing through and out of the panel).
+                    if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+                      setCitiesPanelOpen(false);
+                    }
+                  }}
                 >
                   <button
                     type="button"
+                    aria-expanded={citiesPanelOpen}
+                    aria-haspopup="true"
                     className={cn(
                       'inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium tracking-[-0.006em] transition-all duration-150',
                       isActive ? 'text-primary-800' : 'text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900',
@@ -184,14 +227,14 @@ export function Navbar() {
 
                   <AnimatePresence>
                     {citiesPanelOpen && (
-                      <motion.div 
+                      <motion.div
                         initial={{ opacity: 0, y: -4 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -4 }}
                         transition={{ duration: 0.2, ease: "easeOut" }}
                         className="absolute left-1/2 -translate-x-1/2 top-full pt-3 origin-top"
                       >
-                        <CitiesMegaMenu onNavigate={() => goToSection('location')} />
+                        <CitiesMegaMenu onSelectArea={openLocationDetails} onViewAll={() => { setCitiesPanelOpen(false); goToSection('location'); }} />
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -213,6 +256,17 @@ export function Navbar() {
               </button>
             );
           })}
+
+          <Link
+            to="/pricing"
+            aria-current={location.pathname === '/pricing' ? 'page' : undefined}
+            className={cn(
+              'rounded-md px-3 py-2 text-sm font-medium tracking-[-0.006em] transition-all duration-150',
+              location.pathname === '/pricing' ? 'text-primary-800' : 'text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900',
+            )}
+          >
+            Pricing
+          </Link>
         </div>
 
         <div className="hidden items-center gap-3 lg:flex">
@@ -249,6 +303,18 @@ export function Navbar() {
             </button>
           ))}
 
+          <Link
+            to="/pricing"
+            onClick={() => setMobileOpen(false)}
+            aria-current={location.pathname === '/pricing' ? 'page' : undefined}
+            className={cn(
+              'flex items-center justify-between rounded-lg px-4 py-3 text-left text-sm font-medium',
+              location.pathname === '/pricing' ? 'bg-primary-50 text-primary-800' : 'text-neutral-700 hover:bg-neutral-100',
+            )}
+          >
+            Pricing
+          </Link>
+
           <div className="mt-3 rounded-xl border border-primary-100 bg-primary-50 p-4">
             <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-primary-900">
               <Building2 size={16} />
@@ -259,7 +325,7 @@ export function Navbar() {
                 <button
                   key={area.id}
                   type="button"
-                  onClick={() => goToSection('location')}
+                  onClick={() => openLocationDetails(area)}
                   className="rounded-lg bg-white px-3 py-2 text-left text-xs font-semibold text-primary-800"
                 >
                   {area.name}
@@ -273,6 +339,8 @@ export function Navbar() {
           </Button>
         </div>
       )}
+
+      <LocationDetailsModal area={selectedArea} onClose={() => setSelectedArea(null)} />
     </nav>
   );
 }

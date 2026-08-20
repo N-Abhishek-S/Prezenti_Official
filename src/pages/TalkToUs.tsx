@@ -20,7 +20,7 @@ export function TalkToUs() {
     <>
       <SEO 
         title="Contact Prezenti | Facility Staffing in Pune"
-        description="Contact Prezenti to hire housekeeping, office boy, receptionist, pantry, security, and facility support staff for Pune workplaces."
+        description="Contact Prezenti to hire housekeeping, office boy, receptionist, pantry, and facility support staff for Pune workplaces."
         canonicalUrl="/talk-to-us"
         keywords={[
           'contact facility staffing Pune',

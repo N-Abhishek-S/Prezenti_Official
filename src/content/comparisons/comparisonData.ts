@@ -32,7 +32,7 @@ export const comparisonData: Record<string, KnowledgePageData> = {
       {
         type: 'markdown',
         title: 'When to Choose Integrated Facility Management',
-        content: 'If you manage a large standalone corporate building, an IT park, or an industrial facility, you need IFM. It is a strategic partnership where a single vendor manages your security, housekeeping, and highly technical MEP (Mechanical, Electrical, Plumbing) maintenance.'
+        content: 'If you manage a large standalone corporate building, an IT park, or an industrial facility, you need IFM. It is a strategic partnership where a single vendor manages your housekeeping and highly technical MEP (Mechanical, Electrical, Plumbing) maintenance.'
       },
       {
         type: 'cta',

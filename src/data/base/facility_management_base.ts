@@ -2,13 +2,13 @@ export const facilityManagementBaseContent = [
   {
     title: "Integrated Facility Management Services for Modern Enterprises",
     paragraphs: [
-      "In today's competitive business environment, managing the physical infrastructure of a corporate facility can distract leadership from core strategic objectives. A fragmented approach to facility management — juggling multiple vendors for housekeeping, security, MEP maintenance, and soft services — can lead to operational inefficiencies and inconsistent quality. Prezenti provides Integrated Facility Management (IFM) for IT parks, corporate headquarters, manufacturing plants, and data centers, consolidating facility requirements under a single point of contact.",
+      "In today's competitive business environment, managing the physical infrastructure of a corporate facility can distract leadership from core strategic objectives. A fragmented approach to facility management — juggling multiple vendors for housekeeping, MEP maintenance, and soft services — can lead to operational inefficiencies and inconsistent quality. Prezenti provides Integrated Facility Management (IFM) for IT parks, corporate headquarters, manufacturing plants, and data centers, consolidating facility requirements under a single point of contact.",
       "Our IFM approach can move beyond reactive, break-fix maintenance toward more proactive strategies. Before assuming management of your facility, an infrastructure review can be conducted to help inform a Service Level Agreement (SLA) with Key Performance Indicators (KPIs) tailored to your site — covering housekeeping through to MEP maintenance.",
       "Choosing Prezenti as your Integrated Facility Management partner means transferring vendor coordination, compliance considerations, and daily operational oversight to a dedicated team. With a single point of contact and standardized service delivery across verticals, administrative friction can be reduced, with reporting structured to give your leadership visibility into facility operations."
     ],
     listItems: [
       "Unified, single-vendor Integrated Facility Management (IFM) for streamlined operations.",
-      "Combined management of soft services (housekeeping, security) and hard services (MEP).",
+      "Combined management of soft services (housekeeping, pantry) and hard services (MEP).",
       "Infrastructure review process that can inform your site's SLA and KPIs.",
       "SLAs and KPIs structured to your facility's requirements.",
       "A single point of contact to help reduce administrative friction."
@@ -55,12 +55,12 @@ export const facilityManagementBaseContent = [
     title: "Reporting and Operational Visibility",
     paragraphs: [
       "Facility operations can be supported by structured reporting rather than informal, ad hoc communication. Helpdesk ticketing and issue tracking can be structured for your site so that requests are logged and followed through to resolution.",
-      "Patrol and service-verification requirements for housekeeping and security functions can be defined through site-specific operating procedures. Attendance and billing accuracy processes can be discussed and agreed as part of your service plan.",
+      "Service-verification requirements for housekeeping functions can be defined through site-specific operating procedures. Attendance and billing accuracy processes can be discussed and agreed as part of your service plan.",
       "Operational data gathered through service delivery can be reviewed periodically with your team to help identify recurring issues and areas for optimization, as part of ongoing account management."
     ],
     listItems: [
       "Helpdesk ticketing and issue-tracking processes structured for your site.",
-      "Patrol and service-verification requirements defined through site-specific procedures.",
+      "Service-verification requirements defined through site-specific procedures.",
       "Attendance and billing accuracy processes agreed as part of your service plan.",
       "Periodic operational reviews to help identify trends and optimization opportunities.",
       "Reporting structured to support ongoing account management."

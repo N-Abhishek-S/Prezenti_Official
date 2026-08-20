@@ -18,7 +18,6 @@ export interface ServiceData {
 
 
 import { housekeepingBaseContent } from './base/housekeeping_base';
-import { securityBaseContent } from './base/security_base';
 import { receptionistBaseContent } from './base/receptionist_base';
 import { officeBoyBaseContent } from './base/office_boy_base';
 import { pantryStaffBaseContent } from './base/pantry_staff_base';
@@ -66,7 +65,7 @@ export const generateLocalizedContent = (serviceName: string, locationName: stri
     paragraphs: [
       `Investing in premium ${serviceName} yields immediate and tangible benefits for businesses operating in ${locationName}. The most immediate impact is a significant boost in core employee productivity. When your team operates in a clean, safe, and well-managed environment, distractions are minimized, and morale improves. By removing the administrative burden of facility upkeep, your leaders can focus entirely on driving business growth and innovation within the competitive ${locationName} market.`,
       `Furthermore, professional facility management is a crucial strategy for asset preservation. The environmental factors and high foot traffic typical of commercial properties in ${locationName} can lead to rapid wear and tear. Our trained staff utilize preventative maintenance techniques and appropriate care protocols to extend the lifespan of your infrastructure and equipment. This proactive approach saves your organization substantial capital expenditure over time, transforming a perceived operational cost into a long-term financial benefit.`,
-      `Finally, exceptional ${serviceName} directly influence how your brand is perceived by external stakeholders. When prospective clients, partners, or top-tier talent visit your facility in ${locationName}, the cleanliness, security, and professionalism of the environment speak volumes about your corporate values. Our dedicated personnel ensure that every interaction reflects competence and reliability, giving you a distinct competitive edge in the local market.`
+      `Finally, exceptional ${serviceName} directly influence how your brand is perceived by external stakeholders. When prospective clients, partners, or top-tier talent visit your facility in ${locationName}, the cleanliness and professionalism of the environment speak volumes about your corporate values. Our dedicated personnel ensure that every interaction reflects competence and reliability, giving you a distinct competitive edge in the local market.`
     ],
     listItems: [
       "Enhanced employee morale and productivity through superior working conditions.",
@@ -95,29 +94,8 @@ export const servicesData: Record<string, ServiceData> = {
       { question: 'Which areas of Pune do you provide housekeeping services in?', answer: 'We provide housekeeping services across Pune’s major commercial and industrial hubs, including Hinjawadi, Baner, Wakad, Kharadi, Magarpatta, Hadapsar, Viman Nagar, Pimpri-Chinchwad, and Chakan.' }
     ],
     relatedServices: [
-      { name: 'Security Services', slug: 'security-services' },
       { name: 'Pantry Staff Services', slug: 'pantry-staff-services' },
       { name: 'Facility Management', slug: 'facility-management-services' }
-    ]
-  },
-  'security-services': {
-    id: 'security',
-    slug: 'security-services',
-    seoTitle: 'Corporate Security Services & Guards in Pune | Prezenti',
-    seoDescription: 'Hire highly trained, professional security guards and security management personnel for your corporate office, IT park, or enterprise facility in Pune.',
-    h1: 'Professional Corporate Security Services in Pune',
-    sections: securityBaseContent,
-    faqs: [
-      { question: 'What type of security personnel do you provide?', answer: 'We provide unarmed guards, security supervisors, CCTV operators, and specialized corporate security officers.' },
-      { question: 'Are your security guards trained for emergencies?', answer: 'Emergency-response requirements — such as first aid, fire safety, evacuation, and crowd control — can be discussed and built into your site’s deployment plan.' },
-      { question: 'Do you offer 24/7 security coverage?', answer: 'Coverage schedules, including round-the-clock arrangements where required, are determined based on your site’s requirements and confirmed during deployment planning.' },
-      { question: 'How do you monitor security guard performance?', answer: 'Guard performance monitoring and site-audit processes can be structured according to your requirements and agreed during deployment planning.' },
-      { question: 'Do you provide security services across Pune?', answer: 'Yes, we provide corporate and industrial security services to businesses across Pune, including areas such as Hinjawadi, Kharadi, Baner, Wakad, Magarpatta, Hadapsar, Viman Nagar, Pimpri-Chinchwad, and Chakan.' }
-    ],
-    relatedServices: [
-      { name: 'Receptionist Staffing', slug: 'receptionist-staffing-services' },
-      { name: 'Facility Management', slug: 'facility-management-services' },
-      { name: 'Property Management', slug: 'property-management-services' }
     ]
   },
   'receptionist-staffing-services': {
@@ -135,7 +113,6 @@ export const servicesData: Record<string, ServiceData> = {
     ],
     relatedServices: [
       { name: 'Office Boy Services', slug: 'office-boy-services' },
-      { name: 'Security Services', slug: 'security-services' },
       { name: 'Facility Management', slug: 'facility-management-services' }
     ]
   },
@@ -185,7 +162,7 @@ export const servicesData: Record<string, ServiceData> = {
     h1: 'Integrated Facility Management Services in Pune',
     sections: facilityManagementBaseContent,
     faqs: [
-      { question: 'What does Integrated Facility Management (IFM) include?', answer: 'IFM includes soft services (housekeeping, security), hard services (MEP maintenance, HVAC), and specialized services (pest control, landscaping) under a single contract.' },
+      { question: 'What does Integrated Facility Management (IFM) include?', answer: 'IFM includes soft services (housekeeping, pantry, office support), hard services (MEP maintenance, HVAC), and specialized services (pest control, landscaping) under a single contract.' },
       { question: 'How do you ensure service quality across multiple locations?', answer: 'We utilize a centralized tech-platform for ticketing, audits, and SLA tracking, overseen by a dedicated Key Account Manager.' },
       { question: 'Can you manage technical and MEP maintenance?', answer: 'Yes, we provide trained technicians, electricians, and plumbers for comprehensive preventative and reactive maintenance.' },
       { question: 'Is your facility management tech-enabled?', answer: 'Yes, we deploy proprietary software for visitor management, helpdesk ticketing, and asset management.' },
@@ -194,8 +171,7 @@ export const servicesData: Record<string, ServiceData> = {
     ],
     relatedServices: [
       { name: 'Property Management', slug: 'property-management-services' },
-      { name: 'Housekeeping Services', slug: 'housekeeping-services' },
-      { name: 'Security Services', slug: 'security-services' }
+      { name: 'Housekeeping Services', slug: 'housekeeping-services' }
     ]
   },
   'property-management-services': {
@@ -213,7 +189,6 @@ export const servicesData: Record<string, ServiceData> = {
     ],
     relatedServices: [
       { name: 'Facility Management', slug: 'facility-management-services' },
-      { name: 'Security Services', slug: 'security-services' },
       { name: 'Housekeeping Services', slug: 'housekeeping-services' }
     ]
   }

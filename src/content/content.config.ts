@@ -42,6 +42,6 @@ export const contentConfig = {
     logoUrl: 'https://prezenti.in/images/logo.png', // Update with actual
   },
   defaultMetadata: {
-    description: 'Prezenti is a leading enterprise facility management company offering professional housekeeping, security, and staffing services across Maharashtra.',
+    description: 'Prezenti is a leading enterprise facility management company offering professional housekeeping and staffing services across Maharashtra.',
   }
 };

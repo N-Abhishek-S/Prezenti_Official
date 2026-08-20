@@ -11,7 +11,7 @@ import { serviceCatalog } from '../content/services/serviceCatalog';
 import { cn } from '../lib/cn';
 
 const factors = [
-  { name: 'Service type', description: 'Housekeeping, security, receptionist, office support, pantry staff, facility management, or property management.' },
+  { name: 'Service type', description: 'Housekeeping, receptionist, office support, pantry staff, facility management, or property management.' },
   { name: 'Number of personnel', description: 'How many staff are required per site, role, and shift.' },
   { name: 'Shift structure', description: 'Full-time (8 hour) or half-time (4 hour) coverage, and whether round-the-clock rotation is needed.' },
   { name: 'Location', description: 'Site location and accessibility within our current service areas.' },

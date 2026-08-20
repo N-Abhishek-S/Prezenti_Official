@@ -44,7 +44,7 @@ export const trustData: Record<string, KnowledgePageData> = {
     id: 'kno-tru-002',
     slug: 'background-verification',
     seoTitle: 'Staff Background Verification for Outsourced Personnel | Prezenti',
-    seoDescription: 'Understand background verification considerations for outsourced housekeeping and security staff at your corporate facility.',
+    seoDescription: 'Understand background verification considerations for outsourced housekeeping and support staff at your corporate facility.',
     h1: 'Background Verification Considerations for Outsourced Staff',
     category: 'Trust',
     contentBlocks: [
@@ -73,7 +73,7 @@ export const trustData: Record<string, KnowledgePageData> = {
       { question: 'Is police verification mandatory?', answer: 'Police Clearance Certificate requirements can be discussed and included as part of screening for sensitive roles, based on the site and engagement.' },
       { question: 'Can we access the verification reports?', answer: 'Verification-report sharing and audit access can be discussed and agreed as part of your engagement.' }
     ],
-    relatedServices: ['security-services', 'housekeeping-services', 'office-boy-services'],
+    relatedServices: ['housekeeping-services', 'office-boy-services'],
     relatedKnowledge: ['pf-compliance']
   }
 };

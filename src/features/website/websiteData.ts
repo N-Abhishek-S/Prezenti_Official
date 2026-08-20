@@ -22,7 +22,7 @@ export const impactMetrics = [
 export const homepageFaqs = [
   {
     question: 'What is included in your integrated facility management services?',
-    answer: 'Prezenti offers end-to-end soft services including corporate housekeeping, office boy deployment, pantry management, receptionist staffing, and comprehensive security services tailored for commercial environments.'
+    answer: 'Prezenti offers end-to-end soft services including corporate housekeeping, office boy deployment, pantry management, and receptionist staffing tailored for commercial environments.'
   },
   {
     question: 'Are all your deployed staff PF and ESIC compliant?',

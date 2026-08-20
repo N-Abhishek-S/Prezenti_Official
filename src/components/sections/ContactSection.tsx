@@ -127,7 +127,6 @@ export function ContactSection() {
                   <option value="office-assistant">Office Assistants</option>
                   <option value="receptionist">Receptionists</option>
                   <option value="supervisor">Facility Supervisors</option>
-                  <option value="security">Security Personnel</option>
                   <option value="pantry">Pantry Staff</option>
                   <option value="facility-management">Complete Facility Management</option>
                   <option value="other">Other</option>

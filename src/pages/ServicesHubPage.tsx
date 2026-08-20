@@ -20,7 +20,7 @@ export function ServicesHubPage() {
   const services = Object.values(servicesData);
 
   const faqs = [
-    { question: 'What facility management services do you provide?', answer: 'We provide an integrated suite of services including housekeeping, security, receptionist staffing, office boy support, pantry staff, and comprehensive commercial property management.' },
+    { question: 'What facility management services do you provide?', answer: 'We provide an integrated suite of services including housekeeping, receptionist staffing, office boy support, pantry staff, and comprehensive commercial property management.' },
     { question: 'Do you cater to multiple locations?', answer: 'Yes, service delivery and reporting can be structured consistently across multiple facilities as part of your engagement.' },
     { question: 'Are your support staff verified and trained?', answer: 'Personnel screening, verification, and training requirements can be defined according to the role, site, and engagement requirements.' },
     { question: 'How can I request a customized quote?', answer: 'You can contact our expert team via the "Get a Quote" or "Talk to Expert" buttons on our website, and we will tailor a solution to your facility needs.' }
@@ -30,13 +30,12 @@ export function ServicesHubPage() {
     <main className="bg-canvas pt-24 pb-14 sm:pt-28 lg:pb-20">
       <SEO 
         title="Facility Management Services in Pune | Prezenti"
-        description="Explore housekeeping, security, receptionist, office boy, pantry, facility, and property management staffing services in Pune."
+        description="Explore housekeeping, receptionist, office boy, pantry, facility, and property management staffing services in Pune."
         canonicalUrl="/services"
         keywords={[
           'facility management services Pune',
           'workplace support staff',
           'corporate housekeeping services',
-          'security guards Pune',
           'pantry staff services',
         ]}
       />

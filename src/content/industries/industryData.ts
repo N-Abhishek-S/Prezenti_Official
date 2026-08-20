@@ -11,7 +11,7 @@ export const industryData: Record<string, IndustryMetadata> = {
     overview: 'Information Technology companies often require round-the-clock facility support. Facility management for IT environments can be structured to help maintain productive, well-kept environments aligned with ESG-related goals.',
     challenges: [
       '24/7 operational requirements without disrupting workflows.',
-      'Maintaining high-security data centers and server rooms.',
+      'Maintaining consistently high hygiene standards in data centers and server rooms.',
       'High footfall management in cafeterias and common areas.',
       'Meeting ESG and quality-standard expectations across vendors.'
     ],
@@ -28,7 +28,6 @@ export const industryData: Record<string, IndustryMetadata> = {
     recommendedServices: [
       'facility-management-services',
       'housekeeping-services',
-      'security-services',
       'pantry-staff-services'
     ],
     benefits: [
@@ -63,10 +62,6 @@ export const industryData: Record<string, IndustryMetadata> = {
       {
         question: 'Do you provide 24/7 housekeeping for night shifts?',
         answer: 'Yes, we provide rotational shift staffing specifically designed for BPOs and IT companies running 24/7 operations in areas like Hinjawadi and Kharadi.'
-      },
-      {
-        question: 'How do you ensure data center security?',
-        answer: 'Personnel screening and access-control requirements for server rooms and restricted areas can be defined as part of the engagement.'
       }
     ],
     localReferences: [
@@ -117,7 +112,6 @@ export const industryData: Record<string, IndustryMetadata> = {
     ],
     recommendedServices: [
       'housekeeping-services',
-      'security-services',
       'receptionist-staffing-services'
     ],
     benefits: [
@@ -169,7 +163,7 @@ export const industryData: Record<string, IndustryMetadata> = {
       knowledge: ['pf-compliance'],
       comparison: ['outsourcing-vs-in-house-staff'],
       industry: [],
-      service: ['housekeeping-services', 'security-services'],
+      service: ['housekeeping-services'],
       pricing: [],
       location: ['pune', 'baner']
     },
@@ -206,8 +200,7 @@ export const industryData: Record<string, IndustryMetadata> = {
     ],
     recommendedServices: [
       'facility-management-services',
-      'housekeeping-services',
-      'security-services'
+      'housekeeping-services'
     ],
     benefits: [
       'Mechanized cleaning using industrial scrubbers and sweepers.',

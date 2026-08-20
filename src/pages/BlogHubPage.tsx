@@ -11,7 +11,7 @@ export function BlogHubPage() {
     <>
       <SEO
         title="Knowledge Center & Blog | Prezenti"
-        description="Explore expert insights on facility management, corporate housekeeping, security, and compliance in India."
+        description="Explore expert insights on facility management, corporate housekeeping, and compliance in India."
         canonicalUrl="/blog"
       />
 

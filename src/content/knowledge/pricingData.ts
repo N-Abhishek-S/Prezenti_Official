@@ -57,40 +57,5 @@ export const pricingData: Record<string, KnowledgePageData> = {
     ],
     relatedServices: ['housekeeping-services', 'facility-management-services'],
     relatedKnowledge: ['pf-compliance', 'why-outsource-housekeeping']
-  },
-  'security-guard-pricing': {
-    id: 'kno-pri-002',
-    slug: 'security-guard-pricing',
-    seoTitle: 'Security Guard Services Pricing & Cost Breakdown',
-    seoDescription: 'Learn how corporate security guard pricing is calculated, including guard profile, shift structure, and screening considerations.',
-    h1: 'Security Guard Pricing & Cost Factors',
-    category: 'Pricing',
-    contentBlocks: [
-      {
-        type: 'markdown',
-        content: 'Corporate security is an investment in risk mitigation. Engaging with unverified, low-cost vendors can expose your organization to liabilities. Pricing for security services reflects factors such as training requirements, regulatory considerations, and employment practices.'
-      },
-      {
-        type: 'factors',
-        title: 'What Influences Security Costs?',
-        items: [
-          { name: 'Guard Profile', description: 'Costs can differ between unarmed guards, security supervisors, and CCTV operators, depending on the role and site requirements.' },
-          { name: 'PSARA-Related Considerations', description: 'PSARA governs private security agencies in India; regulatory and training requirements can factor into pricing for compliant security engagements.' },
-          { name: 'Shift & Rotation', description: 'Round-the-clock coverage can require multiple shift rotations and reliever planning to help maintain coverage continuity.' },
-          { name: 'Personnel Screening Considerations', description: 'Screening requirements — such as identity checks, police verification, or medical screening — can be factored into deployment costs where included in the engagement.' }
-        ]
-      },
-      {
-        type: 'cta',
-        title: 'Request a Comprehensive Security Audit',
-        content: 'Contact us for a detailed vulnerability assessment and a customized security deployment quote.'
-      }
-    ],
-    faqs: [
-      { question: 'Why are compliant security guards more expensive?', answer: 'Compliant agencies generally pay minimum wages, PF, and ESIC, and invest in required training — which is reflected in their pricing.' },
-      { question: 'Do you charge extra for relievers?', answer: 'Reliever management can be included in your quote as part of coverage-continuity planning.' }
-    ],
-    relatedServices: ['security-services', 'facility-management-services'],
-    relatedKnowledge: ['police-verification', 'psara-compliance']
   }
 };

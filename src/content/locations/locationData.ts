@@ -34,8 +34,7 @@ export const locationData: Record<string, LocationMetadata> = {
     recommendedServices: [
       'facility-management-services',
       'housekeeping-services',
-      'office-boy-services',
-      'security-services'
+      'office-boy-services'
     ],
     faqs: [
       {

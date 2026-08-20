@@ -26,7 +26,7 @@ export const meta: BlogMetadata = {
     primary: 'office boy outsourcing cost pune',
     secondary: ['office boy agency charges', 'peon services price'],
     lsi: ['minimum wages', 'pf esic', 'leave reliever', 'uniform'],
-    entities: ['ent-srv-003', 'ent-leg-001'],
+    entities: ['ent-srv-004', 'ent-leg-001'],
     questions: ['How much does an office boy cost in Pune?'],
     relatedSearches: ['peon supply agency in Pune'],
     peopleAlsoAsk: ['What is the salary of an office boy in India?']

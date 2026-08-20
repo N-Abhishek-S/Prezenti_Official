@@ -126,7 +126,7 @@ export const blogsData: BlogPost[] = [
         heading: 'Why First Impressions Depend on Receptionist Staffing',
         paragraphs: [
           'The reception area is the gateway to your corporate world. Whether it is a crucial investor, a high-value client, or a potential new hire walking through the doors of your Pune office, the first interaction they have sets the precedent for the entire relationship. This makes receptionist staffing in Pune one of the most critical decisions an HR or Facility Manager can make.',
-          'A modern corporate receptionist is far more than a phone operator. They are the directors of first impressions, security gatekeepers, and masters of visitor experience. Finding individuals who possess the perfect blend of impeccable communication skills, technical proficiency, and poise under pressure is a significant challenge.'
+          'A modern corporate receptionist is far more than a phone operator. They are the directors of first impressions and masters of visitor experience. Finding individuals who possess the perfect blend of impeccable communication skills, technical proficiency, and poise under pressure is a significant challenge.'
         ]
       },
       {
@@ -171,7 +171,7 @@ export const blogsData: BlogPost[] = [
       {
         heading: 'The Core of Corporate Efficiency',
         paragraphs: [
-          'Behind every successful corporate park, manufacturing unit, or large-scale IT office in Pune is a dedicated team of facility management staff. These unsung heroes ensure that the lights stay on, the air conditioning works perfectly, the premises are secure, and the environment remains hygienic.',
+          'Behind every successful corporate park, manufacturing unit, or large-scale IT office in Pune is a dedicated team of facility management staff. These unsung heroes ensure that the lights stay on, the air conditioning works perfectly, and the environment remains hygienic.',
           'Deploying expert facility management staff in Pune is no longer a luxury; it is a strategic necessity to protect the immense capital invested in commercial real estate.'
         ]
       },
@@ -185,7 +185,6 @@ export const blogsData: BlogPost[] = [
           'Facility Managers: The strategic leaders who oversee SLAs, budgets, and overall site operations.',
           'Technical Staff (MEP): Electricians, plumbers, and HVAC technicians responsible for preventative and reactive maintenance.',
           'Soft Service Supervisors: Leaders who manage the day-to-day operations of housekeeping and pantry teams.',
-          'Security Officers: Trained personnel managing access control, CCTV surveillance, and emergency response.',
           'Helpdesk Executives: The central point of contact for tenant complaints and ticketing systems.'
         ]
       },
@@ -198,7 +197,7 @@ export const blogsData: BlogPost[] = [
       }
     ],
     faqs: [
-      { question: 'Do you provide both technical and soft service staff?', answer: 'Yes, our facility management staff in Pune covers both MEP (technical) maintenance and soft services like housekeeping and security.' },
+      { question: 'Do you provide both technical and soft service staff?', answer: 'Yes, our facility management staff in Pune covers both MEP (technical) maintenance and soft services like housekeeping.' },
       { question: 'How do you handle compliance for facility staff?', answer: 'Prezenti is 100% compliant with all labor laws, managing PF, ESIC, and minimum wages for all deployed facility management staff in Pune.' },
       { question: 'Can you deploy a dedicated Facility Manager for our site?', answer: 'Absolutely. For large sites, we deploy experienced Facility Managers to act as the single point of contact and oversee all operations.' }
     ]

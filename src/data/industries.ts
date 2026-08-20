@@ -41,9 +41,9 @@ export const industriesData: Record<string, IndustryData> = {
     slug: 'warehouses',
     name: 'Warehouses & Factories',
     seoTitle: 'Industrial Housekeeping for Warehouses & Factories | Prezenti',
-    seoDescription: 'Heavy-duty industrial housekeeping and security services for factories, manufacturing units, and large warehouses.',
+    seoDescription: 'Heavy-duty industrial housekeeping services for factories, manufacturing units, and large warehouses.',
     h1: 'Industrial Facility Management',
-    overview: 'Factories and warehouses face unique operational challenges. Our industrial support staff are trained for heavy-duty cleaning and high-security compliance.'
+    overview: 'Factories and warehouses face unique operational challenges. Our industrial support staff are trained for heavy-duty cleaning and strict compliance standards.'
   },
   residential: {
     id: 'residential',
@@ -52,6 +52,6 @@ export const industriesData: Record<string, IndustryData> = {
     seoTitle: 'Facility Management for Housing Societies | Prezenti',
     seoDescription: 'Complete property and facility management services for premium residential complexes and housing societies.',
     h1: 'Facility Management for Housing Societies',
-    overview: 'Enhance the living experience in residential complexes with our 24/7 security, daily housekeeping, and comprehensive property management services.'
+    overview: 'Enhance the living experience in residential complexes with our daily housekeeping and comprehensive property management services.'
   }
 };

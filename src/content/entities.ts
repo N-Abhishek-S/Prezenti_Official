@@ -15,7 +15,7 @@ export const entities: Record<string, Entity> = {
     name: 'Facility Management',
     category: 'Service',
     description: 'Comprehensive management of physical workspace and infrastructure.',
-    relatedEntities: ['ent-con-001', 'ent-con-002', 'ent-srv-002', 'ent-srv-003'],
+    relatedEntities: ['ent-con-001', 'ent-con-002', 'ent-srv-002'],
   },
   'ent-srv-002': {
     id: 'ent-srv-002',
@@ -23,13 +23,6 @@ export const entities: Record<string, Entity> = {
     category: 'Service',
     description: 'Professional cleaning and maintenance of corporate and commercial spaces.',
     relatedEntities: ['ent-srv-001', 'ent-con-003'],
-  },
-  'ent-srv-003': {
-    id: 'ent-srv-003',
-    name: 'Security Services',
-    category: 'Service',
-    description: 'Guarding and protection of physical assets and personnel.',
-    relatedEntities: ['ent-srv-001', 'ent-leg-003'],
   },
   'ent-srv-004': {
     id: 'ent-srv-004',
@@ -44,8 +37,8 @@ export const entities: Record<string, Entity> = {
     id: 'ent-con-001',
     name: 'Soft Services',
     category: 'Concept',
-    description: 'Services that make the workplace more pleasant or secure, such as cleaning and security.',
-    relatedEntities: ['ent-srv-002', 'ent-srv-003'],
+    description: 'Services that make the workplace more pleasant, such as cleaning.',
+    relatedEntities: ['ent-srv-002'],
   },
   'ent-con-002': {
     id: 'ent-con-002',
@@ -76,13 +69,6 @@ export const entities: Record<string, Entity> = {
     category: 'Legal',
     description: 'Self-financing social security and health insurance scheme for Indian workers.',
     relatedEntities: ['ent-srv-004'],
-  },
-  'ent-leg-003': {
-    id: 'ent-leg-003',
-    name: 'PSARA (Private Security Agencies Regulation Act)',
-    category: 'Legal',
-    description: 'Indian act regulating the operation of private security agencies.',
-    relatedEntities: ['ent-srv-003'],
   },
   'ent-leg-004': {
     id: 'ent-leg-004',
@@ -142,7 +128,7 @@ export const entities: Record<string, Entity> = {
     name: 'Retail & Education',
     category: 'Industry',
     description: 'Malls, schools, colleges, and hotels requiring high footfall management.',
-    relatedEntities: ['ent-srv-002', 'ent-srv-003'],
+    relatedEntities: ['ent-srv-002'],
   },
 
   // Additional Concepts

@@ -17,13 +17,13 @@ export const propertyManagementBaseContent = [
   {
     title: "Elevating the Tenant Experience and Retention",
     paragraphs: [
-      "In the commercial real estate market, tenant retention is an important consideration — the cost of acquiring a new tenant can exceed the cost of retaining an existing one. Front-desk personnel, common-area housekeeping, and security coordination can work together to support a positive tenant experience.",
+      "In the commercial real estate market, tenant retention is an important consideration — the cost of acquiring a new tenant can exceed the cost of retaining an existing one. Front-desk personnel and common-area housekeeping can work together to support a positive tenant experience.",
       "Complaint resolution processes — including how maintenance requests are logged and tracked — can be structured for your property, so tenants have a clear channel to raise issues, whether it's an AC unit or a plumbing concern.",
       "Property Managers can act as a liaison between tenants and property owners, conducting periodic check-ins to gather feedback and anticipate future space requirements as part of ongoing account management."
     ],
     listItems: [
       "Tenant-experience considerations structured to support retention.",
-      "Common-area management encompassing housekeeping and security coordination.",
+      "Common-area management encompassing housekeeping coordination.",
       "Complaint-resolution processes structured for your property.",
       "On-site technical team coordination for infrastructure issues.",
       "Property Managers acting as liaisons between tenants and owners."

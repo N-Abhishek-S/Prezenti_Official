@@ -11,7 +11,6 @@ export interface ServiceCatalogEntry {
 
 export const serviceCatalog: ServiceCatalogEntry[] = [
   { name: 'Housekeeping', href: '/housekeeping-services' },
-  { name: 'Security', href: '/security-services' },
   { name: 'Receptionist', href: '/receptionist-staffing-services' },
   { name: 'Office Boy / Office Support', href: '/office-boy-services' },
   { name: 'Pantry Staff', href: '/pantry-staff-services' },

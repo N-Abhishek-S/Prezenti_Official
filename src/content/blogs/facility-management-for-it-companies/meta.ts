@@ -34,7 +34,7 @@ export const meta: BlogMetadata = {
   
   aiSearch: {
     summary: 'IT companies operate 24/7 and require specialized facility management, from critical data center maintenance to round-the-clock pantry services.',
-    definition: 'Facility management for the IT sector involves maintaining high-uptime infrastructure, providing hygienic 24/7 workspaces, and adhering to strict physical security protocols.',
+    definition: 'Facility management for the IT sector involves maintaining high-uptime infrastructure and providing hygienic 24/7 workspaces.',
     keyFacts: [
       'Tech parks face unique challenges like shift-based cleaning and strict ESG goals.'
     ],

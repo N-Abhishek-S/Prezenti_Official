@@ -42,7 +42,6 @@ export const router = createBrowserRouter([
       { path: '/faq', element: <SectionRedirect sectionId="contact" /> },
       { path: '/faqs', element: <SectionRedirect sectionId="contact" /> },
       { path: '/contact', element: <SectionRedirect sectionId="contact" /> },
-      { path: '/security', element: <SectionRedirect sectionId="services" /> },
       { path: '/blog', element: <DynamicRouteResolver /> },
       { path: '/blog/:slug', element: <DynamicRouteResolver /> },
       { path: '/industries/:slug', element: <DynamicRouteResolver /> },

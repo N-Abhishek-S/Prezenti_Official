@@ -41,7 +41,7 @@ export function RefundPolicy() {
         </p>
 
         <p>
-          Prezenti provides staffing and facility-management services (housekeeping, security, receptionist, office
+          Prezenti provides staffing and facility-management services (housekeeping, receptionist, office
           support, pantry staff, facility management, and property management) to corporate and institutional clients.
           We do not sell services through an online checkout on this Website. Every engagement follows an inquiry,
           requirement review, custom quotation, and a mutually signed service agreement or work order before any billing

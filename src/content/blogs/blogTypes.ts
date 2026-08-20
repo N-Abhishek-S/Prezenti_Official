@@ -7,9 +7,8 @@ export type BlogCategory =
   | 'Guides' 
   | 'Checklists' 
   | 'Facility Management' 
-  | 'Housekeeping' 
-  | 'Security' 
-  | 'Receptionist' 
+  | 'Housekeeping'
+  | 'Receptionist'
   | 'Office Boy' 
   | 'Pantry' 
   | 'Property Management';

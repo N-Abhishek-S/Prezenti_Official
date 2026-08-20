@@ -14,7 +14,6 @@
   ],
   "serviceSlugs": [
     "housekeeping-services",
-    "security-services",
     "receptionist-staffing-services",
     "office-boy-services",
     "pantry-staff-services",
@@ -33,7 +32,6 @@
   ],
   "knowledgeSlugs": [
     "housekeeping-cost",
-    "security-guard-pricing",
     "pf-compliance",
     "background-verification",
     "facility-management-vs-housekeeping"

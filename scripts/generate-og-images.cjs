@@ -17,7 +17,7 @@ const images = [
   {
     filename: 'og-homepage.jpg',
     headline: 'Professional Facility Management & Staffing Solutions',
-    subheadline: 'Housekeeping • Receptionist • Office Boy • Security • Pantry Staff'
+    subheadline: 'Housekeeping • Receptionist • Office Boy • Pantry Staff'
   },
   {
     filename: 'og-about.jpg',
@@ -43,11 +43,6 @@ const images = [
     filename: 'og-office-boy.jpg',
     headline: 'Office Boy Services',
     subheadline: 'Reliable Administrative Support Staff'
-  },
-  {
-    filename: 'og-security.jpg',
-    headline: 'Security Guard Services',
-    subheadline: 'Professional Security Personnel For Commercial Properties'
   },
   {
     filename: 'og-pantry.jpg',

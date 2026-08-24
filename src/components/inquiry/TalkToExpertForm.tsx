@@ -1,6 +1,6 @@
 import { useEffect, useId, useState, type FormEvent } from 'react';
 import { motion } from 'framer-motion';
-import { CalendarDays, Check, CheckCircle2, Loader2, PhoneCall, School, Send, ShieldCheck, Utensils, Building2, Building, Home, HeartPulse } from 'lucide-react';
+import { CalendarDays, Check, Loader2, PhoneCall, School, Send, ShieldCheck, Utensils, Building2, Building, Home, HeartPulse } from 'lucide-react';
 import { toast } from 'sonner';
 import { Link } from 'react-router-dom';
 import { Button } from '../ui/Button';
@@ -13,8 +13,9 @@ import {
   type ExpertInquiryFormValues,
   type InquiryFormErrors,
 } from '../../modules/inquiry/inquiryValidation';
-import { sendExpertInquiry, type SendInquiryResponse } from '../../services/inquiryApi';
+import { generateQuoteId, type QuoteDraft } from '../../modules/inquiry/quoteTypes';
 import { trackContactFormSubmitted, trackTalkToUsSubmitted } from '../../lib/analytics';
+import { QuoteDecisionStep } from './QuoteDecisionStep';
 
 interface TalkToExpertFormProps {
   initialServices?: ExpertServiceName[];
@@ -59,45 +60,26 @@ function fieldClass(hasError: boolean, isComplete = false) {
   );
 }
 
-function FieldError({ id, message }: { id: string; message?: string }) {
+function FieldError({ id, message, focusable = false }: { id: string; message?: string; focusable?: boolean }) {
   if (!message) return null;
   return (
-    <p id={id} className="mt-1.5 text-xs font-semibold text-critical-600">
+    <p
+      id={id}
+      role="alert"
+      tabIndex={focusable ? -1 : undefined}
+      className="mt-1.5 text-xs font-semibold text-critical-600 outline-none"
+    >
       {message}
     </p>
   );
 }
 
-function SuccessState({
-  compact,
-  message,
-  onReset,
-}: {
-  compact: boolean;
-  message: string;
-  onReset: () => void;
-}) {
+function RequiredMark() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 14 }}
-      animate={{ opacity: 1, y: 0 }}
-      className={cn('mx-auto w-full', compact ? 'max-w-3xl' : 'max-w-4xl')}
-    >
-      <div className="rounded-lg border border-success-100 bg-white p-6 shadow-[0_24px_70px_rgba(15,23,42,0.10)] sm:p-8">
-        <div className="flex flex-col items-start gap-5 sm:flex-row">
-          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-success-50 text-success-600">
-            <CheckCircle2 size={26} />
-          </span>
-          <div className="min-w-0 flex-1">
-            <h2 className="text-2xl font-semibold tracking-tight text-neutral-950">Inquiry received</h2>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600">{message}</p>
-            <Button type="button" variant="secondary" size="lg" className="mt-6" onClick={onReset}>
-              Send another inquiry
-            </Button>
-          </div>
-        </div>
-      </div>
-    </motion.div>
+    <>
+      <span className="text-critical-600" aria-hidden="true"> *</span>
+      <span className="sr-only"> required</span>
+    </>
   );
 }
 
@@ -114,8 +96,7 @@ export function TalkToExpertForm({
       : emptyForm.services,
   });
   const [errors, setErrors] = useState<InquiryFormErrors>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [response, setResponse] = useState<SendInquiryResponse | null>(null);
+  const [quote, setQuote] = useState<QuoteDraft | null>(null);
   // Honeypot: hidden from sighted and screen-reader users; only scripted
   // submitters populate it. Left non-empty, the server silently drops the
   // submission instead of notifying our team.
@@ -147,10 +128,10 @@ export function TalkToExpertForm({
     );
   };
 
-  const submitInquiry = async (event: FormEvent<HTMLFormElement>) => {
+  const submitInquiry = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (isSubmitting) {
+    if (honeypot.trim() !== '') {
       return;
     }
 
@@ -170,44 +151,58 @@ export function TalkToExpertForm({
     if (!validation.isValid) {
       setErrors(validation.errors);
       toast.error('Please complete the required details.');
+
+      const fieldOrder: Array<keyof ExpertInquiryFormValues> = [
+        'fullName',
+        'mobileNumber',
+        'email',
+        'companyName',
+        'location',
+        'requiredStartDate',
+        'services',
+        'categories',
+        'additionalRequirement',
+      ];
+      const firstInvalidKey = fieldOrder.find((key) => validation.errors[key]);
+
+      if (firstInvalidKey) {
+        // Checkbox-group fields (services/categories) have no single
+        // focusable input — target the error text itself, which is made
+        // focusable via tabIndex on FieldError's `focusable` prop.
+        const isGroupError = firstInvalidKey === 'services' || firstInvalidKey === 'categories';
+        const targetId = isGroupError ? `${formId}-${firstInvalidKey}-error` : `${formId}-${firstInvalidKey}`;
+        const target = document.getElementById(targetId);
+        target?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        target?.focus();
+      }
+
       return;
     }
 
-    setIsSubmitting(true);
+    trackContactFormSubmitted({
+      form_name: 'Talk To Expert',
+      selected_services: validation.sanitized.services.join(', '),
+    });
 
-    try {
-      const result = await sendExpertInquiry(validation.sanitized, honeypot);
-      trackContactFormSubmitted({
-        form_name: 'Talk To Expert',
+    if (window.location.pathname === '/talk-to-us') {
+      trackTalkToUsSubmitted({
+        form_name: 'Talk To Us',
         selected_services: validation.sanitized.services.join(', '),
       });
-
-      if (window.location.pathname === '/talk-to-us') {
-        trackTalkToUsSubmitted({
-          form_name: 'Talk To Us',
-          selected_services: validation.sanitized.services.join(', '),
-        });
-      }
-
-      setResponse(result);
-      setForm({ ...emptyForm });
-      toast.success(result.message);
-      onSubmitted?.();
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'Unable to send inquiry.');
-    } finally {
-      setIsSubmitting(false);
     }
+
+    // Nothing is sent to the server yet — the customer still needs to choose
+    // Pay Now or Request a Call on the next screen.
+    setQuote({
+      quoteId: generateQuoteId(),
+      customer: validation.sanitized,
+      createdAt: new Date().toISOString(),
+    });
+    onSubmitted?.();
   };
 
-  if (response) {
-    return (
-      <SuccessState
-        compact={compact}
-        message={response.message}
-        onReset={() => setResponse(null)}
-      />
-    );
+  if (quote) {
+    return <QuoteDecisionStep quote={quote} />;
   }
 
   return (
@@ -237,16 +232,23 @@ export function TalkToExpertForm({
             <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600">
               Share the details our operations team needs to review your staffing requirement and respond with the right next step.
             </p>
+            <p className="mt-4 text-xs text-neutral-500">
+              Fields marked <span className="text-critical-600" aria-hidden="true">*</span>
+              <span className="sr-only">with an asterisk indicate a</span> required field must be completed.
+            </p>
           </div>
         </div>
 
         <div className="mt-6 grid gap-5 sm:grid-cols-2">
           <label className={labelClass(form.fullName.trim().length > 1)} htmlFor={`${formId}-fullName`}>
             Full Name
+            <RequiredMark />
             <input
               id={`${formId}-fullName`}
               type="text"
               autoComplete="name"
+              required
+              aria-required="true"
               value={form.fullName}
               onChange={(event) => update('fullName', event.target.value)}
               className={fieldClass(Boolean(errors.fullName), form.fullName.trim().length > 1)}
@@ -259,11 +261,14 @@ export function TalkToExpertForm({
 
           <label className={labelClass(form.mobileNumber.trim().length > 0)} htmlFor={`${formId}-mobileNumber`}>
             Mobile Number
+            <RequiredMark />
             <input
               id={`${formId}-mobileNumber`}
               type="tel"
               inputMode="tel"
               autoComplete="tel"
+              required
+              aria-required="true"
               value={form.mobileNumber}
               onChange={(event) => update('mobileNumber', event.target.value)}
               className={fieldClass(Boolean(errors.mobileNumber), form.mobileNumber.trim().length > 0)}
@@ -276,10 +281,13 @@ export function TalkToExpertForm({
 
           <label className={labelClass(form.email.trim().length > 0)} htmlFor={`${formId}-email`}>
             Email
+            <RequiredMark />
             <input
               id={`${formId}-email`}
               type="email"
               autoComplete="email"
+              required
+              aria-required="true"
               value={form.email}
               onChange={(event) => update('email', event.target.value)}
               className={fieldClass(Boolean(errors.email), form.email.trim().length > 0)}
@@ -292,10 +300,13 @@ export function TalkToExpertForm({
 
           <label className={labelClass(form.companyName.trim().length > 1)} htmlFor={`${formId}-companyName`}>
             Company / Building Name
+            <RequiredMark />
             <input
               id={`${formId}-companyName`}
               type="text"
               autoComplete="organization"
+              required
+              aria-required="true"
               value={form.companyName}
               onChange={(event) => update('companyName', event.target.value)}
               className={fieldClass(Boolean(errors.companyName), form.companyName.trim().length > 1)}
@@ -308,10 +319,13 @@ export function TalkToExpertForm({
 
           <label className={labelClass(form.location.trim().length > 1)} htmlFor={`${formId}-location`}>
             Location / Area
+            <RequiredMark />
             <input
               id={`${formId}-location`}
               type="text"
               autoComplete="address-level2"
+              required
+              aria-required="true"
               value={form.location}
               onChange={(event) => update('location', event.target.value)}
               className={fieldClass(Boolean(errors.location), form.location.trim().length > 1)}
@@ -324,12 +338,15 @@ export function TalkToExpertForm({
 
           <label className={labelClass(Boolean(form.requiredStartDate))} htmlFor={`${formId}-requiredStartDate`}>
             Required Start Date
+            <RequiredMark />
             <span className="relative block">
               <CalendarDays size={16} className="pointer-events-none absolute right-4 top-1/2 z-10 -translate-y-1/2 text-neutral-400" />
               <input
                 id={`${formId}-requiredStartDate`}
                 type="date"
                 min={today}
+                required
+                aria-required="true"
                 value={form.requiredStartDate}
                 onChange={(event) => update('requiredStartDate', event.target.value)}
                 className={cn(fieldClass(Boolean(errors.requiredStartDate), Boolean(form.requiredStartDate)), 'pr-11')}
@@ -344,7 +361,7 @@ export function TalkToExpertForm({
         <fieldset className="mt-7">
           <div className="mb-3 flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
             <legend className="text-sm font-semibold text-success-700">Selected Service</legend>
-            <FieldError id={`${formId}-services-error`} message={errors.services} />
+            <FieldError id={`${formId}-services-error`} message={errors.services} focusable />
           </div>
 
           {servicesLoading && (
@@ -382,15 +399,20 @@ export function TalkToExpertForm({
           )}
         </fieldset>
 
-        <fieldset className="mt-7">
+        <fieldset
+          className="mt-7"
+          aria-describedby={errors.categories ? `${formId}-categories-error` : undefined}
+        >
           <div className="mb-3 flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
             <legend className={cn('text-sm font-semibold transition-colors duration-200', form.categories.length > 0 ? 'text-success-700' : 'text-neutral-800')}>
               Category Selection
+              <span className="text-critical-600" aria-hidden="true"> *</span>
+              <span className="sr-only"> required, select at least one</span>
             </legend>
-            <FieldError id={`${formId}-categories-error`} message={errors.categories} />
+            <FieldError id={`${formId}-categories-error`} message={errors.categories} focusable />
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-2" aria-describedby={`${formId}-categories-error`}>
+          <div className="grid gap-3 sm:grid-cols-2">
             {categoryOptions.map((category) => {
               const selected = form.categories.includes(category.id);
               const CategoryIcon = category.icon;
@@ -448,7 +470,7 @@ export function TalkToExpertForm({
         </fieldset>
 
         <label className={cn('mt-7', labelClass(form.additionalRequirement.trim().length > 4))} htmlFor={`${formId}-additionalRequirement`}>
-          Additional Requirement
+          Additional Requirement <span className="font-normal text-neutral-400">(Optional)</span>
           <textarea
             id={`${formId}-additionalRequirement`}
             rows={5}
@@ -475,11 +497,17 @@ export function TalkToExpertForm({
               banner.
             </span>
           </div>
-          <Button type="submit" variant="primary" size="xl" className="w-full sm:w-auto" isLoading={isSubmitting} disabled={isSubmitting}>
-            {isSubmitting ? 'Sending inquiry' : 'Send Inquiry'}
-            {!isSubmitting && <Send size={17} />}
+          <Button type="submit" variant="primary" size="xl" className="w-full sm:w-auto">
+            Continue to Quote
+            <Send size={17} />
           </Button>
         </div>
+
+        <span role="status" aria-live="polite" className="sr-only">
+          {Object.keys(errors).length > 0
+            ? `Form has ${Object.keys(errors).length} error${Object.keys(errors).length > 1 ? 's' : ''}. Please review the highlighted fields.`
+            : ''}
+        </span>
       </div>
     </form>
   );

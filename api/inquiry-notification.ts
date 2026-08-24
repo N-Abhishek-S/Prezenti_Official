@@ -36,6 +36,12 @@ const allowedCategories = [
   'Pre Schools',
 ];
 
+// Tags the two final-quote-screen paths (Pay Now / Request a Call) so the
+// team notification clearly identifies what the customer chose. Defaults to
+// 'QUOTE' for callers that predate this field (e.g. ContactSection.tsx).
+const allowedRequestTypes = ['QUOTE', 'CALL_BACK', 'PAYMENT_CONFIRMATION'] as const;
+type RequestType = (typeof allowedRequestTypes)[number];
+
 const successMessage = 'Inquiry sent successfully. Our team has been notified.';
 const requestTimeoutMs = 18_000;
 const maxJsonBodyBytes = 32_000;
@@ -50,6 +56,8 @@ const fieldLimits = {
   serviceItem: 60,
   categoryItem: 80,
   additionalRequirement: 2000,
+  quoteId: 40,
+  preferredContactTime: 60,
 } as const;
 
 const maxServices = 8;
@@ -172,7 +180,35 @@ interface InquiryRequestBody extends ExpertInquiryFormValues {
   // marks the request as automated; we accept the request outward (so the
   // bot gets no useful error signal) but never dispatch a notification.
   website?: string;
+  requestType?: string;
+  quoteId?: string;
+  preferredContactTime?: string;
 }
+
+interface RequestMeta {
+  requestType: RequestType;
+  quoteId: string;
+  preferredContactTime: string;
+}
+
+function normalizeRequestMeta(body: Partial<InquiryRequestBody>): RequestMeta {
+  const requestedType = String(body.requestType || '').toUpperCase();
+  const requestType = (allowedRequestTypes as readonly string[]).includes(requestedType)
+    ? (requestedType as RequestType)
+    : 'QUOTE';
+
+  return {
+    requestType,
+    quoteId: sanitizeText(clamp(String(body.quoteId || ''), fieldLimits.quoteId)),
+    preferredContactTime: sanitizeText(clamp(String(body.preferredContactTime || ''), fieldLimits.preferredContactTime)),
+  };
+}
+
+const requestTypeLabels: Record<RequestType, string> = {
+  QUOTE: 'New Inquiry',
+  CALL_BACK: 'Callback Request',
+  PAYMENT_CONFIRMATION: 'Demo Payment Completed',
+};
 
 type InquiryFormErrors = Partial<Record<keyof ExpertInquiryFormValues, string>>;
 
@@ -413,8 +449,8 @@ function validateInquiryForm(
     errors.categories = 'Choose a valid facility category.';
   }
 
-  if (sanitized.additionalRequirement.length < 5 || sanitized.additionalRequirement.length > fieldLimits.additionalRequirement) {
-    errors.additionalRequirement = 'Add a short requirement.';
+  if (sanitized.additionalRequirement.length > fieldLimits.additionalRequirement) {
+    errors.additionalRequirement = 'Additional requirement is too long.';
   }
 
   return { sanitized, errors, isValid: Object.keys(errors).length === 0 };
@@ -464,16 +500,25 @@ function escapeHtml(value: string) {
     .replace(/'/g, '&#39;');
 }
 
-function buildEmailBody(payload: ExpertInquiryFormValues, timestamp: string) {
+function buildEmailBody(payload: ExpertInquiryFormValues, timestamp: string, meta: RequestMeta) {
   const selectedServices = getSelectedServices(payload);
   const additionalRequirement = getDisplayValue(payload.additionalRequirement, 'No additional requirement provided.');
+  const requestLabel = requestTypeLabels[meta.requestType];
 
   return [
-    'New Business Inquiry | Prezenti',
+    `${requestLabel} | Prezenti`,
     '',
     'Hello Team,',
     '',
-    'A new business inquiry has been submitted through the Prezenti website.',
+    meta.requestType === 'CALL_BACK'
+      ? 'A customer has requested a call back before proceeding with payment.'
+      : meta.requestType === 'PAYMENT_CONFIRMATION'
+        ? 'A customer has completed the demo payment step on the website.'
+        : 'A new business inquiry has been submitted through the Prezenti website.',
+    '',
+    `Request Type: ${meta.requestType}`,
+    ...(meta.quoteId ? [`Request Reference: ${meta.quoteId}`] : []),
+    ...(meta.preferredContactTime ? [`Preferred Contact Time: ${meta.preferredContactTime}`] : []),
     '',
     'Customer Information:',
     `Full Name: ${payload.fullName}`,
@@ -493,17 +538,24 @@ function buildEmailBody(payload: ExpertInquiryFormValues, timestamp: string) {
     'Source: Prezenti Website - Talk To Expert',
     `Submitted At: ${timestamp}`,
     '',
-    'Please review this inquiry and connect with the customer at the earliest convenience.',
+    'Please review this request and connect with the customer at the earliest convenience.',
     '',
     'Regards,',
     'Prezenti Automated Notification System',
   ].join('\n');
 }
 
-function buildEmailHtmlBody(payload: ExpertInquiryFormValues, timestamp: string) {
+function buildEmailHtmlBody(payload: ExpertInquiryFormValues, timestamp: string, meta: RequestMeta) {
   const selectedServices = getSelectedServices(payload);
   const additionalRequirement = getDisplayValue(payload.additionalRequirement, 'No additional requirement provided.');
   const requiredStartDate = formatDisplayDate(payload.requiredStartDate);
+  const requestLabel = requestTypeLabels[meta.requestType];
+
+  const requestRows = [
+    ['Request Type', meta.requestType],
+    ...(meta.quoteId ? [['Request Reference', meta.quoteId]] : []),
+    ...(meta.preferredContactTime ? [['Preferred Contact Time', meta.preferredContactTime]] : []),
+  ];
 
   const customerRows = [
     ['Full Name', payload.fullName],
@@ -533,7 +585,7 @@ function buildEmailHtmlBody(payload: ExpertInquiryFormValues, timestamp: string)
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>New Business Inquiry | Prezenti</title>
+    <title>${escapeHtml(requestLabel)} | Prezenti</title>
   </head>
   <body style="margin: 0; padding: 0; background: #f8fafc; font-family: Arial, Helvetica, sans-serif; color: #0f172a;">
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background: #f8fafc; padding: 32px 16px;">
@@ -543,13 +595,24 @@ function buildEmailHtmlBody(payload: ExpertInquiryFormValues, timestamp: string)
             <tr>
               <td style="background: #0f172a; padding: 24px 28px;">
                 <div style="color: #ffffff; font-size: 22px; font-weight: 700; letter-spacing: 0.2px;">Prezenti</div>
-                <div style="color: #cbd5e1; font-size: 14px; margin-top: 6px;">New Business Inquiry</div>
+                <div style="color: #cbd5e1; font-size: 14px; margin-top: 6px;">${escapeHtml(requestLabel)}</div>
               </td>
             </tr>
             <tr>
               <td style="padding: 28px;">
                 <p style="margin: 0 0 14px; font-size: 15px; line-height: 1.6;">Hello Team,</p>
-                <p style="margin: 0 0 24px; font-size: 15px; line-height: 1.6;">A new business inquiry has been submitted through the Prezenti website.</p>
+                <p style="margin: 0 0 24px; font-size: 15px; line-height: 1.6;">
+                  ${meta.requestType === 'CALL_BACK'
+                    ? 'A customer has requested a call back before proceeding with payment.'
+                    : meta.requestType === 'PAYMENT_CONFIRMATION'
+                      ? 'A customer has completed the demo payment step on the website.'
+                      : 'A new business inquiry has been submitted through the Prezenti website.'}
+                </p>
+
+                <h2 style="margin: 0 0 10px; font-size: 16px; color: #0f172a;">Request Details</h2>
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; margin-bottom: 24px;">
+                  ${renderRows(requestRows)}
+                </table>
 
                 <h2 style="margin: 0 0 10px; font-size: 16px; color: #0f172a;">Customer Information</h2>
                 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; margin-bottom: 24px;">
@@ -581,14 +644,23 @@ function buildEmailHtmlBody(payload: ExpertInquiryFormValues, timestamp: string)
 </html>`;
 }
 
-function buildWhatsAppBody(payload: ExpertInquiryFormValues, timestamp: string) {
+function buildWhatsAppBody(payload: ExpertInquiryFormValues, timestamp: string, meta: RequestMeta) {
   const selectedServices = getSelectedServices(payload);
   const additionalRequirement = getDisplayValue(payload.additionalRequirement, 'No additional requirement provided.');
+  const requestLabel = requestTypeLabels[meta.requestType];
 
   return [
-    '*New Business Inquiry | Prezenti*',
+    `*${requestLabel} | Prezenti*`,
     '',
-    'A new customer inquiry has been received through the Prezenti website.',
+    meta.requestType === 'CALL_BACK'
+      ? 'A customer has requested a call back before proceeding with payment.'
+      : meta.requestType === 'PAYMENT_CONFIRMATION'
+        ? 'A customer has completed the demo payment step on the website.'
+        : 'A new customer inquiry has been received through the Prezenti website.',
+    '',
+    `📌 *Request Type:* ${meta.requestType}`,
+    ...(meta.quoteId ? [`🔖 *Reference:* ${meta.quoteId}`] : []),
+    ...(meta.preferredContactTime ? [`⏰ *Preferred Contact Time:* ${meta.preferredContactTime}`] : []),
     '',
     '👤 *Customer Details*',
     `Name: ${payload.fullName}`,
@@ -612,6 +684,10 @@ function buildWhatsAppBody(payload: ExpertInquiryFormValues, timestamp: string) 
 }
 
 function buildWhatsAppContentVariables(payload: ExpertInquiryFormValues, timestamp: string) {
+  // Kept to the pre-configured Twilio Content Template's 10 placeholders —
+  // the template itself isn't managed in this repo, so request-type context
+  // is only added to the plain-text fallback body (buildWhatsAppBody), which
+  // is used whenever no Content SID is configured.
   return JSON.stringify({
     1: payload.fullName,
     2: payload.mobileNumber,
@@ -641,7 +717,7 @@ async function withTimeout<T>(operation: Promise<T>, message: string): Promise<T
   }
 }
 
-async function sendEmail(config: NotificationConfig, payload: ExpertInquiryFormValues, timestamp: string) {
+async function sendEmail(config: NotificationConfig, payload: ExpertInquiryFormValues, timestamp: string, meta: RequestMeta) {
   try {
     const transporter = nodemailer.createTransport({
       host: config.smtpHost,
@@ -661,9 +737,9 @@ async function sendEmail(config: NotificationConfig, payload: ExpertInquiryFormV
         from: `"Prezenti Website" <${config.smtpUser}>`,
         to: config.emailTo,
         replyTo: payload.email,
-        subject: 'New Business Inquiry | Prezenti',
-        text: buildEmailBody(payload, timestamp),
-        html: buildEmailHtmlBody(payload, timestamp),
+        subject: `${requestTypeLabels[meta.requestType]} | Prezenti`,
+        text: buildEmailBody(payload, timestamp, meta),
+        html: buildEmailHtmlBody(payload, timestamp, meta),
       }),
       'Email notification timed out.',
     );
@@ -676,9 +752,9 @@ async function sendEmail(config: NotificationConfig, payload: ExpertInquiryFormV
   }
 }
 
-async function sendWhatsApp(config: NotificationConfig, payload: ExpertInquiryFormValues, timestamp: string) {
+async function sendWhatsApp(config: NotificationConfig, payload: ExpertInquiryFormValues, timestamp: string, meta: RequestMeta) {
   try {
-    const body = buildWhatsAppBody(payload, timestamp);
+    const body = buildWhatsAppBody(payload, timestamp, meta);
 
     if (config.twilioContentSid) {
       try {
@@ -850,9 +926,10 @@ export default async function handler(request: ApiRequest, response: ApiResponse
 
   try {
     const timestamp = formatTimestamp(requestBody.submittedAt);
+    const meta = normalizeRequestMeta(requestBody);
 
-    const emailPromise = sendEmail(config, validation.sanitized, timestamp);
-    const twilioPromise = sendWhatsApp(config, validation.sanitized, timestamp);
+    const emailPromise = sendEmail(config, validation.sanitized, timestamp, meta);
+    const twilioPromise = sendWhatsApp(config, validation.sanitized, timestamp, meta);
 
     const [emailResult, twilioResult] = await Promise.allSettled([emailPromise, twilioPromise]);
 

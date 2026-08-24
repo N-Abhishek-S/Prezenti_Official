@@ -118,9 +118,5 @@ export function validateInquiryForm(
     errors.categories = 'Choose a supported category.';
   }
 
-  if (sanitized.additionalRequirement.length < 5) {
-    errors.additionalRequirement = 'Add a short requirement.';
-  }
-
   return { sanitized, errors, isValid: Object.keys(errors).length === 0 };
 }

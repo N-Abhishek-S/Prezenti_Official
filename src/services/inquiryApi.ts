@@ -3,9 +3,17 @@ import type { ExpertInquiryFormValues } from '../modules/inquiry/inquiryValidati
 const defaultInquiryEndpoint = '/api/inquiry-notification';
 const requestTimeoutMs = 18_000;
 
+export type InquiryRequestType = 'QUOTE' | 'CALL_BACK' | 'PAYMENT_CONFIRMATION';
+
 export interface SendInquiryResponse {
   success: boolean;
   message: string;
+}
+
+export interface InquiryRequestExtras {
+  requestType?: InquiryRequestType;
+  quoteId?: string;
+  preferredContactTime?: string;
 }
 
 interface InquiryApiResponse {
@@ -31,7 +39,11 @@ async function parseResponse(response: Response): Promise<InquiryApiResponse> {
   return response.json() as Promise<InquiryApiResponse>;
 }
 
-export async function sendExpertInquiry(payload: ExpertInquiryFormValues, honeypot = ''): Promise<SendInquiryResponse> {
+export async function sendExpertInquiry(
+  payload: ExpertInquiryFormValues,
+  honeypot = '',
+  extras: InquiryRequestExtras = {},
+): Promise<SendInquiryResponse> {
   const controller = new AbortController();
   const timeoutId = window.setTimeout(() => controller.abort(), requestTimeoutMs);
 
@@ -44,6 +56,7 @@ export async function sendExpertInquiry(payload: ExpertInquiryFormValues, honeyp
       },
       body: JSON.stringify({
         ...payload,
+        ...extras,
         // Honeypot field: left empty by real users, silently rejected server-side if filled.
         website: honeypot,
         submissionId: createSubmissionId(),

@@ -11,3 +11,4 @@ export const AboutUs = lazy(() => import('../pages/AboutUs').then((module) => ({
 export const RefundPolicy = lazy(() => import('../pages/RefundPolicy').then((module) => ({ default: module.RefundPolicy })));
 export const CancellationPolicy = lazy(() => import('../pages/CancellationPolicy').then((module) => ({ default: module.CancellationPolicy })));
 export const PricingPage = lazy(() => import('../pages/PricingPage').then((module) => ({ default: module.PricingPage })));
+export const PaymentDemoPage = lazy(() => import('../pages/PaymentDemoPage').then((module) => ({ default: module.PaymentDemoPage })));

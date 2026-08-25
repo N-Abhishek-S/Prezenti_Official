@@ -80,10 +80,13 @@ export function TalkToUs() {
             </div>
           </div>
           
-          <div className="mt-8 text-neutral-500">
-            <p className="mb-2 font-medium">Corporate Contact Information:</p>
-            <p>Email: <a href="mailto:bd@kargar.co.in" className="text-primary-600 hover:underline">bd@kargar.co.in</a></p>
-            <div className="mt-1 flex justify-center">
+          <div className="mt-8 text-neutral-500 text-sm">
+            <p className="mb-2 font-semibold text-neutral-900">Corporate &amp; Registered Office Address:</p>
+            <p className="font-medium text-neutral-800">Prezenti Business Services Pvt. Ltd.</p>
+            <p>{SEO_CONSTANTS.ADDRESS.LINE1}, {SEO_CONSTANTS.ADDRESS.LINE2}</p>
+            <p>{SEO_CONSTANTS.ADDRESS.CITY}, {SEO_CONSTANTS.ADDRESS.STATE} &ndash; {SEO_CONSTANTS.ADDRESS.POSTAL_CODE}, {SEO_CONSTANTS.ADDRESS.COUNTRY}</p>
+            <p className="mt-2">Email: <a href={`mailto:${SEO_CONSTANTS.CONTACT_EMAIL}`} className="text-primary-600 hover:underline">{SEO_CONSTANTS.CONTACT_EMAIL}</a></p>
+            <div className="mt-2 flex justify-center">
               <ServiceAreasPopover tone="light" />
             </div>
           </div>

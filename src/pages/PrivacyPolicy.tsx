@@ -21,15 +21,15 @@ export function PrivacyPolicy() {
   return (
     <main className="bg-canvas pt-24 pb-14 sm:pt-28 lg:pb-20">
       <SEO
-        title="Privacy Policy | Prezenti"
-        description="Learn what personal information Prezenti collects through its website inquiry forms, why it is collected, which service providers process it, and how to exercise your privacy rights."
+        title="Privacy Policy | Prezenti Business Services Pvt. Ltd."
+        description="Learn what personal information Prezenti Business Services Pvt. Ltd. collects through its website inquiry forms, why it is collected, which service providers process it, and how to exercise your privacy rights."
         canonicalUrl="/privacy-policy"
       />
       <StructuredData
         type="WebPage"
         data={{
           name: 'Privacy Policy',
-          description: "Prezenti's privacy policy for website inquiries, staffing requests, and personal information handling.",
+          description: "Prezenti Business Services Pvt. Ltd.'s privacy policy for website inquiries, staffing requests, and personal information handling.",
           url: `${SEO_CONSTANTS.BASE_URL}/privacy-policy`,
         }}
       />
@@ -41,7 +41,7 @@ export function PrivacyPolicy() {
         </p>
 
         <p>
-          This Privacy Policy explains how {legalConfig.brandName} ("Prezenti", "we", "us", "our") collects, uses, shares,
+          This Privacy Policy explains how {legalConfig.companyName} ("we", "us", "our") collects, uses, shares,
           and protects personal information when you visit {legalConfig.website} (the "Website") or submit an inquiry
           through our forms. It applies to the public Website and to inquiry/quotation communications with our team. It
           does not apply to information you may separately provide to us in a signed service agreement, which is governed
@@ -49,9 +49,7 @@ export function PrivacyPolicy() {
         </p>
 
         <Callout>
-          <strong>Legal entity note:</strong> Prezenti's full registered legal entity name and registered office address
-          will be reflected here once confirmed by authorized Prezenti management. Until then, the contact details in
-          Section 13 are the verified way to reach us about this policy.
+          <strong>Legal Entity & Registered Address:</strong> {legalConfig.companyName}, {legalConfig.registeredAddress}.
         </Callout>
 
         <h2>1. Information We Collect</h2>
@@ -200,7 +198,7 @@ export function PrivacyPolicy() {
         </ul>
         <p>
           We may also disclose information where required to comply with a legal obligation, court order, or lawful
-          request from a government or regulatory authority, or to protect the rights, property, or safety of Prezenti,
+          request from a government or regulatory authority, or to protect the rights, property, or safety of {legalConfig.companyName},
           our clients, or others.
         </p>
 
@@ -215,10 +213,10 @@ export function PrivacyPolicy() {
         <h2>8. Data Retention</h2>
         <p>
           We retain inquiry information for as long as reasonably necessary to respond to your inquiry, progress a
-          quotation, deliver contracted services, and meet legal or accounting requirements. Prezenti has not yet
+          quotation, deliver contracted services, and meet legal or accounting requirements. {legalConfig.companyName} has not yet
           finalized a formal retention schedule for each data category; this section will be updated with specific
           retention periods once approved by management. If you would like your inquiry data deleted sooner, contact us
-          using Section 12 below.
+          using Section 13 below.
         </p>
 
         <h2>9. Your Rights</h2>
@@ -228,7 +226,7 @@ export function PrivacyPolicy() {
           <li>Ask us to correct inaccurate or incomplete information.</li>
           <li>Ask us to delete your information, subject to any legal, contractual, or accounting retention requirement.</li>
           <li>Withdraw consent for non-essential analytics at any time (see Section 4).</li>
-          <li>Raise a grievance about how we have handled your information (see Section 12).</li>
+          <li>Raise a grievance about how we have handled your information (see Section 13).</li>
         </ul>
         <p>
           This section is written to be compatible with India's Digital Personal Data Protection Act, 2023 framework as
@@ -262,11 +260,13 @@ export function PrivacyPolicy() {
         <p>
           For any privacy question, correction request, or grievance, contact:
           <br />
+          <strong>{legalConfig.companyName}</strong>
+          <br />
+          Registered Office Address: {legalConfig.registeredAddress}
+          <br />
           Email: <a href={`mailto:${legalConfig.privacyEmail}`}>{legalConfig.privacyEmail}</a>
           <br />
           Phone: <a href={`tel:${legalConfig.phone.replace(/\s+/g, '')}`}>{legalConfig.phone}</a>
-          <br />
-          {legalConfig.city}, {legalConfig.state}, {legalConfig.country}
         </p>
         <p className="text-sm text-neutral-500">
           A dedicated Grievance Officer contact has not yet been designated separately from this general inbox; this

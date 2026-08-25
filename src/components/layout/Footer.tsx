@@ -116,7 +116,7 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col gap-4 border-t border-white/10 pt-8 text-sm sm:flex-row sm:items-center sm:justify-between">
-          <div>&copy; 2026 Prezenti Staffing Services. All rights reserved.</div>
+          <div>&copy; 2026 Prezenti Business Services Pvt. Ltd. All rights reserved.</div>
           <div className="flex gap-4">
             <a href={SEO_CONSTANTS.SOCIAL_LINKS?.FACEBOOK || '#'} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-white/50 transition-colors hover:text-[#1877F2]">
               <FacebookIcon className="h-5 w-5" />

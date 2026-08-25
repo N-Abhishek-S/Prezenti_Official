@@ -20,6 +20,7 @@ export const SEO_CONSTANTS = {
   // StructuredData.tsx (LocalBusiness/ProfessionalService PostalAddress),
   // Footer.tsx, and the contact page. Update here only.
   ADDRESS: {
+    COMPANY_NAME: 'Prezenti Business Services Pvt. Ltd.',
     LINE1: 'FL 2, Unity Constructions',
     LINE2: 'N 1163 14, Baner, Baner Gaon',
     DISTRICT: 'Haveli',

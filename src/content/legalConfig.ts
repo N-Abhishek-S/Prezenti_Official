@@ -12,7 +12,7 @@
 import { SEO_CONSTANTS } from '../seo/constants';
 
 export const legalConfig = {
-  companyName: '', // Legal entity name not confirmed in the repository or business records.
+  companyName: 'Prezenti Business Services Pvt. Ltd.',
   brandName: SEO_CONSTANTS.SITE_NAME,
   website: SEO_CONSTANTS.BASE_URL,
 
@@ -25,11 +25,11 @@ export const legalConfig = {
   city: SEO_CONSTANTS.CITY,
   state: SEO_CONSTANTS.STATE,
   country: 'India',
-  registeredAddress: '', // Full registered/corporate office address not confirmed; only city/state are published today.
+  registeredAddress: `${SEO_CONSTANTS.ADDRESS.STREET_ADDRESS}, ${SEO_CONSTANTS.CITY}, ${SEO_CONSTANTS.STATE} ${SEO_CONSTANTS.ADDRESS.POSTAL_CODE}, India`,
 
   effectiveDate: '12 August 2026',
-  lastUpdated: '12 August 2026',
-  version: '1.0',
+  lastUpdated: '25 August 2026',
+  version: '1.1',
 
   businessModel: {
     customerType:
@@ -72,8 +72,8 @@ export const legalConfig = {
   dataProcessors: [
     { name: 'Google (Google Analytics 4)', purpose: 'Website usage analytics.' },
     { name: 'Microsoft (Clarity)', purpose: 'Website behavior analytics.' },
-    { name: 'Google Workspace / Gmail SMTP', purpose: "Delivers inquiry-form notification emails to Prezenti's team." },
-    { name: 'Twilio (WhatsApp Business API)', purpose: "Delivers inquiry-form notification messages to Prezenti's team over WhatsApp." },
+    { name: 'Google Workspace / Gmail SMTP', purpose: "Delivers inquiry-form notification emails to Prezenti Business Services Pvt. Ltd.'s team." },
+    { name: 'Twilio (WhatsApp Business API)', purpose: "Delivers inquiry-form notification messages to Prezenti Business Services Pvt. Ltd.'s team over WhatsApp." },
     { name: 'Vercel', purpose: 'Website hosting and serverless function execution.' },
   ],
 };

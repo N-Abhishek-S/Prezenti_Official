@@ -129,29 +129,6 @@ export function HeroContent() {
   </div>
 </motion.div>
 
-<p className="mb-6 w-fit border-b border-dotted border-primary-600/50 pb-[5px] text-left text-[14px] font-semibold leading-[1.4] tracking-[0.01em] text-neutral-950 opacity-90 sm:text-[15px]">
-  <motion.span
-    initial={{ backgroundPosition: '112% 0%' }}
-    animate={{ backgroundPosition: ['112% 0%', '-12% 0%'] }}
-    transition={{
-      duration: 4,
-      repeat: Infinity,
-      ease: 'linear',
-    }}
-    style={{
-      backgroundImage: 'linear-gradient(90deg, #0F172A 0%, #0F172A 44%, #16A34A 48%, #22C55E 50%, #16A34A 52%, #0F172A 56%, #0F172A 100%)',
-      backgroundSize: '200% 100%',
-      WebkitBackgroundClip: 'text',
-      WebkitTextFillColor: 'transparent',
-      backgroundClip: 'text',
-      color: 'transparent',
-      display: 'inline-block',
-    }}
-  >
-    Integrated Facility Management & Corporate Staffing in Pune.
-  </motion.span>
-</p>
-
  <motion.h1
   id="ps-project-hero-title"
   className="text-left font-extrabold leading-[1.1] tracking-tight sm:leading-[0.95]"
